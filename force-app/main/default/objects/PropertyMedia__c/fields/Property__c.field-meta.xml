@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Property_hz__c</fullName>
+    <fullName>Property__c</fullName>
     <externalId>false</externalId>
     <label>Property</label>
-    <referenceTo>Property_hz__c</referenceTo>
+    <referenceTo>Property__c</referenceTo>
     <relationshipLabel>Property Media</relationshipLabel>
     <relationshipName>PropertyMedia</relationshipName>
     <relationshipOrder>0</relationshipOrder>
