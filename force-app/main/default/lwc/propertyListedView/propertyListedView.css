@@ -1,0 +1,494 @@
+.tab-container {
+   height: 100%;
+   width: auto;
+   padding: 1%;
+   border-radius: 28px;
+   overflow: overlay;
+}
+
+.tab-container::-webkit-scrollbar {
+   display: none;
+}
+
+.tab-menu {
+   display: flex;
+   align-items: center;
+}
+
+.tab-menu ul {
+   margin: 0;
+   padding: 0;
+}
+
+.tab-menu ul li {
+   display: inline-block;
+   list-style-type: none;
+}
+
+.tab-menu ul li a {
+   text-decoration: none;
+   padding: 7px 35px;
+   color: rgb(0, 0, 0);
+   font-style: normal;
+   font-weight: 400;
+   font-size: 15px;
+
+}
+
+.tab-menu ul li a.active-tab {
+   color: #1252AE;
+   border-bottom: 2px solid #1252AE;
+}
+
+.tab {
+   padding-top: 25px;
+   display: none;
+}
+
+.active-tab-content {
+   display: block;
+}
+
+lightning-input {
+   --sds-c-input-radius-border: 18px;
+}
+
+
+.main {
+   /* position: absolute; */
+   height: 100%;
+   width: 100%;
+   /* border-radius: 28px; */
+   border: 1px solid gray;
+   background-color: #FFFFFF;
+}
+
+.div1 {
+   display: flex;
+   flex-direction: row;
+}
+
+.featuredProperty {
+   background-color: #F4F6F8;
+   height: auto;
+   width: auto;
+}
+
+.logox img {
+   height: 100% !important;
+   width: 25% !important;
+}
+
+.sizebox {
+   width: 100%;
+   height: 100% !important;
+   background-color: white;
+   border-radius: 15px !important;
+}
+
+.slds-p-right_large {
+   overflow-x: hidden;
+   overflow-y: hidden;
+   height: 100%;
+}
+
+.slds-m-left_large {
+   color: rgb(0, 0, 0);
+   display: list-item;
+   list-style-type: disc;
+   list-style-position: inside;
+
+}
+
+.slds-m-left_x-large {
+   color: rgb(0, 0, 0);
+   display: list-item;
+   list-style-type: circle;
+   list-style-position: inside;
+   padding-left: 60px;
+}
+
+.slds-m-left_xx-large {
+   color: rgb(0, 0, 0);
+   padding-left: 120px;
+}
+
+.slds-spinner_container {
+   position: fixed !important;
+   top: 0;
+   right: 0 !important;
+   bottom: 0;
+   left: 0 !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+   transition: opacity .2s ease, visibility 0s !important;
+   transition-delay: 0s, .3s !important;
+}
+
+.spinner-main-div {
+   height: 100%;
+   width: 100%;
+   align-items: center;
+   display: flex;
+   justify-content: center;
+}
+
+.loader--ripple {
+   display: inline-block;
+   position: relative;
+   height: 100px;
+   width: 100px;
+
+}
+
+.loader--ripple div {
+   position: absolute;
+   animation: loader--ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+   border: 4px solid;
+   border-radius: 50%;
+   opacity: 1;
+}
+
+.loader--ripple div:nth-child(2) {
+   animation-delay: -0.5s;
+}
+
+@keyframes loader--ripple {
+   0% {
+      top: 50px;
+      left: 50px;
+      opacity: 1;
+      height: 0;
+      width: 0;
+   }
+
+   100% {
+      top: -1px;
+      left: -1px;
+      opacity: 0;
+      height: 100px;
+      width: 100px;
+   }
+}
+
+.loader--ripple div {
+   border-color: #00539f;
+}
+
+.input {
+   font-weight: 500;
+   padding-top: 10px;
+}
+
+.container {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.tab-container {
+   height: 100%;
+   width: auto;
+   padding: 1%;
+   overflow: overlay;
+}
+
+.thumbnails {
+   width: 100%;
+   height: 30vh;
+   /* margin: 10px; */
+   display: flex;
+   justify-content: center;
+   position: relative;
+   overflow: hidden;
+   transition: transform .3s;
+   border-radius: 12px;
+}
+
+.thumbnails img {
+   width: 100%;
+   object-fit: cover;
+   object-position: 50% 20%;
+   border-radius: 12px;
+}
+
+.black {
+   text-align: center;
+   background: #000;
+   background-blend-mode: multiply;
+   color: #fff;
+   width: 100%;
+   height: 30%;
+   position: absolute;
+   opacity: .7;
+   bottom: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.thumbnails:hover {
+   cursor: pointer;
+   transform: scale(1.05);
+   z-index: 20;
+}
+
+.thumbnails:hover .black {
+   opacity: 0;
+}
+
+.imagePreview {
+   width: 100%;
+   display: grid;
+   grid: auto / auto auto auto;
+   grid-gap: 35px;
+   padding: 10px;
+}
+
+.propertyInfo {
+   display: flex;
+   flex-direction: row;
+}
+
+.propertyInfo span svg {
+   margin-right: 5px;
+}
+
+.propertyInfo span {
+   margin-right: 15px;
+}
+
+.imgInfo {
+   height: auto;
+   width: 80%;
+}
+
+.imgInfo p {
+   display: flex;
+   justify-content: start;
+   white-space: nowrap;
+   padding-bottom: 5px;
+}
+
+.loadMoreButton {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding-top: 20px;
+}
+
+.loadMoreButton button {
+   background-color: #0176D3;
+   border-radius: 40px;
+   color: white;
+   border: none;
+   line-height: 30px;
+   padding-left: 20px;
+   padding-right: 20px;
+}
+
+.helpButton {
+   display: flex;
+   justify-content: start;
+   column-gap: 30px;
+   flex-direction: row;
+   align-items: center;
+   padding-top: 20px;
+}
+
+.helpButton button {
+   background-color: #0176D3;
+   border-radius: 40px;
+   color: white;
+   border: none;
+   line-height: 35px;
+   padding-left: 20px;
+   padding-right: 20px;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+}
+
+.helpButton button svg {
+   margin-right: 8px;
+   width: 20px;
+}
+
+.box1 {
+   padding: 5% 3% 3%;
+}
+
+.card {
+   background-color: white;
+   box-shadow: 0 2px 3px 0 rgba(36, 45, 60, 0.2);
+}
+
+.imgBox {
+   padding: 3%;
+}
+
+.info {
+   padding: 3%;
+}
+
+.quantity {
+   display: flex;
+   border-right: 1px solid rgba(73, 115, 90, 1);
+   justify-content: center;
+   align-items: center;
+}
+
+.SearchFilter {
+   border-right: 1px solid rgba(73, 115, 90, 1);
+}
+
+.quantity button {
+   border: none;
+   cursor: pointer;
+   font-size: 20px;
+   width: 30px;
+   height: auto;
+   text-align: center;
+   transition: background-color 0.2s;
+   background-color: white;
+}
+
+/* .quantity button:hover {
+   background-color: #2980b9;
+ } */
+
+.input-box {
+   width: 40px;
+   text-align: center;
+   border: none;
+   padding: 8px 10px;
+   font-size: 16px;
+   outline: none;
+}
+
+/* Hide the number input spin buttons */
+.input-box::-webkit-inner-spin-button,
+.input-box::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+
+.input-box[type="number"] {
+   -moz-appearance: textfield;
+}
+
+.mainFilterDiv {
+   display: flex;
+   flex-direction: row;
+   gap: 25px;
+   border: 4px solid rgba(1, 118, 211, 1);
+   border-radius: 40px;
+   padding: 5px;
+   justify-content: center;
+   align-items: center;
+}
+
+.mainFilterDiv .quantity svg {
+   margin-right: 10px;
+}
+
+.mainFilterDiv .quantity .minus {
+   margin-left: 10px;
+}
+
+.filterSetting {
+   display: flex;
+   justify-content: center;
+   padding-top: 5vh;
+}
+
+.mainFilterDiv .searchButton button {
+   margin-left: 10px;
+   margin-left: 10px;
+   background-color: rgba(1, 118, 211, 1);
+   color: rgba(255, 255, 255, 1);
+   line-height: 24px;
+   font-size: 18px;
+   border-radius: 40px;
+   padding: 10px 25px 10px 25px;
+   border: none;
+}
+
+.featuredCss{
+   height: 12vh;
+   overflow: auto;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.featuredCss::-webkit-scrollbar {
+   display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.featuredCss {
+ -ms-overflow-style: none;  /* IE and Edge */
+ scrollbar-width: none;  /* Firefox */
+}
+/* 
+.gridbox {
+   height: 100% !important;
+} */
+
+/* @media all and (min-width : 768px) and (max-width:1024px) {
+
+   .main {
+       position: absolute;
+       height: 100%;
+       width: 100%;
+   }
+
+   .sizebox {
+       width: 100% !important;
+       background-color: white;
+       border-radius: 15px !important;
+   }
+
+}
+
+@media all and (min-width : 1030px) and (max-width : 1400px) {
+   .main {
+       position: absolute;
+       height: 100%;
+       width: 100%;
+   }
+
+   .tab {
+       padding-top: 0px;
+       height: 100%;
+   }
+
+   .sizebox {
+       width: 100%;
+       background-color: white;
+       overflow: hidden !important;
+       overflow-y: hidden !important;
+       border-radius: 15px !important;
+   }
+
+}
+
+@media all and (min-width : 1440px) and (max-width : 1580px) {
+   .main {
+       position: absolute;
+       height: 100%;
+       width: 100%;
+   }
+
+   .tab {
+       padding-top: 0px;
+       height: 95%;
+   }
+
+   .sizebox {
+       width: 100%;
+       background-color: white;
+       overflow: hidden !important;
+       overflow-y: hidden !important;
+       border-radius: 15px !important;
+   }
+} */
