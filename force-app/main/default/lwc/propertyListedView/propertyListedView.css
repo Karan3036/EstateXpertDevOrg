@@ -1,8 +1,8 @@
 .tab-container {
    height: 100%;
    width: auto;
-   padding: 1%;
-   border-radius: 28px;
+   /* padding: 1%; */
+   /* border-radius: 28px; */
    overflow: overlay;
 }
 
@@ -188,8 +188,8 @@ lightning-input {
 .tab-container {
    height: 100%;
    width: auto;
-   padding: 1%;
-   overflow: overlay;
+   /* padding: 1%; */
+   overflow: auto;
 }
 
 .thumbnails {
@@ -331,7 +331,7 @@ lightning-input {
    padding: 3%;
 }
 
-.quantity {
+.quantity{
    display: flex;
    border-right: 1px solid rgba(73, 115, 90, 1);
    justify-content: center;
@@ -342,7 +342,7 @@ lightning-input {
    border-right: 1px solid rgba(73, 115, 90, 1);
 }
 
-.quantity button {
+.quantity button{
    border: none;
    cursor: pointer;
    font-size: 20px;
@@ -353,6 +353,30 @@ lightning-input {
    background-color: white;
 }
 
+.parking{
+   display: flex;
+   gap: 5px;
+   justify-content: space-between;
+   margin: auto 20px auto 40px;
+   justify-content: center;
+   align-items: center;
+}
+
+.parking button{
+   border: none;
+   cursor: pointer;
+   font-size: 20px;
+   width: 30px;
+   height: auto;
+   text-align: center;
+   transition: background-color 0.2s;
+   background-color: white;
+}
+
+.parking svg{
+   width: 20px;
+   /* margin: auto 5px; */
+}
 /* .quantity button:hover {
    background-color: #2980b9;
  } */
@@ -396,13 +420,13 @@ lightning-input {
    margin-left: 10px;
 }
 
-.filterSetting {
+.filterSetting, .more-filters-setting {
    display: flex;
    justify-content: center;
    padding-top: 5vh;
 }
 
-.mainFilterDiv .searchButton button {
+.mainFilterDiv .searchButton button{
    margin-left: 10px;
    margin-left: 10px;
    background-color: rgba(1, 118, 211, 1);
@@ -412,6 +436,22 @@ lightning-input {
    border-radius: 40px;
    padding: 10px 25px 10px 25px;
    border: none;
+}
+
+.more-filter-button button{
+   margin-left: 10px;
+   margin-left: 10px;
+   background-color: rgba(1, 118, 211, 1);
+   color: rgba(255, 255, 255, 1);
+   line-height: 24px;
+   font-size: 18px;
+   border-radius: 40px;
+   padding: 10px 25px 10px 25px;
+   border: none;
+}
+
+.down-icon{
+   --sds-c-icon-color-foreground-default: white;
 }
 
 .featuredCss{
@@ -429,6 +469,7 @@ lightning-input {
  -ms-overflow-style: none;  /* IE and Edge */
  scrollbar-width: none;  /* Firefox */
 }
+
 /* 
 .gridbox {
    height: 100% !important;
