@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Garage</fullName>
+        <default>false</default>
+        <label>Garage</label>
+    </customValue>
+    <customValue>
+        <fullName>Garden</fullName>
+        <default>false</default>
+        <label>Garden</label>
+    </customValue>
+    <customValue>
+        <fullName>Pool</fullName>
+        <default>false</default>
+        <label>Pool</label>
+    </customValue>
+    <customValue>
+        <fullName>Maids Room</fullName>
+        <default>false</default>
+        <label>Maids Room</label>
+    </customValue>
+    <customValue>
+        <fullName>Study</fullName>
+        <default>false</default>
+        <label>Study</label>
+    </customValue>
+    <customValue>
+        <fullName>Central A/C &amp; Heating</fullName>
+        <default>false</default>
+        <label>Central A/C &amp; Heating</label>
+    </customValue>
+    <customValue>
+        <fullName>Balcony</fullName>
+        <default>false</default>
+        <label>Balcony</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Garden</fullName>
+        <default>false</default>
+        <label>Private Garden</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Pool</fullName>
+        <default>false</default>
+        <label>Private Pool</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Gym</fullName>
+        <default>false</default>
+        <label>Private Gym</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Jacuzzi</fullName>
+        <default>false</default>
+        <label>Private Jacuzzi</label>
+    </customValue>
+    <customValue>
+        <fullName>Shared Pool</fullName>
+        <default>false</default>
+        <label>Shared Pool</label>
+    </customValue>
+    <customValue>
+        <fullName>Shared Spa</fullName>
+        <default>false</default>
+        <label>Shared Spa</label>
+    </customValue>
+    <customValue>
+        <fullName>Shared Gym</fullName>
+        <default>false</default>
+        <label>Shared Gym</label>
+    </customValue>
+    <customValue>
+        <fullName>Security</fullName>
+        <default>false</default>
+        <label>Security</label>
+    </customValue>
+    <customValue>
+        <fullName>Concierge Service</fullName>
+        <default>false</default>
+        <label>Concierge Service</label>
+    </customValue>
+    <customValue>
+        <fullName>Maid Service</fullName>
+        <default>false</default>
+        <label>Maid Service</label>
+    </customValue>
+    <customValue>
+        <fullName>Covered Parking</fullName>
+        <default>false</default>
+        <label>Covered Parking</label>
+    </customValue>
+    <customValue>
+        <fullName>Built in Wardrobes</fullName>
+        <default>false</default>
+        <label>Built in Wardrobes</label>
+    </customValue>
+    <customValue>
+        <fullName>Walk in Closet</fullName>
+        <default>false</default>
+        <label>Walk in Closet</label>
+    </customValue>
+    <customValue>
+        <fullName>Built in Kitchen Appliances</fullName>
+        <default>false</default>
+        <label>Built in Kitchen Appliances</label>
+    </customValue>
+    <customValue>
+        <fullName>View of Water</fullName>
+        <default>false</default>
+        <label>View of Water</label>
+    </customValue>
+    <customValue>
+        <fullName>View of Landmark</fullName>
+        <default>false</default>
+        <label>View of Landmark</label>
+    </customValue>
+    <customValue>
+        <fullName>Pets Allowed</fullName>
+        <default>false</default>
+        <label>Pets Allowed</label>
+    </customValue>
+    <masterLabel>Property Features</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,131 @@
+.mainContainer{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+}
+
+.container1{
+    width: 20%;
+    border-right: 1px solid #dddbda;
+}
+
+.container2{
+    width: 100%;
+}
+
+.displayDetail{
+    padding: 2rem;
+}
+
+.displayDetail h3{
+    margin-bottom: 0.75rem;
+}
+
+.tiles{
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-flow: column;
+    padding: 1rem;
+}
+
+.tile{
+    padding: 0;
+    -webkit-box-flex: 0;
+    display: flex;
+    flex-direction: column;
+    width: 9rem;
+    height: 9rem;
+    background: #fff;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border: 1px solid #dddbda;
+    border-radius: 0.125rem;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.16);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.16);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tile-icon{
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.tile-title{
+    text-align: center;
+    padding: 0 0.75rem;
+}
+
+.tiles-section-header {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+}
+
+.popup-container {
+    position: relative;
+}
+
+.popup-container .popup {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    z-index: 999;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    animation: fadeIn 0.3s ease forwards;
+    width: 72rem;
+}
+
+.popup-container .popup {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup__content {
+    padding: 1.5rem;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.popup__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.popup__body {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.popup__footer {
+    text-align: center;
+}
+
+.popup__header-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
