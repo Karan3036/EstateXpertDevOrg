@@ -12,13 +12,22 @@
                     <div class="tile" onclick={openSelectionModel}>
                         <div class="tile-icon">
                             <span class="slds-icon_container slds-icon-standard-quick-text">
-                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="48" height="48" rx="4" fill="#107CAD"/>
-                                    <path d="M27.36 21.36C26.64 21.36 26.064 20.784 26.064 20.064V11.76C26.064 11.04 26.64 10.464 27.36 10.464H35.808C36.528 10.464 37.104 11.04 37.104 11.76V20.064C37.104 20.784 36.528 21.36 35.808 21.36H27.36Z" fill="white"/>
-                                    <path d="M31.008 26.256L26.064 31.584C25.776 31.872 25.776 32.4 26.064 32.688L31.008 38.016C31.344 38.352 31.872 38.352 32.208 38.016L37.152 32.688C37.44 32.4 37.44 31.872 37.152 31.584L32.208 26.256C31.872 25.92 31.296 25.92 31.008 26.256Z" fill="white"/>
-                                    <path d="M16.224 37.536C19.2991 37.536 21.792 35.0431 21.792 31.968C21.792 28.8929 19.2991 26.4 16.224 26.4C13.1489 26.4 10.656 28.8929 10.656 31.968C10.656 35.0431 13.1489 37.536 16.224 37.536Z" fill="white"/>
-                                    <path d="M11.328 12.336L15.6 9.88801C15.984 9.64801 16.464 9.64801 16.896 9.88801L21.168 12.336C21.552 12.576 21.792 13.008 21.792 13.44V18.336C21.792 18.768 21.552 19.2 21.168 19.44L16.896 21.888C16.512 22.128 16.032 22.128 15.6 21.888L11.328 19.44C10.944 19.2 10.656 18.768 10.656 18.336V13.44C10.656 12.96 10.944 12.528 11.328 12.336Z" fill="white"/>
-                                </svg>                                    
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="48" height="48" rx="4" fill="#107CAD" />
+                                    <path
+                                        d="M27.36 21.36C26.64 21.36 26.064 20.784 26.064 20.064V11.76C26.064 11.04 26.64 10.464 27.36 10.464H35.808C36.528 10.464 37.104 11.04 37.104 11.76V20.064C37.104 20.784 36.528 21.36 35.808 21.36H27.36Z"
+                                        fill="white" />
+                                    <path
+                                        d="M31.008 26.256L26.064 31.584C25.776 31.872 25.776 32.4 26.064 32.688L31.008 38.016C31.344 38.352 31.872 38.352 32.208 38.016L37.152 32.688C37.44 32.4 37.44 31.872 37.152 31.584L32.208 26.256C31.872 25.92 31.296 25.92 31.008 26.256Z"
+                                        fill="white" />
+                                    <path
+                                        d="M16.224 37.536C19.2991 37.536 21.792 35.0431 21.792 31.968C21.792 28.8929 19.2991 26.4 16.224 26.4C13.1489 26.4 10.656 28.8929 10.656 31.968C10.656 35.0431 13.1489 37.536 16.224 37.536Z"
+                                        fill="white" />
+                                    <path
+                                        d="M11.328 12.336L15.6 9.88801C15.984 9.64801 16.464 9.64801 16.896 9.88801L21.168 12.336C21.552 12.576 21.792 13.008 21.792 13.44V18.336C21.792 18.768 21.552 19.2 21.168 19.44L16.896 21.888C16.512 22.128 16.032 22.128 15.6 21.888L11.328 19.44C10.944 19.2 10.656 18.768 10.656 18.336V13.44C10.656 12.96 10.944 12.528 11.328 12.336Z"
+                                        fill="white" />
+                                </svg>
                                 <span class="slds-assistive-text"></span>
                             </span>
                         </div>
@@ -42,10 +51,158 @@
                         </button>
                     </div>
                     <div class="popup__body">
+                        <lightning-card class="popup__custom-card">
+                            <div class="slds-p-around_medium tableContainer">
+                                <div class="popup__header-row">
+                                    <div class="slds-col">
+                                        <p class="header-text">Picklist Value</p>
+                                    </div>
+                                    <div class="slds-col">
+                                        <p class="header-text">Icons</p>
+                                    </div>
+                                    <div class="slds-col">
+                                    </div>
+                                </div>
+                                <div class="popup__recordValues">
+                                    <template for:each={pickListvalue} for:item="val">
+                                        <div key={pickListvalue} class="popup__data-row">
+                                            <template if:true={val.isEditing}>
+                                                <div class="slds-col slds-truncate">
+                                                    <p class="popup__record-value">{val.name}</p>
+                                                </div>
+                                                <div class="slds-col comboHideLabel">
+                                                    <div style="display: flex; padding-left: 1%; flex-direction: column;"
+                                                        class="rkIconClass">
+                                                        <div class="slds-input-has-icon slds-input-has-iconright"
+                                                            style="width: 60%;">
+                                                            <template if:true={val.iconURL}>
+                                                                <span
+                                                                    class="slds-icon_container slds-combobox__input-entity-icon searchIcon"
+                                                                    title="record">
+                                                                    <img src={val.iconURL} class="icon-image"
+                                                                        alt="Icon" />
+                                                                    <span class="slds-assistive-text"></span>
+                                                                </span>
+                                                            </template>
+                                                            <template if:false={val.iconURL}>
+                                                                <span
+                                                                    class="slds-icon_container slds-combobox__input-entity-icon"
+                                                                    title="record">
+                                                                    <lightning-icon
+                                                                        class="slds-icon slds-icon slds-icon_small"
+                                                                        icon-name="utility:search" size="x-small"
+                                                                        alternative-text="icon"></lightning-icon>
+                                                                    <span class="slds-assistive-text"></span>
+                                                                </span>
+                                                            </template>
+                                                            <lightning-input class="poInput" autocomplete="off"
+                                                                type="search" placeholder="Search Icon..."
+                                                                variant="label-hidden" value={val.iconname}
+                                                                onclick={searchIconData} onchange={keyupIconData}
+                                                                onblur={hideList}></lightning-input>
+                                                            <template if:true={val.iconname}>
+                                                                <span
+                                                                    class="slds-icon_container slds-combobox__input-entity-icon searchIcon crossicon"
+                                                                    title="record">
+                                                                    <lightning-icon icon-name="utility:clear"
+                                                                        alternative-text="Clear" onclick={clearInput}
+                                                                        class="slds-icon slds-icon slds-icon_small"
+                                                                        data-name={val.name}></lightning-icon>
+                                                                    <span class="slds-assistive-text"></span>
+                                                                </span>
+                                                            </template>
+                                                            <template if:true={displayIcon}>
+                                                                <div id="listbox-id-11"
+                                                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid searchResult"
+                                                                    role="listbox" style="position: absolute;"
+                                                                    onmousedown={preventHide}>
+                                                                    <ul class="slds-listbox slds-listbox_vertical"
+                                                                        role="presentation">
+                                                                        <template for:each={iconsValue}
+                                                                            for:item="result">
+                                                                            <li key={result.Id} role="presentation"
+                                                                                class="slds-listbox__item"
+                                                                                data-value={result.name}
+                                                                                data-name={val.name}
+                                                                                onclick={clickHandlerIcon}>
+                                                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                                                                                    role="option">
+                                                                                    <span
+                                                                                        class="slds-media__figure slds-listbox__option-icon">
+                                                                                        <img src={result.iconURL}
+                                                                                            class="icon-image"
+                                                                                            alt={result.name}
+                                                                                            title={result.name} />
+                                                                                    </span>
+                                                                                    <span class="slds-media__body">
+                                                                                        <span class="slds-truncate"
+                                                                                            title={result.name}>
+                                                                                            <span>{result.name}</span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </template>
+                                                                    </ul>
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <div class="slds-col icons">
+                                                    <lightning-icon icon-name='utility:save' alternative-text='save'
+                                                        size='x-small' title='save' onclick={saveIconDetails}
+                                                        data-name={val.name} data-iconname={val.iconname}
+                                                        data-icon={val.iconURL}></lightning-icon>
+                                                    <lightning-icon icon-name='utility:close' alternative-text='close'
+                                                        size='x-small' title='close' onclick={closeEditFields}
+                                                        data-name={val.name}></lightning-icon>
+                                                </div>
+                                            </template>
+                                            <template if:false={val.isEditing}>
+                                                <div class="slds-col slds-truncate">
+                                                    <p class="popup__record-value">{val.name}</p>
+                                                </div>
+                                                <template if:true={val.iconURL}>
+                                                    <div class="slds-col">
+                                                        <img src={val.iconURL} alt="TEST">
+                                                    </div>
+                                                </template>
+                                                <template if:false={val.iconURL}>
+                                                    <div class="slds-col slds-truncate">
+                                                        <p>None</p>
+                                                    </div>
+                                                </template>
+                                                <div class="slds-col icons">
+                                                    <lightning-icon icon-name="utility:edit" alternative-text="Edit"
+                                                        size="x-small" title='edit' onclick={editIconValue}
+                                                        data-name={val.name} data-iconname={val.iconname}
+                                                        data-icon={val.iconURL}
+                                                        class="popup__record-value redirectIcon"></lightning-icon>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </lightning-card>
                     </div>
                     <div class="popup__footer">
-
+                        <div class="subFooter">
+                            <div class="slds-m-around_medium comboHideLabel">
+                                <lightning-input type="file" accept=".png" onchange={openfileUpload}></lightning-input>
+                            </div>
+                            <template if:true={fileData}>
+                                <div class="filedata">
+                                    <p>{fileData.filename}</p>
+                                    <lightning-icon icon-name="action:remove" alternative-text="Remove"
+                                                        size="xx-small" title='remove' onclick={removeImg} style="cursor: pointer;"></lightning-icon>
+                                </div>
+                            </template>
+                        </div>
+                        <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
+                            class="slds-m-left_x-small"></lightning-button>
                     </div>
                 </div>
             </div>

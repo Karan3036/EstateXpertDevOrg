@@ -1,8 +1,8 @@
 .tab-container {
    height: 100%;
    width: auto;
-   /* padding: 1%; */
-   /* border-radius: 28px; */
+   padding: 1%;
+   border-radius: 28px;
    overflow: overlay;
 }
 
@@ -188,8 +188,8 @@ lightning-input {
 .tab-container {
    height: 100%;
    width: auto;
-   /* padding: 1%; */
-   overflow: auto;
+   padding: 1%;
+   overflow: overlay;
 }
 
 .thumbnails {
@@ -331,7 +331,7 @@ lightning-input {
    padding: 3%;
 }
 
-.quantity{
+.quantity {
    display: flex;
    border-right: 1px solid rgba(73, 115, 90, 1);
    justify-content: center;
@@ -357,7 +357,6 @@ lightning-input {
    display: flex;
    gap: 5px;
    justify-content: space-between;
-   margin: auto 20px auto 40px;
    justify-content: center;
    align-items: center;
 }
@@ -420,15 +419,37 @@ lightning-input {
    margin-left: 10px;
 }
 
-.filterSetting, .more-filters-setting {
+.filterSetting {
    display: flex;
    justify-content: center;
    padding-top: 5vh;
 }
 
+.more-filters-setting{
+   display: flex;
+   justify-content: center;
+   padding-top: 1vh;
+   /* margin: auto 29%; */
+}
+
+.more-filter-div{
+   display: flex;
+   width: 788px;
+   justify-content: space-between;
+   text-align: center;
+   align-items: center;
+}
+
+.more-filter-sub-div{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-items: center;
+   gap : 30px;
+}
+
 .mainFilterDiv .searchButton button{
    margin-left: 10px;
-   margin-left: 10px;
    background-color: rgba(1, 118, 211, 1);
    color: rgba(255, 255, 255, 1);
    line-height: 24px;
@@ -438,9 +459,7 @@ lightning-input {
    border: none;
 }
 
-.more-filter-button button{
-   margin-left: 10px;
-   margin-left: 10px;
+.more-filter-button button, .views-list button{
    background-color: rgba(1, 118, 211, 1);
    color: rgba(255, 255, 255, 1);
    line-height: 24px;
@@ -450,6 +469,122 @@ lightning-input {
    border: none;
 }
 
+.views-list button{
+   margin-left: 10px;
+   line-height: 24px;
+   font-size: 18px;
+   border-radius: 8px;
+   padding: 10px 8px 10px 8px;
+}
+
+.sort-selected{
+   color: #49735A;
+}
+
+.drop-down-none{
+   display: none;
+}
+
+.drop-down-relative{
+   display: relative;
+}
+
+.drop-down-filters {
+   margin-top: 1vh;
+   padding: 20px;
+   float: right;
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   text-align: center;
+   z-index: 30;
+   width: 400px;
+   color: #0176D3;
+   background-color: #FFFFFF;
+   border-radius: 15px;
+
+   -webkit-box-shadow: 0 0 10px black;
+   box-shadow: 0 0 10px black;
+ }
+
+ .drop-down-filters div{
+   display: flex;
+   flex-direction: column;
+   text-align: left;
+ }
+
+ .drop-down-filters div label{
+   color: #0176D3;
+   font-weight: 700;
+   margin-top: 10px;
+   margin-bottom: 5px;
+   font-size: 1rem;
+ }
+
+ .drop-down-filters div select, .drop-down-filters div input{
+   padding: 10px;
+   font-size: 0.75rem;
+   background-color: #E1F1FE;
+   color: black;
+   height: 50px;
+   border: none;
+   border-radius: 6px;
+   width: 100%;
+ }
+
+ .drop-down-filters div span{
+   position: relative;
+ }
+
+.drop-down-filters div span svg{
+   position: absolute;
+   right: 10px;
+   width: 20px;
+   height: 20px;
+   top:15px;
+}
+
+.drop-down-filters div span select{
+   appearance: none;
+}
+
+.filter-btn{
+   margin-top: 1vh;
+   display: flex;
+   flex-direction: row !important;
+   justify-content: center;
+   gap: 50px;
+   text-align: center;
+   align-items: center;
+}
+
+.filter-btn .apply-btn, .filter-btn .clear-btn{
+   color: #FFFFFF;
+   width: 20%;
+   border-radius: 8px;
+   padding: 10px 5px 10px 5px !important;
+}
+
+.filter-btn .apply-btn{
+   background-color: #0176D3;
+}
+.filter-btn .clear-btn{
+   background-color: gray;
+}
+
+.list-view-dropdown{
+   display: flex;
+   flex-direction: row;
+}
+
+.list-view-controls{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   margin-left: 10px;
+   color: rgba(255, 255, 255, 1);
+}
 .down-icon{
    --sds-c-icon-color-foreground-default: white;
 }
@@ -469,7 +604,6 @@ lightning-input {
  -ms-overflow-style: none;  /* IE and Edge */
  scrollbar-width: none;  /* Firefox */
 }
-
 /* 
 .gridbox {
    height: 100% !important;

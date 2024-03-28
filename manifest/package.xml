@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-      <members>Property_Features</members>
-      <name>GlobalValueSet</name>
+      <members>*</members>
+      <name>StaticResource</name>
   </types>
     <version>59.0</version>
 </Package>
