@@ -9,6 +9,8 @@ import designcss from '@salesforce/resourceUrl/propertycssoveride';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingInformation';
 import { NavigationMixin } from 'lightning/navigation';
 
+const PAGE_SIZE = 3;
+
 export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track spinnerdatatable = false;
     @track dropDownClass = 'drop-down-none';
@@ -17,6 +19,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     propertyView = Property_view_example;
     nextArrowIcon = NextArrowIcon;
     prevArrowIcon = PrevArrowIcon;
+    @track currentPage = 1;
     @track showSpinner = false;
     @track isData = false;
     @track ListingData =[];
@@ -24,13 +27,48 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track bathrooms=1;
     @track searchTerm;
     @track FilteredListingData =[];
+    @track FeaturedProperty = true;
+    @track propertyMediaUrls;
 
+
+    get totalPages() {
+        return Math.ceil(this.ListingData.filter(listing =>{
+            const featured_prop = this.FeaturedProperty?listing.Featured_Property__c == true:false;
+            return featured_prop ;
+        }).length / PAGE_SIZE);
+    }
+
+    get pagedProperties() {
+        const startIndex = (this.currentPage - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+        return this.ListingData.filter(listing =>{
+            const featured_prop = this.FeaturedProperty?listing.Featured_Property__c == true:false;
+            return featured_prop ;
+        }).slice(startIndex, endIndex);
+    }
+
+    goToPrevious() {
+        if (this.currentPage!==1) {
+            this.currentPage -= 1;
+            this.pagedProperties;
+        }
+    }
+
+    goToNext() {
+        // console.log('onNext:',this.totalPages);
+        if (this.currentPage!==this.totalPages) {
+            console.log('onNext:',!this.currentPage ===this.totalPages);
+            this.currentPage += 1;
+            this.pagedProperties;
+        }
+    }
 
     connectedCallback() {
         console.log('Property Listed View');
         loadStyle(this, designcss);
         this.fetchListingData();
     }
+
 
     renderedCallback() {
         this.template.querySelectorAll("a").forEach(element => {
@@ -72,9 +110,10 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     fetchListingData(){
         getListingData().then((result) => {
             console.log('result:',result);
-            this.FilteredListingData = result;
-            this.ListingData = result;
-            console.log('ListingData:',this.ListingData);
+            this.FilteredListingData = result.Listings;
+            this.ListingData = result.Listings;
+            this.propertyMediaUrls =result.Medias;
+            console.log('ListingData:',this.propertyMediaUrls);
             this.isData = true;
         });
     }

@@ -1,0 +1,23 @@
+div{
+    /* margin-bottom: 15px; */
+    border-radius: 5px;
+    
+}
+
+.div1{
+    display: flex;
+    margin-bottom: 15px;  
+    border: 2px solid grey;
+}
+.first{
+    padding: 15px;
+}
+.second{
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+}
+.btn{
+   margin-left: 10px;
+
+}

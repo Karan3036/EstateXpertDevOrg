@@ -1,0 +1,112 @@
+<template>
+  <lightning-card variant="base">
+
+    <!-- -----------------Top View of Marketing Component------------------ -->
+      <div class="slds-grid slds-wrap  slds-p-around_medium">
+
+          <div class="slds-col slds-size_12-of-12 div1">
+              <div class="first">
+                  <h6>Contacts</h6>
+                  <!-- <div class="slds-p-around_medium dropdown"> -->
+                      <b style="font-size:17px;">Default List</b>
+                      <lightning-button-menu alternative-text="Show menu" class="btn" icon-name="utility:down" icon-size="x-small">
+                          <lightning-menu-item value="MenuItemOne" label="Menu Item One"></lightning-menu-item>
+                          <lightning-menu-item value="MenuItemTwo" label="Menu Item Two"></lightning-menu-item>
+                          <lightning-menu-item value="MenuItemThree" label="Menu Item Three"></lightning-menu-item>
+                          <lightning-menu-item value="MenuItemFour" label="Menu Item Four"></lightning-menu-item>
+                      </lightning-button-menu>
+                  <!-- </div> -->
+                  <h6 style="margin-top: 15px;">2 items . sorted by Full Name</h6>
+              </div>
+
+              <div class="second slds-col slds-grow slds-shrink slds-text-align_right">
+                  <lightning-button 
+                      variant="Neutral"
+                      label="Send Email" 
+                      disabled
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="Start Drip Campaign" 
+                      disabled
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="Create Email Campaign" 
+                      disabled
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="Create Recurring Campaign"
+                      disabled 
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="Start Action Plan" 
+                      disabled
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="New Task" 
+                      disabled
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="Print" 
+                      onclick={handleClick} 
+                      style="margin-right: 10px;"
+                  ></lightning-button>
+                  <lightning-button 
+                      variant="Neutral"
+                      label="New Contact" 
+                      onclick={handleClick} 
+                  ></lightning-button>
+              </div>
+          </div>
+
+          <!-- ----------------------Left Side View------------------ -->
+          <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12" style="border: 2px solid rgb(15, 15, 15);">
+             <div class="slds-form-element">
+                <label class="slds-form-element__label" for="text-input-id-1">Listing Type</label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:search"></lightning-icon>
+                <input type="text" id="text-input-id-1" placeholder="Filter for Listing Type..." class="slds-input" />
+                </div>
+
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="text-input-id-2">Lead Source</label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:search"></lightning-icon>
+                <input type="text" id="text-input-id-2" placeholder="Filter for Lead Source..." class="slds-input" />
+                </div>
+            </div>
+
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="text-input-id-3">City</label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:search"></lightning-icon>
+                <input type="text" id="text-input-id-3" placeholder="Filter for City..." class="slds-input" />
+                </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 div4" style="border: 2px solid rgb(22, 22, 22);">
+              <span>3</span>
+          </div>
+
+      </div>
+  </lightning-card>
+</template>

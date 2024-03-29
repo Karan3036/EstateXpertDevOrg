@@ -1,15 +1,11 @@
-.container{
-    width:100%;
-    height:100%;
-}
-.box1{
+/* .box1{
     border: 1px solid black;
     width:100%;
     padding: 8%;
     height: 100%;
     background-color: #F4F6F8;
-}
-.imgBox{
+} */
+/* .imgBox{
     padding: 3%;
 }
 .info{
@@ -18,37 +14,70 @@
 .card{
     background-color: white;
     box-shadow: 0 2px 3px 0 rgba(36, 45, 60, 0.2);
-}
-.box2{
+} */
+/* .box2{
     width:100%;
     height: 100%;
-}
-.detailBox{
+} */
+/* .detailBox{
     height: 100%;
     border: 1px solid white;
+} */
+.container{
+    width:100%;
+    height:100%;
 }
 .box3{
     position: relative;
     width:100%;
     height: 100%;
 }
+.layout{
+    justify-content: center;
+}
 .roomDetails{
     width: 100%;
     height: 100%;
+    /* margin: auto; */
+
+    /* display: flex;
+    justify-content: center; */
 }
 .numberBox{
+    width: 130px;
     height: 90px;
     background-color: #E1F1FE;
-    margin: 15%;
+    margin: 6%;
+    border-radius: 12px;
+}
+.numberBox p{
+    font-size:16px;
+    color:#6B6B6B;
+}
+.numbers{
+    display: flex;
+    justify-content:center;
+}
+.text p{
+    font-size:16px;
+}
+.imgicon img{
+    height:16px;
+    width:20px;
+    cursor:pointer;
 }
 
 .facilities{
     width: 100%;
     height: 100%;
+    /* margin: auto; */
+    /* display: flex;
+    justify-content: center; */
 }
 .facilityBox{
-    width: 100px;
+    width: 130px;
     height: 90px;
+    border-radius: 12px;
     background-color: #E1F1FE;
     margin: 6%;
     color:#6B6B6B;
@@ -61,12 +90,26 @@
 .facilityBox:hover .iconImg{
     filter: brightness(0) invert(1);
 }
+.facilityBox img{
+    height:31.25px;
+    width:33.75px;
+    cursor:pointer;
+}
+.facilityBox p{
+    font-size:12px;
+    margin-top:5px;
+}
 
 .about{
     width: 100%;
     height: 100%;
+    /* margin: auto; */
+
 }
-.address{
+.about p{
+    text-align: justify;
+}
+/* .address{
     width: 100%;
     height: 100%;
 }
@@ -75,4 +118,4 @@
     height: 300px;
     border-radius: 8px;
     border: 1px solid black;
-}
+} */
