@@ -124,6 +124,7 @@
                                                                                 class="slds-listbox__item"
                                                                                 data-value={result.name}
                                                                                 data-name={val.name}
+                                                                                data-url={result.iconURL}
                                                                                 onclick={clickHandlerIcon}>
                                                                                 <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
                                                                                     role="option">
@@ -201,9 +202,28 @@
                                 </div>
                             </template>
                         </div>
-                        <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
-                            class="slds-m-left_x-small"></lightning-button>
+                        <template if:true={fileData}>
+                            <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
+                                class="slds-m-left_x-small"></lightning-button>
+                        </template>
+                        <template if:false={fileData}>
+                            <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
+                                class="slds-m-left_x-small" disabled="true"></lightning-button>
+                        </template>
                     </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="slds-spinner_container" style="position:fixed;">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+                <div class="spinnerText">
+                    <b>Processing, Please Wait</b>
                 </div>
             </div>
         </div>

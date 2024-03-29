@@ -20,6 +20,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
     @track iconsName;
     @track iconsURL;
     fileData;
+    @track isLoading = false;
     // name = 'Control Center';
     // message = 'Hover your mouse over any tile on the right to learn more about that feature.'
 
@@ -53,6 +54,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
 
     openSelectionModel() {
         this.selectionModel = true;
+        this.isLoading = true;
         this.fetchPicklistValue();
     }
 
@@ -63,6 +65,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
     fetchPicklistValue() {
         getPicklistValues()
             .then(result => {
+                this.isLoading = false;
                 console.log('result:', result);
                 result.sort((a, b) => a.name.localeCompare(b.name));
                 this.pickListvalue = [];
@@ -84,6 +87,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
                 });
             })
             .catch(error => {
+                this.isLoading = false;
                 console.error('Error fetching picklist values:', error);
             });
     }
@@ -120,14 +124,14 @@ export default class EstateXpert_Control_Center extends LightningElement {
                 result.forEach(item => {
 
                     this.iconsValue.push({
-                        name: item.Name,
-                        iconURL: '/resource/' + item.Name,
-                        Id: item.Id
+                        name: item.name,
+                        iconURL: item.iconURL,
+                        Id: item.id
                     });
                     this.fullIconsValue.push({
-                        name: item.Name,
-                        iconURL: '/resource/' + item.Name,
-                        Id: item.Id
+                        name: item.name,
+                        iconURL: item.iconURL,
+                        Id: item.id
                     });
 
                 });
@@ -173,11 +177,12 @@ export default class EstateXpert_Control_Center extends LightningElement {
 
     clickHandlerIcon(event) {
         this.displayIcon = false;
+        const iconurl = event.currentTarget.dataset.url;
         const selectedIcon = event.currentTarget.dataset.value;
         const name = event.currentTarget.dataset.name;
         const valIndex = this.pickListvalue.findIndex(item => item.name === name);
         if (valIndex !== -1) {
-            this.pickListvalue[valIndex].iconURL = '/resource/' + selectedIcon;
+            this.pickListvalue[valIndex].iconURL = iconurl;
             this.pickListvalue[valIndex].iconname = selectedIcon;
         }
         console.log(this.pickListvalue);
@@ -187,7 +192,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
         const name = event.currentTarget.dataset.name;
         const iconName = event.currentTarget.dataset.iconname;
         const iconURL = event.currentTarget.dataset.icon;
-        updateFeatureIconRecord({ FeatureIconName:name, IconName:iconName, IconUrl:iconURL })
+        updateFeatureIconRecord({ FeatureIconName: name, IconName: iconName, IconUrl: iconURL })
             .then(result => {
                 console.log('result:', result);
                 this.pickListvalue = this.pickListvalue.map(item => ({
@@ -201,32 +206,54 @@ export default class EstateXpert_Control_Center extends LightningElement {
     }
 
     openfileUpload(event) {
-        const file = event.target.files[0]
-        var reader = new FileReader()
+        const file = event.target.files[0];
+        const fileSizeInMB = file.size / (1024 * 1024);
+    
+        if (fileSizeInMB > 4) {
+            this.toast('File size exceeds 4MB limit. Please select a smaller file.', 'Error')
+            this.fileData = null;
+            event.target.value = null;
+            return;
+        }
+    
+        var reader = new FileReader();
         reader.onload = () => {
-            var base64 = reader.result.split(',')[1]
+            var base64 = reader.result.split(',')[1];
             this.fileData = {
                 'filename': file.name,
                 'base64': base64
-            }
-            console.log(this.fileData)
-        }
-        reader.readAsDataURL(file)
+            };
+            console.log(this.fileData);
+        };
+        reader.readAsDataURL(file);
     }
     
-    handleClick(){
-        const {base64, filename} = this.fileData
-        uploadFile({ base64, filename}).then(result=>{
-            this.fileData = null
-            let title = `${filename} uploaded successfully!!`
-            this.toast(title)
-        })
+
+    handleClick() {
+        this.isLoading = true;
+        const { base64, filename } = this.fileData
+        uploadFile({ base64, filename })
+            .then(result => {
+                this.isLoading = false;
+                this.fileData = null
+                let title = `${filename} uploaded successfully!!`
+                let state = result.state
+                this.toast(title, state)
+                this.fetchIconsFromStaticResource()
+
+            })
+            .catch(error => {
+                this.isLoading = false;
+                let title = result.returnMessage
+                let state = result.state
+                this.toast(title, state)
+            });
     }
 
-    toast(title){
+    toast(title, variant) {
         const toastEvent = new ShowToastEvent({
-            title, 
-            variant:"success"
+            title,
+            variant
         })
         this.dispatchEvent(toastEvent)
     }

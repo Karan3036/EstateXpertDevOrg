@@ -43,20 +43,50 @@ public with sharing class controlCenterController {
         return featureIcons;
     }
 
+    // public class IconWrapper {
+    //     @AuraEnabled
+    //     public List<StaticResource> staticList { get; set; }
+    //     @AuraEnabled
+    //     public List<ContentVersion> contentVersion { get; set; }
+    // }
+    
+    public class IconWrapper {
+        @AuraEnabled
+        public Id id { get; set; }
+        @AuraEnabled
+        public String name { get; set; }
+        @AuraEnabled
+        public String iconURL { get; set; }
+    }
+
     @AuraEnabled
-    public static List<StaticResource> getIcons(){
+    public static List<IconWrapper> getIcons(){
+        List<IconWrapper> iconList = new List<IconWrapper>();
         try {
-            List<StaticResource> staticResource = [SELECT Id, Name, Description FROM StaticResource WHERE Description = 'featureicon' ORDER BY Name ASC];
+            List<StaticResource> staticResources = [SELECT Id, Name, Description FROM StaticResource WHERE Description = 'featureicon' ORDER BY Name ASC];
+            List<ContentVersion> contentVersions = [SELECT Id, Title, VersionDataUrl, ExternalDocumentInfo1 FROM ContentVersion WHERE ExternalDocumentInfo1 = 'featureicon'];
             
-            if (!staticResource.isEmpty()) {
-                return staticResource;
-            } else {
-                return null;
+            // Add static resources to the wrapper
+            for (StaticResource sr : staticResources) {
+                IconWrapper wrapper = new IconWrapper();
+                wrapper.id = sr.Id;
+                wrapper.name = sr.Name;
+                wrapper.iconURL = '/resource/' + sr.Name;
+                iconList.add(wrapper);
+            }
+            
+            // Add content versions to the wrapper
+            for (ContentVersion cv : contentVersions) {
+                IconWrapper wrapper = new IconWrapper();
+                wrapper.id = cv.Id;
+                wrapper.name = cv.Title;
+                wrapper.iconURL = cv.VersionDataUrl;
+                iconList.add(wrapper);
             }
         } catch (Exception e) {
-            System.debug('message --> '+ e.getMessage());
-            return null;
+            System.debug('Error in getIcons method: ' + e.getMessage());
         }
+        return iconList;
     }
 
     @AuraEnabled
@@ -85,25 +115,29 @@ public with sharing class controlCenterController {
     }
 
     @AuraEnabled
-    public static void uploadFile(String base64, String filename){
+    public static responseWrapper uploadFile(String base64, String filename){
+        responseWrapper returnValue = new responseWrapper();
         try {
-            MetadataService.MetadataPort service = createService();     
-            MetadataService.StaticResource staticResource = new MetadataService.StaticResource();
-            staticResource.fullName = filename;
-            staticResource.contentType = 'image/png';
-            staticResource.cacheControl = 'public';
-            staticResource.content = base64;
-            MetadataService.AsyncResult[] results = service.create(new List<MetadataService.Metadata> { staticResource });
+
+            ContentVersion conVer = new ContentVersion();
+            conVer.PathOnClient = filename;
+            conVer.Title = filename.removeEnd('.png');
+            conVer.VersionData = EncodingUtil.base64Decode(base64);
+            conVer.ExternalDocumentInfo1 = 'featureicon';
+            insert conVer;
+
+            returnValue.state = 'Success';
+            returnValue.returnMessage = 'Icon uploaded successfully!!!';
         } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+            returnValue.state = 'Error';
+            returnValue.returnMessage = e.getMessage();
         }
+        return returnValue;
     }
 
-    private static MetadataService.MetadataPort createService()
-	{ 
-		MetadataService.MetadataPort service = new MetadataService.MetadataPort();
-		service.SessionHeader = new MetadataService.SessionHeader_element();
-		service.SessionHeader.sessionId = UserInfo.getSessionId();
-		return service;	
-	}
+    public class responseWrapper{
+        @AuraEnabled Public string state;
+        @AuraEnabled Public string returnMessage;
+    }
+
 }

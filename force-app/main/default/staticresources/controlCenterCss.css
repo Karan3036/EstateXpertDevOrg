@@ -33,3 +33,10 @@
     width: 1.5rem !important;
     padding: 4px !important;
 }
+.navexStandardManager .slds-template__container .slds-spinner_container, .navexStandardManager>.center .s1FixedTop {
+    z-index: 10000 !important;
+}
+.closeIcon .slds-icon-text-default {
+    height: 25px;
+    width: 25px;
+}
