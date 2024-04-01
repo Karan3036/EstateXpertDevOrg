@@ -84,3 +84,27 @@ body {
     gap: 10px;
     padding-bottom: 10px;
 }
+
+.progress{
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+progress{
+    width: 100%;
+}
+
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-content{
+    display: flex;
+    justify-content: start;
+}
+
+.right-content{
+    justify-content: end;
+}

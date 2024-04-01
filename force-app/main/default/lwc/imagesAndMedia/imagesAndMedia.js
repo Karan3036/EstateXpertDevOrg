@@ -6,6 +6,7 @@ import getS3ConfigData from "@salesforce/apex/imagesAndMediaController.getS3Conf
 import AWS_SDK from "@salesforce/resourceUrl/AWSSDK";
 import watermarkjs from "@salesforce/resourceUrl/watermarkjs";
 import buffer from 'c/buffer';
+import createmedia from "@salesforce/apex/imagesAndMediaController.createmediaforlisting";
 
 export default class ImagesAndMedia extends LightningElement {
 
@@ -25,10 +26,13 @@ export default class ImagesAndMedia extends LightningElement {
     @track isdata = false;
     confData;
     isAwsSdkInitialized = false; //flag to check if AWS SDK initialized
+    s3; //store AWS S3 object
+    @track data = [];
 
     connectedCallback() {
         console.log('In the connected callback');
-        console.log('record Id-->',recordId);
+        console.log('record Id-->',this.recordId);
+        this.property_id = this.recordId;
         this.showSpinner = true;
         this.getS3ConfigDataAsync();
         this.showSpinner = false;
@@ -182,6 +186,7 @@ export default class ImagesAndMedia extends LightningElement {
     handleclick() {
         if (this.property_id) {
             this.isnull = true;
+            this.disabled_checkbox = true;
             this.uploadToAWS()
                 .then(() => {
                     var contents = [];
@@ -198,7 +203,6 @@ export default class ImagesAndMedia extends LightningElement {
                 }).then(result => {
                     if (result) {
                         console.log('result', result);
-                        this.fetchingdata();
                         console.log('data', this.data);
                         this.selectedFilesToUpload = [];
                         this.fileName = [];
@@ -210,21 +214,22 @@ export default class ImagesAndMedia extends LightningElement {
                         this.isWatermark = true;
                     }
                     else {
-                        this.toast('Error creating record', 'Property not added.', 'Error');
+                        this.toast('Error creating record', 'Property not added!', 'Error');
                     }
                     refreshApex(this.data);
                     console.log(result);
                 })
                 .catch(error => {
-                    this.toast('Error creating record', 'Property not added.', 'Error');
+                    this.toast('Error creating record', 'Property not added!!', 'Error');
                     console.error('Error:', error);
                 });
         } else {
-            this.toast('Error creating record', 'Property not added.', 'Error');
+            this.toast('Error creating record', 'Property not added!!!', 'Error');
         }
     }
 
     async uploadToAWS() {
+        debugger;
         try {
             for (let f = 0; f < this.selectedFilesToUpload.length; f++) {
                 this.initializeAwsSdk(this.confData);
@@ -351,7 +356,7 @@ export default class ImagesAndMedia extends LightningElement {
             let file = image;
             console.log(' file===========> ', file);
             const watermarkedImage = await watermark([file])
-                .image(watermark.text.center('Houzon', '30em sans-serif', '#fff', 0.5));
+                .image(watermark.text.center('EstateXpert', '30em sans-serif', '#fff', 0.5));
             console.log('counter ', watermarkedImage);
             return watermarkedImage.src;
         } catch (error) {

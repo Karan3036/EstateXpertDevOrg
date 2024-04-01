@@ -1,9 +1,9 @@
 public with sharing class imagesAndMediaController {
 
     @AuraEnabled
-    public static Listing_hz__c getListingRecord(String recordId) {
+    public static Listing__c getListingRecord(String recordId) {
         try {
-            return [SELECT Id, Property_hz__c FROM Listing_hz__c WHERE Id = :recordId LIMIT 1];
+            return [SELECT Id, Property_ID__c FROM Listing__c WHERE Id = :recordId LIMIT 1];
         } catch (Exception e) {
             throw new AuraHandledException('Error fetching listing record: ' + e.getMessage());
         }
@@ -15,7 +15,7 @@ public with sharing class imagesAndMediaController {
         Media.FilenameUrlEncoded__c = externalUrl;
         Media.Name = Name;
         Media.Size__c = Size;
-        Media.Property_hz__c = recordId;
+        Media.Property__c = recordId;
         Media.ExternalLink__c = external_link;
         insert Media;
         return true;
@@ -23,13 +23,16 @@ public with sharing class imagesAndMediaController {
 
     @AuraEnabled
     public static Boolean createmediaforlisting(String Name, Decimal Size, String recordId, String externalUrl){
-        Listing_hz__c listing = [SELECT Id, Property_hz__c FROM Listing_hz__c WHERE Id= :recordId LIMIT 1];
         PropertyMedia__c Media = new PropertyMedia__c();
         Media.FilenameUrlEncoded__c = externalUrl;
         Media.Name = Name;
         Media.Size__c = Size;
-        Media.Property_hz__c = listing.Property_hz__c;
-        insert Media;
+        Media.Property__c = recordId;
+        System.debug('Name-->'+Name);
+        System.debug('Size-->'+Size);
+        System.debug('recordId-->'+recordId);
+        System.debug('externalUrl-->'+externalUrl);
+        // insert Media;
         return true;
     }
 
