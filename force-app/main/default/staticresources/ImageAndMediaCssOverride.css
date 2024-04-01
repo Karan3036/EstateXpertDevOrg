@@ -1,0 +1,9 @@
+.imagesAndMediaClass article{
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+    padding: 20px !important;
+}
+
+.imagesAndMediaClass .slds-file-selector_images .slds-file-selector__dropzone {
+    flex-direction: column !important;
+    border: 1px dashed rgba(24, 73, 214, 1) !important;
+}

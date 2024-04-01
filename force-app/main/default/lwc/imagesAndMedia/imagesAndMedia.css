@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.formbold-mb-5 {
+    margin-bottom: 20px;
+}
+
+.formbold-file-input input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.formbold-file-input {
+    position: relative;
+    border: 1px dashed rgba(24, 73, 214, 1);
+    border-radius: 6px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    text-align: center;
+    background-color: white;
+}
+
+.formbold-drop-file {
+    display: block;
+    font-weight: 600;
+    color: #07074d;
+    font-size: 20px;
+    margin-bottom: 8px;
+    margin-top: 16px;
+}
+
+.formbold-or {
+    font-weight: 500;
+    font-size: 16px;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.formbold-browse {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(24, 73, 214, 1);
+    display: inline-block;
+    padding: 8px 28px;
+    border: 1px solid rgba(24, 73, 214, 1);
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.orClass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.button_Group{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.lightning_pill{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-bottom: 10px;
+}
