@@ -183,143 +183,138 @@ export default class ImagesAndMedia extends LightningElement {
         this.disabled_checkbox = true;
     }
 
-    handleclick() {
-        if (this.property_id) {
-            this.isnull = true;
-            this.disabled_checkbox = true;
-            this.uploadToAWS()
-                .then(() => {
-                    var contents = [];
-                    for (let file = 0; file < this.selectedFilesToUpload.length; file++) {
-                        contents.push(createmedia({
-                            recordId: this.recordId,
-                            Url: this.fileURL[file],
-                            Name: this.fileName[file],
-                            Size: this.fileSize[file],
-                        }));
-                    }
-                    console.log('contents', contents);
-                    return contents;
-                }).then(result => {
-                    if (result) {
-                        console.log('result', result);
-                        console.log('data', this.data);
-                        this.selectedFilesToUpload = [];
-                        this.fileName = [];
-                        this.fileSize = [];
-                        this.fileURL = [];
-                        this.isnull = true;
-                        this.isdata = true;
-                        this.disabled_checkbox = true;
-                        this.isWatermark = true;
-                    }
-                    else {
-                        this.toast('Error creating record', 'Property not added!', 'Error');
-                    }
-                    refreshApex(this.data);
-                    console.log(result);
-                })
-                .catch(error => {
-                    this.toast('Error creating record', 'Property not added!!', 'Error');
-                    console.error('Error:', error);
-                });
-        } else {
-            this.toast('Error creating record', 'Property not added!!!', 'Error');
+    handleclick(event) {
+        if(this.property_id){
+        this.isnull = true;
+        this.uploadToAWS()
+            .then(() => {
+                var contents = [];
+                for (let file = 0; file < this.selectedFilesToUpload.length; file++) {
+                    contents.push(createmedia({
+                        recordId: this.recordId,
+                        externalUrl: this.fileURL[file],
+                        Name: this.fileName[file]=this.isWatermark?this.fileName[file]+'Watermark':this.fileName[file],
+                        Size: this.fileSize[file],
+                    }));
+                }
+                return contents;
+            }).then(result => {
+                if (result) {
+                    this.selectedFilesToUpload = [];
+                    this.fileName = [];
+                    this.fileSize = [];
+                    this.fileURL = [];
+                    this.isnull = true;
+                    this.isdata = true;
+                    this.disabled_checkbox=true;
+                    this.isWatermark = true;
+                }
+                else {
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Error creating record',
+                            message: 'Property not added.',
+                            variant: 'error',
+                        }),
+                    )
+
+                }
+                refreshApex(this.data);
+            })
+            .catch(error => {
+                alert(error.message);
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error creating record',
+                        message: 'Property not added.',
+                        variant: 'error',
+                    }),
+                );
+
+                console.error('Error:', error);
+            });
+        }else{
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error creating record',
+                    message: 'Property not added.',
+                    variant: 'error',
+                }),
+            );
         }
     }
 
     async uploadToAWS() {
-        debugger;
         try {
             for (let f = 0; f < this.selectedFilesToUpload.length; f++) {
                 this.initializeAwsSdk(this.confData);
-                if (this.isWatermark === true) {
+                if(this.isWatermark === true){
 
                     let outImage = await this.imageWithWatermark(this.selectedFilesToUpload[f]);
-                    console.log('outImage : ', outImage);
-                    console.log('outImage : ', typeof (outImage));
-                    const format = outImage.substring(outImage.indexOf('data:') + 5, outImage.indexOf(';base64'));
-
-                    // We need to get the actual file data from the string without the base64 prefix
+                    const format = outImage.substring(outImage.indexOf('data:')+5, outImage.indexOf(';base64'));
                     const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
                     const Buffer = buffer.Buffer;
-                    const buff = new Buffer(base64String, 'base64');
+                    const buff = new Buffer(base64String,'base64');
 
                     if (buff) {
-                        let objKey = this.fileName[f]
+                        let objKey =this.fileName[f]
                             .replace(/\s+/g, "_")
-                            .toLowerCase() + 'Watermark';
-                        console.log("objkey-----", objKey);
+                            .toLowerCase()+'Watermark';
                         let params = {
                             Key: objKey,
-                            ContentType: 'image/jpeg',
+                            ContentType:'image/jpeg', 
                             Body: buff,
-                            ContentEncoding: 'base64',
+                            ContentEncoding:'base64',
                             ACL: "public-read"
                         };
 
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
-                            // Calculate and update the upload progress
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
-                            console.log("Upload progress: ", this.uploadProgress);
                         });
 
-                        console.log("Starting upload...");
 
-                        await upload.promise(); // Wait for the upload to complete
+                        await upload.promise();
 
-                        console.log("Upload completed successfully!");
 
                         let bucketName = this.confData.S3_Bucket_Name__c;
                         this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
-                        console.log("Success");
                         this.isfileuploading = false;
                         this.uploadProgress = 0;
                         this.listS3Objects();
                     }
-                } else {
-                    console.log('list: ', this.selectedFilesToUpload.length);
-                    if (this.selectedFilesToUpload[f]) {
-                        let objKey = this.fileName[f]
-                            .replace(/\s+/g, "_")
-                            .toLowerCase();
+            }else{
+                if (this.selectedFilesToUpload[f]) {
+                    let objKey = this.fileName[f]
+                        .replace(/\s+/g, "_")
+                        .toLowerCase();
 
-                        let params = {
-                            Key: objKey,
-                            ContentType: this.selectedFilesToUpload[f].type,
-                            Body: this.selectedFilesToUpload[f],
-                            ACL: "public-read"
-                        };
+                    let params = {
+                        Key: objKey,
+                        ContentType: this.selectedFilesToUpload[f].type,
+                        Body: this.selectedFilesToUpload[f],
+                        ACL: "public-read"
+                    };
 
-                        // Use S3 upload method for progress tracking (no need for ManagedUpload constructor)
-                        let upload = this.s3.upload(params);
-                        this.isfileuploading = true;
-                        upload.on('httpUploadProgress', (progress) => {
-                            // Calculate and update the upload progress
-                            this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
-                            console.log("Upload progress: ", this.uploadProgress);
-                        });
-
-                        console.log("Starting upload...");
-
-                        await upload.promise(); // Wait for the upload to complete
-
-                        console.log("Upload completed successfully!");
-
-                        let bucketName = this.confData.S3_Bucket_Name__c;
-                        this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
-                        console.log("Success");
-                        this.isfileuploading = false;
-                        this.uploadProgress = 0;
-                        this.listS3Objects();
-                    }
+                    // Use S3 upload method for progress tracking (no need for ManagedUpload constructor)
+                    let upload = this.s3.upload(params);
+                    this.isfileuploading = true;
+                    upload.on('httpUploadProgress', (progress) => {
+                        this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
+                    });
+                    await upload.promise();
+                    let bucketName = this.confData.S3_Bucket_Name__c;
+                    this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
+                    this.isfileuploading = false;
+                    this.uploadProgress = 0;
+                    this.listS3Objects();
                 }
-
             }
+            
+        }
 
-        } catch (error) {
+     }catch (error) {
             console.error("Error in uploadToAWS: ", error);
         }
     }
@@ -328,40 +323,34 @@ export default class ImagesAndMedia extends LightningElement {
     initializeAwsSdk(confData) {
         try {
             let AWS = window.AWS;
-            console.log("inside confData", confData);
-            console.log("inside initializeAwsSdk", AWS);
 
             AWS.config.update({
-                accessKeyId: confData.AWS_Access_Key__c, //Assigning access key id
-                secretAccessKey: confData.AWS_Secret_Access_Key__c //Assigning secret access key
+                accessKeyId: confData.AWS_Access_Key__c,
+                secretAccessKey: confData.AWS_Secret_Access_Key__c
             });
 
-            AWS.config.region = confData.S3_Region_Name__c; //Assigning region of S3 bucket
+            AWS.config.region = confData.S3_Region_Name__c;
 
             this.s3 = new AWS.S3({
                 apiVersion: "2006-03-01",
                 params: {
-                    Bucket: confData.S3_Bucket_Name__c //Assigning S3 bucket name
+                    Bucket: confData.S3_Bucket_Name__c
                 }
             });
 
             this.isAwsSdkInitialized = true;
         } catch (error) {
-            console.log("error initializeAwsSdk ", error);
         }
     }
 
     async imageWithWatermark(image) {
         try {
             let file = image;
-            console.log(' file===========> ', file);
             const watermarkedImage = await watermark([file])
                 .image(watermark.text.center('EstateXpert', '30em sans-serif', '#fff', 0.5));
-            console.log('counter ', watermarkedImage);
             return watermarkedImage.src;
         } catch (error) {
-            console.log(error);
-            throw error; // Re-throw the error if any
+            throw error;
         }
     }
 

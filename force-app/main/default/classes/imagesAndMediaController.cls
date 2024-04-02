@@ -25,14 +25,11 @@ public with sharing class imagesAndMediaController {
     public static Boolean createmediaforlisting(String Name, Decimal Size, String recordId, String externalUrl){
         PropertyMedia__c Media = new PropertyMedia__c();
         Media.FilenameUrlEncoded__c = externalUrl;
+        Media.ExternalLink__c = externalUrl;
         Media.Name = Name;
         Media.Size__c = Size;
         Media.Property__c = recordId;
-        System.debug('Name-->'+Name);
-        System.debug('Size-->'+Size);
-        System.debug('recordId-->'+recordId);
-        System.debug('externalUrl-->'+externalUrl);
-        // insert Media;
+        insert Media;
         return true;
     }
 
