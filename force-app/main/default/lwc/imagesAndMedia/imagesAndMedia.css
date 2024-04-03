@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: "Inter", sans-serif;
 }
@@ -76,6 +70,7 @@ body {
     flex-direction: row;
     gap: 15px;
     padding-bottom: 10px;
+    align-items: baseline;
 }
 
 .lightning_pill{
@@ -107,4 +102,187 @@ progress{
 
 .right-content{
     justify-content: end;
+}
+
+.container {
+    display: flex;
+    gap: 2%;
+    margin: 2% 0 0 0;
+    font-size: smaller;
+    font-weight: lighter;
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+    padding: 20px !important;
+    border-radius: 0.25rem;
+}
+
+.custom-card {
+    font-size: smaller;
+    font-weight: lighter;
+    width: 30%;
+    border: 1px solid rgba(0, 0, 0, 1);
+    padding: 0%;
+    margin: 0%;
+    height: 30vh;
+}
+
+.sort-container {
+    display: flex;
+    margin-inline: 10px;
+}
+
+.large-text{
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.dragable-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 120px; /* Set the maximum height as needed */
+    overflow-y: auto; /* Add vertical scrollbar when needed */
+}
+
+.dragable-container img{
+    height: 4rem;
+    width: 4rem;
+    margin: 5px;
+    transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+.dragable-container img:hover{
+    border: 1px solid black;
+    background-color: #e0e0e0; /* Change to the desired highlight color */
+}
+
+.tableDiv{
+    margin: 2% 0 0 0;
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+    border-radius: 0.25rem;
+}
+
+.rightButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 3%;
+}
+
+
+/* ------------------- */
+
+
+
+
+.slds-modal__container {
+    max-width: 60rem;
+    /* Adjust the max-width as needed */
+    width: auto;
+    margin: 1.75rem auto;
+    /* Adjust the margin as needed */
+}
+.title_delete{
+    background-color:#FFE8E8;
+    color: #DD3333;
+    height:52px;
+}
+.title{
+    background-color:#E1F1FE;
+    color: #016DC3;
+}
+.title_text{
+    font-size: 20px;
+}
+.bottom_footer{
+    background-color: white;
+    height:52px;
+}
+.popup_modal{
+    width: 45%;
+}
+.img_popup{
+    width: 60%;
+}
+.main_content{
+    text-align: center;
+    font-size: 26px;
+    height: 100px;
+}
+.label{
+    margin-bottom: 5px;
+}
+
+.customimg{
+    width: 60px;
+    height: 60px;
+}
+.buttons_upload{
+    background-color:#016DC3;
+    color: white;
+}
+.buttons_close{
+    border: 1px solid #747474;
+    background-color:#FFFFFF;
+    color: #016DC3;
+}
+.buttons_delete_yes{
+    height: 32px;
+    width: 70px;
+    border:2px solid #DD3333 ;
+    background-color:#DD3333;
+    color: white;
+}
+.buttons_delete_no{
+    height: 32px;
+    width: 70px;
+    border:1px solid #747474 ;
+    background-color:#FFFFFF;
+    color:#DD3333 ;
+}
+.slds-backdrop_open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Adjust the opacity as needed */
+    z-index: 9000;
+    /* Ensure it has a higher z-index than the modal */
+}
+.buttons{
+    margin-inline: 10px;
+}
+
+.highlight:hover{
+    border: 1px solid black;
+    background-color: #cdcbcb; /* Change to the desired highlight color */
+}
+
+.highlight {
+    transition: background-color 0.5s ease; /* Adjust timing here */
+    background-color: #cdcbcb; /* Change to the desired highlight color */
+}
+
+.statusbox{
+    line-height: 1.5;
+}
+
+.iconGroupStyle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconCSS{
+    cursor: pointer;
+}
+
+.sizeCSS{
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    border-radius: 4px;
+    background: rgba(225, 241, 254, 1);
+    border: 1px solid rgba(1, 118, 211, 1);
+    text-align: -webkit-center;
 }
