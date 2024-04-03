@@ -123,7 +123,7 @@
     </div>
 
     <div class="container">
-        <lightning-card style="width: 33.33%;border: 1px solid rgba(0, 0, 0, 1);padding: 0%;margin: 0%;height: 30vh;"
+        <lightning-card style="width: 33.33%;border: 1px solid rgba(0, 0, 0, 1);padding: 0%;margin: 0%;height: 30vh;overflow: auto;"
             class="slds-card custom-card">
             <div class="sort-container" style="display: block;">
                 <div class="left">
@@ -133,9 +133,9 @@
                 </div>
                 <div class="rightButton">
                     <lightning-button label="Add all" variant="" class="large-text"
-                        onclick={getportal}></lightning-button>
+                        onclick={getexpose}></lightning-button>
                     <lightning-button label="Clear all" variant="" class="large-text"
-                        onclick={clearportal}></lightning-button>
+                        onclick={clearexpose}></lightning-button>
                     <lightning-button label="View all" variant="" class="large-text"
                         onclick={notYet}></lightning-button>
                 </div>
@@ -153,7 +153,7 @@
             </div>
         </lightning-card>
 
-        <lightning-card style="width: 33.33%;border: 1px solid rgba(0, 0, 0, 1);padding: 0%;margin: 0%;height: 30vh;"
+        <lightning-card style="width: 33.33%;border: 1px solid rgba(0, 0, 0, 1);padding: 0%;margin: 0%;height: 30vh;overflow: auto;"
             class="slds-card custom-card">
             <div class="sort-container" style="display: block;">
                 <div class="left" style="display: block;">
@@ -163,9 +163,9 @@
                 </div>
                 <div class="rightButton">
                     <lightning-button label="Add all" variant="" class="large-text"
-                        onclick={getportal}></lightning-button>
+                        onclick={getwebsite}></lightning-button>
                     <lightning-button label="Clear all" variant="" class="large-text"
-                        onclick={clearportal}></lightning-button>
+                        onclick={clearwebsite}></lightning-button>
                     <lightning-button label="View all" variant="" class="large-text"
                         onclick={clearportal}></lightning-button>
                 </div>
@@ -183,7 +183,7 @@
             </div>
         </lightning-card>
 
-        <lightning-card style="width: 33.33%;border: 1px solid rgba(0, 0, 0, 1);padding: 0%;margin: 0%;height: 30vh;"
+        <lightning-card style="width: 33.33%;border: 1px solid rgba(0, 0, 0, 1);padding: 0%;margin: 0%;height: 30vh;overflow: auto;"
             class="slds-card custom-card">
             <div class="sort-container" style="display: block;">
                 <div class="left" style="display: block;">
@@ -266,16 +266,16 @@
                             </td>
                             <td data-label="checkboxes">
                                 <div class="slds-truncate" title="isExposed">
-
-                                    <lightning-input type="checkbox" label="Is On Expose" name="expose"
+                                    <p style="font-family: Inter;font-size: 12px;font-weight: 700;line-height: 14.52px;text-align: left;">Appears On</p>
+                                    <lightning-input type="checkbox" label="Expose" name="expose"
                                         value={item.IsOnExpose__c} data-key={item.Id} onchange={storeCheckedValue}
                                         checked={item.IsOnExpose__c}></lightning-input>
 
-                                    <lightning-input class="statusbox" type="checkbox" label="Is On Website"
+                                    <lightning-input class="statusbox" type="checkbox" label="Website"
                                         name="website" value={item.IsOnWebsite__c} data-key={item.Id}
                                         onchange={storeCheckedValue} checked={item.IsOnWebsite__c}></lightning-input>
 
-                                    <lightning-input class="statusbox" type="checkbox" label="Is On Portal Feed"
+                                    <lightning-input class="statusbox" type="checkbox" label="Portal Feed"
                                         name="portal" value={item.IsOnPortalFeed__c} data-key={item.Id}
                                         onchange={storeCheckedValue} checked={item.IsOnPortalFeed__c}></lightning-input>
                                 </div>
@@ -320,7 +320,7 @@
                                         </svg>
                                     </div>
                                     <div class="deleteIconCss iconCSS" data-key={item.Id} data-url={item.FilenameUrlEncoded__c}
-                                        onclick={delete_row}>
+                                        onclick={delete_row} data-name={item.Name}>
                                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <rect x="0.5" y="0.5" width="21" height="21" rx="1.5" fill="#E1F1FE"
@@ -494,5 +494,17 @@
                 </footer>
             </div>
         </section>
+    </template>
+    <template if:true={showSpinner}>
+        <div class="slds-spinner_container" style="position:fixed;">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+                <div class="spinnerText">
+                    <b>Processing, Please Wait</b>
+                </div>
+            </div>
+        </div>
     </template>
 </template>
