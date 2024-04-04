@@ -1,10 +1,8 @@
 import { LightningElement, track } from 'lwc';
-import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import getPicklistValues from '@salesforce/apex/controlCenterController.getPicklistValues';
 import getIcons from '@salesforce/apex/controlCenterController.getIcons';
 import updateFeatureIconRecord from '@salesforce/apex/controlCenterController.updateFeatureIconRecord';
 import uploadFile from '@salesforce/apex/controlCenterController.uploadFile';
-import designcss from '@salesforce/resourceUrl/controlCenterCss';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class EstateXpert_Control_Center extends LightningElement {
@@ -22,12 +20,8 @@ export default class EstateXpert_Control_Center extends LightningElement {
     @track iconsURL;
     fileData;
     @track isLoading = false;
-    // name = 'Control Center';
-    // message = 'Hover your mouse over any tile on the right to learn more about that feature.'
 
     connectedCallback() {
-        // this.fetchPicklistValue();
-        loadStyle(this, designcss);
         this.fetchIconsFromStaticResource();
     }
 
@@ -41,6 +35,55 @@ export default class EstateXpert_Control_Center extends LightningElement {
                 style.innerText = `
                         .slds-template_default {
                             padding: 0 !important;
+                        }
+
+                        .popup__body .popup__custom-card article {
+                            display: contents;
+                        }
+                        
+                        .popup__custom-card .slds-p-around_medium{
+                            padding: 0rem 1rem 1rem !important;
+                        }
+                        
+                        .poInput .slds-input__icon_left{
+                            display: none;
+                        }
+                        
+                        .poInput .slds-input__icon_right{
+                            display: none;
+                        }
+                        
+                        .crossicon{
+                            right: calc(var(--lwc-spacingXxSmall,0.25rem) + 1px) !important;
+                            left: unset !important;
+                        }
+
+                        .crossicon .slds-button_icon-border{
+                            border: unset !important;
+                        }
+
+                        .popup__custom-card .slds-card__header{
+                            display: none;
+                        }
+
+                        .subFooter .slds-form-element__label:empty {
+                            margin: 0;
+                            display: none !important;
+                        }
+
+                        .filedata .slds-icon-action-remove {
+                            height: 1.5rem !important;
+                            width: 1.5rem !important;
+                            padding: 4px !important;
+                        }
+
+                        .navexStandardManager .slds-template__container .slds-spinner_container, .navexStandardManager>.center .s1FixedTop {
+                            z-index: 10000 !important;
+                        }
+
+                        .closeIcon .slds-icon-text-default {
+                            height: 25px;
+                            width: 25px;
                         }
                 `;
 
