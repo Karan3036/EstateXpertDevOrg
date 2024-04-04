@@ -56,7 +56,7 @@ body {
     cursor: pointer;
 }
 
-.orClass{
+.orClass {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,7 +65,7 @@ body {
     gap: 10px;
 }
 
-.button_Group{
+.button_Group {
     display: flex;
     flex-direction: row;
     gap: 15px;
@@ -73,34 +73,48 @@ body {
     align-items: baseline;
 }
 
-.lightning_pill{
+.lightning_pill {
     display: flex;
     flex-direction: row;
     gap: 10px;
     padding-bottom: 10px;
+    overflow: auto;
 }
 
-.progress{
+/* Hide scrollbar for Chrome, Safari and Opera */
+.lightning_pill::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.lightning_pill {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.progress {
     width: 100%;
     padding: 15px;
     margin-bottom: 20px;
 }
 
-progress{
+progress {
     width: 100%;
 }
 
-.content{
+.content {
     display: flex;
     justify-content: space-between;
 }
 
-.left-content{
+.left-content {
     display: flex;
     justify-content: start;
 }
 
-.right-content{
+.right-content {
     justify-content: end;
 }
 
@@ -130,7 +144,7 @@ progress{
     margin-inline: 10px;
 }
 
-.large-text{
+.large-text {
     font-size: 12px;
     font-weight: 400;
 }
@@ -138,29 +152,34 @@ progress{
 .dragable-container {
     display: flex;
     flex-wrap: wrap;
-    height: auto; /* Set the maximum height as needed */
-    overflow-y: auto; /* Add vertical scrollbar when needed */
+    height: auto;
+    /* Set the maximum height as needed */
+    overflow-y: auto;
+    /* Add vertical scrollbar when needed */
 }
 
-.dragable-container img{
+.dragable-container img {
     height: 4rem;
     width: 4rem;
     margin: 5px;
-    transition: background-color 0.3s ease; /* Add transition for smooth effect */
+    transition: background-color 0.3s ease;
+    /* Add transition for smooth effect */
 }
 
-.dragable-container img:hover{
+.dragable-container img:hover {
     border: 1px solid black;
-    background-color: #e0e0e0; /* Change to the desired highlight color */
+    background-color: #e0e0e0;
+    /* Change to the desired highlight color */
 }
 
-.tableDiv{
-    margin: 2% 0 0 0;
+.tableDiv {
     border: 1px solid rgba(0, 0, 0, 1) !important;
     border-radius: 0.25rem;
+    height: 42vh;
+    overflow: auto;
 }
 
-.rightButton{
+.rightButton {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -180,64 +199,77 @@ progress{
     margin: 1.75rem auto;
     /* Adjust the margin as needed */
 }
-.title_delete{
-    background-color:#FFE8E8;
+
+.title_delete {
+    background-color: #FFE8E8;
     color: #DD3333;
-    height:52px;
+    height: 52px;
 }
-.title{
-    background-color:#E1F1FE;
+
+.title {
+    background-color: #E1F1FE;
     color: #016DC3;
 }
-.title_text{
+
+.title_text {
     font-size: 20px;
 }
-.bottom_footer{
+
+.bottom_footer {
     background-color: white;
-    height:52px;
+    height: 52px;
 }
-.popup_modal{
+
+.popup_modal {
     width: 45%;
 }
-.img_popup{
+
+.img_popup {
     width: 60%;
 }
-.main_content{
+
+.main_content {
     text-align: center;
     font-size: 26px;
     height: 100px;
 }
-.label{
+
+.label {
     margin-bottom: 5px;
 }
 
-.customimg{
+.customimg {
     width: 60px;
     height: 60px;
 }
-.buttons_upload{
-    background-color:#016DC3;
+
+.buttons_upload {
+    background-color: #016DC3;
     color: white;
 }
-.buttons_close{
+
+.buttons_close {
     border: 1px solid #747474;
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
     color: #016DC3;
 }
-.buttons_delete_yes{
+
+.buttons_delete_yes {
     height: 32px;
     width: 70px;
-    border:2px solid #DD3333 ;
-    background-color:#DD3333;
+    border: 2px solid #DD3333;
+    background-color: #DD3333;
     color: white;
 }
-.buttons_delete_no{
+
+.buttons_delete_no {
     height: 32px;
     width: 70px;
-    border:1px solid #747474 ;
-    background-color:#FFFFFF;
-    color:#DD3333 ;
+    border: 1px solid #747474;
+    background-color: #FFFFFF;
+    color: #DD3333;
 }
+
 .slds-backdrop_open {
     position: fixed;
     top: 0;
@@ -249,36 +281,40 @@ progress{
     z-index: 9000;
     /* Ensure it has a higher z-index than the modal */
 }
-.buttons{
+
+.buttons {
     margin-inline: 10px;
 }
 
-.highlight:hover{
+.highlight:hover {
     border: 1px solid black;
-    background-color: #cdcbcb; /* Change to the desired highlight color */
+    background-color: #cdcbcb;
+    /* Change to the desired highlight color */
 }
 
 .highlight {
-    transition: background-color 0.5s ease; /* Adjust timing here */
-    background-color: #cdcbcb; /* Change to the desired highlight color */
+    transition: background-color 0.5s ease;
+    /* Adjust timing here */
+    background-color: #cdcbcb;
+    /* Change to the desired highlight color */
 }
 
-.statusbox{
+.statusbox {
     line-height: 1.5;
 }
 
-.iconGroupStyle{
+.iconGroupStyle {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.iconCSS{
+.iconCSS {
     cursor: pointer;
 }
 
-.sizeCSS{
+.sizeCSS {
     width: -webkit-fill-available;
     height: -webkit-fill-available;
     border-radius: 4px;
@@ -293,4 +329,19 @@ progress{
     top: -1.1rem;
     white-space: nowrap;
     font-size: 20px;
+}
+
+.button_Group1 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 2%;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.tableDiv thead{
+    position: sticky;
+    top: 0;
+    z-index: 9999;
 }

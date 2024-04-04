@@ -18,7 +18,7 @@ import buffer from 'c/buffer';
 export default class UploadImage extends LightningElement {
 
     @api recordId;
-    
+
     s3;
     isAwsSdkInitialized = false;
     @track selectedFilesToUpload = [];
@@ -63,7 +63,6 @@ export default class UploadImage extends LightningElement {
     @track leaveTimeout;
     @track disabled_upload = true;
     @track items = [];
-    @track property_id;
     @track event_img_name;
     @track floorplan_checked = false;
     @track virtual_tour_checked = false;
@@ -85,7 +84,6 @@ export default class UploadImage extends LightningElement {
     connectedCallback() {
         this.getS3ConfigDataAsync();
         this.fetchingdata();
-        this.property_id = this.recordId;
     }
 
     save_changes() {
@@ -111,6 +109,7 @@ export default class UploadImage extends LightningElement {
         if (this.img_old_name.length !== 0) {
             this.edit_image_name();
         }
+        
         this.save_order();
     }
 
@@ -163,7 +162,6 @@ export default class UploadImage extends LightningElement {
     }
 
     upload_image() {
-        this.ispopup = false;
         if (this.imageTitle_to_upload && this.imageUrl_to_upload) {
             this.ispopup = false;
             if (this.selected_url_type === 'Image') {
@@ -174,24 +172,15 @@ export default class UploadImage extends LightningElement {
                 }).then(result => {
                     this.fetchingdata();
                     this.isedit = false;
-                    // this.imageUrl_to_upload = null;
                     this.imageTitle_to_upload = null;
                     this.isnull = true;
                 })
-                    .catch(error => {
-                        this.dispatchEvent(
-                            new ShowToastEvent({
-                                title: 'Error creating record',
-                                message: 'Image url invalid.',
-                                variant: 'error',
-                            }),
-                        );
-                        this.fetchingdata();
-                        console.error('Error:', error);
-
-                    });
-            }
-            if (this.selected_url_type === 'Video') {
+                .catch(error => {
+                    this.toast('Error creating record', 'Image URL is Invalid.', 'Error');
+                    this.fetchingdata();
+                    console.error('Error:', error);
+                });
+            } else if (this.selected_url_type === 'Video') {
                 const videoId = this.createThumb(this.imageUrl_to_upload);
                 this.ispopup = false;
                 createmedia({
@@ -206,44 +195,13 @@ export default class UploadImage extends LightningElement {
                     this.imageTitle_to_upload = null;
                     this.isnull = true;
                 })
-                    .catch(error => {
-                        this.dispatchEvent(
-                            new ShowToastEvent({
-                                title: 'Error creating record',
-                                message: 'Video url invalid.',
-                                variant: 'error',
-                            }),
-                        );
-                        console.error('Error:', error);
-                    });
-            }
-            if (this.selected_url_type === 'Document') {
-                this.ispopup = false;
-                createmedia({
-                    recordId: this.recordId,
-                    externalUrl: 'https://www.iconpacks.net/icons/1/free-document-icon-901-thumb.png',
-                    Name: this.imageTitle_to_upload,
-                    externalUrl: this.imageUrl_to_upload
-                }).then(result => {
-                    this.ispopup = false;
-                    this.fetchingdata();
-                    this.isedit = false;
-                    this.imageTitle_to_upload = null;
-                    this.isnull = true;
-                })
-                    .catch(error => {
-                        this.dispatchEvent(
-                            new ShowToastEvent({
-                                title: 'Error creating record',
-                                message: 'Document url invalid.',
-                                variant: 'error',
-                            }),
-                        );
-                        console.error('Error:', error);
-                    });
+                .catch(error => {
+                    this.toast('Error creating record', 'Video URL is Invalid.', 'Error');
+                    console.error('Error:', error);
+                });
             }
         } else {
-            console.error('Image URL and file name are required.');
+            this.toast('Error', 'Image URL and file name are required.', 'Error');
         }
     }
 
@@ -654,6 +612,7 @@ export default class UploadImage extends LightningElement {
         try {
             this.confData = await getS3ConfigData();
         } catch (error) {
+            console.log('error-->',error);
         }
     }
 
@@ -758,7 +717,7 @@ export default class UploadImage extends LightningElement {
     }
 
     handleclick(event) {
-        if (this.property_id) {
+        if (this.recordId) {
             this.isnull = true;
             this.uploadToAWS()
                 .then(() => {
@@ -785,37 +744,16 @@ export default class UploadImage extends LightningElement {
                         this.isWatermark = true;
                     }
                     else {
-                        this.dispatchEvent(
-                            new ShowToastEvent({
-                                title: 'Error creating record',
-                                message: 'Property not added.',
-                                variant: 'error',
-                            }),
-                        )
-
+                        this.toast('Error creating record', 'Property not added.', 'Error');
                     }
                     refreshApex(this.data);
                 })
                 .catch(error => {
-                    alert(error.message);
-                    this.dispatchEvent(
-                        new ShowToastEvent({
-                            title: 'Error creating record',
-                            message: 'Property not added.',
-                            variant: 'error',
-                        }),
-                    );
-
+                    this.toast('Error creating record', 'Property not added.', 'Error');
                     console.error('Error:', error);
                 });
         } else {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error creating record',
-                    message: 'Property not added.',
-                    variant: 'error',
-                }),
-            );
+            this.toast('Error creating record', 'Property not added.', 'Error');
         }
     }
 
@@ -912,29 +850,25 @@ export default class UploadImage extends LightningElement {
 
     handleDrop(event) {
         event.preventDefault();
+        console.log("handleDrop triggered");
         const files = event.dataTransfer.files;
-        if (files[0].type == 'image/png' || files[0].type == 'image/jpg' || files[0].type == 'image/jpeg') {
-            this.fileSize = Math.floor((files[0].size) / 1024);
-            this.selectedFilesToUpload = files[0];
-            this.isnull = false;
-            this.fileName = files[0].name;
+        console.log(files);
+        console.log(files[0].type);
+        if (event.dataTransfer.files.length > 0 && (files[0].type == 'image/png' || files[0].type == 'image/jpg' || files[0].type == 'image/jpeg')) {
+            for (let file = 0; file < event.dataTransfer.files.length; file++) {
+                this.selectedFilesToUpload.push(event.dataTransfer.files[file]);
+                this.isnull = false;
+                this.disabled_checkbox = false;
+                this.fileName.push(event.dataTransfer.files[file].name);
+                this.fileSize.push(Math.floor((event.dataTransfer.files[file].size) / 1024));
+            }
+            console.log("fileName1 ====> " + this.fileName);
+            console.log("fileSize1 ====> " + this.fileSize);
         }
         else {
-            this.showToast();
+            this.toast('Error', 'File type Incorrect', 'Error');
         }
     }
-
-    showToast() {
-        const event = new ShowToastEvent({
-            title: 'Error',
-            message:
-                'File type Incorrect',
-            variant: 'Error',
-        });
-        this.dispatchEvent(event);
-    }
-
-
 
     handleDragOver(event) {
         event.preventDefault();
@@ -1192,5 +1126,18 @@ export default class UploadImage extends LightningElement {
         } catch (error) {
             throw error;
         }
+    }
+
+    toast(title, message, variant) {
+        const toastEvent = new ShowToastEvent({
+            title,
+            message,
+            variant
+        })
+        this.dispatchEvent(toastEvent)
+    }
+
+    notYet() {
+        this.toast('Error', 'The functionality has not yet been determined; therefore, please await further updates.', 'Error');
     }
 }
