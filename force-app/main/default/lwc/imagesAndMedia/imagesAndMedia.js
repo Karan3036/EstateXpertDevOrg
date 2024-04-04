@@ -7,8 +7,6 @@ import createmedia from "@salesforce/apex/imagesAndMediaController.createmediafo
 import deletemedia from "@salesforce/apex/imagesAndMediaController.deletelistingmedia";
 import update_media_name from "@salesforce/apex/imagesAndMediaController.update_media_name";
 import updateOrderState from '@salesforce/apex/imagesAndMediaController.updateOrderState';
-import { publish, MessageContext } from 'lightning/messageService';
-import Refresh_msg from '@salesforce/messageChannel/refreshMessageChannel__c';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { refreshApex } from '@salesforce/apex';
 import updateSortOrder from '@salesforce/apex/imagesAndMediaController.updateSortOrder';
@@ -70,16 +68,13 @@ export default class UploadImage extends LightningElement {
     @track picklistValues = [];
     @track finalPicklistValues = [];
     @track save_edit_btn_disabled = true;
+    isInitalRender = true;
     get options() {
         return [
             { label: 'Image', value: 'Image' },
             { label: 'Video', value: 'Video' }
         ];
     }
-    @wire(MessageContext)
-    messageContext;
-    isInitalRender = true;
-
 
     connectedCallback() {
         this.getS3ConfigDataAsync();
@@ -109,7 +104,7 @@ export default class UploadImage extends LightningElement {
         if (this.img_old_name.length !== 0) {
             this.edit_image_name();
         }
-        
+
         this.save_order();
     }
 
@@ -595,10 +590,6 @@ export default class UploadImage extends LightningElement {
                     this.data.forEach(row => row.Tags__c = row.Tags__c ? row.Tags__c.split(";") : '');
                     this.isdata = result && result.length > 0;
                     this.showSpinner = false;
-                    const message = {
-                        refresh: true
-                    };
-                    publish(this.messageContext, Refresh_msg, message);
                 })
                 .catch(error => {
                     console.error('Error fetching data:', JSON.stringify(error));

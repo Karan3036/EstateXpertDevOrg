@@ -67,6 +67,10 @@
     text-transform: uppercase;
 }
 
+.tile-flex{
+    display: flex;
+}
+
 .popup-container {
     position: relative;
 }
@@ -106,6 +110,12 @@
 
 .popup__content {
     padding: 1.5rem;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.popup-content-Map{
+    padding: 0.8rem 2rem 0.5rem 2rem;
     max-height: 100%;
     overflow-y: auto;
 }

@@ -12,6 +12,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
 
     isInitalRender = true;
     selectionModel = false;
+    selectionModel2 = false;
     @track pickListvalue = [];
     @track iconsValue = [];
     @track isEditing = false;
@@ -58,8 +59,17 @@ export default class EstateXpert_Control_Center extends LightningElement {
         this.fetchPicklistValue();
     }
 
+    openSelectionModel2() {
+        this.selectionModel2 = true;   
+        
+    }
+
     handleCloseModal() {
         this.selectionModel = false;
+    }
+
+    handleCloseModal2() {
+        this.selectionModel2 = false;
     }
 
     fetchPicklistValue() {
