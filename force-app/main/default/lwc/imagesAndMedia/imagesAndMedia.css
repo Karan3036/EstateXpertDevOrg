@@ -78,20 +78,7 @@ body {
     flex-direction: row;
     gap: 10px;
     padding-bottom: 10px;
-    overflow: auto;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.lightning_pill::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.lightning_pill {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+    flex-wrap: wrap;
 }
 
 .progress {

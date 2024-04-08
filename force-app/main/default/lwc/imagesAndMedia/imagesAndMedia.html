@@ -210,7 +210,7 @@
         <lightning-button label="Add Link" title="Non-primary action" onclick={modalpopup}
             class="slds-m-left_x-small"></lightning-button>
         <lightning-button label="Delete All" title="Non-primary action" onclick={to_deleteAllMedia}
-            class="slds-m-left_x-small"></lightning-button>
+            class="slds-m-left_x-small" disabled={isdeleteAllButton}></lightning-button>
     </div>
 
     <template if:true={isdata}>
@@ -399,7 +399,7 @@
                     </div>
                 </div>
                 <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_brand buttons" onclick={confirm_edit}>Save</button>
+                    <button class="slds-button slds-button_brand buttons" onclick={confirm_edit} disabled={isSaveDisabled}>Save</button>
                     <button class="slds-button slds-button_brand buttons" onclick={closepopup_edit}>Close</button>
                 </footer>
             </div>

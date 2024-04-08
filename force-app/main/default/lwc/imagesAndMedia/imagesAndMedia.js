@@ -30,6 +30,7 @@ export default class UploadImage extends LightningElement {
     @track modalImageUrl;
     @track isnull = true;
     @track isdata = false;
+    @track isdeleteAllButton = true;
     @track ispopup = false;
     @track isedit = false;
     @track isdeleteAll = false;
@@ -67,8 +68,11 @@ export default class UploadImage extends LightningElement {
     @track tour_checked = false;
     @track picklistValues = [];
     @track finalPicklistValues = [];
-    @track save_edit_btn_disabled = true;
     isInitalRender = true;
+    initialValues = {};
+    isSaveDisabled = true;
+    nameIsChanged = false;
+    tagIsChanged = false;
     get options() {
         return [
             { label: 'Image', value: 'Image' },
@@ -99,10 +103,6 @@ export default class UploadImage extends LightningElement {
                 this.disabled_cancel = true;
                 this.fetchingdata();
             });
-        }
-
-        if (this.img_old_name.length !== 0) {
-            this.edit_image_name();
         }
 
         this.save_order();
@@ -221,8 +221,9 @@ export default class UploadImage extends LightningElement {
 
     // update image name
     store_img_name(event) {
-        this.save_edit_btn_disabled = false;
         this.event_img_name = event.target.value;
+        this.current_img_name = event.target.value;
+        this.checkChanges();
     }
 
     edit_image_name_to_store(event) {
@@ -233,6 +234,12 @@ export default class UploadImage extends LightningElement {
         this.floorplan_checked = false;
         this.virtual_tour_checked = false;
         this.tour_checked = false;
+        this.initialValues = {
+            current_img_name: event.currentTarget.dataset.name,
+            floorplan_checked: this.floorplan_checked,
+            virtual_tour_checked: this.virtual_tour_checked,
+            tour_checked: this.tour_checked
+        };
         let list_check = event.currentTarget.dataset.tags.split(",");
         if (list_check.length > 0) {
             for (let tags_name = 0; tags_name < list_check.length; tags_name++) {
@@ -268,16 +275,22 @@ export default class UploadImage extends LightningElement {
         }
         this.event_img_name = undefined;
         this.picklistValues = [];
-        this.disabled_save = false;
-        this.disabled_cancel = false;
         this.isedit = false;
-        this.save_edit_btn_disabled = true;
-
+        this.isChangesMade = true;
+        this.edit_image_name();
     }
 
     edit_image_name() {
-        if (this.finalPicklistValues || this.img_name) {
-            if (this.img_name.length > 0 && this.finalPicklistValues.length > 0) {
+        const isNameChanged = this.initialValues.current_img_name !== this.event_img_name;
+        console.log('isNameChanged-->',isNameChanged);
+        const isFloorplanChanged = this.initialValues.floorplan_checked !== this.floorplan_checked;
+        console.log('isFloorplanChanged-->',isFloorplanChanged);
+        const isVirtualTourChanged = this.initialValues.virtual_tour_checked !== this.virtual_tour_checked;
+        console.log('isVirtualTourChanged-->',isVirtualTourChanged);
+        const isTourChanged = this.initialValues.tour_checked !== this.tour_checked;
+        console.log('isTourChanged-->',isTourChanged);
+        if (this.nameIsChanged) {
+                console.log('In if of edit image name');
                 for (let img = 0; img < this.img_name.length; img++) {
                     let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
                     let newkey = this.img_name[img].replace(/\s+/g, "_").toLowerCase();
@@ -302,62 +315,47 @@ export default class UploadImage extends LightningElement {
                         this.isnull = true;
                     });
                 }
-            } else if (this.finalPicklistValues.length >= 0 && this.img_name[0] === undefined) {
-                for (let img = 0; img < this.img_old_name.length; img++) {
-                    let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
-                    update_media_name({
-                        id: this.rec_id_to_update[img],
-                        fileName: this.img_old_name[img],
-                        url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${oldKey}`,
-                        externalUrl: this.imageUrl_to_upload,
-                        picklistValues: this.finalPicklistValues[img].length > 0 ? this.finalPicklistValues[img] : null
-                    }).then(result => {
-                        this.event_img_name = undefined;
-                        this.img_name = [];
-                        this.img_old_name = [];
-                        this.rec_id_to_update = [];
-                        this.picklistValues = [];
-                        this.finalPicklistValues = [];
-                        this.fetchingdata();
-                        this.isnull = true;
-                    });
 
-                }
-            } else {
-                for (let img = 0; img < this.img_name.length; img++) {
-                    let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
-                    let newkey = this.img_name[img].replace(/\s+/g, "_").toLowerCase();
-                    this.updateFileNameInS3(oldKey, newkey).then(() => {
-                        this.isedit = false;
-                        return update_media_name({
-                            id: this.rec_id_to_update[img],
-                            fileName: this.img_name[img],
-                            url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${newkey}`,
-                            externalUrl: this.imageUrl_to_upload,
-                            picklistValues: this.finalPicklistValues[img].length > 0 ? this.finalPicklistValues[img] : null
-                        });
-                    }).then(result => {
-                        this.event_img_name = undefined;
-                        this.img_name = [];
-                        this.img_old_name = [];
-                        this.rec_id_to_update = [];
-                        this.picklistValues = [];
-                        this.finalPicklistValues = [];
-                        this.fetchingdata();
-                        this.isnull = true;
-                    });
-                }
+        } else if (this.tagIsChanged) {
+            console.log('in else if');
+            for (let img = 0; img < this.img_old_name.length; img++) {
+                let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
+                update_media_name({
+                    id: this.rec_id_to_update[img],
+                    fileName: this.img_old_name[img],
+                    url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${oldKey}`,
+                    externalUrl: this.imageUrl_to_upload,
+                    picklistValues: this.finalPicklistValues[img].length > 0 ? this.finalPicklistValues[img] : null
+                }).then(result => {
+                    this.event_img_name = undefined;
+                    this.img_name = [];
+                    this.img_old_name = [];
+                    this.rec_id_to_update = [];
+                    this.picklistValues = [];
+                    this.finalPicklistValues = [];
+                    this.fetchingdata();
+                    this.isnull = true;
+                });
+
             }
+        } else {
+            console.log('in else');
         }
     }
 
     closepopup_edit() {
         let rec_id = this.rec_id_to_update[this.rec_id_to_update.length - 1];
-        let index_of_record = this.data.findIndex(item => item.Id === rec_id);
         this.picklistValues = [];
         this.isedit = false;
         this.img_old_name.pop();
         this.rec_id_to_update.pop();
+
+        this.current_img_name = this.initialValues.current_img_name;
+        this.floorplan_checked = this.initialValues.floorplan_checked;
+        this.virtual_tour_checked = this.initialValues.virtual_tour_checked;
+        this.tour_checked = this.initialValues.tour_checked;
+
+        this.isSaveDisabled = true;
     }
 
     async updateFileNameInS3(oldKey, newKey) {
@@ -589,6 +587,7 @@ export default class UploadImage extends LightningElement {
                     this.data.forEach(row => row.Size__c = row.Size__c ? row.Size__c + ' ' + 'kb' : 'External');
                     this.data.forEach(row => row.Tags__c = row.Tags__c ? row.Tags__c.split(";") : '');
                     this.isdata = result && result.length > 0;
+                    this.isdeleteAllButton = this.isdata ? false : true;
                     this.showSpinner = false;
                 })
                 .catch(error => {
@@ -632,6 +631,10 @@ export default class UploadImage extends LightningElement {
                 .tableDiv .slds-table thead th{
                     background-color: rgba(1, 118, 211, 1);
                     color: white;
+                }
+
+                .navexStandardManager .slds-template__container .slds-spinner_container, .navexStandardManager>.center .s1FixedTop {
+                    z-index: 10000 !important;
                 }
             `;
 
@@ -696,16 +699,26 @@ export default class UploadImage extends LightningElement {
     }
 
     handleRemove(event) {
-        let index_of_fileName = this.fileName.indexOf(event.target.name);
-        this.fileName.splice(index_of_fileName, 1);
-        this.selectedFilesToUpload.splice(index_of_fileName, 1);
-        this.isnull = false;
-        this.fileSize.splice(index_of_fileName, 1);
-
-        if (this.fileName.length === 0) {
-            this.isnull = true;
+        // Get the label of the lightning pill associated with the remove button
+        const fileNameToRemove = event.target.closest('lightning-pill').label;
+        console.log('Removing file:', fileNameToRemove);
+    
+        // Find the index of the file to remove in the fileName array
+        const indexToRemove = this.fileName.indexOf(fileNameToRemove);
+        
+        // If the file is found in the array, remove it
+        if (indexToRemove !== -1) {
+            this.fileName.splice(indexToRemove, 1);
+            this.selectedFilesToUpload.splice(indexToRemove, 1);
+            this.fileSize.splice(indexToRemove, 1);
+            this.isnull = this.fileName.length === 0;
+            this.disabled_checkbox = this.fileName.length === 0;
+        } else {
+            console.error('File not found in fileName array:', fileNameToRemove);
         }
     }
+    
+    
 
     handleclick(event) {
         if (this.recordId) {
@@ -731,6 +744,7 @@ export default class UploadImage extends LightningElement {
                         this.fileURL = [];
                         this.isnull = true;
                         this.isdata = true;
+                        this.isdeleteAllButton = this.isdata ? false : true;
                         this.disabled_checkbox = true;
                         this.isWatermark = true;
                     }
@@ -1074,7 +1088,6 @@ export default class UploadImage extends LightningElement {
         this.isWatermark = event.target.checked;
     }
     tags_checked(event) {
-        this.save_edit_btn_disabled = false;
         if (event.target.name === 'Floorplan') {
             this.floorplan_checked = event.target.checked;
 
@@ -1106,6 +1119,7 @@ export default class UploadImage extends LightningElement {
                 this.picklistValues.splice(index_of_item, 1);
             }
         }
+        this.checkChanges();
     }
 
     async imageWithWatermark(image) {
@@ -1130,5 +1144,22 @@ export default class UploadImage extends LightningElement {
 
     notYet() {
         this.toast('Error', 'The functionality has not yet been determined; therefore, please await further updates.', 'Error');
+    }
+
+    // Method to check if any changes have been made
+    checkChanges() {
+        const isNameChanged = this.initialValues.current_img_name !== this.current_img_name;
+        const isFloorplanChanged = this.initialValues.floorplan_checked !== this.floorplan_checked;
+        const isVirtualTourChanged = this.initialValues.virtual_tour_checked !== this.virtual_tour_checked;
+        const isTourChanged = this.initialValues.tour_checked !== this.tour_checked;
+    
+        this.isSaveDisabled = !(isNameChanged || isFloorplanChanged || isVirtualTourChanged || isTourChanged);
+        if (isNameChanged) {
+            console.log('isNameChanged-->',isNameChanged);
+            this.nameIsChanged = true;
+        } else if(isFloorplanChanged || isVirtualTourChanged || isTourChanged){
+            console.log('isFloorplanChanged || isVirtualTourChanged || isTourChanged',isFloorplanChanged || isVirtualTourChanged || isTourChanged);
+            this.tagIsChanged = true;
+        }
     }
 }
