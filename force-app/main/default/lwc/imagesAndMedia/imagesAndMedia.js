@@ -19,6 +19,9 @@ export default class UploadImage extends LightningElement {
 
     s3;
     isAwsSdkInitialized = false;
+    @track currentFileName = '';
+    @track currentFileSize = '';
+    @track uploadingFiles = []; 
     @track selectedFilesToUpload = [];
     @track showSpinner = false;
     @track fileName = [];
@@ -155,6 +158,8 @@ export default class UploadImage extends LightningElement {
         const match = videoUrl.match(regex);
         return match ? match[1] : null;
     }
+
+    
 
     upload_image() {
         if (this.imageTitle_to_upload && this.imageUrl_to_upload) {
@@ -676,27 +681,26 @@ export default class UploadImage extends LightningElement {
             console.log("error initializeAwsSdk ", error);
         }
     }
-
-    //get the file name from user's selection
-    async handleSelectedFiles(event) {
-        try {
-            if (event.target.files.length > 0) {
-                for (let file = 0; file < event.target.files.length; file++) {
-                    this.selectedFilesToUpload.push(event.target.files[file]);
-                    this.isnull = false;
-                    this.disabled_checkbox = false;
-                    this.fileName.push(event.target.files[file].name);
-                    this.fileSize.push(Math.floor((event.target.files[file].size) / 1024));
-                }
-                console.log('selectedfile names', this.fileName);
-                console.log('selectedfiles', this.selectedFilesToUpload);
-                console.log('selectedfile sizes', this.fileSize);
+   //get the file name from user's selection
+   async handleSelectedFiles(event) {
+    try {
+        if (event.target.files.length > 0) {
+            for (let file = 0; file < event.target.files.length; file++) {
+                this.selectedFilesToUpload.push(event.target.files[file]);
+                this.isnull = false;
+                this.disabled_checkbox = false;
+                this.fileName.push(event.target.files[file].name);
+                this.fileSize.push(Math.floor((event.target.files[file].size) / 1024));
             }
-
-        } catch (error) {
-            console.log('error file upload ', error);
+            console.log('selectedfile names', this.fileName);
+            console.log('selectedfiles', this.selectedFilesToUpload);
+            console.log('selectedfile sizes', this.fileSize);
         }
+
+    } catch (error) {
+        console.log('error file upload ', error);
     }
+}
 
     handleRemove(event) {
         // Get the label of the lightning pill associated with the remove button
@@ -718,8 +722,7 @@ export default class UploadImage extends LightningElement {
         }
     }
     
-    
-
+   
     handleclick(event) {
         if (this.recordId) {
             this.isnull = true;
@@ -762,18 +765,21 @@ export default class UploadImage extends LightningElement {
         }
     }
 
+    
+    
     async uploadToAWS() {
         try {
             for (let f = 0; f < this.selectedFilesToUpload.length; f++) {
+                this.currentFileName = this.fileName[f];
+                this.currentFileSize = this.fileSize[f];
                 this.initializeAwsSdk(this.confData);
                 if (this.isWatermark === true) {
-
                     let outImage = await this.imageWithWatermark(this.selectedFilesToUpload[f]);
                     const format = outImage.substring(outImage.indexOf('data:') + 5, outImage.indexOf(';base64'));
                     const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
                     const Buffer = buffer.Buffer;
                     const buff = new Buffer(base64String, 'base64');
-
+    
                     if (buff) {
                         let objKey = this.fileName[f]
                             .replace(/\s+/g, "_")
@@ -785,17 +791,15 @@ export default class UploadImage extends LightningElement {
                             ContentEncoding: 'base64',
                             ACL: "public-read"
                         };
-
+    
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
                         });
-
-
+    
                         await upload.promise();
-
-
+    
                         let bucketName = this.confData.S3_Bucket_Name__c;
                         this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
                         this.isfileuploading = false;
@@ -807,21 +811,23 @@ export default class UploadImage extends LightningElement {
                         let objKey = this.fileName[f]
                             .replace(/\s+/g, "_")
                             .toLowerCase();
-
+    
                         let params = {
                             Key: objKey,
                             ContentType: this.selectedFilesToUpload[f].type,
                             Body: this.selectedFilesToUpload[f],
                             ACL: "public-read"
                         };
-
-                        // Use S3 upload method for progress tracking (no need for ManagedUpload constructor)
+    
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
+                            this.fileSize[f] = progress.total; 
                         });
+    
                         await upload.promise();
+    
                         let bucketName = this.confData.S3_Bucket_Name__c;
                         this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
                         this.isfileuploading = false;
@@ -829,13 +835,16 @@ export default class UploadImage extends LightningElement {
                         this.listS3Objects();
                     }
                 }
-
+                
+                if (f < this.selectedFilesToUpload.length - 1) {
+                    this.fileName[f + 1] = this.isWatermark ? this.fileName[f + 1] + 'watermark' : this.fileName[f + 1];
+                }
             }
-
         } catch (error) {
             console.error("Error in uploadToAWS: ", error);
         }
     }
+    
 
     //listing all stored documents from S3 bucket
     listS3Objects() {

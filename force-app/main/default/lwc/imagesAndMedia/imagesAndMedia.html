@@ -59,37 +59,40 @@
                                 </span>
                             </div>
                             <input type="file" class="slds-file-selector__input slds-assistive-text"
-                                onchange={handleSelectedFiles} accept="image/png, image/jpeg, image/jpg"
-                                id="file-upload-input-107"
-                                aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106"
-                                multiple />
-                            <label class="slds-file-selector__body" for="file-upload-input-107"
-                                id="file-selector-secondary-label106">
-                                <span class="slds-file-selector__button slds-button slds-button_brand formbold-browse">
-                                    Browse files</span>
-                            </label>
-                        </div>
+                            onchange={handleSelectedFiles} accept="image/png, image/jpeg, image/jpg"
+                            id="file-upload-input-107"
+                            aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106"
+                            multiple />
+                        <label class="slds-file-selector__body" for="file-upload-input-107"
+                            id="file-selector-secondary-label106">
+                            <span class="slds-file-selector__button slds-button slds-button_brand formbold-browse">
+                                Browse files</span>
+                        </label>
                     </div>
-                    <br />
-                    <template if:false={isfileuploading}>
-                        <div class="lightning_pill">
-                            <template for:each={fileName} for:item="file">
-                                <lightning-pill key={file} label={file} onremove={handleRemove}></lightning-pill>
-                            </template>
-                        </div>
-                    </template>
-                    <template if:true={isfileuploading}>
-                        <div class="slds-p-around_medium lgc-bg progress slds-box">
-                            <div class="content">
-                                <div class="left-content">{fileName}</div>
-                                <div class="right-content">{uploadProgress}% , {fileSize} kb</div>
-                            </div>
-                            <progress value={uploadProgress} max="100"></progress>
-                            <b><lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon> Uploading</b>
-                        </div>
-                    </template>
                 </div>
+                <br />
+             
+                <template if:false={isfileuploading}>
+                    <div class="lightning_pill">
+                        <template for:each={fileName} for:item="file">
+                            <lightning-pill key={file} label={file} onremove={handleRemove}></lightning-pill>
+                        </template>
+                    </div>
+                </template>
+                <template if:true={isfileuploading}>
+                    <div class="slds-p-around_medium lgc-bg progress slds-box">
+                        <div class="content">
+                            <div class="left-content">{currentFileName}</div>
+                            <div class="right-content">{uploadProgress}% , {currentFileSize} kb</div>
+                        </div>
+                        <progress value={uploadProgress} max="100"></progress>
+                        <b><lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon> Uploading</b>
+                    </div>
+                </template>
+                
+                
             </div>
+        </div>
 
             <div class="lgc-bg">
                 <lightning-input style="margin-bottom: 4px;" type="checkbox" label="Upload Image With Watermark"
@@ -143,7 +146,7 @@
             <div class="sort-container" style="display: block;">
                 <div class="left" style="display: block;">
                     <p
-                        style="font-family: Inter;font-size: 16px;font-weight: 600;line-height: 20px;text-align: left;padding-bottom: 3%;">
+                        style="font-family:Inter;font-size: 16px;font-weight: 600;line-height: 20px;text-align: left;padding-bottom: 3%;">
                         SORT ON WEBSITE</p>
                 </div>
                 <div class="rightButton">
