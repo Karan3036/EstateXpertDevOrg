@@ -2,12 +2,12 @@ public with sharing class imagesAndMediaController {
 
     @AuraEnabled
     public static list<PropertyMedia__c> fetchdata(String recordId){
-        List<PropertyMedia__c> result = [SELECT Id, FilenameUrlEncoded__c,Tags__c, Name, Size__c,ExternalLink__c, Property__c,IsOnPortalFeed__c,	IsOnWebsite__c,IsOnExpose__c, SortOnExpose__c, SortOnPortalFeed__c, SortOnWebsite__c FROM PropertyMedia__c WHERE Property__c = :recordId];
+        List<PropertyMedia__c> result = [SELECT Id, FilenameUrlEncoded__c, Tags__c, Name, Filename__c, Size__c, ExternalLink__c, Property__c, IsOnPortalFeed__c, IsOnWebsite__c, IsOnExpose__c, SortOnExpose__c, SortOnPortalFeed__c, SortOnWebsite__c FROM PropertyMedia__c WHERE Property__c = :recordId ORDER BY Name ASC];
         return result;
     }
 
     @AuraEnabled
-    public static Boolean createmediaforlisting(String Name, Decimal Size, String recordId, String externalUrl){
+    public static Boolean createMedia(String Name, Decimal Size, String recordId, String externalUrl){
         PropertyMedia__c Media = new PropertyMedia__c();
         Media.FilenameUrlEncoded__c = externalUrl;
         Media.ExternalLink__c = externalUrl;
@@ -19,12 +19,24 @@ public with sharing class imagesAndMediaController {
     }
 
     @AuraEnabled
-    public static Boolean update_media_name(String id,String fileName, String url,List<String> picklistValues, String externalUrl){
+    public static Boolean createMediaForAWS(String Name, Decimal Size, String recordId, String externalUrl){
+        PropertyMedia__c Media = new PropertyMedia__c();
+        Media.FilenameUrlEncoded__c = externalUrl;
+        Media.ExternalLink__c = externalUrl;
+        Media.Name = Name;
+        Media.Filename__c = Name;
+        Media.Size__c = Size;
+        Media.Property__c = recordId;
+        insert Media;
+        return true;
+    }
+
+    @AuraEnabled
+    public static Boolean update_media_name(String id,String fileName,List<String> picklistValues){
+        
         List<PropertyMedia__c> result = [SELECT Id, Name,FilenameUrlEncoded__c,Tags__c, Size__c FROM PropertyMedia__c WHERE Id = :id LIMIT 1];
 
         result[0].Name = fileName;
-        result[0].FilenameUrlEncoded__c = url;
-        result[0].ExternalLink__c = url;
         if(picklistValues.size() >= 0){
             result[0].Tags__c = String.join(picklistValues, ';');
         }

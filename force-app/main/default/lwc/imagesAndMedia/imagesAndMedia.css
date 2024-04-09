@@ -129,12 +129,22 @@ progress {
 
 
 .sort-container {
-    display: flex;
+    display: block;
     margin-inline-start: auto;
     position: sticky;
     top: 0; 
-    z-index: 1000;
+    /* z-index: 1000; */
     background: white;
+    padding-top: 0.5rem;
+}
+
+.sort-container .left p{
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    padding-bottom: 3%;
 }
 
 div > .rightButton{
@@ -343,4 +353,200 @@ div > .left{
     position: sticky;
     top: 0;
     z-index: 999;
+}
+
+.titleStyle{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 30px;
+    padding-left: 15px;
+    background-color: rgba(48, 156, 243, 1.0);
+    color: white;
+    font-size: medium;
+}
+
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid-image {
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: auto;
+    border: 1px solid grey;
+    border-radius: 15px;
+    margin: 5px; /* Adjust the margin as needed */
+}
+
+.rkdiv .slds-is-open>.slds-accordion__content{
+    display: flex;
+    flex-direction: row;
+    width: -webkit-fill-available;
+    overflow: auto;
+}
+
+.rkdiv .slds-accordion{
+    width: -webkit-fill-available;
+}
+
+.rkdiv .slds-accordion__summary-action{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 30px;
+    padding-left: 15px;
+    background-color: rgba(27, 82, 151, 1.0);
+    color: white;
+    border-radius: 0px;
+    /* right: 2rem;
+    position: relative; */
+}
+
+/* .rkdiv .slds-accordion__summary{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 30px;
+    padding-left: 15px;
+    background-color: rgba(27, 82, 151, 1.0);
+    color: white;
+    right: 2rem;
+    position: relative;
+} */
+
+.rkdiv .slds-accordion__list-item{
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    width: -webkit-fill-available;
+    margin-left: 1vh 
+}
+
+/* .rkdiv lightning-primitive-icon{
+    position: relative;
+    left: 75rem; 
+} */
+
+.blankStyle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: -webkit-fill-available;
+    height: 5vh;
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0em;
+}
+
+.iconstyle .slds-icon-text-default {
+    fill: rgba(27, 82, 151, 1.0) !important;
+}
+
+.Next_Previous_btn{
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(0%, -50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.Previous_img_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(0,0,0,.6);
+    cursor: pointer;
+    margin-right: auto;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.Next_img_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(0,0,0,.6);
+    cursor: pointer;
+    margin-left: auto;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+}
+.img_preview_container{
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img_preview_container img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.close_img{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: all 0.24s linear;
+    border-radius: 4px;
+    background: rgb(81 83 85 / 80%);
+}
+
+.image_control_bar{
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 4rem;
+    backdrop-filter: blur(0.7px);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    padding-inline: 2rem;
+    opacity: 1;
+    transition: all 0.3s linear;
+    background: #0000008c;
+}
+.image_title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: white;
+}
+.image_preview{
+  display : flex;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  background: rgba(0, 0, 0, 0.8);;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  --sds-c-icon-color-foreground-default: white;
+}
+
+.appearsClass{
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14.52px;
+    text-align: left;
 }

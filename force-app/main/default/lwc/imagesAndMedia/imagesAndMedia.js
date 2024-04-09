@@ -2,8 +2,9 @@ import { LightningElement, track, api, wire } from "lwc";
 import getS3ConfigData from "@salesforce/apex/imagesAndMediaController.getS3ConfigSettings";
 import { loadScript } from "lightning/platformResourceLoader";
 import AWS_SDK from "@salesforce/resourceUrl/AWSSDK";
-import fetchdata from "@salesforce/apex/imagesAndMediaController.fetchdataforlisting";
-import createmedia from "@salesforce/apex/imagesAndMediaController.createmediaforlisting";
+import fetchdata from "@salesforce/apex/imagesAndMediaController.fetchdata";
+import createmedia from "@salesforce/apex/imagesAndMediaController.createMedia";
+import createMediaForAWS from "@salesforce/apex/imagesAndMediaController.createMediaForAWS";
 import deletemedia from "@salesforce/apex/imagesAndMediaController.deletelistingmedia";
 import update_media_name from "@salesforce/apex/imagesAndMediaController.update_media_name";
 import updateOrderState from '@salesforce/apex/imagesAndMediaController.updateOrderState';
@@ -21,7 +22,7 @@ export default class UploadImage extends LightningElement {
     isAwsSdkInitialized = false;
     @track currentFileName = '';
     @track currentFileSize = '';
-    @track uploadingFiles = []; 
+    @track uploadingFiles = [];
     @track selectedFilesToUpload = [];
     @track showSpinner = false;
     @track fileName = [];
@@ -39,7 +40,6 @@ export default class UploadImage extends LightningElement {
     @track isdeleteAll = false;
     @track isWatermark = true;
     @track rec_id_to_delete;
-    @track deleteObjNameInS3;
     @track disabled_cancel = true;
     @track imageUrl_to_upload;
     @track isdelete = false;
@@ -56,6 +56,7 @@ export default class UploadImage extends LightningElement {
     @track Website = [];
     @track Portal = [];
     @track sortOn = [];
+    @track imageInImagePreview = []
     @track expose_records_to_update = [];
     @track portal_records_to_update = [];
     @track website_records_to_update = [];
@@ -82,6 +83,16 @@ export default class UploadImage extends LightningElement {
             { label: 'Video', value: 'Video' }
         ];
     }
+
+    @track Show_ImagePreview = false;
+    @track PreviewImageTitle;
+    @track Is_ImageHavePreview = false;
+    @track PreviewImageSrc;
+    @track PreviewImgSpinner = false;
+    @track NotFirstImg = false;
+    @track NotLastImg = false;
+    buttonClickName;
+    @track FileNameInAWS;
 
     connectedCallback() {
         this.getS3ConfigDataAsync();
@@ -125,7 +136,7 @@ export default class UploadImage extends LightningElement {
         this.expose_records_to_update_false = [];
         this.website_records_to_update_false = [];
         this.portal_records_to_update_false = [];
-        this.data = null;
+        this.data = [];
         this.fetchingdata();
     }
 
@@ -159,7 +170,7 @@ export default class UploadImage extends LightningElement {
         return match ? match[1] : null;
     }
 
-    
+
 
     upload_image() {
         if (this.imageTitle_to_upload && this.imageUrl_to_upload) {
@@ -175,11 +186,11 @@ export default class UploadImage extends LightningElement {
                     this.imageTitle_to_upload = null;
                     this.isnull = true;
                 })
-                .catch(error => {
-                    this.toast('Error creating record', 'Image URL is Invalid.', 'Error');
-                    this.fetchingdata();
-                    console.error('Error:', error);
-                });
+                    .catch(error => {
+                        this.toast('Error creating record', 'Image URL is Invalid.', 'Error');
+                        this.fetchingdata();
+                        console.error('Error:', error);
+                    });
             } else if (this.selected_url_type === 'Video') {
                 const videoId = this.createThumb(this.imageUrl_to_upload);
                 this.ispopup = false;
@@ -195,10 +206,10 @@ export default class UploadImage extends LightningElement {
                     this.imageTitle_to_upload = null;
                     this.isnull = true;
                 })
-                .catch(error => {
-                    this.toast('Error creating record', 'Video URL is Invalid.', 'Error');
-                    console.error('Error:', error);
-                });
+                    .catch(error => {
+                        this.toast('Error creating record', 'Video URL is Invalid.', 'Error');
+                        console.error('Error:', error);
+                    });
             }
         } else {
             this.toast('Error', 'Image URL and file name are required.', 'Error');
@@ -245,23 +256,28 @@ export default class UploadImage extends LightningElement {
             virtual_tour_checked: this.virtual_tour_checked,
             tour_checked: this.tour_checked
         };
+
         let list_check = event.currentTarget.dataset.tags.split(",");
         if (list_check.length > 0) {
             for (let tags_name = 0; tags_name < list_check.length; tags_name++) {
                 if (list_check[tags_name] === 'Floorplan') {
                     this.floorplan_checked = true;
+                    this.initialValues.floorplan_checked = this.floorplan_checked;
                     this.picklistValues.push(list_check[tags_name]);
                 }
                 if (list_check[tags_name] === 'Virtual Tour') {
                     this.virtual_tour_checked = true;
+                    this.initialValues.virtual_tour_checked = this.virtual_tour_checked;
                     this.picklistValues.push(list_check[tags_name]);
                 }
                 if (list_check[tags_name] === '360tour') {
                     this.tour_checked = true;
+                    this.initialValues.tour_checked = this.tour_checked;
                     this.picklistValues.push(list_check[tags_name]);
                 }
             }
         }
+        console.log('this.initialValues-->', this.initialValues);
     }
 
     confirm_edit() {
@@ -281,56 +297,20 @@ export default class UploadImage extends LightningElement {
         this.event_img_name = undefined;
         this.picklistValues = [];
         this.isedit = false;
-        this.isChangesMade = true;
+        this.isSaveDisabled = true;
         this.edit_image_name();
     }
 
     edit_image_name() {
-        const isNameChanged = this.initialValues.current_img_name !== this.event_img_name;
-        console.log('isNameChanged-->',isNameChanged);
-        const isFloorplanChanged = this.initialValues.floorplan_checked !== this.floorplan_checked;
-        console.log('isFloorplanChanged-->',isFloorplanChanged);
-        const isVirtualTourChanged = this.initialValues.virtual_tour_checked !== this.virtual_tour_checked;
-        console.log('isVirtualTourChanged-->',isVirtualTourChanged);
-        const isTourChanged = this.initialValues.tour_checked !== this.tour_checked;
-        console.log('isTourChanged-->',isTourChanged);
-        if (this.nameIsChanged) {
-                console.log('In if of edit image name');
-                for (let img = 0; img < this.img_name.length; img++) {
-                    let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
-                    let newkey = this.img_name[img].replace(/\s+/g, "_").toLowerCase();
-                    this.updateFileNameInS3(oldKey, newkey).then(() => {
-                        this.isedit = false;
-                        return update_media_name({
-                            id: this.rec_id_to_update[img],
-                            fileName: this.img_name[img],
-                            url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${newkey}`,
-                            externalUrl: this.imageUrl_to_upload,
-                            picklistValues: this.finalPicklistValues[img].length > 0 ? this.finalPicklistValues[img] : null
-
-                        });
-                    }).then(result => {
-                        this.event_img_name = undefined;
-                        this.img_name = [];
-                        this.img_old_name = [];
-                        this.rec_id_to_update = [];
-                        this.picklistValues = [];
-                        this.finalPicklistValues = [];
-                        this.fetchingdata();
-                        this.isnull = true;
-                    });
-                }
-
-        } else if (this.tagIsChanged) {
-            console.log('in else if');
-            for (let img = 0; img < this.img_old_name.length; img++) {
-                let oldKey = this.img_old_name[img].replace(/\s+/g, "_").toLowerCase();
+        if (this.nameIsChanged || this.tagIsChanged) {
+            for (let img = 0; img < this.img_name.length; img++) {
+                console.log('rec_id:', this.rec_id_to_update[img]);
+                console.log('rec_id:', this.img_name[img]);
+                this.isedit = false;
                 update_media_name({
                     id: this.rec_id_to_update[img],
-                    fileName: this.img_old_name[img],
-                    url: `https://${this.confData.S3_Bucket_Name__c}.s3.amazonaws.com/${oldKey}`,
-                    externalUrl: this.imageUrl_to_upload,
-                    picklistValues: this.finalPicklistValues[img].length > 0 ? this.finalPicklistValues[img] : null
+                    fileName: this.img_name[img],
+                    picklistValues:this.finalPicklistValues[img].length>0?this.finalPicklistValues[img] : null
                 }).then(result => {
                     this.event_img_name = undefined;
                     this.img_name = [];
@@ -341,10 +321,9 @@ export default class UploadImage extends LightningElement {
                     this.fetchingdata();
                     this.isnull = true;
                 });
-
             }
         } else {
-            console.log('in else');
+            this.toast('Error', 'Nothing to Update', 'Error');
         }
     }
 
@@ -384,14 +363,15 @@ export default class UploadImage extends LightningElement {
 
     async deleteFileInAWS() {
         try {
-            this.initializeAwsSdk(this.confData);
-            var oldKey = this.deleteObjNameInS3.replace(/\s+/g, "_").toLowerCase();
-            let bucketName = this.confData.S3_Bucket_Name__c;
-            await this.s3.deleteObject({
-                Bucket: bucketName,
-                Key: oldKey,
-            }).promise();
-
+            if (this.FileNameInAWS != undefined) {
+                this.initializeAwsSdk(this.confData);
+                var oldKey = this.FileNameInAWS.replace(/\s+/g, "_").toLowerCase();
+                let bucketName = this.confData.S3_Bucket_Name__c;
+                await this.s3.deleteObject({
+                    Bucket: bucketName,
+                    Key: oldKey,
+                }).promise();
+            }
         } catch (error) {
             console.error('Error delete file in S3:', error);
         }
@@ -544,7 +524,7 @@ export default class UploadImage extends LightningElement {
 
     delete_row(event) {
         this.rec_id_to_delete = event.currentTarget.dataset.key;
-        this.deleteObjNameInS3 = event.currentTarget.dataset.name;
+        this.FileNameInAWS = event.currentTarget.dataset.label;
         this.isdelete = true;
     }
 
@@ -607,7 +587,7 @@ export default class UploadImage extends LightningElement {
         try {
             this.confData = await getS3ConfigData();
         } catch (error) {
-            console.log('error-->',error);
+            console.log('error-->', error);
         }
     }
 
@@ -627,6 +607,14 @@ export default class UploadImage extends LightningElement {
                     border: 1px dashed rgba(24, 73, 214, 1) !important;
                 }
 
+                .imagesAndMediaClass .slds-tabs_card .slds-card__header, .slds-tabs_card .slds-card__body, .slds-tabs_card .slds-card__footer, .slds-tabs_card.slds-tabs_card .slds-card__header, .slds-tabs_card.slds-tabs_card .slds-card__body, .slds-tabs_card.slds-tabs_card .slds-card__footer {
+                    margin-top: 0 !important;
+                }
+
+                .imagesAndMediaClass .slds-tabs_card .slds-card__header, .slds-tabs_card.slds-tabs_card .slds-card__header {
+                    display: none;
+                }
+
                 .tableDiv .slds-table_bordered{
                     border-top: 0px !important;
                     border-bottom: 0px !important;
@@ -640,6 +628,18 @@ export default class UploadImage extends LightningElement {
 
                 .navexStandardManager .slds-template__container .slds-spinner_container, .navexStandardManager>.center .s1FixedTop {
                     z-index: 10000 !important;
+                }
+
+                .close_img .slds-icon-text-default {
+                    fill: white;
+                }
+
+                .Previous_img_btn .slds-icon-text-default {
+                    fill: white;
+                }
+
+                .Next_img_btn .slds-icon-text-default {
+                    fill: white;
                 }
             `;
 
@@ -681,35 +681,35 @@ export default class UploadImage extends LightningElement {
             console.log("error initializeAwsSdk ", error);
         }
     }
-   //get the file name from user's selection
-   async handleSelectedFiles(event) {
-    try {
-        if (event.target.files.length > 0) {
-            for (let file = 0; file < event.target.files.length; file++) {
-                this.selectedFilesToUpload.push(event.target.files[file]);
-                this.isnull = false;
-                this.disabled_checkbox = false;
-                this.fileName.push(event.target.files[file].name);
-                this.fileSize.push(Math.floor((event.target.files[file].size) / 1024));
+    //get the file name from user's selection
+    async handleSelectedFiles(event) {
+        try {
+            if (event.target.files.length > 0) {
+                for (let file = 0; file < event.target.files.length; file++) {
+                    this.selectedFilesToUpload.push(event.target.files[file]);
+                    this.isnull = false;
+                    this.disabled_checkbox = false;
+                    this.fileName.push(event.target.files[file].name);
+                    this.fileSize.push(Math.floor((event.target.files[file].size) / 1024));
+                }
+                console.log('selectedfile names', this.fileName);
+                console.log('selectedfiles', this.selectedFilesToUpload);
+                console.log('selectedfile sizes', this.fileSize);
             }
-            console.log('selectedfile names', this.fileName);
-            console.log('selectedfiles', this.selectedFilesToUpload);
-            console.log('selectedfile sizes', this.fileSize);
-        }
 
-    } catch (error) {
-        console.log('error file upload ', error);
+        } catch (error) {
+            console.log('error file upload ', error);
+        }
     }
-}
 
     handleRemove(event) {
         // Get the label of the lightning pill associated with the remove button
         const fileNameToRemove = event.target.closest('lightning-pill').label;
         console.log('Removing file:', fileNameToRemove);
-    
+
         // Find the index of the file to remove in the fileName array
         const indexToRemove = this.fileName.indexOf(fileNameToRemove);
-        
+
         // If the file is found in the array, remove it
         if (indexToRemove !== -1) {
             this.fileName.splice(indexToRemove, 1);
@@ -721,8 +721,8 @@ export default class UploadImage extends LightningElement {
             console.error('File not found in fileName array:', fileNameToRemove);
         }
     }
-    
-   
+
+
     handleclick(event) {
         if (this.recordId) {
             this.isnull = true;
@@ -730,7 +730,7 @@ export default class UploadImage extends LightningElement {
                 .then(() => {
                     var contents = [];
                     for (let file = 0; file < this.selectedFilesToUpload.length; file++) {
-                        contents.push(createmedia({
+                        contents.push(createMediaForAWS({
                             recordId: this.recordId,
                             externalUrl: this.fileURL[file],
                             Name: this.fileName[file] = this.isWatermark ? this.fileName[file] + 'watermark' : this.fileName[file],
@@ -765,8 +765,8 @@ export default class UploadImage extends LightningElement {
         }
     }
 
-    
-    
+
+
     async uploadToAWS() {
         try {
             for (let f = 0; f < this.selectedFilesToUpload.length; f++) {
@@ -779,7 +779,7 @@ export default class UploadImage extends LightningElement {
                     const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
                     const Buffer = buffer.Buffer;
                     const buff = new Buffer(base64String, 'base64');
-    
+
                     if (buff) {
                         let objKey = this.fileName[f]
                             .replace(/\s+/g, "_")
@@ -791,15 +791,15 @@ export default class UploadImage extends LightningElement {
                             ContentEncoding: 'base64',
                             ACL: "public-read"
                         };
-    
+
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
                         });
-    
+
                         await upload.promise();
-    
+
                         let bucketName = this.confData.S3_Bucket_Name__c;
                         this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
                         this.isfileuploading = false;
@@ -811,23 +811,23 @@ export default class UploadImage extends LightningElement {
                         let objKey = this.fileName[f]
                             .replace(/\s+/g, "_")
                             .toLowerCase();
-    
+
                         let params = {
                             Key: objKey,
                             ContentType: this.selectedFilesToUpload[f].type,
                             Body: this.selectedFilesToUpload[f],
                             ACL: "public-read"
                         };
-    
+
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
-                            this.fileSize[f] = progress.total; 
+                            this.fileSize[f] = progress.total;
                         });
-    
+
                         await upload.promise();
-    
+
                         let bucketName = this.confData.S3_Bucket_Name__c;
                         this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
                         this.isfileuploading = false;
@@ -835,7 +835,7 @@ export default class UploadImage extends LightningElement {
                         this.listS3Objects();
                     }
                 }
-                
+
                 if (f < this.selectedFilesToUpload.length - 1) {
                     this.fileName[f + 1] = this.isWatermark ? this.fileName[f + 1] + 'watermark' : this.fileName[f + 1];
                 }
@@ -844,7 +844,7 @@ export default class UploadImage extends LightningElement {
             console.error("Error in uploadToAWS: ", error);
         }
     }
-    
+
 
     //listing all stored documents from S3 bucket
     listS3Objects() {
@@ -1025,7 +1025,7 @@ export default class UploadImage extends LightningElement {
     clearwebsite() {
         this.website_records_to_update = [];
         this.website_records_to_update_false = [];
-        this.Website = null;
+        this.Website = [];
         this.data.forEach(item => {
             item.IsOnWebsite__c = false;
             this.website_records_to_update_false.push(item.Id);
@@ -1059,7 +1059,7 @@ export default class UploadImage extends LightningElement {
         this.expose_records_to_update_false = [];
         this.website_records_to_update_false = [];
         this.portal_records_to_update_false = [];
-        this.Expose = null;
+        this.Expose = [];
         this.data.forEach(item => {
             item.IsOnExpose__c = false;
             this.expose_records_to_update_false.push(item.Id);
@@ -1085,7 +1085,7 @@ export default class UploadImage extends LightningElement {
     clearportal() {
         this.portal_records_to_update = [];
         this.portal_records_to_update_false = [];
-        this.Portal = null;
+        this.Portal = [];
         this.data.forEach(item => {
             item.IsOnPortalFeed__c = false;
             this.portal_records_to_update_false.push(item.Id);
@@ -1097,9 +1097,12 @@ export default class UploadImage extends LightningElement {
         this.isWatermark = event.target.checked;
     }
     tags_checked(event) {
+        console.log('onchange of checkbox');
         if (event.target.name === 'Floorplan') {
+            console.log('inside iff');
             this.floorplan_checked = event.target.checked;
-
+            console.log('this.floorplan_checked-->', this.floorplan_checked);
+            this.checkChanges();
             if (this.floorplan_checked) {
                 this.picklistValues.push(event.target.name);
 
@@ -1107,9 +1110,11 @@ export default class UploadImage extends LightningElement {
                 let index_of_item = this.picklistValues.indexOf(event.target.name);
                 this.picklistValues.splice(index_of_item, 1);
             }
-        }
-        if (event.target.name === 'Virtual Tour') {
+        } else if (event.target.name === 'Virtual Tour') {
+            console.log('inside iff else');
             this.virtual_tour_checked = event.target.checked;
+            console.log('this.virtual_tour_checked-->', this.virtual_tour_checked);
+            this.checkChanges();
             if (this.virtual_tour_checked) {
                 this.picklistValues.push(event.target.name);
 
@@ -1117,9 +1122,11 @@ export default class UploadImage extends LightningElement {
                 let index_of_item = this.picklistValues.indexOf(event.target.name);
                 this.picklistValues.splice(index_of_item, 1);
             }
-        }
-        if (event.target.name === '360tour') {
+        } else if (event.target.name === '360tour') {
+            console.log('inside iff else 12');
             this.tour_checked = event.target.checked;
+            console.log('this.tour_checked-->', this.tour_checked);
+            this.checkChanges();
             if (this.tour_checked) {
                 this.picklistValues.push(event.target.name);
 
@@ -1128,7 +1135,6 @@ export default class UploadImage extends LightningElement {
                 this.picklistValues.splice(index_of_item, 1);
             }
         }
-        this.checkChanges();
     }
 
     async imageWithWatermark(image) {
@@ -1151,8 +1157,23 @@ export default class UploadImage extends LightningElement {
         this.dispatchEvent(toastEvent)
     }
 
-    notYet() {
-        this.toast('Error', 'The functionality has not yet been determined; therefore, please await further updates.', 'Error');
+    previewAllImages(event) {
+        var buttonClick = event.target.dataset.name;
+        if (buttonClick == 'Expose' && this.Expose.length > 0) {
+            this.imageInImagePreview = this.Expose;
+            this.changeImageHelper(this.imageInImagePreview[0].Id, false);
+            this.openCustomPreviewHelper(this.imageInImagePreview[0].FilenameUrlEncoded__c, this.imageInImagePreview[0].Name, this.imageInImagePreview[0].Id);
+        } else if (buttonClick == 'Website' && this.Website.length > 0) {
+            this.imageInImagePreview = this.Website;
+            this.changeImageHelper(this.imageInImagePreview[0].Id, false);
+            this.openCustomPreviewHelper(this.imageInImagePreview[0].FilenameUrlEncoded__c, this.imageInImagePreview[0].Name, this.imageInImagePreview[0].Id);
+        } else if (buttonClick == 'PortalFeed' && this.Portal.length > 0) {
+            this.imageInImagePreview = this.Portal;
+            this.changeImageHelper(this.imageInImagePreview[0].Id, false);
+            this.openCustomPreviewHelper(this.imageInImagePreview[0].FilenameUrlEncoded__c, this.imageInImagePreview[0].Name, this.imageInImagePreview[0].Id);
+        } else {
+            this.toast('Error', 'There are no Images for preview.', 'Error');
+        }
     }
 
     // Method to check if any changes have been made
@@ -1161,14 +1182,97 @@ export default class UploadImage extends LightningElement {
         const isFloorplanChanged = this.initialValues.floorplan_checked !== this.floorplan_checked;
         const isVirtualTourChanged = this.initialValues.virtual_tour_checked !== this.virtual_tour_checked;
         const isTourChanged = this.initialValues.tour_checked !== this.tour_checked;
-    
+
         this.isSaveDisabled = !(isNameChanged || isFloorplanChanged || isVirtualTourChanged || isTourChanged);
         if (isNameChanged) {
-            console.log('isNameChanged-->',isNameChanged);
+            console.log('isNameChanged-->', isNameChanged);
             this.nameIsChanged = true;
-        } else if(isFloorplanChanged || isVirtualTourChanged || isTourChanged){
-            console.log('isFloorplanChanged || isVirtualTourChanged || isTourChanged',isFloorplanChanged || isVirtualTourChanged || isTourChanged);
+        } else if (isFloorplanChanged || isVirtualTourChanged || isTourChanged) {
+            console.log('isFloorplanChanged || isVirtualTourChanged || isTourChanged', isFloorplanChanged || isVirtualTourChanged || isTourChanged);
             this.tagIsChanged = true;
+        } else if (!(isFloorplanChanged || isVirtualTourChanged || isTourChanged)) {
+            this.tagIsChanged = false;
+        } else if (!isNameChanged) {
+            this.nameIsChanged = false;
+        }
+    }
+
+    stopEventPropagation(event) {
+        event.stopPropagation();
+    }
+
+    closeImagePreview() {
+        this.Is_ImageHavePreview = false;
+        this.Show_ImagePreview = false;
+    }
+
+    handleImageLoaded() {
+        this.PreviewImgSpinner = false;
+    }
+
+    handleImageNotLoaded() {
+        this.Is_ImageHavePreview = false;
+        this.PreviewImgSpinner = false;
+    }
+
+    changeImg(event) {
+        this.Is_ImageHavePreview = false;
+        this.Show_ImagePreview = false;
+        this.buttonClickName = event.currentTarget.dataset.name;
+        this.changeImageHelper(this.PreviewImageId, true);
+    }
+
+    changeImageHelper(imageId, nextPreviusBtnClick) {
+        try {
+            const imagePreviewList = this.imageInImagePreview;
+            for (let i in imagePreviewList) {
+                if (imagePreviewList[i].Id == imageId) {
+                    if (nextPreviusBtnClick == true) {
+                        if (this.buttonClickName == 'Previous_Image') {
+                            let imageSrc = imagePreviewList[parseInt(i) - 1].FilenameUrlEncoded__c;
+                            let imageTitle = imagePreviewList[parseInt(i) - 1].Name;
+                            let previewImageId = imagePreviewList[parseInt(i) - 1].Id;
+                            this.changeImageHelper(previewImageId, false);
+                            this.openCustomPreviewHelper(imageSrc, imageTitle, previewImageId);
+                        } else if (this.buttonClickName == 'Next_Image') {
+                            let imageSrc = imagePreviewList[parseInt(i) + 1].FilenameUrlEncoded__c;
+                            let imageTitle = imagePreviewList[parseInt(i) + 1].Name;
+                            let previewImageId = imagePreviewList[parseInt(i) + 1].Id;
+                            this.changeImageHelper(previewImageId, false);
+                            this.openCustomPreviewHelper(imageSrc, imageTitle, previewImageId);
+                        }
+                    } else if (nextPreviusBtnClick == false) {
+                        // Check if it's the first image
+                        if (i == 0) {
+                            this.NotFirstImg = false;
+                        } else {
+                            this.NotFirstImg = true;
+                        }
+
+                        // Check if it's the last image
+                        if (i == imagePreviewList.length - 1) {
+                            this.NotLastImg = false;
+                        } else {
+                            this.NotLastImg = true;
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.log('error in changeImageHelper : ', error.stack);
+        }
+    }
+
+    openCustomPreviewHelper(imageSrc, imageTitle, previewImageId) {
+        try {
+            this.PreviewImageSrc = imageSrc;
+            this.PreviewImageTitle = imageTitle;
+            this.PreviewImageId = previewImageId;
+            this.PreviewImgSpinner = true;
+            this.Is_ImageHavePreview = true;
+            this.Show_ImagePreview = true;
+        } catch (error) {
+            console.log(error.message);
         }
     }
 }
