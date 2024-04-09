@@ -1,0 +1,65 @@
+.imagePreview_listview{
+    padding: 3%;
+ }
+ 
+ .property_card{
+    width:100%;
+    border:1px solid black;
+    border-radius:12px;
+    margin-bottom:2%;
+ }
+ .cardDetail{
+    display:flex;
+    justify-content:inline;
+    background-color:rgba(225, 241, 254, 1);
+    border-radius:12px;
+ }
+ 
+ .property_image{
+    width: 30%;
+    border-left:1px;
+    border-radius:12px;
+ }
+ .property_image img{
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height:200px;
+    width:400px;
+ }
+ .property_details{
+    width: 80%;
+    padding:1%;
+    display:flex;
+    justify-content:inline;
+ }
+ .leftside{
+    width: 90%;
+ }
+ .card-title{
+    font-size: 18px;
+ }
+ .card-text{
+    font-size: 16px;
+ }
+ .property_layout_item{
+    margin-right: 1%;
+ }
+ .property_data_number{
+    margin-left: 10px;
+ }
+ .availability_badge{
+    background-color:rgba(1, 118, 211, 1);
+    color:white;
+ }
+ .property_price{
+    margin-left: 15%;
+ }
+ 
+ .data_not_found{
+    width: 100%;
+    display:flex;
+    justify-content:center;
+ }
+ .data_not_found p{
+    font-size: 22px;
+ }

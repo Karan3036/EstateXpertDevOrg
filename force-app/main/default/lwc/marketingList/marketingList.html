@@ -1,112 +1,470 @@
 <template>
-  <lightning-card variant="base">
+    <lightning-card variant="base">
 
-    <!-- -----------------Top View of Marketing Component------------------ -->
-      <div class="slds-grid slds-wrap  slds-p-around_medium">
+        <!-- -----------------Top View of Marketing Component------------------ -->
+        <div class="slds-grid slds-wrap  slds-p-around_medium">
 
-          <div class="slds-col slds-size_12-of-12 div1">
-              <div class="first">
-                  <h6>Contacts</h6>
-                  <!-- <div class="slds-p-around_medium dropdown"> -->
-                      <b style="font-size:17px;">Default List</b>
-                      <lightning-button-menu alternative-text="Show menu" class="btn" icon-name="utility:down" icon-size="x-small">
-                          <lightning-menu-item value="MenuItemOne" label="Menu Item One"></lightning-menu-item>
-                          <lightning-menu-item value="MenuItemTwo" label="Menu Item Two"></lightning-menu-item>
-                          <lightning-menu-item value="MenuItemThree" label="Menu Item Three"></lightning-menu-item>
-                          <lightning-menu-item value="MenuItemFour" label="Menu Item Four"></lightning-menu-item>
-                      </lightning-button-menu>
-                  <!-- </div> -->
-                  <h6 style="margin-top: 15px;">2 items . sorted by Full Name</h6>
-              </div>
-
-              <div class="second slds-col slds-grow slds-shrink slds-text-align_right">
-                  <lightning-button 
-                      variant="Neutral"
-                      label="Send Email" 
-                      disabled
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="Start Drip Campaign" 
-                      disabled
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="Create Email Campaign" 
-                      disabled
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="Create Recurring Campaign"
-                      disabled 
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="Start Action Plan" 
-                      disabled
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="New Task" 
-                      disabled
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="Print" 
-                      onclick={handleClick} 
-                      style="margin-right: 10px;"
-                  ></lightning-button>
-                  <lightning-button 
-                      variant="Neutral"
-                      label="New Contact" 
-                      onclick={handleClick} 
-                  ></lightning-button>
-              </div>
-          </div>
-
-          <!-- ----------------------Left Side View------------------ -->
-          <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12" style="border: 2px solid rgb(15, 15, 15);">
-             <div class="slds-form-element">
-                <label class="slds-form-element__label" for="text-input-id-1">Listing Type</label>
-                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:search"></lightning-icon>
-                <input type="text" id="text-input-id-1" placeholder="Filter for Listing Type..." class="slds-input" />
+            <div class="slds-col slds-size_12-of-12 div1">
+                <div class="first">
+                    <h6>Contacts</h6>
+                    <!-- <div class="slds-p-around_medium dropdown"> -->
+                    <b style="font-size:17px;">Default List</b>
+                    <lightning-button-menu alternative-text="Show menu" class="btn" icon-name="utility:down"
+                        icon-size="x-small">
+                        <lightning-menu-item value="MenuItemOne" label="Menu Item One"></lightning-menu-item>
+                        <lightning-menu-item value="MenuItemTwo" label="Menu Item Two"></lightning-menu-item>
+                        <lightning-menu-item value="MenuItemThree" label="Menu Item Three"></lightning-menu-item>
+                        <lightning-menu-item value="MenuItemFour" label="Menu Item Four"></lightning-menu-item>
+                    </lightning-button-menu>
+                    <!-- </div> -->
+                    <h6 style="margin-top: 15px;">2 items . sorted by Full Name</h6>
                 </div>
 
-            <div class="slds-form-element">
-                <label class="slds-form-element__label" for="text-input-id-2">Lead Source</label>
-                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:search"></lightning-icon>
-                <input type="text" id="text-input-id-2" placeholder="Filter for Lead Source..." class="slds-input" />
+                <div class="second slds-col slds-grow slds-shrink slds-text-align_right">
+                    <lightning-button variant="Neutral" label="Send Email" class="top-btn" disabled
+                        onclick={handleClick}></lightning-button>
+                    <lightning-button variant="Neutral" label="Start Drip Campaign" class="top-btn" disabled
+                        onclick={handleClick}></lightning-button>
+                    <lightning-button variant="Neutral" label="Create Email Campaign" class="top-btn" disabled
+                        onclick={handleClick}></lightning-button>
+                    <lightning-button variant="Neutral" label="Create Recurring Campaign" class="top-btn" disabled
+                        onclick={handleClick}></lightning-button>
+                    <lightning-button variant="Neutral" label="Start Action Plan" class="top-btn" disabled
+                        onclick={handleClick} style="margin-right: 10px;"></lightning-button>
+                    <lightning-button variant="Neutral" label="New Task" class="top-btn" disabled
+                        onclick={handleClick}></lightning-button>
+                    <lightning-button variant="Neutral" class="top-btn" label="Print"
+                        onclick={handleClick}></lightning-button>
+                    <lightning-button variant="Neutral" label="New Contact" onclick={handleClick}></lightning-button>
+                    <div class="icons">
+                        <button class="slds-button slds-button_icon slds-button_icon-brand listBtn" title="Search"
+                            onclick={changeViewToList}>
+                            <lightning-icon class="list-icon" size="x-small" icon-name="utility:picklist_type"
+                                alternative-text="picklist_type!" title="picklist_type"></lightning-icon>
+                        </button>
+                        <button
+                            class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-neutral rowBtn"
+                            title="Search" onclick={changeViewToRow}>
+                            <lightning-icon class="row-icon" size="x-small" icon-name="utility:keypad"
+                                alternative-text="keypad!" title="keypad"></lightning-icon>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ----------------------Left Side View------------------ -->
+            <div class="left-div slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                <div class="slds-form-element form1">
+                    <label class="slds-form-element__label label1" for="text-input-id-1">Listing Type</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                        <lightning-icon size="x-small"
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default myIcon"
+                            icon-name="utility:search"></lightning-icon>
+                        <input type="text" id="text-input-id-1" placeholder="Filter for Listing Type..."
+                            class="slds-input listType" />
+                        <div class="trash-Btn">
+                            <button
+                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
+                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use
+                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                    </use>
+                                </svg>
+                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                <!-- </span> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-2">Lead Source</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                        <lightning-icon size="x-small"
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                            icon-name="utility:search"></lightning-icon>
+                        <input type="text" id="text-input-id-2" placeholder="Filter for Lead Source..."
+                            class="slds-input" />
+                        <div class="trash-Btn">
+                            <button
+                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
+                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete"
+                                        icon-size="large"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                <!-- </span> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-3">City</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right  city-div">
+                        <lightning-icon size="x-small"
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                            icon-name="utility:search"></lightning-icon>
+                        <input type="text" id="text-input-id-3" placeholder="Filter for City..." class="slds-input" />
+                        <div class="trash-Btn">
+                            <button
+                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
+                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use
+                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                    </use>
+                                </svg>
+                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                <!-- </span> -->
+                            </button>
+                        </div>
+                    </div>
+                    <lightning-button class="add-btn" variant="neutral" label="Add City" title="Add City"
+                        icon-name="utility:add" icon-size="small"></lightning-button>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-4">Price - Max</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                        <lightning-icon size="x-small"
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                            icon-name="utility:search"></lightning-icon>
+                        <input type="text" id="text-input-id-4" value="0 GBP" class="slds-input price-max" />
+                        <div class="trash-Btn">
+                            <button
+                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
+                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use
+                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                    </use>
+                                </svg>
+                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                <!-- </span> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-5">Bedrooms - Min</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                        <lightning-icon size="x-small"
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                            icon-name="utility:search"></lightning-icon>
+                        <input type="text" id="text-input-id-5" placeholder="Filter for Bedrooms - Min..."
+                            class="slds-input" />
+                        <div class="trash-Btn">
+                            <button
+                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
+                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use
+                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                    </use>
+                                </svg>
+                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                <!-- </span> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-6">Size - Min</label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                        <lightning-icon size="x-small"
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                            icon-name="utility:search"></lightning-icon>
+                        <input type="text" id="text-input-id-6" placeholder="Filter for Size - Min..."
+                            class="slds-input" />
+                        <div class="trash-Btn">
+                            <button
+                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
+                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use
+                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                    </use>
+                                </svg>
+                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                <!-- </span> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-fields">
+                    <lightning-button class="field-btn" variant="neutral" label="Add More Fields"
+                        title="Add More Fields" onclick={handleClick}></lightning-button>
                 </div>
             </div>
 
-            <div class="slds-form-element">
-                <label class="slds-form-element__label" for="text-input-id-3">City</label>
-                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:search"></lightning-icon>
-                <input type="text" id="text-input-id-3" placeholder="Filter for City..." class="slds-input" />
+            <!-- ----------------------Right Side View------------------ -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_9-of-12 right-div">
+                <div if:true={listView} style="height:20px;">
+                    <!-- style="margin-bottom:171px;" -->
+                    <table aria-multiselectable="true"
+                        class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
+                        role="grid" aria-label="Example advanced table of Opportunities in actionable mode">
+                        <thead>
+                            <tr class="heading">
+                                <th class="slds-text-align_right slds-cell_action-mode" scope="col"
+                                    style="width:3.25rem">
+                                    <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
+                                    <div class="slds-th__action slds-th__action_form">
+                                        <div class="slds-checkbox">
+                                            <input type="checkbox" name="options" id="checkbox-unique-id-293"
+                                                value="checkbox-unique-id-293" tabindex="0"
+                                                aria-labelledby="check-select-all-label column-group-header" />
+                                            <label class="slds-checkbox__label" for="checkbox-unique-id-293"
+                                                id="check-select-all-label">
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-form-element__label slds-assistive-text">Select
+                                                    All</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <span class="slds-truncate table-heading" title="Name">Name</span>
+                                </th>
+                                <th>
+                                    <span class="slds-truncate table-heading" title="Account Name">Account Name</span>
+                                </th>
+                                <th>
+                                    <span class="slds-truncate table-heading" title="Close Date">Close Date</span>
+                                </th>
+                                <th>
+                                    <span class="slds-truncate table-heading" title="Stage">Stage</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr aria-selected="false" class="slds-hint-parent">
+                                <td class="slds-text-align_right slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-03" value="checkbox-03"
+                                            tabindex="0" aria-labelledby="check-button-label-03 column-group-header" />
+                                        <label class="slds-checkbox__label" for="checkbox-03"
+                                            id="check-button-label-03">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-assistive-text">Select item
+                                                3</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <th class="slds-cell_action-mode my-vertical-padding" scope="row">
+                                    <div class="slds-truncate" title="salesforce.com - 1,000 Widgets">
+                                        <a href="#" tabindex="0">salesforce.com - 1,000 Widgets</a>
+                                    </div>
+                                </th>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="salesforce.com">salesforce.com</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Id. Decision Makers">Id. Decision Makers</div>
+                                </td>
+                            </tr>
+                            <tr aria-selected="false" class="slds-hint-parent">
+                                <td class="slds-text-align_right slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-06" value="checkbox-03"
+                                            tabindex="0" aria-labelledby="check-button-label-03 column-group-header" />
+                                        <label class="slds-checkbox__label" for="checkbox-06"
+                                            id="check-button-label-06">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-assistive-text">Select item
+                                                3</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <th class="slds-cell_action-mode my-vertical-padding" scope="row">
+                                    <div class="slds-truncate" title="salesforce.com - 1,000 Widgets">
+                                        <a href="#" tabindex="0">salesforce.com - 1,000 Widgets</a>
+                                    </div>
+                                </th>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="salesforce.com">salesforce.com</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Id. Decision Makers">Id. Decision Makers</div>
+                                </td>
+                            </tr>
+                            <tr aria-selected="false" class="slds-hint-parent">
+                                <td class="slds-text-align_right slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-04" value="checkbox-03"
+                                            tabindex="0" aria-labelledby="check-button-label-03 column-group-header" />
+                                        <label class="slds-checkbox__label" for="checkbox-04"
+                                            id="check-button-label-04">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-assistive-text">Select item
+                                                3</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <th class="slds-cell_action-mode my-vertical-padding" scope="row">
+                                    <div class="slds-truncate" title="salesforce.com - 1,000 Widgets">
+                                        <a href="#" tabindex="0">salesforce.com - 1,000 Widgets</a>
+                                    </div>
+                                </th>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="salesforce.com">salesforce.com</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Id. Decision Makers">Id. Decision Makers</div>
+                                </td>
+                            </tr>
+                            <tr aria-selected="false" class="slds-hint-parent">
+                                <td class="slds-text-align_right slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-05" value="checkbox-03"
+                                            tabindex="0" aria-labelledby="check-button-label-03 column-group-header" />
+                                        <label class="slds-checkbox__label" for="checkbox-05"
+                                            id="check-button-label-05">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-assistive-text">Select item
+                                                3</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <th class="slds-cell_action-mode my-vertical-padding" scope="row">
+                                    <div class="slds-truncate" title="salesforce.com - 1,000 Widgets">
+                                        <a href="#" tabindex="0">salesforce.com - 1,000 Widgets</a>
+                                    </div>
+                                </th>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="salesforce.com">salesforce.com</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Id. Decision Makers">Id. Decision Makers</div>
+                                </td>
+                            </tr>
+                            <tr aria-selected="false" class="slds-hint-parent">
+                                <td class="slds-text-align_right slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-07" value="checkbox-03"
+                                            tabindex="0" aria-labelledby="check-button-label-03 column-group-header" />
+                                        <label class="slds-checkbox__label" for="checkbox-07"
+                                            id="check-button-label-07">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-assistive-text">Select item
+                                                3</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <th class="slds-cell_action-mode my-vertical-padding" scope="row">
+                                    <div class="slds-truncate" title="salesforce.com - 1,000 Widgets">
+                                        <a href="#" tabindex="0">salesforce.com - 1,000 Widgets</a>
+                                    </div>
+                                </th>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="salesforce.com">salesforce.com</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Id. Decision Makers">Id. Decision Makers</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- --------------------RowView of RightSide-------------------------------- -->
+
+                <div style="height:453px;">
+                    <div if:true={rowView} class="slds-grid slds-gutters right-row">
+                        <div class="slds-col slds-size_4-of-12 my-grid">
+                            <div class="row-content">
+                                Full Name:-<br>Buisness Phone:-<br>Email:-<br>Lead Source:-
+                            </div>
+                            <div>
+                                Test 1<br>68279487037<br>bc@gmail.com<br>xyz
+                            </div>
+                            <div class="row-inputContent">
+                                <lightning-input class="row-checkbox" type="checkbox" variant="standard" name="name"
+                                    label=""></lightning-input>
+                                <lightning-button-icon class="row-icon" variant="bare" size="large"
+                                    icon-name="utility:share" alternative-text="opne"></lightning-button-icon>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 my-grid">
+                            <div class="row-content">
+                                Full Name:-<br>Buisness Phone:-<br>Email:-<br>Lead Source:-
+                            </div>
+                            <div>
+                                Test 1<br>68279487037<br>bc@gmail.com<br>xyz
+                            </div>
+                            <div class="row-inputContent">
+                                <lightning-input class="row-checkbox" type="checkbox" variant="standard" name="name"
+                                    label=""></lightning-input>
+                                <lightning-button-icon class="row-icon" variant="bare" size="large"
+                                    icon-name="utility:share" alternative-text="opne"></lightning-button-icon>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12 my-grid">
+                            <div class="row-content">
+                                Full Name:-<br>Buisness Phone:-<br>Email:-<br>Lead Source:-
+                            </div>
+                            <div>
+                                Test 1<br>68279487037<br>bc@gmail.com<br>xyz
+                            </div>
+                            <div class="row-inputContent">
+                                <lightning-input class="row-checkbox" type="checkbox" variant="standard" name="name"
+                                    label=""></lightning-input>
+                                <lightning-button-icon class="row-icon" variant="bare" size="large"
+                                    icon-name="utility:share" alternative-text="opne"></lightning-button-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ----------------------- Right View Bottom--------------------------------- -->
+                <div class="right-bottomView">
+
+                    <lightning-button variant="neutral" label="Previous" title="Previous" onclick={handleApprove}
+                        icon-name="utility:back" class="slds-p-around_x-small bottom-btn">
+                    </lightning-button>
+                    <div>
+                        <lightning-button class="numbers" variant="base" label="1" title="1"
+                            onclick={handleClick}></lightning-button>
+                        <lightning-button class="numbers" variant="base" label="2" title="2"
+                            onclick={handleClick}></lightning-button>
+                        <lightning-button class="numbers" variant="base" label="3" title="3"
+                            onclick={handleClick}></lightning-button>
+                        <lightning-button class="numbers" variant="base" label="..." title="..."
+                            onclick={handleClick}></lightning-button>
+                        <lightning-button class="numbers" variant="base" label="4" title="4"
+                            onclick={handleClick}></lightning-button>
+                        <lightning-button class="numbers" variant="base" label="5" title="5"
+                            onclick={handleClick}></lightning-button>
+                        <lightning-button class="numbers" variant="base" label="6" title="6"
+                            onclick={handleClick}></lightning-button>
+                    </div>
+                    <lightning-button variant="neutral" label="Next" title="Next" onclick={handleApprove}
+                        icon-name="utility:forward" class="slds-p-around_x-small bottom-btn" icon-position="right">
+                    </lightning-button>
+
                 </div>
             </div>
-            </div>
-          </div>
-
-          <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 div4" style="border: 2px solid rgb(22, 22, 22);">
-              <span>3</span>
-          </div>
-
-      </div>
-  </lightning-card>
+        </div>
+    </lightning-card>
 </template>

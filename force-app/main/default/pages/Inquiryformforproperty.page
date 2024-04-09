@@ -1,0 +1,38 @@
+<apex:page standardController="Inquiry__c" sidebar="false">
+    <!-- <apex:sectionHeader title="New Inquiry" /> -->
+    <apex:form >
+        <apex:pageBlock title="Property Inquiry Form">
+
+            <apex:pageBlockSection >
+                <apex:repeat value="{!$ObjectType.Inquiry__c.FieldSets.InquiryFieldSet}" var="fields">
+                <apex:inputField value="{!Inquiry__c[fields]}" required="{!fields.DBrequired}" />
+                </apex:repeat>
+                <!-- <apex:inputField value="{! Inquiry__c.Contact_Name__c }" />
+                <apex:inputField value="{! Inquiry__c.Contact_Email__c }" />
+                <apex:inputField value="{! Inquiry__c.Contact_Mobile__c }" />
+                <apex:inputField value="{! Inquiry__c.NewConstruction__c }" />
+                <apex:inputField value="{! Inquiry__c.PropertyType__c }" />
+                <apex:inputField value="{! Inquiry__c.ParkingAvailable__c }" />
+                <apex:inputField value="{! Inquiry__c.Bedrooms_min__c }" />
+                <apex:inputField value="{! Inquiry__c.Bedrooms_max__c }" />
+                <apex:inputField value="{! Inquiry__c.AcreMax__c }" />
+                <apex:inputField value="{! Inquiry__c.AcreMin__c }" />
+                <apex:inputField value="{! Inquiry__c.MonthlyRentMax__c }" />
+                <apex:inputField value="{! Inquiry__c.MonthlyRentMin__c }" />
+                <apex:inputField value="{! Inquiry__c.City__c }" />
+                <apex:inputField value="{! Inquiry__c.Area__c }" />
+                <apex:inputField value="{! Inquiry__c.UnitsMax__c }" />
+                <apex:inputField value="{! Inquiry__c.UnitsMin__c }" />
+                <apex:inputField value="{! Inquiry__c.TaxMax__c }" />
+                <apex:inputField value="{! Inquiry__c.TaxMin__c }" /> -->
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" />
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+            </apex:pageBlockButtons>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

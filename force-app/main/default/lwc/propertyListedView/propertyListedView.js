@@ -3,10 +3,12 @@ import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import logo from '@salesforce/resourceUrl/estatexpertlogo';
 import Img1 from '@salesforce/resourceUrl/DemoImg1';
 import Property_view_example from '@salesforce/resourceUrl/Property_view_example';
+import property_icons from '@salesforce/resourceUrl/PropertyViewIcons';
 import NextArrowIcon from '@salesforce/resourceUrl/NextArrowIcon';
 import PrevArrowIcon from '@salesforce/resourceUrl/PrevArrowIcon';
 import designcss from '@salesforce/resourceUrl/propertycssoveride';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingInformation';
+import getPropertyInformation from '@salesforce/apex/propertyViewController.getPropertyInformation';
 import { NavigationMixin } from 'lightning/navigation';
 
 const PAGE_SIZE = 3;
@@ -20,22 +22,51 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     nextArrowIcon = NextArrowIcon;
     prevArrowIcon = PrevArrowIcon;
     @track currentPage = 1;
+    @track left_arrow_disabled = true;
+    @track right_arrow_disabled = false;
     @track showSpinner = false;
     @track isData = false;
     @track ListingData =[];
-    @track bedrooms = 1;
-    @track bathrooms=1;
-    @track searchTerm;
+    @track bedrooms=0;
+    @track bathrooms=0;
+    @track searchTerm='';
+    @track result_found_numbers;
     @track FilteredListingData =[];
     @track FeaturedProperty = true;
     @track propertyMediaUrls;
+    @track listing_type='';
+    @track min_price='';
+    @track max_price='';
+    @track sq_ft='';
+    @track city='';
+    @track zip_code='';
+    @track neighbourhood='';
+    @track gridView=false;
+    @track listView = true;
+    @track all_property_numbers = 7;
+    @track pagedFilteredListingData = [];
+    @track propertyView = false;
+    @track show_more_button_class='show_last_button';
 
 
+    @track BedroomIcon = property_icons +'/Bedroom.png';
+    @track BathroomIcon = property_icons +'/Bathroom.png';
+    @track resourceUrl;
+    @track propertyData =[];
+    @track feature_icons;
+    @track currentRecordId;
     get totalPages() {
-        return Math.ceil(this.ListingData.filter(listing =>{
+
+        let totalPages = Math.ceil(this.ListingData.filter(listing =>{
             const featured_prop = this.FeaturedProperty?listing.Featured_Property__c == true:false;
             return featured_prop ;
         }).length / PAGE_SIZE);
+
+        if(totalPages=== 1 && this.currentPage ==1){
+            this.right_arrow_disabled = true;
+            this.left_arrow_disabled = true;
+        }
+        return totalPages;
     }
 
     get pagedProperties() {
@@ -52,6 +83,10 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.currentPage -= 1;
             this.pagedProperties;
         }
+        if(this.currentPage === 1){
+            this.left_arrow_disabled = true;
+            this.right_arrow_disabled = false;
+        }
     }
 
     goToNext() {
@@ -59,7 +94,11 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         if (this.currentPage!==this.totalPages) {
             console.log('onNext:',!this.currentPage ===this.totalPages);
             this.currentPage += 1;
+            this.left_arrow_disabled = false;
             this.pagedProperties;
+        }
+        if(this.currentPage===this.totalPages){
+            this.right_arrow_disabled = true;
         }
     }
 
@@ -110,12 +149,59 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     fetchListingData(){
         getListingData().then((result) => {
             console.log('result:',result);
+            
             this.FilteredListingData = result.Listings;
             this.ListingData = result.Listings;
             this.propertyMediaUrls =result.Medias;
-            console.log('ListingData:',this.propertyMediaUrls);
+            this.ListingData.forEach(row => {
+                const prop_id = row.Property_ID__c;
+                row.media_url = this.propertyMediaUrls[prop_id];
+            });
+            this.FilteredListingData.forEach(row => {
+                const prop_id = row.Property_ID__c;
+                row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] :'https://sellmyproperties.in/images/no-property-found.png';
+            });
+            this.result_found_numbers = this.FilteredListingData.length;
+            this.pagedFilteredListingData = this.FilteredListingData.slice(0, 6);
+            console.log('ListingData:',this.ListingData);
             this.isData = true;
         });
+    }
+
+    // showPropertyDetails(event){
+    //     this.currentRecordId = event.currentTarget.dataset.id;
+    //     console.log('recordId:',this.currentRecordId);
+    //     this.listView = false;
+    //     this.gridView = false;
+    //     this.propertyView=true;
+    //     this.getPropertyDetails();
+    // }
+
+    getPropertyDetails(){
+            getPropertyInformation({recordId:this.currentRecordId}).then((result) => {
+                console.log('result: ',result);
+                this.propertyData = result.Properties;
+                this.feature_icons = result.icons;
+                this.propertyData.forEach(row => {
+                    if (row.Amenities__c) {
+                        const amenitiesArray = row.Amenities__c.split(";");
+                        row.Amenities__c = amenitiesArray.map(amenity => {
+                            return {
+                                name: amenity,
+                                imgUrl: this.feature_icons[amenity]
+                            };
+                        });
+                    } else {
+                        row.Amenities__c = [];
+                    }
+                });
+                console.log('amenties: ',this.propertyData);
+            });
+    }
+
+    showAllProperties(){
+        this.show_more_button_class = 'not-show_last_button';
+        this.pagedFilteredListingData = this.FilteredListingData.slice(0,this.result_found_numbers);
     }
     searchTermValue(event){
         this.searchTerm = event.target.value;
@@ -153,24 +239,96 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             } 
         }
     }
+    view_type(event){
+        if(event.target.value==='List'){
+            this.gridView = false;
+            this.listView = true;
+        }
+        if(event.target.value==='Grid'){
+            this.listView = false;
+            this.gridView = true;
+        }
+    }
+
+    store_filter_values(event){
+        if(event.target.name==='listing_type'){
+            this.listing_type = event.target.value;
+        }
+        if(event.target.name==='min_price'){
+            this.min_price = event.target.value;
+        }
+        if(event.target.name==='max_price'){
+            this.max_price = event.target.value;
+        }
+        if(event.target.name==='sq_ft'){
+            this.sq_ft = event.target.value;
+        }
+        if(event.target.name==='city'){
+            this.city = event.target.value;
+        }
+        if(event.target.name==='zip_code'){
+            this.zip_code = event.target.value;
+        }
+        if(event.target.name==='neighbourhood'){
+            this.neighbourhood = event.target.value;
+        }
+
+    }
     applySearch(){
-        this.showSpinner = true;
-        // setTimeout(() => {
-            this.FilteredListingData = this.ListingData.filter(listing =>{
-                const nameIncludesSearch = this.searchTerm ? listing.City__c.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
+        console.log('searchterm:',this.searchTerm);
+        console.log('bedrooms:',this.bedrooms);
+        console.log('bathrooms:',this.bathrooms);
+        console.log('listing type:',this.listing_type);
+        console.log('min_price:',this.min_price);
+        console.log('max_price:',this.max_price);
+        console.log('sq_ft:',this.sq_ft);
+        console.log('city:',this.city);
+        console.log('zip_code:',this.zip_code);
+        console.log('neighbourhood:',this.neighbourhood);
+
+            this.pagedFilteredListingData = this.ListingData.filter(listing =>{
+                const nameIncludesSearch = this.searchTerm ? listing.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
                 const num_of_bathrooms = this.bathrooms?listing.Number_of_Bathrooms__c == this.bathrooms:true;
                 const num_of_bedrooms = this.bedrooms?listing.Number_of_Bedrooms__c == this.bedrooms:true;
-                return nameIncludesSearch && num_of_bathrooms && num_of_bedrooms;
+                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
+                const isPriceGreaterThan = this.min_price ? Number(listing.Listing_Price__c) >= Number(this.min_price) : true;
+                const isPriceLesserThan = this.max_price ? Number(listing.Listing_Price__c) <= Number(this.max_price) : true;
+                const isSqFt = this.sq_ft ? Number(listing.Sq_Ft__c) == Number(this.sq_ft) : true;
+                const isCity = this.city ? listing.City__c.toLowerCase().includes(this.city.toLowerCase()) : true;
+                const isZipcode = this.zip_code ? Number(listing.Postal_Code__c) <= Number(this.zip_code) : true;
+                // const isNeighborhood = this.neighbourhood ? String(listing.Neighborhood_Information__c) <= String(this.neighbourhood) : true;
+                return nameIncludesSearch && num_of_bathrooms && num_of_bedrooms && isPropertyType && isPriceGreaterThan && isPriceLesserThan && isSqFt && isCity && isZipcode;
             });
             console.log('FilteredListingData:',this.FilteredListingData.length);
-            if(this.FilteredListingData.length <=0){
+            console.log('FilteredListingData:',this.FilteredListingData);
+
+            if(this.pagedFilteredListingData.length <=0){
                 this.isData = false;
+                this.show_more_button_class = 'not-show_last_button';
+                this.result_found_numbers = this.pagedFilteredListingData.length;
+                this.dropDownClass ='drop-down-none';
             }else{
                 this.isData = true;
+                this.show_more_button_class = 'not-show_last_button';
+                this.result_found_numbers = this.pagedFilteredListingData.length;
+                this.dropDownClass ='drop-down-none';
             }
-            this.showSpinner = false;
-        // }, 1000);
+
         
+    }
+    clearFilter(){
+        this.searchTerm = '';
+        this.bedrooms=0;
+        this.bathrooms=0;
+        this.listing_type='';
+        this.min_price='';
+        this.max_price='';
+        this.sq_ft='';
+        this.city='';
+        this.zip_code='';
+        this.neighbourhood='';
+        this.applySearch();
+
     }
 
 }

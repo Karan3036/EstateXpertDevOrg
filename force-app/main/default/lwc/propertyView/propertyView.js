@@ -4,7 +4,7 @@ import Property_view_example from '@salesforce/resourceUrl/Property_view_example
 import NextArrowIcon from '@salesforce/resourceUrl/NextArrowIcon'
 import PrevArrowIcon from '@salesforce/resourceUrl/PrevArrowIcon'
 import getPropertyInformation from '@salesforce/apex/propertyViewController.getPropertyInformation';
-import getIconUrl from '@salesforce/apex/propertyViewController.getIconUrl';
+// import getIconUrl from '@salesforce/apex/propertyViewController.getIconUrl';
 
 
 export default class PropertyView extends LightningElement {
@@ -39,6 +39,7 @@ export default class PropertyView extends LightningElement {
     @track prevArrowIcon = PrevArrowIcon;
     @track resourceUrl;
     @track propertyData =[];
+    @track feature_icons;
     // @track isResidential;
     // @track isCommercial;
     // @track isIndustrial;
@@ -52,16 +53,16 @@ export default class PropertyView extends LightningElement {
 
     getPropertyData(){
         getPropertyInformation({recordId:this.recordId}).then((result) => {
-            console.log('result: ' + JSON.stringify(result));
-            this.propertyData = result;
-
+            console.log('result: ',result);
+            this.propertyData = result.Properties;
+            this.feature_icons = result.icons;
             this.propertyData.forEach(row => {
                 if (row.Amenities__c) {
                     const amenitiesArray = row.Amenities__c.split(";");
                     row.Amenities__c = amenitiesArray.map(amenity => {
                         return {
                             name: amenity,
-                            imgUrl: this.getResourceUrl(amenity)
+                            imgUrl: this.feature_icons[amenity]
                         };
                     });
                 } else {

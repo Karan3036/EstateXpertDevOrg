@@ -1,68 +1,86 @@
-public with sharing class MapFieldCmp implements Metadata.DeployCallback {
-
-    @AuraEnabled
-    public static String storeCustomSettings(String listingRecordId) {
-        Listing__c listing = [SELECT City__c, Property_ID__c,Listing_Description__c, Listing_Price__c, Name ,List_Date__c, Number_Of_Bathrooms__c, Number_Of_Floors__c, Year_Built__c FROM Listing__c WHERE Id =: listingRecordId LIMIT 1];
-        String PropertyId = createPropertyFromMetadata(listing.City__c, listing.Listing_Description__c, listing.Name);
-        listing.Property_ID__c = PropertyId;
-        update listing;
-        // Asynchronously call method to create custom metadata
-        createUpdateMetadataAsync('Map_Listing_Property.' + listingRecordId, listingRecordId, listing.City__c, listing.Listing_Description__c, listing.Listing_Price__c, listing.Name);
+public with sharing class MapFieldCmp {
         
-        return 'Successfully initiated metadata creation';
-    }
-
-    @future
-    public static void createUpdateMetadataAsync(String fullName, String label, String city, String description, Decimal price, String title) {
-        Metadata.CustomMetadata customMetadata = new Metadata.CustomMetadata();
-        customMetadata.fullName = fullName;
-        customMetadata.label = label;
-
-        // Add individual fields to the custom metadata
-        Metadata.CustomMetadataValue cityValue = new Metadata.CustomMetadataValue();
-        cityValue.field = 'City__c';
-        cityValue.value = city;
-        customMetadata.values.add(cityValue);
-
-        Metadata.CustomMetadataValue descriptionValue = new Metadata.CustomMetadataValue();
-        descriptionValue.field = 'Listing_Description__c';
-        descriptionValue.value = description;
-        customMetadata.values.add(descriptionValue);
-
-        Metadata.CustomMetadataValue priceValue = new Metadata.CustomMetadataValue();
-        priceValue.field = 'Listing_Price__c';
-        priceValue.value = String.valueOf(price);
-        customMetadata.values.add(priceValue);
-
-        Metadata.CustomMetadataValue titleValue = new Metadata.CustomMetadataValue();
-        titleValue.field = 'Listing_Title__c';
-        titleValue.value = title;
-        customMetadata.values.add(titleValue);
-
-        Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
-        mdContainer.addMetadata(customMetadata);
-
-        Id jobId = Metadata.Operations.enqueueDeployment(mdContainer, new MapFieldCmp());
+    //get field data using schema builder
+    @AuraEnabled(cacheable=true)
+    public static List<Map<String, String>> getObjectFields(String objectName) {
+        List<Map<String, String>> fieldDetails = new List<Map<String, String>>();
+    
+        Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe().get(objectName).getDescribe();
         
-        
-    }
-
-    public void handleResult(Metadata.DeployResult result, Metadata.DeployCallbackContext context) {
-        if (result.status == Metadata.DeployStatus.Succeeded) {
-            System.debug(' success : '+ result);
-        } else {
-            System.debug(' fail : '+ result);
+        for (Schema.SObjectField field : describeResult.fields.getMap().values()) {
+            Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
+            
+            Map<String, String> fieldMap = new Map<String, String>();
+            fieldMap.put('label', fieldDescribe.getLabel());
+            fieldMap.put('apiName', fieldDescribe.getName());
+            
+            // Convert data type enum value to string
+            String dataType = fieldDescribe.getType().name();
+            fieldMap.put('dataType', dataType);
+            
+            fieldDetails.add(fieldMap);
         }
+    
+        return fieldDetails;
     }
 
-    // Method to create Property record using custom metadata values
-    public static String createPropertyFromMetadata(String city, String description, String name) {
-        Property__c property = new Property__c();
-        property.City__c = city;
-        property.Description__c = description;
-        property.Name = name;
+    //save the mapping in the metadata
+    @AuraEnabled(cacheable=true)
+    public static void saveMappings( String mappingsData ,Boolean checkboxValue){
+        //fetch records
+        List<Mapping_Metadata__mdt> metaList = 
+        [Select MasterLabel, DeveloperName, Mapping_String__c From Mapping_Metadata__mdt];
+        
+        //instance of the record
+        Metadata.CustomMetadata mdata = new Metadata.CustomMetadata();
+        mdata.fullName = 'Mapping_Metadata__mdt.'+metaList[0].DeveloperName;
+        mdata.label = metaList[0].MasterLabel;
+        
+        //instance of the value
+        Metadata.CustomMetadataValue instance = new Metadata.CustomMetadataValue();
+        instance.field = 'Mapping_String__c';
+        instance.value = mappingsData;
+        //adding the value to the record
+        mdata.values.add(instance);
 
-        insert property;
-        return property.Id;
-    }
+        Metadata.CustomMetadataValue instance2 = new Metadata.CustomMetadataValue();
+        instance2.field = 'Autometic_Sync__c';
+        instance2.value = checkboxValue;
+        //adding the value to the record
+        mdata.values.add(instance2);
+        
+        // instance.field = 'Autometic_Sync__c';
+        // instance.value = checkboxValue;
+        // mdata.values.add(instance);
+        
+        //instance of the container
+        Metadata.DeployContainer container = new Metadata.DeployContainer();
+        container.addMetadata(mdata);
+        
+        //enqueue deployment to the salesforce org
+        Metadata.Operations.enqueueDeployment(container, null);
+        
+     }
+
+     //retrieve string mapping from the metadata
+     @AuraEnabled(cacheable=true)
+     public static List<String> getMetadata() {
+         List<String> metadataValues = new List<String>();
+         
+         // Fetch records
+         List<Mapping_Metadata__mdt> metadataRecords = [SELECT Mapping_String__c, Autometic_Sync__c FROM Mapping_Metadata__mdt LIMIT 1];
+         
+         // Check if records exist
+         if (!metadataRecords.isEmpty()) {
+             Mapping_Metadata__mdt metadataRecord = metadataRecords[0];
+             
+             // Add field values to the list
+             metadataValues.add(metadataRecord.Mapping_String__c);
+             metadataValues.add(String.valueOf(metadataRecord.Autometic_Sync__c));
+         }
+         
+         return metadataValues;
+     }
+
+     
 }

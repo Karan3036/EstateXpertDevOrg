@@ -21,3 +21,158 @@ div{
    margin-left: 10px;
 
 }
+/* top button */
+div > lightning-button.top-btn{
+	margin-right: 10px;
+}
+
+div .left-div{
+	border: 2px solid rgb(15, 15, 15);
+}
+
+div .right-div{
+	border:2px solid rgb(22, 22, 22);
+}
+table > th.table-heading{
+	margin-left:10px;
+}
+
+/* right view */
+div .right-row{
+	margin:20px;
+	flex-wrap:wrap;
+}
+div .my-grid{
+	display:flex;
+	border:1px solid grey;
+	padding:10px;
+	justify-content:space-between;
+}
+div .row-content{
+	color:rgba(34, 106, 221, 0.993);
+	font-weight:bold;
+}
+
+div .row-inputContent{
+	position:relative;
+}
+div >  lightning-input.row-checkbox{
+	width:0;position:absolute;top:0px;right:11px;transform: scale(1.4);
+}
+div > lightning-button-icon.row-icon{
+	position:absolute;bottom:0;right:0;
+}
+
+div .right-bottomView{
+	display:flex;justify-content:space-between;margin:20px;
+}
+div .bottom-btn{
+	--sds-c-button-text-color:black;font-weight:bold;
+}
+
+.slds-form-element{
+	margin: 10px;
+	margin-bottom: 20px;
+}
+.form1{
+	margin-top: 4%;
+}
+.slds-form-element__control{
+	display: flex;
+}
+.city-div{
+	margin-bottom: 10px;
+}
+.slds-icon{
+	margin-right: 50px;
+}
+.trash-Btn{
+	margin-left: 15px;
+}
+.price-max{
+	font-weight: bold;
+}
+.add-fields{
+	max-width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
+}
+.second{
+	position: relative;
+}
+.icons{
+	position: absolute;
+    bottom: 0;
+    right: 0;
+	margin-right: 19px;
+	margin-bottom: 19px;
+}
+.list-icon{
+	margin: 5px;
+	 --sds-c-icon-color-foreground-default: white;
+	--lwc-colorTextIconDefault: white;
+	
+}
+.listBtn{
+	padding: 10px;
+	margin-right: 0px;
+	border-radius: 0px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.rowBtn{
+	margin-left: 0px;
+	border-radius: 0px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.rowBtn:active{
+	 --sds-c-icon-color-foreground-default: white;
+	background-color: rgba(34, 106, 221, 0.993);
+}
+
+/* .listType{
+	width: 96%;
+	margin-left: 10px;
+	margin-right: 15px;
+}
+.label1{
+	margin-left: 10px;
+}
+.myIcon{
+	margin-right: 10px;
+} */
+.left-div{
+	margin-right: 15px;
+}
+.right-div{
+	width: 73.91%;
+}
+
+thead .heading th{
+	background-color:rgb(215, 248, 248);
+    color: rgba(34, 106, 221, 0.993);
+	
+}
+table > tbody > tr > th.my-vertical-padding {
+  padding: 20px 0;
+}
+
+div > lightning-button.numbers{
+	padding: 10px;
+	margin-left: 7px;
+	border-radius: 4px;
+    -webkit-text-fill-color: black;
+}
+div > lightning-button.numbers:hover{
+	background-color:rgb(215, 248, 248);
+	font-weight: bold;
+}
+div > lightning-button.event{
+	-webkit-text-fill-color: black;
+}
+
+.row-grid{
+	border: 1px solid grey;
+}

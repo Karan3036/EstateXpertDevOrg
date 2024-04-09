@@ -1,0 +1,81 @@
+<template>
+    <lightning-card title="map">
+        <div class="container">
+            <div class="listingdata" style="width: 50%;">
+                <template if:true={listView}>
+                    <div class="imagePreview_listview">
+                        <!-- <p><b>{result_found_numbers} Properties </b>found:</p> -->
+                        <br/>
+                        <template if:true={isData}>
+                            <template for:each={pagedFilteredListingData} for:item="listing">
+                                <div class="mb-3 property_card" key={listing.Id}>
+                                    <div class="cardDetail">
+                                        <div class="property_image">
+                                            <img src={listing.media_url} style="height: 100%;" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="property_details">
+                                            <div class="leftside">
+                                                <h5 class="card-title"><b>{listing.Name}, {listing.City__c}</b></h5>
+                                                <br />
+                                                <p class="card-text">City view | 3rd floor | Elevator | Parking </p>
+                                                <br />
+                                                <lightning-layout multiple-rows class="layout">
+                                                    <lightning-layout-item class="property_layout_item">
+                                                        <div class="custom-box slds-text-align_center numberBox">
+                                                            <p>Bedrooms</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={BedroomIcon} class="iconImg"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p><b>{listing.Number_of_Bedrooms__c}</b></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item>
+                                                        <div class="custom-box slds-text-align_center numberBox">
+                                                            <p>Bathrooms</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={BathroomIcon} class="iconImg"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p><b>{listing.Number_of_Bathrooms__c}</b></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                </lightning-layout>
+                                            </div>
+                                            <div class="rightside">
+                                                <!-- <lightning-badge class="availability_badge"
+                                                    label="Available 28 Nov 2021"></lightning-badge>
+                                                <br /><br /> -->
+                                                <p class="property_price"><b>$ {listing.Listing_Price__c}</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+            </div>
+            <!-- <div class="listingmap" style="width: 50%;">
+                <div id="map" class="map-container">
+                    <lightning-map class="print-preview-div"
+                        map-markers={mapMarkers}
+                        onmarkerselect={handleMarkerSelect}
+                        selected-marker-value={selectedMarkerValue}
+                        list-view="hidden"
+                        zoom-level=18
+                    >
+                    </lightning-map>
+                </div>
+            </div> -->
+        </div>
+    </lightning-card>
+</template>
