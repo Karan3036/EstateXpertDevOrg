@@ -1,7 +1,108 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 65vh; /* Set your desired height */
+}
+
+.carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel div {
+    flex: 0 0 auto;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.navigation-boxes {
+    width: 100%;
+    position: absolute;
+    top: 70%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.box {
+    border-radius: 8px;
+    border: 3px solid white;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.box img {
+    border-radius: 8px;
+    width: 100px; /* Set your desired width */
+    height: 100px; /* Set your desired height */
+}
+
+.active {
+    /* transform: scale(1.1); */
+}
+
+.tab-container {
+    height: 100%;
+    width: auto;
+    padding: 1%;
+    border-radius: 28px;
+    overflow: overlay;
+ }
+ 
+ .tab-container::-webkit-scrollbar {
+    display: none;
+ }
+ 
+ .tab-menu {
+    display: flex;
+    align-items: center;
+ }
+ 
+ .tab-menu ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+ }
+ 
+ .tab-menu ul li {
+    display: inline-block;
+    list-style-type: none;
+    width: 33.33%;
+ }
+ 
+ .tab-menu ul li a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 7px 35px;
+    color: rgb(0, 0, 0);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+ 
+ }
+ 
+ .tab-menu ul li a.active-tab {
+    color: #1252AE;
+    border-bottom: 2px solid #1252AE;
+ }
+ 
+ .tab {
+    padding-top: 25px;
+    display: none;
+ }
+ 
+ .active-tab-content {
+    display: block;
+ }
+
+
 .box1{
     border: 1px solid black;
     width:100%;
-    padding: 8%;
     height: 100%;
     background-color: #F4F6F8;
 }
@@ -109,7 +210,7 @@
 .about p{
     text-align: justify;
 }
-/* .address{
+.address{
     width: 100%;
     height: 100%;
 }
@@ -118,4 +219,39 @@
     height: 300px;
     border-radius: 8px;
     border: 1px solid black;
-} */
+}
+.slds-tabs_default__nav{
+    display: block;
+    margin: 5%;
+}
+.thumbnails {
+    width: 100%;
+    height: 350px;
+    /* height: 30vh; */
+    /* margin: 10px; */
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s;
+    border-radius: 12px;
+ }
+ 
+ .thumbnails img {
+    width: 400px;;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border-radius: 12px;
+ }
+ .thumbnails:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    z-index: 20;
+ } 
+ .PropertyImages {
+    width: 100%;
+    display: grid;
+    grid: auto / auto auto auto;
+    grid-gap: 35px;
+    padding: 10px;
+ }

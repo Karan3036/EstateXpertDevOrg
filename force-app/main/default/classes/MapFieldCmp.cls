@@ -1,7 +1,7 @@
 public with sharing class MapFieldCmp {
         
     //get field data using schema builder
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static List<Map<String, String>> getObjectFields(String objectName) {
         List<Map<String, String>> fieldDetails = new List<Map<String, String>>();
     
@@ -25,7 +25,7 @@ public with sharing class MapFieldCmp {
     }
 
     //save the mapping in the metadata
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static void saveMappings( String mappingsData ,Boolean checkboxValue){
         //fetch records
         List<Mapping_Metadata__mdt> metaList = 
@@ -63,7 +63,7 @@ public with sharing class MapFieldCmp {
      }
 
      //retrieve string mapping from the metadata
-     @AuraEnabled(cacheable=true)
+     @AuraEnabled
      public static List<String> getMetadata() {
          List<String> metadataValues = new List<String>();
          

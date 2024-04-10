@@ -1,15 +1,16 @@
-<apex:page showHeader="false" sidebar="false">
-    <apex:includeLightning />    
-    <div id="LightningComponentid" />    
+<apex:page standardController="Inquiry__c" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <div id="LightningComponentid" />
     <script>
-    $Lightning.use("c:InquiryApp", function() {
-        $Lightning.createComponent("c:inquiryForm",
-          { recordId : '{!$CurrentPage.parameters.id}'
-          },
-          "LightningComponentid",
-          function(cmp) {
-             console.log('LWC Componenet added in VF page');
-          });
-    });
+        $Lightning.use("c:InquiryApp", function () {
+            $Lightning.createComponent("c:inquiryForm",
+                {
+                    recordId: '{!$CurrentPage.parameters.id}'
+                },
+                "LightningComponentid",
+                function (cmp) {
+                    console.log('LWC Componenet added in VF page');
+                });
+        });
     </script>
 </apex:page>

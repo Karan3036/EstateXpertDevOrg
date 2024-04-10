@@ -1,6 +1,5 @@
 <aura:application extends="ltng:outApp" implements="ltng:allowGuestAccess" access="GLOBAL">
-    <!-- <aura:dependency resource="c:inquiryForm"/> -->
-    <c:inquiryForm/>
+    <c:inquiryForm />
 </aura:application>
 
 <!-- Map <String, String> MyStrings = new Map<String, String>();

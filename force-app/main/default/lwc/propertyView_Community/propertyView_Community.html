@@ -1,138 +1,42 @@
 <template>
     <div class="container">
         <div class="box1">
-            <!-- <h1 style="font-size: 24px;">Featured<span style="color:#1252AE;"> Properties</span> </h1>
-            <lightning-layout style="margin-top: 50px;">
-                <lightning-layout-item       padding="around-small">
-                    <div class="card">
-                        <div class="imgBox">
-                            <img src={propertyView} height="218px" width="100%"></img>
+           <!-- <img src={propertyView} style="height: 500px;width:100%;"></img> -->
+           <div class="carousel-container">
+                <div class="carousel">
+                    <template for:each={propertyImages} for:item="propImg">
+                        <div key={propImg.Id} class="active">
+                            <img src={propImg.FilenameUrlEncoded__c} style="width:100%;height:65vh;"/>
                         </div>
-                        <div class="info">
-                            <lightning-layout>
-                                <lightning-layout-item style="height:80px;">
-                                    <div class="infoName">
-                                        <p style="font-size: 16px;"><b>A Modern House Accentuates</b></p>
-                                        <p style="color: #737D8C;font-size: 14px;width:80%;">4059 Waterview Texico, NM 88135</p>
-                                    </div>
-                                </lightning-layout-item>
-                                <lightning-layout-item alignment-bump="left" style="width:20%;">
-                                    <div class="slds-text-align_center">
-                                        <div style="color: #4CB6AA;padding:1%;background-color:#F4F6F8;"><p>For Sale</p></div>
-                                    </div>
-                                </lightning-layout-item>
-                            </lightning-layout>
-                            <br/>
-                            <lightning-layout>
-                                <lightning-layout-item>
-                                    <div>
-                                        <p>Rating</p>
-                                    </div>
-                                </lightning-layout-item>
-                                <lightning-layout-item alignment-bump="left">
-                                    <div class="slds-text-align_center">
-                                        <div style="font-size:20px;"><p><b>$850</b></p></div>
-                                    </div>
-                                </lightning-layout-item>
-                            </lightning-layout>
+                    </template>
+                </div>
+                <div class="navigation-boxes">
+                    <template for:each={nextImages} for:item="nextImage">
+                        <div key={nextImage.Id} class="box" >
+                            <img src={nextImage.FilenameUrlEncoded__c} data-id={nextImage.Id} onclick={handleBoxClick}/>
+                            <!-- <div class="black">
+                                
+                            </div> -->
                         </div>
-                    </div>
-                </lightning-layout-item>
-                <lightning-layout-item       padding="around-small">
-                    <div class="card">
-                        <div class="imgBox">
-                            <img src={propertyView} height="218px" width="100%"></img>
-                        </div>
-                        <div class="info">
-                            <lightning-layout>
-                                <lightning-layout-item style="height:80px;">
-                                    <div class="infoName">
-                                        <p style="font-size: 16px;"><b>Capital Hill Residence in New York</b></p>
-                                        <p style="color: #737D8C;font-size: 14px;width:80%;">1758 Lake Floyd Circle, DE 19707</p>
-                                    </div>
-                                </lightning-layout-item>
-                                <lightning-layout-item alignment-bump="left" style="width:20%;">
-                                    <div class="slds-text-align_center">
-                                        <div style="color: #4CB6AA;padding:1%;background-color:#F4F6F8;"><p>For Sale</p></div>
-                                    </div>
-                                </lightning-layout-item>
-                            </lightning-layout>
-                            <br/>
-                            <lightning-layout>
-                                <lightning-layout-item>
-                                    <div>
-                                        <p>Rating</p>
-                                    </div>
-                                </lightning-layout-item>
-                                <lightning-layout-item alignment-bump="left">
-                                    <div class="slds-text-align_center">
-                                        <div style="font-size:20px;"><p><b>$1,050</b></p></div>
-                                    </div>
-                                </lightning-layout-item>
-                            </lightning-layout>
-                        </div>
-                    </div>
-                </lightning-layout-item>
-                <lightning-layout-item       padding="around-small">
-                    <div class="card">
-                        <div class="imgBox">
-                            <img src={propertyView} height="218px" width="100%"></img>
-                        </div>
-                        <div class="info">
-                            <lightning-layout>
-                                <lightning-layout-item style="height:80px;">
-                                    <div class="infoName">
-                                        <p style="font-size: 16px;"><b>A Modern House Accentuates</b></p>
-                                        <p style="color: #737D8C;font-size: 14px;width:80%;">3994 Jewell Road, MN 55402</p>
-                                    </div>
-                                </lightning-layout-item>
-                                <lightning-layout-item alignment-bump="left" style="width:20%;">
-                                    <div class="slds-text-align_center">
-                                        <div style="color: #4CB6AA;padding:1%;background-color:#F4F6F8;"><p>For Sale</p></div>
-                                    </div>
-                                </lightning-layout-item>
-                            </lightning-layout>
-                            <br/>
-                            <lightning-layout>
-                                <lightning-layout-item>
-                                    <div>
-                                        <p>Rating</p>
-                                    </div>
-                                </lightning-layout-item>
-                                <lightning-layout-item alignment-bump="left">
-                                    <div class="slds-text-align_center">
-                                        <div style="font-size:20px;"><p><b>$1,200</b></p></div>
-                                    </div>
-                                </lightning-layout-item>
-                            </lightning-layout>
-                        </div>
-                    </div>
-                </lightning-layout-item>
-            </lightning-layout>
-            <div class="buttons" style="display: flex;justify-content:center;margin-top:5%;">
-                <img src={prevArrowIcon} height="45px" width="46px" style="cursor: pointer;"></img>
-                &nbsp;
-                <img src={nextArrowIcon} height="45px" width="46px" style="cursor: pointer;"></img>
-            </div> -->
+                    </template>
+                </div>
+            </div>
         </div>
 
-
-
-
-        
         <div class="box2">
-            <lightning-layout>
+            <template for:each={propertyData} for:item="info">
+            <lightning-layout key={info.Id}>
                 <lightning-layout-item>
                     <div class="custom-box slds-box slds-p-around_medium detailBox">
                         <p>reviews</p>
-                        <h1><b>Woodland Apartment</b></h1>
-                        <p style="color: #8C8C8C;">1012 Ocean avanue, New yourk, USA</p>
+                        <h1><b>{info.Name}</b></h1>
+                        <p style="color: #8C8C8C;">{info.City__c},{info.State__c},{info.Postal_Code__c}</p>
                     </div>
                 </lightning-layout-item>
                 <lightning-layout-item alignment-bump="left">
                     <div class="custom-box slds-box slds-p-around_medium slds-text-align_center detailBox">
                         <p><b>Total Price</b></p>
-                        <p style="color:#006EFF;font-size:18px;"><b>$25,500</b></p>
+                        <p style="color:#006EFF;font-size:18px;"><b>$ {info.Listing_Price__c}</b></p>
                     </div>
                 </lightning-layout-item>
                 <lightning-layout-item>
@@ -144,225 +48,142 @@
                     </div>
                 </lightning-layout-item>
             </lightning-layout>
+            </template>
         </div>
 
+        <div class="box3" >
+            <div class="tab-container">
 
-        <div class="box3">
-            <template for:each={propertyData} for:item="item">
-            <div class="roomDetails" key={item.Id}>
-                <lightning-card>
-                    <lightning-layout multiple-rows class="layout">
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                <p>Bedrooms</p>
-                                <div class="numbers">
-                                    <div class="imgicon">
-                                        <img src={BedroomIcon} class="iconImg"></img>
-                                    </div>
-                                    &nbsp;
-                                    <div class="text">
-                                        <p><b>{item.Number_of_Bedrooms__c}</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </lightning-layout-item>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                <p>Bathrooms</p>
-                                <div class="numbers">
-                                    <div class="imgicon">
-                                        <img src={BathroomIcon} class="iconImg"></img>
-                                    </div>
-                                    &nbsp;
-                                    <div class="text">
-                                        <p><b>{item.Number_of_Bathrooms__c}</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </lightning-layout-item>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                <p>Bathrooms</p>
-                                <div class="numbers">
-                                    <div class="imgicon">
-                                        <img src={BathroomSqftIcon} class="iconImg"></img>
-                                    </div>
-                                    &nbsp;
-                                    <div class="text">
-                                        <p><b></b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </lightning-layout-item>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                <p>Safety Rank</p>
-                                <div class="numbers">
-                                    <div class="imgicon">
-                                        <img src={SafetyIcon} class="iconImg"></img>
-                                    </div>
-                                    &nbsp;
-                                    <div class="text">
-                                        <p><b></b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </lightning-layout-item>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                <p>Safety Rank</p>
-                                <div class="numbers">
-                                    <div class="imgicon">
-                                        <img src={SafetyIcon2} class="iconImg"></img>
-                                    </div>
-                                    &nbsp;
-                                    <div class="text">
-                                        <p><b></b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </lightning-layout-item>
-                    </lightning-layout>
-                </lightning-card>
+            <div class="div1">
+                <div class="tab-menu">
+                    <ul>
+                        <li><a class="active-tab" data-tab-id="tab1">Description</a></li>
+                        <li><a data-tab-id="tab2">Gallary</a></li>
+                        <li><a data-tab-id="tab3">Related</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="facilities" key={item.Id}>
-                <lightning-card title="Facilities">
-                    <lightning-layout multiple-rows class="layout">
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                <img src={CarParkingIcon} class="iconImg"></img>
-                                <br />
-                                <p>Car Parking</p>
+                    <div class="tab active-tab-content" data-id="tab1">
+                        <template for:each={propertyData} for:item="item">
+                            <div class="roomDetails" key={item.Id} >
+                                    <lightning-layout multiple-rows class="layout">
+                                        <lightning-layout-item padding="around-small">
+                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                                <p>Bedrooms</p>
+                                                <div class="numbers">
+                                                    <div class="imgicon">
+                                                        <img src={BedroomIcon} class="iconImg"></img>
+                                                    </div>
+                                                    &nbsp;
+                                                    <div class="text">
+                                                        <p><b>{item.Number_of_Bedrooms__c}</b></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="around-small">
+                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                                <p>Bathrooms</p>
+                                                <div class="numbers">
+                                                    <div class="imgicon">
+                                                        <img src={BathroomIcon} class="iconImg"></img>
+                                                    </div>
+                                                    &nbsp;
+                                                    <div class="text">
+                                                        <p><b>{item.Number_of_Bathrooms__c}</b></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="around-small">
+                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                                <p>Bathrooms</p>
+                                                <div class="numbers">
+                                                    <div class="imgicon">
+                                                        <img src={BathroomSqftIcon} class="iconImg"></img>
+                                                    </div>
+                                                    &nbsp;
+                                                    <div class="text">
+                                                        <p><b></b></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="around-small">
+                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                                <p>Safety Rank</p>
+                                                <div class="numbers">
+                                                    <div class="imgicon">
+                                                        <img src={SafetyIcon} class="iconImg"></img>
+                                                    </div>
+                                                    &nbsp;
+                                                    <div class="text">
+                                                        <p><b></b></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item padding="around-small">
+                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                                <p>Safety Rank</p>
+                                                <div class="numbers">
+                                                    <div class="imgicon">
+                                                        <img src={SafetyIcon2} class="iconImg"></img>
+                                                    </div>
+                                                    &nbsp;
+                                                    <div class="text">
+                                                        <p><b></b></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                <br/>
                             </div>
-                        </lightning-layout-item>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={SwimmingIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Swimming...</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={GymIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Gym & fit</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-
-                        <template if:true={item.isCommercial}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={RestaurantIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Restaurant</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                <img src={WifiIcon} class="iconImg"></img>
-                                <br />
-                                <p>Wi-fi</p>
+                
+                            <div class="facilities"  key={item.Id}>
+                                    <h1><b>Facilities</b></h1>
+                                    <lightning-layout multiple-rows class="layout">
+                                        <template for:each={item.Property_Features__c} for:item="amenty">
+                                        <lightning-layout-item padding="around-small" key={amenty}>
+                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox" >
+                                                <img src={amenty.imgUrl} class="iconImg"></img>
+                                                <br />
+                                                <p>{amenty.name}</p>
+                                            </div>
+                                        </lightning-layout-item>
+                                        </template>
+                                    </lightning-layout>
+                                <br/>
                             </div>
-                        </lightning-layout-item>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={PetCenterIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Pet Center</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                <img src={SportsIcon} class="iconImg"></img>
-                                <br />
-                                <p>Sports Cl..</p>
+                            <div class="about" key={item.Id} >
+                                    <h1><b>About this home</b></h1>
+                                    <p>
+                                        {item.Listing_Description__c}
+                                    </p>
+                                <br/>
                             </div>
-                        </lightning-layout-item>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={EmailIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Laundry</p>
+                            <div class="address" key={item.Id}>
+                                <h1><b>Address</b></h1>
+                
+                                <div class="map" >
                                 </div>
-                            </lightning-layout-item>
-                        </template>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={ParkIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Park</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={BicycleIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Cycle Track</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                <img src={EmergencyIcon} class="iconImg"></img>
-                                <br />
-                                <p>Emergency</p>
                             </div>
-                        </lightning-layout-item>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={HockeyIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>Hockey</p>
+                            </template>
+                    </div>
+                    <div class="tab" data-id="tab2">
+                        <div class="PropertyImages">
+                            <template for:each={propertyImages} for:item="propertyImage">
+                                <div class="thumbnails" key={propertyImage.Id}>
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
                                 </div>
-                            </lightning-layout-item>
-                        </template>
-                        <lightning-layout-item padding="around-small">
-                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                <img src={EmergencyIcon} class="iconImg"></img>
-                                <br />
-                                <p>Library</p>
-                            </div>
-                        </lightning-layout-item>
-                        <template if:true={item.isResidential}>
-                            <lightning-layout-item padding="around-small">
-                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                    <img src={BabyParkIcon} class="iconImg"></img>
-                                    <br />
-                                    <p>BabyPark</p>
-                                </div>
-                            </lightning-layout-item>
-                        </template>
-                    </lightning-layout>
-                </lightning-card>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="tab" data-id="tab3">
+                        Related
+                    </div>
             </div>
-            <div class="about" key={item.Id}>
-                <lightning-card title="About this home">
-                    <p>
-                        <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi a blanditiis aliquid dolor
-                        recusandae, iure laboriosam, quis officia, numquam ipsam vitae quos velit illum consectetur
-                        dolorem nam hic. Ipsam provident, dicta earum magnam modi temporibus maxime nesciunt delectus
-                        tempore inventore deleniti necessitatibus, aspernatur reiciendis recusandae aliquam nostrum in?
-                        Laudantium voluptates reprehenderit ullam blanditiis molestiae cum! -->
-                        {item.Description__c}
-                    </p>
-                </lightning-card>
-            </div>
-            </template>
         </div>
     </div>
 </template>

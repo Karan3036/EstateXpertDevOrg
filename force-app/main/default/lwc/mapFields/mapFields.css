@@ -79,3 +79,7 @@
     overflow-y: auto;
     padding-left: 3%;
 }
+
+.Confirm-Msg{
+    text-align: center;
+}

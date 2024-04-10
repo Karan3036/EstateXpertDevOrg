@@ -147,6 +147,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     fetchListingData(){
+        this.spinnerdatatable = true;
         getListingData().then((result) => {
             console.log('result:',result);
             
@@ -160,11 +161,19 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.FilteredListingData.forEach(row => {
                 const prop_id = row.Property_ID__c;
                 row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] :'https://sellmyproperties.in/images/no-property-found.png';
+                row.Availability_Date__c = row.Availability_Date__c ? this.formatDate(row.Availability_Date__c) : 'N/A';
+                row.Listing_Price__c = row.Listing_Price__c ? row.Listing_Price__c : 'TBD';
+                row.Property_Features__c = row.Property_Features__c ? this.changeAmenitiesFormat(row.Property_Features__c) : row.Property_Features__c;
+                row.Number_of_Bedrooms__c = row.Number_of_Bedrooms__c ? row.Number_of_Bedrooms__c : 0;
+                row.Number_of_Bathrooms__c = row.Number_of_Bathrooms__c ? row.Number_of_Bathrooms__c : 0;
             });
             this.result_found_numbers = this.FilteredListingData.length;
             this.pagedFilteredListingData = this.FilteredListingData.slice(0, 6);
             console.log('ListingData:',this.ListingData);
             this.isData = true;
+            setTimeout(() => {
+                this.spinnerdatatable = false;
+            }, 4000);
         });
     }
 
@@ -275,6 +284,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     }
     applySearch(){
+        this.spinnerdatatable = true;
         console.log('searchterm:',this.searchTerm);
         console.log('bedrooms:',this.bedrooms);
         console.log('bathrooms:',this.bathrooms);
@@ -286,36 +296,41 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         console.log('zip_code:',this.zip_code);
         console.log('neighbourhood:',this.neighbourhood);
 
-            this.pagedFilteredListingData = this.ListingData.filter(listing =>{
-                const nameIncludesSearch = this.searchTerm ? listing.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
-                const num_of_bathrooms = this.bathrooms?listing.Number_of_Bathrooms__c == this.bathrooms:true;
-                const num_of_bedrooms = this.bedrooms?listing.Number_of_Bedrooms__c == this.bedrooms:true;
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                const isPriceGreaterThan = this.min_price ? Number(listing.Listing_Price__c) >= Number(this.min_price) : true;
-                const isPriceLesserThan = this.max_price ? Number(listing.Listing_Price__c) <= Number(this.max_price) : true;
-                const isSqFt = this.sq_ft ? Number(listing.Sq_Ft__c) == Number(this.sq_ft) : true;
-                const isCity = this.city ? listing.City__c.toLowerCase().includes(this.city.toLowerCase()) : true;
-                const isZipcode = this.zip_code ? Number(listing.Postal_Code__c) <= Number(this.zip_code) : true;
-                // const isNeighborhood = this.neighbourhood ? String(listing.Neighborhood_Information__c) <= String(this.neighbourhood) : true;
-                return nameIncludesSearch && num_of_bathrooms && num_of_bedrooms && isPropertyType && isPriceGreaterThan && isPriceLesserThan && isSqFt && isCity && isZipcode;
-            });
-            console.log('FilteredListingData:',this.FilteredListingData.length);
-            console.log('FilteredListingData:',this.FilteredListingData);
+        this.pagedFilteredListingData = this.ListingData.filter(listing =>{
+            const nameIncludesSearch = this.searchTerm ? listing.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
+            const num_of_bathrooms = this.bathrooms?listing.Number_of_Bathrooms__c == this.bathrooms:true;
+            const num_of_bedrooms = this.bedrooms?listing.Number_of_Bedrooms__c == this.bedrooms:true;
+            const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
+            const isPriceGreaterThan = this.min_price ? Number(listing.Listing_Price__c) >= Number(this.min_price) : true;
+            const isPriceLesserThan = this.max_price ? Number(listing.Listing_Price__c) <= Number(this.max_price) : true;
+            const isSqFt = this.sq_ft ? Number(listing.Sq_Ft__c) == Number(this.sq_ft) : true;
+            const isCity = this.city ? listing.City__c.toLowerCase().includes(this.city.toLowerCase()) : true;
+            const isZipcode = this.zip_code ? Number(listing.Postal_Code__c) <= Number(this.zip_code) : true;
+            // const isNeighborhood = this.neighbourhood ? String(listing.Neighborhood_Information__c) <= String(this.neighbourhood) : true;
+            return nameIncludesSearch && num_of_bathrooms && num_of_bedrooms && isPropertyType && isPriceGreaterThan && isPriceLesserThan && isSqFt && isCity && isZipcode;
+        });
+        console.log('FilteredListingData:',this.FilteredListingData.length);
+        console.log('FilteredListingData:',this.FilteredListingData);
 
-            if(this.pagedFilteredListingData.length <=0){
-                this.isData = false;
-                this.show_more_button_class = 'not-show_last_button';
-                this.result_found_numbers = this.pagedFilteredListingData.length;
-                this.dropDownClass ='drop-down-none';
-            }else{
-                this.isData = true;
-                this.show_more_button_class = 'not-show_last_button';
-                this.result_found_numbers = this.pagedFilteredListingData.length;
-                this.dropDownClass ='drop-down-none';
-            }
-
-        
+        if(this.pagedFilteredListingData.length <=0){
+            this.isData = false;
+            this.show_more_button_class = 'not-show_last_button';
+            this.result_found_numbers = this.pagedFilteredListingData.length;
+            this.dropDownClass ='drop-down-none';
+            setTimeout(() => {
+                this.spinnerdatatable = false;
+            }, 4000);
+        }else{
+            this.isData = true;
+            this.show_more_button_class = 'not-show_last_button';
+            this.result_found_numbers = this.pagedFilteredListingData.length;
+            this.dropDownClass ='drop-down-none';
+            setTimeout(() => {
+                this.spinnerdatatable = false;
+            }, 4000);
+        }
     }
+
     clearFilter(){
         this.searchTerm = '';
         this.bedrooms=0;
@@ -327,8 +342,18 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.city='';
         this.zip_code='';
         this.neighbourhood='';
-        this.applySearch();
+    }
 
+    formatDate(inputDate) {
+        const dateParts = inputDate.split('-');
+        const formattedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        return formattedDate.toLocaleDateString('en-US', options);
+    }
+
+    changeAmenitiesFormat(amenity){
+        return amenity.split(';').join(' | ');
     }
 
 }

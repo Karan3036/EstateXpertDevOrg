@@ -1,0 +1,54 @@
+<apex:page standardController="Listing__c" extensions="Mapcontroller">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Guides</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+         <apex:stylesheet value="{!$Resource.MapboxCSS}"/>
+         <apex:includeScript value="{!$Resource.MapboxJS}"/>
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            .buttoncss{
+                z-index: 1 !important;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <apex:form >
+           
+                    <apex:commandButton onclick="toggleMapView(); return false;" styleClass="slds-button buttoncss slds-button--brand" value="Toggle View"/>
+              
+        </apex:form>
+        </div>
+
+        <div id="map"></div>
+        
+        <script>
+            var map;
+            var mapView = 'streets-v9';
+            var satelliteView = 'satellite-v9';
+            var currentView = mapView;
+
+            mapboxgl.accessToken = 'pk.eyJ1IjoiaGFyc2h2NTM0IiwiYSI6ImNsdXJ5MTB4bDBmcTYyanBrbXY3dnV0NnUifQ.vCHQzLM4VkPzB3MXFl6AoA';
+            map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/' + currentView,
+                zoom: 1,
+                center: [30, 15]
+            });
+            map.addControl(new mapboxgl.NavigationControl());
+
+            function toggleMapView() {
+                if (currentView === mapView) {
+                    map.setStyle('mapbox://styles/mapbox/' + satelliteView);
+                    currentView = satelliteView;
+                } else {
+                    map.setStyle('mapbox://styles/mapbox/' + mapView);
+                    currentView = mapView;
+                }
+            }
+        </script>
+    </body>
+</apex:page>

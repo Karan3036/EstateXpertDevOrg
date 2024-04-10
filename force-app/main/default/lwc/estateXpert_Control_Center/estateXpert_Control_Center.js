@@ -149,6 +149,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
         const clickedName = event.target.dataset.name;
         this.iconsName = event.target.dataset.iconname;
         this.iconsURL = event.target.dataset.icon;
+        this.iconsValue = this.fullIconsValue;
         this.pickListvalue = this.pickListvalue.map(item => ({
             ...item,
             isEditing: item.name === clickedName ? true : false
@@ -186,6 +187,7 @@ export default class EstateXpert_Control_Center extends LightningElement {
                         iconURL: item.iconURL,
                         Id: item.id
                     });
+                    // this.fullIconsValue = this.iconsValue;
 
                 });
             })
