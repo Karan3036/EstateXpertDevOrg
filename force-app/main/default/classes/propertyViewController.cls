@@ -53,7 +53,7 @@ public with sharing class propertyViewController {
 
             List<Feature_Icon__c> feature_icons = [SELECT Name,Icon_URL__c FROM Feature_Icon__c];
 
-            List<PropertyMedia__c> media = [SELECT Id,FilenameUrlEncoded__c,ExternalLink__c,LayoutOnWebsite__c,Property__c FROM PropertyMedia__c WHERE Property__c = :listing[0].Property_ID__c];
+            List<PropertyMedia__c> media = [SELECT Id,Name,FilenameUrlEncoded__c,ExternalLink__c,LayoutOnWebsite__c,Property__c FROM PropertyMedia__c WHERE Property__c = :listing[0].Property_ID__c];
 
             Map<String,String> feture_icons_data = new Map<String,String>();
             for(Feature_Icon__c icon : feature_icons){

@@ -40,9 +40,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track sq_ft='';
     @track city='';
     @track zip_code='';
-    @track neighbourhood='';
-    @track gridView=false;
-    @track listView = true;
+    @track gridView = true;
+    @track listView = false;
     @track all_property_numbers = 7;
     @track pagedFilteredListingData = [];
     @track propertyView = false;
@@ -55,6 +54,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track propertyData =[];
     @track feature_icons;
     @track currentRecordId;
+    @track sortingProperties = 'View All';
+
     get totalPages() {
 
         let totalPages = Math.ceil(this.ListingData.filter(listing =>{
@@ -103,7 +104,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     connectedCallback() {
-        console.log('Property Listed View');
         loadStyle(this, designcss);
         this.fetchListingData();
     }
@@ -164,8 +164,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                 row.Availability_Date__c = row.Availability_Date__c ? this.formatDate(row.Availability_Date__c) : 'N/A';
                 row.Listing_Price__c = row.Listing_Price__c ? row.Listing_Price__c : 'TBD';
                 row.Property_Features__c = row.Property_Features__c ? this.changeAmenitiesFormat(row.Property_Features__c) : row.Property_Features__c;
-                row.Number_of_Bedrooms__c = row.Number_of_Bedrooms__c ? row.Number_of_Bedrooms__c : 0;
-                row.Number_of_Bathrooms__c = row.Number_of_Bathrooms__c ? row.Number_of_Bathrooms__c : 0;
+                // row.Number_of_Bedrooms__c = row.Number_of_Bedrooms__c ? row.Number_of_Bedrooms__c : 0;
+                // row.Number_of_Bathrooms__c = row.Number_of_Bathrooms__c ? row.Number_of_Bathrooms__c : 0;
             });
             this.result_found_numbers = this.FilteredListingData.length;
             this.pagedFilteredListingData = this.FilteredListingData.slice(0, 6);
@@ -177,41 +177,29 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         });
     }
 
-    // showPropertyDetails(event){
-    //     this.currentRecordId = event.currentTarget.dataset.id;
-    //     console.log('recordId:',this.currentRecordId);
-    //     this.listView = false;
-    //     this.gridView = false;
-    //     this.propertyView=true;
-    //     this.getPropertyDetails();
-    // }
-
-    getPropertyDetails(){
-            getPropertyInformation({recordId:this.currentRecordId}).then((result) => {
-                console.log('result: ',result);
-                this.propertyData = result.Properties;
-                this.feature_icons = result.icons;
-                this.propertyData.forEach(row => {
-                    if (row.Amenities__c) {
-                        const amenitiesArray = row.Amenities__c.split(";");
-                        row.Amenities__c = amenitiesArray.map(amenity => {
-                            return {
-                                name: amenity,
-                                imgUrl: this.feature_icons[amenity]
-                            };
-                        });
-                    } else {
-                        row.Amenities__c = [];
-                    }
-                });
-                console.log('amenties: ',this.propertyData);
+    showPropertyDetails(event){
+        try {
+            var listRecordId = event.currentTarget.dataset.id;
+            console.log('listRecordId:',listRecordId);
+            this[NavigationMixin.Navigate]({
+                type: 'comm__namedPage',
+                attributes: {
+                    name: 'PropertyView__c',
+                },
+                state: {
+                    c__listingrecordid: listRecordId
+                }
             });
+        } catch (error) {
+            console.log('error-->',error);
+        }
     }
 
     showAllProperties(){
         this.show_more_button_class = 'not-show_last_button';
         this.pagedFilteredListingData = this.FilteredListingData.slice(0,this.result_found_numbers);
     }
+
     searchTermValue(event){
         this.searchTerm = event.target.value;
     }
@@ -232,6 +220,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             } 
         }
     }
+
     decreaseNumber(event){
         if(event.target.name==='rooms'){
             var input = this.template.querySelector('.bedrooms_number');
@@ -248,6 +237,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             } 
         }
     }
+
     view_type(event){
         if(event.target.value==='List'){
             this.gridView = false;
@@ -262,27 +252,19 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     store_filter_values(event){
         if(event.target.name==='listing_type'){
             this.listing_type = event.target.value;
-        }
-        if(event.target.name==='min_price'){
+        } else if(event.target.name==='min_price'){
             this.min_price = event.target.value;
-        }
-        if(event.target.name==='max_price'){
+        } else if(event.target.name==='max_price'){
             this.max_price = event.target.value;
-        }
-        if(event.target.name==='sq_ft'){
+        } else if(event.target.name==='sq_ft'){
             this.sq_ft = event.target.value;
-        }
-        if(event.target.name==='city'){
+        } else if(event.target.name==='city'){
             this.city = event.target.value;
-        }
-        if(event.target.name==='zip_code'){
+        } else if(event.target.name==='zip_code'){
             this.zip_code = event.target.value;
         }
-        if(event.target.name==='neighbourhood'){
-            this.neighbourhood = event.target.value;
-        }
-
     }
+
     applySearch(){
         this.spinnerdatatable = true;
         console.log('searchterm:',this.searchTerm);
@@ -294,7 +276,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         console.log('sq_ft:',this.sq_ft);
         console.log('city:',this.city);
         console.log('zip_code:',this.zip_code);
-        console.log('neighbourhood:',this.neighbourhood);
 
         this.pagedFilteredListingData = this.ListingData.filter(listing =>{
             const nameIncludesSearch = this.searchTerm ? listing.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
@@ -306,9 +287,9 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             const isSqFt = this.sq_ft ? Number(listing.Sq_Ft__c) == Number(this.sq_ft) : true;
             const isCity = this.city ? listing.City__c.toLowerCase().includes(this.city.toLowerCase()) : true;
             const isZipcode = this.zip_code ? Number(listing.Postal_Code__c) <= Number(this.zip_code) : true;
-            // const isNeighborhood = this.neighbourhood ? String(listing.Neighborhood_Information__c) <= String(this.neighbourhood) : true;
             return nameIncludesSearch && num_of_bathrooms && num_of_bedrooms && isPropertyType && isPriceGreaterThan && isPriceLesserThan && isSqFt && isCity && isZipcode;
         });
+        
         console.log('FilteredListingData:',this.FilteredListingData.length);
         console.log('FilteredListingData:',this.FilteredListingData);
 
@@ -341,7 +322,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.sq_ft='';
         this.city='';
         this.zip_code='';
-        this.neighbourhood='';
     }
 
     formatDate(inputDate) {
@@ -354,6 +334,20 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     changeAmenitiesFormat(amenity){
         return amenity.split(';').join(' | ');
+    }
+
+    handleSortBySelect(event){
+        var selectedValue = event.detail.value;
+        if (selectedValue == 'viewall') {
+            this.sortingProperties = 'View All';
+            this.fetchListingData();
+        } else if (selectedValue == 'availability') {
+            this.sortingProperties = 'Availability';
+            this.pagedFilteredListingData = this.ListingData.filter(listing =>{
+                return listing.Availability_Date__c !== 'N/A';
+            });
+            this.result_found_numbers = this.pagedFilteredListingData.length;
+        }
     }
 
 }

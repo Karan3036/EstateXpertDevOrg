@@ -1,189 +1,214 @@
 <template>
+    <template if:true={spinnerdatatable}>
+        <c-spinner-component></c-spinner-component>
+    </template>
     <div class="container">
         <div class="box1">
-           <!-- <img src={propertyView} style="height: 500px;width:100%;"></img> -->
-           <div class="carousel-container">
+            <div class="carousel-container">
                 <div class="carousel">
-                    <template for:each={propertyImages} for:item="propImg">
-                        <div key={propImg.Id} class="active">
-                            <img src={propImg.FilenameUrlEncoded__c} style="width:100%;height:65vh;"/>
+                    <div class="active">
+                        <img src={propertyView} style="width:100%;height:80vh;" />
+                        <div if:true={errorMessage} class="black">
+                            <h3>EstateXpert</h3>
+                            <p>"404 Error: Data Not Found"</p>
                         </div>
-                    </template>
+                    </div>
                 </div>
-                <div class="navigation-boxes">
-                    <template for:each={nextImages} for:item="nextImage">
-                        <div key={nextImage.Id} class="box" >
-                            <img src={nextImage.FilenameUrlEncoded__c} data-id={nextImage.Id} onclick={handleBoxClick}/>
-                            <!-- <div class="black">
-                                
-                            </div> -->
-                        </div>
-                    </template>
+                <div class="backbtn" onclick={moveToPropertyPage}>
+                    <svg width="30" height="20" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M30 10C30 10.3788 29.8025 10.7421 29.4509 11.01C29.0993 11.2778 28.6224 11.4283 28.1252 11.4283H6.40389L14.4542 17.5586C14.6285 17.6914 14.7668 17.8491 14.8612 18.0226C14.9555 18.1961 15.004 18.3821 15.004 18.5699C15.004 18.7577 14.9555 18.9437 14.8612 19.1172C14.7668 19.2907 14.6285 19.4483 14.4542 19.5811C14.2799 19.7139 14.073 19.8193 13.8452 19.8911C13.6175 19.963 13.3734 20 13.1269 20C12.8804 20 12.6363 19.963 12.4085 19.8911C12.1808 19.8193 11.9738 19.7139 11.7995 19.5811L0.55079 11.0112C0.376197 10.8786 0.237677 10.721 0.143163 10.5474C0.0486494 10.3739 0 10.1879 0 10C0 9.81213 0.0486494 9.6261 0.143163 9.45257C0.237677 9.27905 0.376197 9.12143 0.55079 8.98875L11.7995 0.418872C12.1516 0.150673 12.629 0 13.1269 0C13.6247 0 14.1022 0.150673 14.4542 0.418872C14.8063 0.687071 15.004 1.05083 15.004 1.43012C15.004 1.80941 14.8063 2.17317 14.4542 2.44137L6.40389 8.57169H28.1252C28.6224 8.57169 29.0993 8.72217 29.4509 8.99003C29.8025 9.25789 30 9.62119 30 10Z"
+                            fill="#000929" />
+                    </svg>
                 </div>
             </div>
         </div>
 
-        <div class="box2">
-            <template for:each={propertyData} for:item="info">
-            <lightning-layout key={info.Id}>
-                <lightning-layout-item>
-                    <div class="custom-box slds-box slds-p-around_medium detailBox">
-                        <p>reviews</p>
-                        <h1><b>{info.Name}</b></h1>
-                        <p style="color: #8C8C8C;">{info.City__c},{info.State__c},{info.Postal_Code__c}</p>
-                    </div>
-                </lightning-layout-item>
-                <lightning-layout-item alignment-bump="left">
-                    <div class="custom-box slds-box slds-p-around_medium slds-text-align_center detailBox">
-                        <p><b>Total Price</b></p>
-                        <p style="color:#006EFF;font-size:18px;"><b>$ {info.Listing_Price__c}</b></p>
-                    </div>
-                </lightning-layout-item>
-                <lightning-layout-item>
-                    <div class="custom-box slds-box slds-p-around_medium slds-text-align_center detailBox" style="display: flex;justify-content:inline;">
-                        <lightning-avatar slot="media" variant="circle" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" fallback-icon-name="standard:avatar" alternative-text="Bruce Wayne"></lightning-avatar>
-                        <p style="margin-left: 1px;font-size:10px;margin-right:40px;"><b>Sandeep S.</b><br/><span style="color: #8C8C8C;">Partner</span></p>
-                        <img src={EmailIcon} style="height:15px;width:18px;margin-right:12px;cursor:pointer"></img>
-                        <img src={PhoneIcon} style="height:15px;width:18px;cursor:pointer"></img>
-                    </div>
-                </lightning-layout-item>
-            </lightning-layout>
-            </template>
-        </div>
-
-        <div class="box3" >
-            <div class="tab-container">
-
-            <div class="div1">
-                <div class="tab-menu">
-                    <ul>
-                        <li><a class="active-tab" data-tab-id="tab1">Description</a></li>
-                        <li><a data-tab-id="tab2">Gallary</a></li>
-                        <li><a data-tab-id="tab3">Related</a></li>
-                    </ul>
-                </div>
+        <template if:false={errorMessage}>
+            <div class="box2">
+                <template for:each={propertyData} for:item="info">
+                    <lightning-layout key={info.Id}>
+                        <lightning-layout-item>
+                            <div class="custom-box slds-box slds-p-around_medium detailBox">
+                                <h1><b>{info.Name}</b></h1>
+                                <p style="color: #8C8C8C;">{info.City__c},{info.State__c},{info.Postal_Code__c}</p>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item alignment-bump="left">
+                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center detailBox">
+                                <p><b>Total Price</b></p>
+                                <p style="color:#006EFF;font-size:18px;"><b>$ {info.Listing_Price__c}</b></p>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item>
+                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center detailBox"
+                                style="display: flex;justify-content:inline;">
+                                <lightning-avatar slot="media" variant="circle"
+                                    src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg"
+                                    fallback-icon-name="standard:avatar" alternative-text="Bruce Wayne"></lightning-avatar>
+                                <p style="margin-left: 1px;font-size:10px;margin-right:40px;"><b>Sandeep S.</b><br /><span
+                                        style="color: #8C8C8C;">Partner</span></p>
+                                <img src={EmailIcon} style="height:15px;width:18px;margin-right:12px;cursor:pointer"></img>
+                                <img src={PhoneIcon} style="height:15px;width:18px;cursor:pointer"></img>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
             </div>
+
+            <div class="box3">
+                <div class="tab-container">
+
+                    <div class="div1">
+                        <div class="tab-menu">
+                            <ul>
+                                <li><a class="active-tab" data-tab-id="tab1">Description</a></li>
+                                <li><a data-tab-id="tab2">Gallery</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="tab active-tab-content" data-id="tab1">
                         <template for:each={propertyData} for:item="item">
-                            <div class="roomDetails" key={item.Id} >
-                                    <lightning-layout multiple-rows class="layout">
-                                        <lightning-layout-item padding="around-small">
-                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                                <p>Bedrooms</p>
-                                                <div class="numbers">
-                                                    <div class="imgicon">
-                                                        <img src={BedroomIcon} class="iconImg"></img>
-                                                    </div>
-                                                    &nbsp;
-                                                    <div class="text">
-                                                        <p><b>{item.Number_of_Bedrooms__c}</b></p>
-                                                    </div>
+                            <div class="roomDetails" key={item.Id}>
+                                <lightning-layout multiple-rows class="layout">
+                                    <lightning-layout-item padding="around-small">
+                                        <div
+                                            class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                            <p>Bedrooms</p>
+                                            <div class="numbers">
+                                                <div class="imgicon">
+                                                    <img src={BedroomIcon} class="iconImg"></img>
+                                                </div>
+                                                &nbsp;
+                                                <div class="text">
+                                                    <p><b>{item.Number_of_Bedrooms__c}</b></p>
                                                 </div>
                                             </div>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item padding="around-small">
-                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                                <p>Bathrooms</p>
-                                                <div class="numbers">
-                                                    <div class="imgicon">
-                                                        <img src={BathroomIcon} class="iconImg"></img>
-                                                    </div>
-                                                    &nbsp;
-                                                    <div class="text">
-                                                        <p><b>{item.Number_of_Bathrooms__c}</b></p>
-                                                    </div>
+                                        </div>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item padding="around-small">
+                                        <div
+                                            class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                            <p>Bathrooms</p>
+                                            <div class="numbers">
+                                                <div class="imgicon">
+                                                    <img src={BathroomIcon} class="iconImg"></img>
+                                                </div>
+                                                &nbsp;
+                                                <div class="text">
+                                                    <p><b>{item.Number_of_Bathrooms__c}</b></p>
                                                 </div>
                                             </div>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item padding="around-small">
-                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                                <p>Bathrooms</p>
-                                                <div class="numbers">
-                                                    <div class="imgicon">
-                                                        <img src={BathroomSqftIcon} class="iconImg"></img>
-                                                    </div>
-                                                    &nbsp;
-                                                    <div class="text">
-                                                        <p><b></b></p>
-                                                    </div>
+                                        </div>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item padding="around-small">
+                                        <div
+                                            class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
+                                            <p>Size</p>
+                                            <div class="numbers">
+                                                <div class="imgicon">
+                                                    <img src={BathroomSqftIcon} class="iconImg"></img>
+                                                </div>
+                                                &nbsp;
+                                                <div class="text">
+                                                    <p><b>{item.Sq_Ft__c}</b></p>
                                                 </div>
                                             </div>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item padding="around-small">
-                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                                <p>Safety Rank</p>
-                                                <div class="numbers">
-                                                    <div class="imgicon">
-                                                        <img src={SafetyIcon} class="iconImg"></img>
-                                                    </div>
-                                                    &nbsp;
-                                                    <div class="text">
-                                                        <p><b></b></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item padding="around-small">
-                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center numberBox">
-                                                <p>Safety Rank</p>
-                                                <div class="numbers">
-                                                    <div class="imgicon">
-                                                        <img src={SafetyIcon2} class="iconImg"></img>
-                                                    </div>
-                                                    &nbsp;
-                                                    <div class="text">
-                                                        <p><b></b></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </lightning-layout-item>
-                                    </lightning-layout>
-                                <br/>
+                                        </div>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                                <br />
                             </div>
-                
-                            <div class="facilities"  key={item.Id}>
-                                    <h1><b>Facilities</b></h1>
-                                    <lightning-layout multiple-rows class="layout">
-                                        <template for:each={item.Property_Features__c} for:item="amenty">
+
+                            <div class="facilities" key={item.Id}>
+                                <h1><b>Facilities</b></h1>
+                                <lightning-layout multiple-rows class="layout">
+                                    <template for:each={item.Property_Features__c} for:item="amenty">
                                         <lightning-layout-item padding="around-small" key={amenty}>
-                                            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox" >
+                                            <div
+                                                class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
                                                 <img src={amenty.imgUrl} class="iconImg"></img>
                                                 <br />
                                                 <p>{amenty.name}</p>
                                             </div>
                                         </lightning-layout-item>
-                                        </template>
-                                    </lightning-layout>
-                                <br/>
+                                    </template>
+                                </lightning-layout>
+                                <br />
                             </div>
-                            <div class="about" key={item.Id} >
-                                    <h1><b>About this home</b></h1>
-                                    <p>
-                                        {item.Listing_Description__c}
-                                    </p>
-                                <br/>
+                            <div class="about" key={item.Id}>
+                                <h1><b>About this home</b></h1>
+                                <p>
+                                    {item.Listing_Description__c}
+                                </p>
+                                <br />
                             </div>
                             <div class="address" key={item.Id}>
                                 <h1><b>Address</b></h1>
-                
-                                <div class="map" >
+
+                                <div class="map">
+                                    <img src={map1} alt="">
                                 </div>
                             </div>
-                            </template>
+                        </template>
                     </div>
                     <div class="tab" data-id="tab2">
                         <div class="PropertyImages">
                             <template for:each={propertyImages} for:item="propertyImage">
-                                <div class="thumbnails" key={propertyImage.Id}>
+                                <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
                                     <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
                                 </div>
                             </template>
                         </div>
                     </div>
-                    <div class="tab" data-id="tab3">
-                        Related
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <template if:true={Show_ImagePreview}>
+        <!-- <div class="slds-backdrop slds-backdrop_open"></div> -->
+        <div class="slds-modal slds-fade-in-open image_preview" role="dialog"
+            aria-modal="true">
+            <div class="image_control_bar" onclick={stopEventPropagation}>
+                <div class="image_title">
+                    <lightning-icon icon-name="doctype:image" alternative-text="Image file" title="Image"
+                        size="medium"></lightning-icon>
+                    <h2>{PreviewImageTitle}</h2>
+                </div>
+                <div class="close_img" onclick={closeImagePreview}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close!" title="close"
+                        size="small"></lightning-icon>
+                </div>
+            </div>
+            <div class="img_preview_container">
+                <template if:true={Is_ImageHavePreview}>
+                    <img src={PreviewImageSrc} onload={handleImageLoaded} onerror={handleImageNotLoaded}
+                        onclick={stopEventPropagation} />
+                </template>
+                <template if:true={PreviewImgSpinner}>
+                    <div class="slds-spinner_container" style="position: absolute; background: #04040466;">
+                        <div class="slds-spinner--brand slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
                     </div>
+                </template>
+            </div>
+            <div class="Next_Previous_btn">
+                <template if:true={NotFirstImg}>
+                    <div class="Previous_img_btn" onclick={changeImg} data-name="Previous_Image">
+                        <lightning-icon icon-name="utility:chevronleft" title="Previous" size="small"></lightning-icon>
+                    </div>
+                </template>
+                <template if:true={NotLastImg}>
+                    <div class="Next_img_btn" onclick={changeImg} data-name="Next_Image">
+                        <lightning-icon icon-name="utility:chevronright" title="Next" size="small"></lightning-icon>
+                    </div>
+                </template>
             </div>
         </div>
-    </div>
+    </template>
+
 </template>
