@@ -7,11 +7,13 @@ import property_icons from '@salesforce/resourceUrl/PropertyViewIcons';
 import NextArrowIcon from '@salesforce/resourceUrl/NextArrowIcon';
 import PrevArrowIcon from '@salesforce/resourceUrl/PrevArrowIcon';
 import designcss from '@salesforce/resourceUrl/propertycssoveride';
+import propertybg from '@salesforce/resourceUrl/propertybg';
+import featurepropertybg from '@salesforce/resourceUrl/featurepropertybg';
+import plvimg from '@salesforce/resourceUrl/plvimg';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingInformation';
-import getPropertyInformation from '@salesforce/apex/propertyViewController.getPropertyInformation';
 import { NavigationMixin } from 'lightning/navigation';
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 1;
 
 export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track spinnerdatatable = false;
@@ -55,6 +57,14 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track feature_icons;
     @track currentRecordId;
     @track sortingProperties = 'View All';
+
+    @track propertybg = propertybg;
+    featurepropertybg = featurepropertybg;
+
+    @track plvimg1 = plvimg + '/plvimg1.png';
+    @track plvimg2 = plvimg + '/plvimg2.png';
+    @track plvimg3 = plvimg + '/plvimg3.png';
+    @track plvimg4 = plvimg + '/plvimg4.png';
 
     get totalPages() {
 

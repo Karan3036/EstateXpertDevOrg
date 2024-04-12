@@ -31,7 +31,9 @@
    color: rgb(0, 0, 0);
    font-style: normal;
    font-weight: 400;
-   font-size: 15px;
+   font-size: 20px;
+   line-height: 27.24px;
+   text-align: center;
 
 }
 
@@ -59,18 +61,19 @@ lightning-input {
    height: 100%;
    width: 100%;
    /* border-radius: 28px; */
-   border: 1px solid gray;
-   background-color: #FFFFFF;
+   /* border: 1px solid gray;
+   background-color: #FFFFFF; */
 }
 
 .div1 {
    display: flex;
    flex-direction: row;
+   justify-content: space-between;
 }
 
 /* featured Property related css */
 .main_heading {
-   font-size: 24px;
+   font-size: 3rem;
 }
 
 /* .arrow-container {
@@ -114,9 +117,14 @@ lightning-input {
 }
 
 .featuredProperty {
-   background-color: #F4F6F8;
+   background-color: rgba(1, 118, 211, 0.06);
    height: auto;
    width: auto;
+   border-radius: 20px;
+   background: url('/sfsites/c/resource/featurepropertybg');
+   background-repeat: no-repeat;
+   background-position-x: right;
+   background-position-y: bottom;
 }
 
 .layout1 {
@@ -166,6 +174,11 @@ lightning-input {
    padding: 3%;
 }
 
+.property_card1 {
+   width: 100%;
+   border-radius: 12px;
+}
+
 .property_card {
    width: 100%;
    /* border: 1px solid black; */
@@ -173,11 +186,31 @@ lightning-input {
    margin-bottom: 2%;
 }
 
+.cardDetail1 {
+   display: flex;
+   background-color: rgba(255, 255, 255, 0.7);
+   border-radius: 12px;
+}
+
 .cardDetail {
    display: flex;
    justify-content: inline;
    background-color: rgba(225, 241, 254, 1);
    border-radius: 12px;
+}
+
+.property_image1 {
+   width: 30%;
+   border-left: 1px;
+   border-radius: 12px;
+   cursor: pointer;
+}
+
+.property_image1 img {
+   border-top-left-radius: 12px;
+   border-bottom-left-radius: 12px;
+   height: 45vh;
+   width: 100%;
 }
 
 .property_image {
@@ -192,6 +225,15 @@ lightning-input {
    border-bottom-left-radius: 12px;
    height: 30vh;
    width: 100%;
+}
+
+.property_details1 {
+   width: 70%;
+   padding: 3rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   backdrop-filter: blur(1px);
 }
 
 .property_details {
@@ -248,10 +290,13 @@ lightning-input {
    font-size: 22px;
 }
 
+.logox{
+   width: 5%;
+}
 
 .logox img {
    height: 100% !important;
-   width: 25% !important;
+   width: 100% !important;
 }
 
 .sizebox {
@@ -509,7 +554,13 @@ lightning-input {
 }
 
 .box1 {
-   padding: 5% 3% 3%;
+   padding: 4% 1% 2%;
+   background-color: rgba(1, 118, 211, 0.06);
+   border-radius: 20px;
+}
+
+.box1 h1 {
+   padding-left: 6%;
 }
 
 .card {
@@ -825,11 +876,8 @@ lightning-input {
 
 .featurePropertyCSS {
    width: 100%;
-   display: grid;
-   grid: auto / auto auto auto;
-   grid-gap: 5rem;
    padding: 10px;
-   justify-content: flex-start;
+   padding-right: 42px;
 }
 
 img {
@@ -839,4 +887,88 @@ img {
    -moz-user-select: none;
    -webkit-user-select: none;
    -ms-user-select: none;
+}
+
+.contact_us {
+   border: 3px solid rgba(1, 118, 211, 1);
+   border-radius: 40px;
+   height: -webkit-fill-available;
+   padding: 10px 30px 10px 30px;
+   cursor: pointer;
+}
+
+.contact_us p {
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 24px;
+}
+
+.main_BG {
+   height: 100%;
+   width: 100%;
+   position: fixed;
+   z-index: auto;
+   opacity: 0.5;
+}
+
+.leftButton {
+   padding-right: 2rem;
+}
+
+.properties_details {
+   flex-direction: column;
+}
+
+.properties_price {
+   font-family: Inter;
+   font-size: 32px;
+   font-weight: 500;
+   line-height: 38.4px;
+   text-align: left;
+}
+
+.properties_name {
+   font-family: Inter;
+   font-size: 40px;
+   font-weight: 500;
+   line-height: 48px;
+   text-align: left;
+}
+
+.properties_loaction {
+   font-family: Inter;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 24px;
+   text-align: left;
+   color: rgba(155, 154, 152, 1);
+}
+
+.properties_descreption {
+   font-family: Inter;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 19.2px;
+   text-align: left;
+   color: rgba(35, 30, 28, 1);
+}
+
+.propertiesClass_img img {
+   width: 30px;
+   height: 30px;
+}
+
+.properties_details {
+   display: flex;
+   flex-direction: row;
+   gap: 2rem;
+}
+
+.same_P {
+   font-family: Inter;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 24px;
+   text-align: left;
+   color: rgba(35, 30, 28, 0.6);
 }

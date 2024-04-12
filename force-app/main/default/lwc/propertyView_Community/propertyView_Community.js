@@ -1,10 +1,10 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import property_icons from '@salesforce/resourceUrl/PropertyViewIcons';
-import Property_view_example from '@salesforce/resourceUrl/Property_view_example';
+import Property_view_example from '@salesforce/resourceUrl/propertyviewposter';
 import NextArrowIcon from '@salesforce/resourceUrl/NextArrowIcon';
 import PrevArrowIcon from '@salesforce/resourceUrl/PrevArrowIcon';
 import map1 from '@salesforce/resourceUrl/map1';
-import map2 from '@salesforce/resourceUrl/map2';
+import propertybg from '@salesforce/resourceUrl/propertybg';
 import getListingData from '@salesforce/apex/propertyViewController.getListingData';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -47,7 +47,7 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track propertyImages = [];   // @track isResidential;
     @track firstImageToshow;
     @track map1 = map1;
-    @track map2 = map2;
+    @track propertybg = propertybg;
     @track errorMessage = false;
 
     @track Show_ImagePreview = false;

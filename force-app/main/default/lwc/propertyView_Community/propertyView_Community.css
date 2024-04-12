@@ -10,25 +10,41 @@
     overflow: hidden;
     width: 100%;
     height: 100%;
+    border-radius: 1.5rem;
+    position: relative;
 }
 
-.carousel div {
+/* .carousel div {
     flex: 0 0 auto;
     width: 100%;
     transition: transform 0.5s ease;
-}
+} */
 
 .backbtn {
-    width: fit-content;
+    /* width: fit-content;
     position: absolute;
     top: 0%;
     left: 1%;
     display: flex;
     margin-top: 10px;
-    padding: 0.5rem;
+    padding: 0.5rem; */
     cursor: pointer;
-    border-radius: 0.5rem;
-    border: 2px solid black;
+}
+
+.sharebtn {
+    cursor: pointer;
+}
+
+.buttons{
+    height: 10%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: -webkit-fill-available;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .box {
@@ -65,6 +81,8 @@
 .tab-menu {
     display: flex;
     align-items: center;
+    border: 2px solid rgba(1, 118, 211, 1);
+    border-radius: 16px;
 }
 
 .tab-menu ul {
@@ -93,8 +111,10 @@
 }
 
 .tab-menu ul li a.active-tab {
-    color: #1252AE;
-    border-bottom: 2px solid #1252AE;
+    /* color: #1252AE;
+    border-bottom: 2px solid #1252AE; */
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(1, 118, 211, 0.2) 19%, #FFFFFF 100%);
+    border-radius: 16px;
 }
 
 .tab {
@@ -111,7 +131,8 @@
     /* border: 1px solid black; */
     width: 100%;
     height: 100%;
-    background-color: #F4F6F8;
+    /* background-color: #F4F6F8; */
+    padding: 1rem;
 }
 
 .imgBox {
@@ -130,6 +151,8 @@
 .box2 {
     width: 100%;
     height: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .detailBox {
@@ -140,6 +163,7 @@
 .container {
     width: 100%;
     height: 100%;
+    padding: 1rem;
 }
 
 .box3 {
@@ -253,6 +277,7 @@
 .map img {
     height: -webkit-fill-available;
     width: -webkit-fill-available;
+    border-radius: 20px;
 }
 
 .slds-tabs_default__nav {
@@ -411,7 +436,6 @@
     top: 0%;
     left: 0%;
     background: rgba(0, 0, 0, 0.8);
-    ;
     width: 100%;
     height: 100%;
     z-index: 1000;
@@ -428,4 +452,12 @@ img {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
- }
+}
+
+.main_BG{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: auto;
+    opacity: 0.5;
+}

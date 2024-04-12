@@ -5,3 +5,23 @@
 .sort-selected .slds-button__icon {
     fill: #49735A !important;
 }
+
+.leftButton .slds-button__icon{
+    fill: rgba(18, 82, 174, 1);
+    width: 3rem;
+    height: 3rem;
+}
+
+.rightButton .slds-button__icon{
+    fill: rgba(18, 82, 174, 1);
+    width: 3rem;
+    height: 3rem;
+}
+
+.leftButton .slds-button:hover .slds-button__icon, .slds-button:focus .slds-button__icon, .slds-button:active .slds-button__icon, .slds-button[disabled] .slds-button__icon, .slds-button:disabled .slds-button__icon {
+    fill: rgba(18, 82, 174, 0.5);
+}
+
+.rightButton .slds-button:hover .slds-button__icon, .slds-button:focus .slds-button__icon, .slds-button:active .slds-button__icon, .slds-button[disabled] .slds-button__icon, .slds-button:disabled .slds-button__icon {
+    fill: rgba(18, 82, 174, 0.5);
+}

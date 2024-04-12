@@ -10,7 +10,7 @@ public with sharing class propertyListedViewController {
     @AuraEnabled
     public static WrapperClass getListingInformation(){
         try {
-            List<Listing__c> listing = [SELECT Id, Name, Property_Photos__c, Area__c, City__c, State__c, Postal_Code__c, Number_of_Bathrooms__c, Number_of_Bedrooms__c, Sq_Ft__c, Property_ID__c,
+            List<Listing__c> listing = [SELECT Id, Name, Listing_Description__c, Property_Photos__c, Area__c, City__c, State__c, Postal_Code__c, Number_of_Bathrooms__c, Number_of_Bedrooms__c, Sq_Ft__c, Property_ID__c,
                                                Listing_Price__c, Listing_Type__c, Featured_Property__c, Availability_Date__c, Property_Features__c FROM Listing__c ORDER BY Name ASC LIMIT 50000];
 
             List<Id> propertyIds = new List<Id>();                                   
