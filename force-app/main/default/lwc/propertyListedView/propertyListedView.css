@@ -301,6 +301,10 @@ lightning-input {
 
 .card-text {
    font-size: 16px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   width: 45rem;
+   white-space: nowrap;
 }
 
 .property_layout_item {
@@ -754,7 +758,7 @@ lightning-input {
    border: none;
 }
 
-.more-filter-button button{
+.more-filter-button button {
    background-color: rgba(1, 118, 211, 1);
    color: rgba(255, 255, 255, 1);
    line-height: 24px;
@@ -1032,11 +1036,19 @@ img {
    flex-direction: column;
 }
 
-.upkey{
+.upkey {
    margin-bottom: -5px;
    cursor: pointer;
 }
 
-.downkey{
+.downkey {
    cursor: pointer;
+}
+
+.card-text1 {
+   font-size: 16px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   width: 23rem;
+   white-space: nowrap;
 }

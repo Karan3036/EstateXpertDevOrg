@@ -10,7 +10,7 @@ public with sharing class propertyViewController {
     }
 
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static WrapperClass getPropertyInformation(Id recordId){
         try {
             List<Property__c> property = [SELECT Id,Name,Listing_Price__c,Street__c,City__c,State__c,Postal_Code__c,Property_Type__c,Amenities__c,Number_of_Bedrooms__c,Number_of_Bathrooms__c,Description__c FROM Property__c WHERE Id = :recordId];
