@@ -1,17 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
-import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
-import logo from '@salesforce/resourceUrl/estatexpertlogo';
-import Img1 from '@salesforce/resourceUrl/DemoImg1';
-import Property_view_example from '@salesforce/resourceUrl/Property_view_example';
-import property_icons from '@salesforce/resourceUrl/PropertyViewIcons';
-import NextArrowIcon from '@salesforce/resourceUrl/NextArrowIcon';
-import PrevArrowIcon from '@salesforce/resourceUrl/PrevArrowIcon';
-import designcss from '@salesforce/resourceUrl/propertycssoveride';
-import propertybg from '@salesforce/resourceUrl/propertybg';
-import featurepropertybg from '@salesforce/resourceUrl/featurepropertybg';
-import plvimg from '@salesforce/resourceUrl/plvimg';
-import columnview from '@salesforce/resourceUrl/columnview';
-import gridview from '@salesforce/resourceUrl/gridview';
+import plvimg from '@salesforce/resourceUrl/plvimgs';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingInformation';
 import { NavigationMixin } from 'lightning/navigation';
 
@@ -21,60 +9,44 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     @track spinnerdatatable = false;
     @track dropDownClass = 'drop-down-none';
-    Logo = logo;
-    PropertyImg = Img1;
-    propertyView = Property_view_example;
-    nextArrowIcon = NextArrowIcon;
-    prevArrowIcon = PrevArrowIcon;
     @track currentPage = 1;
     @track left_arrow_disabled = true;
     @track right_arrow_disabled = false;
-    @track showSpinner = false;
     @track isData = false;
-    @track ListingData =[];
-    @track bedrooms=0;
-    @track bathrooms=0;
-    @track searchTerm='';
+    @track ListingData = [];
+    @track bedrooms = 0;
+    @track bathrooms = 0;
+    @track searchTerm = '';
     @track result_found_numbers;
-    @track FilteredListingData =[];
+    @track FilteredListingData = [];
     @track FeaturedProperty = true;
     @track propertyMediaUrls;
-    @track listing_type='';
-    @track min_price='';
-    @track max_price='';
-    @track sq_ft='';
-    @track city='';
-    @track zip_code='';
+    @track listing_type = '';
+    @track min_price = '';
+    @track max_price = '';
+    @track sq_ft = '';
+    @track city = '';
+    @track zip_code = '';
     @track gridView = false;
     @track listView = false;
     @track columnView = true;
-    @track all_property_numbers = 7;
     @track pagedFilteredListingData = [];
-    @track propertyView = false;
     @track show_more_button_class='show_last_button';
-
-
-    @track BedroomIcon = property_icons +'/Bedroom.png';
-    @track BathroomIcon = property_icons +'/Bathroom.png';
-    @track resourceUrl;
-    @track propertyData =[];
-    @track feature_icons;
-    @track currentRecordId;
     @track sortingProperties = 'View All';
     @track selectedOption = 'Column';
 
-    @track propertybg = propertybg;
-    featurepropertybg = featurepropertybg;
-    columnview = columnview;
-    gridview = gridview;
+    isInitalRender = true;
 
-    @track plvimg1 = plvimg + '/plvimg1.png';
-    @track plvimg2 = plvimg + '/plvimg2.png';
-    @track plvimg3 = plvimg + '/plvimg3.png';
-    @track plvimg4 = plvimg + '/plvimg4.png';
+    propertybg = plvimg +'/plvimgs/propertybg.png';
+    logo = plvimg + '/plvimgs/estatexpertlogo.png';
+    BedroomIcon = plvimg +'/plvimgs/Bedroom.png';
+    BathroomIcon = plvimg +'/plvimgs/Bathroom.png';
+    plvimg1 = plvimg + '/plvimgs/plvimg1.png';
+    plvimg2 = plvimg + '/plvimgs/plvimg2.png';
+    plvimg3 = plvimg + '/plvimgs/plvimg3.png';
+    plvimg4 = plvimg + '/plvimgs/plvimg4.png';
 
     get totalPages() {
-
         let totalPages = Math.ceil(this.ListingData.filter(listing =>{
             const featured_prop = this.FeaturedProperty?listing.Featured_Property__c == true:false;
             return featured_prop ;
@@ -117,7 +89,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     connectedCallback() {
-        loadStyle(this, designcss);
         this.fetchListingData();
     }
 
@@ -140,6 +111,43 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                 this.template.querySelector('[data-id="' + target + '"]').classList.add("active-tab-content");
             });
         });
+        if (this.isInitalRender) {
+            const body = document.querySelector("body");
+
+            const style = document.createElement('style');
+            style.innerText = `
+                .slds-input-has-icon_left-right .slds-input{
+                    border: none;
+                }
+                
+                .sort-selected .slds-button__icon {
+                    fill: #49735A !important;
+                }
+                
+                .leftButton .slds-button__icon{
+                    fill: rgba(18, 82, 174, 1);
+                    width: 3rem;
+                    height: 3rem;
+                }
+                
+                .rightButton .slds-button__icon{
+                    fill: rgba(18, 82, 174, 1);
+                    width: 3rem;
+                    height: 3rem;
+                }
+                
+                .leftButton .slds-button:hover .slds-button__icon, .slds-button:focus .slds-button__icon, .slds-button:active .slds-button__icon, .slds-button[disabled] .slds-button__icon, .slds-button:disabled .slds-button__icon {
+                    fill: rgba(18, 82, 174, 0.5);
+                }
+                
+                .rightButton .slds-button:hover .slds-button__icon, .slds-button:focus .slds-button__icon, .slds-button:active .slds-button__icon, .slds-button[disabled] .slds-button__icon, .slds-button:disabled .slds-button__icon {
+                    fill: rgba(18, 82, 174, 0.5);
+                }
+            `;
+
+            body.appendChild(style);
+            this.isInitalRender = false;
+        }
     }
 
 
@@ -177,16 +185,12 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                 row.Availability_Date__c = row.Availability_Date__c ? this.formatDate(row.Availability_Date__c) : 'N/A';
                 row.Listing_Price__c = row.Listing_Price__c ? row.Listing_Price__c : 'TBD';
                 row.Property_Features__c = row.Property_Features__c ? this.changeAmenitiesFormat(row.Property_Features__c) : row.Property_Features__c;
-                // row.Number_of_Bedrooms__c = row.Number_of_Bedrooms__c ? row.Number_of_Bedrooms__c : 0;
-                // row.Number_of_Bathrooms__c = row.Number_of_Bathrooms__c ? row.Number_of_Bathrooms__c : 0;
             });
             this.result_found_numbers = this.FilteredListingData.length;
             this.pagedFilteredListingData = this.FilteredListingData.slice(0, 6);
             console.log('ListingData:',this.ListingData);
             this.isData = true;
-            setTimeout(() => {
-                this.spinnerdatatable = false;
-            }, 4000);
+            this.spinnerdatatable = false;
         });
     }
 
@@ -208,10 +212,26 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         }
     }
 
-    showAllProperties(){
-        this.show_more_button_class = 'not-show_last_button';
-        this.pagedFilteredListingData = this.FilteredListingData.slice(0,this.result_found_numbers);
-    }
+    showAllProperties() {
+        const nextPageStartIndex = this.pagedFilteredListingData.length;
+        const nextPageEndIndex = nextPageStartIndex + 6;
+    
+        // If there are no more items to display, exit
+        if (nextPageStartIndex >= this.FilteredListingData.length) {
+            return;
+        }
+    
+        // Slice the next page of data from the filtered list
+        const nextPageData = this.FilteredListingData.slice(nextPageStartIndex, nextPageEndIndex);
+    
+        // Append the next page data to the existing paged data
+        this.pagedFilteredListingData = [...this.pagedFilteredListingData, ...nextPageData];
+    
+        // Hide the "Show more" button if there are no more items to display
+        if (nextPageEndIndex >= this.FilteredListingData.length) {
+            this.show_more_button_class = 'not-show_last_button';
+        }
+    }    
 
     searchTermValue(event){
         this.searchTerm = event.target.value;
@@ -300,17 +320,13 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.show_more_button_class = 'not-show_last_button';
             this.result_found_numbers = this.pagedFilteredListingData.length;
             this.dropDownClass ='drop-down-none';
-            setTimeout(() => {
-                this.spinnerdatatable = false;
-            }, 4000);
+            this.spinnerdatatable = false;
         }else{
             this.isData = true;
             this.show_more_button_class = 'not-show_last_button';
             this.result_found_numbers = this.pagedFilteredListingData.length;
             this.dropDownClass ='drop-down-none';
-            setTimeout(() => {
-                this.spinnerdatatable = false;
-            }, 4000);
+            this.spinnerdatatable = false;
         }
     }
 
