@@ -104,9 +104,11 @@
     width: 100%;
     padding: 7px 35px;
     color: rgb(0, 0, 0);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+
 
 }
 
@@ -158,6 +160,44 @@
 .detailBox {
     height: 100%;
     border: 1px solid white;
+}
+
+.info_Name h1{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+}
+
+.info_Name p{
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 12.48px;
+    text-align: left;
+    color: rgba(140, 140, 140, 1);
+    padding-top: 1rem;
+}
+
+.info_Price_tp{
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 14.4px;
+    text-align: left;
+    color: rgba(42, 43, 63, 1);
+}
+
+.info_Price_value{
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 21.12px;
+    text-align: left;
+    color: rgba(0, 110, 255, 1);
+    padding-top: 1rem;
 }
 
 .container {
@@ -221,6 +261,14 @@
     justify-content: center; */
 }
 
+.facilities h1{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+}
+
 .facilityBox {
     width: 130px;
     height: 90px;
@@ -262,9 +310,25 @@
     text-align: justify;
 }
 
+.about h1{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+}
+
 .address {
     width: 100%;
     height: 100%;
+}
+
+.address h1{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
 }
 
 .map {
@@ -460,4 +524,73 @@ img {
     position: fixed;
     z-index: auto;
     opacity: 0.5;
+}
+
+.galleryFilterIcon{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.galleryFilterIcon_btn{
+    padding: 10px 30px 10px 30px;
+    border-radius: 8px;
+    border: 2px solid rgba(1, 118, 211, 1);
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(1, 118, 211, 1);
+    background: white;
+}
+
+.galleryFilterIcon_btn.active {
+    color: white;
+    background: rgba(1, 118, 211, 1);
+}
+
+.images_total{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+}
+
+.images_total p b{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(1, 118, 211, 1);
+}
+
+.map_d1{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 14.4px;
+    text-align: left;
+    color: rgba(42, 43, 63, 1);
+}
+
+.map_d2{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 19.2px;
+    text-align: right;
+    color: rgba(0, 110, 255, 1);
+}
+
+.map_details{
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    padding-top: 1rem;
+    justify-content: space-between;
 }

@@ -9,7 +9,6 @@ import getListingData from '@salesforce/apex/propertyViewController.getListingDa
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-
 export default class propertyView_Community extends NavigationMixin(LightningElement) {
 
     listingrecordid;
@@ -57,6 +56,7 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track PreviewImgSpinner = false;
     @track NotFirstImg = false;
     @track NotLastImg = false;
+    @track totalImagesInGallery;
 
 
     connectedCallback() {
@@ -112,6 +112,8 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             this.propertyData = result.Listings;
             this.feature_icons = result.FeatureIcons;
             this.propertyImages = result.Medias;
+            this.totalImagesInGallery = this.propertyImages.length;
+            this.ogPropertyImages = result.Medias;
             this.propertyData.forEach(row => {
                 if (row.Property_Features__c) {
                     const amenitiesArray = row.Property_Features__c.split(";");
@@ -247,6 +249,34 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             variant
         })
         this.dispatchEvent(toastEvent)
+    }
+
+    applyFilter(event){
+        var buttonName = event.target.dataset.name;
+        console.log('methos is called-->',buttonName);
+
+        var buttons = this.template.querySelectorAll('.galleryFilterIcon_btn');
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked button
+        event.target.classList.add('active');
+
+        if (buttonName == 'galleryFilterIcon_all') {
+            this.propertyImages = this.ogPropertyImages;
+            this.totalImagesInGallery = this.propertyImages.length;
+        } else if (buttonName == 'galleryFilterIcon_room') {
+            this.propertyImages = this.ogPropertyImages.filter(listing =>{
+                return listing.Image_of__c == 'Room';
+            });
+            this.totalImagesInGallery = this.propertyImages.length;
+        } else if (buttonName == 'galleryFilterIcon_kitchen') {
+            this.propertyImages = this.ogPropertyImages.filter(listing =>{
+                return listing.Image_of__c == 'Kitchen';
+            });
+            this.totalImagesInGallery = this.propertyImages.length;
+        }
     }
 
 }

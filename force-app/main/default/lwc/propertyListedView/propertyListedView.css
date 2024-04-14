@@ -125,6 +125,7 @@ lightning-input {
    background-repeat: no-repeat;
    background-position-x: right;
    background-position-y: bottom;
+   backdrop-filter: blur(5px);
 }
 
 .layout1 {
@@ -174,6 +175,16 @@ lightning-input {
    padding: 3%;
 }
 
+.imagePreview_columnview {
+   width: 100%;
+   display: grid;
+   grid: auto / auto auto;
+   grid-gap: 4rem;
+   padding: 2rem;
+   justify-content: center;
+   align-items: center;
+}
+
 .property_card1 {
    width: 100%;
    border-radius: 12px;
@@ -186,6 +197,14 @@ lightning-input {
    margin-bottom: 2%;
 }
 
+.property_card2 {
+   width: 100%;
+   /* border: 1px solid black; */
+   border-radius: 12px;
+   /* margin-bottom: 2%; */
+   backdrop-filter: blur(1px);
+}
+
 .cardDetail1 {
    display: flex;
    background-color: rgba(255, 255, 255, 0.7);
@@ -193,6 +212,13 @@ lightning-input {
 }
 
 .cardDetail {
+   display: flex;
+   justify-content: inline;
+   background-color: rgba(225, 241, 254, 1);
+   border-radius: 12px;
+}
+
+.cardDetail2 {
    display: flex;
    justify-content: inline;
    background-color: rgba(225, 241, 254, 1);
@@ -227,6 +253,20 @@ lightning-input {
    width: 100%;
 }
 
+.property_image2 {
+   width: 30%;
+   border-left: 1px;
+   border-radius: 12px;
+   cursor: pointer;
+}
+
+.property_image2 img {
+   border-top-left-radius: 12px;
+   border-bottom-left-radius: 12px;
+   height: 26vh;
+   width: 100%;
+}
+
 .property_details1 {
    width: 70%;
    padding: 3rem;
@@ -241,6 +281,14 @@ lightning-input {
    padding: 1%;
    display: flex;
    justify-content: inline;
+}
+
+.property_details2 {
+   width: 70%;
+   padding: 2%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 .leftside {
@@ -290,7 +338,7 @@ lightning-input {
    font-size: 22px;
 }
 
-.logox{
+.logox {
    width: 5%;
 }
 
@@ -706,8 +754,7 @@ lightning-input {
    border: none;
 }
 
-.more-filter-button button,
-.views-list button {
+.more-filter-button button{
    background-color: rgba(1, 118, 211, 1);
    color: rgba(255, 255, 255, 1);
    line-height: 24px;
@@ -717,12 +764,18 @@ lightning-input {
    border: none;
 }
 
-.views-list button {
+.views-list {
    margin-left: 10px;
    line-height: 24px;
    font-size: 18px;
    border-radius: 8px;
-   padding: 10px 8px 10px 8px;
+   padding: 4px 8px 6px 8px;
+   background-color: rgba(1, 118, 211, 1);
+   border: none;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
 }
 
 .sort-selected {
@@ -971,4 +1024,19 @@ img {
    line-height: 24px;
    text-align: left;
    color: rgba(35, 30, 28, 0.6);
+}
+
+.container12 {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.upkey{
+   margin-bottom: -5px;
+   cursor: pointer;
+}
+
+.downkey{
+   cursor: pointer;
 }

@@ -10,12 +10,15 @@ import designcss from '@salesforce/resourceUrl/propertycssoveride';
 import propertybg from '@salesforce/resourceUrl/propertybg';
 import featurepropertybg from '@salesforce/resourceUrl/featurepropertybg';
 import plvimg from '@salesforce/resourceUrl/plvimg';
+import columnview from '@salesforce/resourceUrl/columnview';
+import gridview from '@salesforce/resourceUrl/gridview';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingInformation';
 import { NavigationMixin } from 'lightning/navigation';
 
 const PAGE_SIZE = 1;
 
 export default class Bt_HomePage extends NavigationMixin(LightningElement) {
+
     @track spinnerdatatable = false;
     @track dropDownClass = 'drop-down-none';
     Logo = logo;
@@ -42,8 +45,9 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track sq_ft='';
     @track city='';
     @track zip_code='';
-    @track gridView = true;
+    @track gridView = false;
     @track listView = false;
+    @track columnView = true;
     @track all_property_numbers = 7;
     @track pagedFilteredListingData = [];
     @track propertyView = false;
@@ -57,9 +61,12 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track feature_icons;
     @track currentRecordId;
     @track sortingProperties = 'View All';
+    @track selectedOption = 'Column';
 
     @track propertybg = propertybg;
     featurepropertybg = featurepropertybg;
+    columnview = columnview;
+    gridview = gridview;
 
     @track plvimg1 = plvimg + '/plvimg1.png';
     @track plvimg2 = plvimg + '/plvimg2.png';
@@ -90,25 +97,21 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     goToPrevious() {
-        if (this.currentPage!==1) {
+        if (this.currentPage !== 1) {
             this.currentPage -= 1;
-            this.pagedProperties;
-        }
-        if(this.currentPage === 1){
-            this.left_arrow_disabled = true;
             this.right_arrow_disabled = false;
+            this.pagedProperties;
+        } else if(this.currentPage === 1){
+            this.left_arrow_disabled = true;
         }
     }
 
     goToNext() {
-        // console.log('onNext:',this.totalPages);
-        if (this.currentPage!==this.totalPages) {
-            console.log('onNext:',!this.currentPage ===this.totalPages);
+        if (this.currentPage !== this.totalPages) {
             this.currentPage += 1;
             this.left_arrow_disabled = false;
             this.pagedProperties;
-        }
-        if(this.currentPage===this.totalPages){
+        } else if(this.currentPage === this.totalPages){
             this.right_arrow_disabled = true;
         }
     }
@@ -170,7 +173,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             });
             this.FilteredListingData.forEach(row => {
                 const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] :'https://sellmyproperties.in/images/no-property-found.png';
+                row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] : '/sfsites/c/resource/nopropertyfound';
                 row.Availability_Date__c = row.Availability_Date__c ? this.formatDate(row.Availability_Date__c) : 'N/A';
                 row.Listing_Price__c = row.Listing_Price__c ? row.Listing_Price__c : 'TBD';
                 row.Property_Features__c = row.Property_Features__c ? this.changeAmenitiesFormat(row.Property_Features__c) : row.Property_Features__c;
@@ -245,17 +248,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             }else{
                 this.bathrooms = input.value;
             } 
-        }
-    }
-
-    view_type(event){
-        if(event.target.value==='List'){
-            this.gridView = false;
-            this.listView = true;
-        }
-        if(event.target.value==='Grid'){
-            this.listView = false;
-            this.gridView = true;
         }
     }
 
@@ -357,6 +349,44 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                 return listing.Availability_Date__c !== 'N/A';
             });
             this.result_found_numbers = this.pagedFilteredListingData.length;
+        }
+    }
+
+    handleUpClick() {
+        switch(this.selectedOption) {
+            case 'Grid':
+                this.selectedOption = 'Column';
+                this.columnView = true;
+                this.gridView = false;
+                this.listView = false;
+                break;
+            case 'List':
+                this.selectedOption = 'Grid';
+                this.columnView = false;
+                this.gridView = true;
+                this.listView = false;
+                break;
+            default:
+                break;
+        }
+    }
+
+    handleDownClick() {
+        switch(this.selectedOption) {
+            case 'Column':
+                this.selectedOption = 'Grid';
+                this.columnView = false;
+                this.gridView = true;
+                this.listView = false;
+                break;
+            case 'Grid':
+                this.selectedOption = 'List';
+                this.columnView = false;
+                this.gridView = false;
+                this.listView = true;
+                break;
+            default:
+                break;
         }
     }
 
