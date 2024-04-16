@@ -1,0 +1,448 @@
+.box1{
+   padding: 2%;
+}
+.welcomebox{
+    border-radius: 8px;
+    background-image: linear-gradient(to right, rgba(193, 222, 232, 1), rgba(251, 217, 185, 1));
+    height: 500px;
+}
+
+.title{
+   display: flex;
+    width: 100%;
+    padding: 4%;
+    padding-left: 2%;
+    padding-bottom: 1%;
+    margin-left: 2%;
+    margin-top:8%;
+}
+.titletext{
+   width: 49%;
+}
+.welcometext{
+   font-size: 18px;
+}
+.titleimg{
+   width: 50%;
+}
+.titleimg img{
+   width: 100%;
+   height: 400px;
+   opacity: 0.8;
+}
+
+.searchbox{
+   top: 26%;
+   width: 96%;
+   margin: auto;
+   position: absolute;
+   z-index: 1;
+}
+
+.mainFilterDiv {
+    display: flex;
+    background-color: white;
+    opacity: 0.8;
+    flex-direction: row;
+    gap: 12px;
+    border: 2px solid rgba(1, 118, 211, 1);
+    border-radius: 40px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+ }
+ .input-box {
+    width: 40px;
+    text-align: center;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;
+ }
+ 
+ /* Hide the number input spin buttons */
+ .input-box::-webkit-inner-spin-button,
+ .input-box::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+ }
+ 
+ .input-box[type="number"] {
+    -moz-appearance: textfield;
+ }
+ .SearchFilter {
+   border-right: 1px solid rgba(73, 115, 90, 1);
+}
+input[type="search"]{
+   border: none !important;
+}
+.quantity {
+   display: flex;
+   border-right: 1px solid rgba(73, 115, 90, 1);
+   justify-content: center;
+   align-items: center;
+}
+.quantity button{
+   border: none;
+   cursor: pointer;
+   font-size: 20px;
+   width: 30px;
+   height: auto;
+   text-align: center;
+   transition: background-color 0.2s;
+   background-color: white;
+}
+ .mainFilterDiv .quantity svg {
+    margin-right: 10px;
+ }
+ 
+ .mainFilterDiv .quantity .minus {
+    margin-left: 10px;
+ }
+ 
+ .filterSetting {
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+ }
+.mainFilterDiv .searchButton button{
+    /* margin-left: 10px; */
+    background-color: rgba(1, 118, 211, 1);
+    color: rgba(255, 255, 255, 1);
+    /* line-height: 24px;
+    font-size: 18px; */
+    border-radius: 50%;
+    padding: 10px 10px 10px 10px;
+    border: none;
+ }
+ 
+ .more-filter-button button, .views-list button{
+    background-color: rgba(1, 118, 211, 1);
+    color: rgba(255, 255, 255, 1);
+    line-height: 24px;
+    font-size: 18px;
+    border-radius: 40px;
+    padding: 10px 25px 10px 25px;
+    border: none;
+ }
+ .views-list button{
+    margin-left: 10px;
+    line-height: 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    padding: 10px 8px 10px 8px;
+ }
+
+ .box2{
+   padding: 2%;
+   background: url(/sfsites/c/resource/toprighteclipse),url(/sfsites/c/resource/toplefteclipse);
+    background-repeat: no-repeat;
+    background-position-x: 95%,1%;
+    background-position-y: top,4%;
+    background-size: 60px, 100px;
+    backdrop-filter: blur(5px);
+ }
+ .innerbox1{
+   margin-top: 5%;
+ }
+ .featuredproperty{
+   border-radius: 8px;
+   background-color: rgba(1, 118, 211, 0.05);
+
+ }
+ .imagePreview_listview{
+   padding: 3%;
+   margin: auto;
+}
+
+.property_card{
+   width:95%;
+   margin: auto;
+   border-radius:12px;
+   /* margin-bottom:2%; */
+}
+.cardDetail{
+   display:flex;
+   justify-content:inline;
+   /* background-color:rgba(225, 241, 254, 1); */
+   background-color:white;
+
+   border-radius:12px;
+}
+
+.property_image{
+   width: 40%;
+   border-left:1px;
+   border-radius:12px;
+}
+.property_image img{
+   border-top-left-radius: 12px;
+   border-bottom-left-radius: 12px;
+   height:364px;
+   width:100%;
+}
+.property_details{
+   width: 80%;
+   padding:1%;
+   display:flex;
+   justify-content:inline;
+}
+.leftside{
+   width: 90%;
+}
+.card-title{
+   font-size: 18px;
+}
+.card-text{
+   font-size: 14px;
+}
+.custom-box {
+   border: 1px solid rgba(225, 241, 254, 1);
+}
+.numbers{
+   display: flex;
+   /* justify-content:center; */
+}
+.layout{
+   width: 619px;
+   gap: 22px;
+   padding: 1%;
+   border-radius: 8px;
+   background-color: #E1F1FE;
+}
+.property_layout_item{
+   margin-right: 5%;
+}
+.property_data_number{
+   margin-left: 10px;
+}
+.availability_badge{
+   background-color:rgba(1, 118, 211, 1);
+   color:white;
+}
+.property_price{
+   margin-left: 15%;
+}
+
+.data_not_found{
+   width: 100%;
+   display:flex;
+   justify-content:center;
+}
+.data_not_found p{
+   font-size: 22px;
+}
+
+.navigation-boxes {
+   width: 100%;
+   top: 70%;
+   display: flex;
+   justify-content: center;
+   margin-top: 10px;
+}
+.black {
+   text-align: center;
+   background: #000;
+   background-blend-mode: multiply;
+   color: #fff;
+   width: 100%;
+   height: 30%;
+   position: absolute;
+   opacity: .7;
+   bottom: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-bottom-left-radius: 8px;
+   border-bottom-right-radius: 8px;
+
+}
+.box:hover{
+   .black{
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+      height: 100%;
+   }
+}
+.black_enabled{
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+      height: 100%;
+}
+
+.box {
+   position: relative;
+   border-radius: 8px;
+   border: 3px solid white;
+   margin: 0 15px;
+   cursor: pointer;
+}
+
+.box img {
+   border-radius: 8px;
+   width: 333px; /* Set your desired width */
+   height: 158px; /* Set your desired height */
+}
+
+ .listedproperty{
+   border-radius: 8px;
+   height: 550px;
+   /* background-color: #E1F1FE; */
+
+ }
+ .list{
+   width: 30%;
+ }
+
+ .property-container {
+   background: url(/sfsites/c/resource/bottomrightbg);
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: top;
+    background-size: 100px;
+    backdrop-filter: blur(5px);
+   width: 100%;
+   height: 520px;
+   /* margin-left: auto;
+   display: flex; */
+   flex-wrap: wrap;
+   flex-direction: row;
+   align-items: center;
+}
+.listed_property_heading{
+   display: flex;
+   align-items: center;
+}
+.property_items{
+   display: flex;
+   padding: 2%;
+   overflow: hidden;
+   width: 100%;
+   height: 100%;
+   margin-top: 2%;
+}
+
+.property-item {
+   flex: 0 0 auto;
+   transition: transform 0.5s ease;
+  
+   background-color: #ffffff;
+   position: relative;
+   width: 350px;
+   padding: 16px;
+   height: 430px;
+   border: 1px solid white;
+   box-shadow: 0 0 26px 0 rgba(66, 71, 76, 0.08);
+   border-radius: 8px;
+   margin-bottom: 15px;
+   margin-right: 2%;
+   /* display: flex; */
+   align-items: center;
+}
+.card-body{
+   padding: 0.5rem;
+}
+
+.property-image {
+   margin-right: 15px;
+   border-radius: 10px;
+}
+
+.property-image img {
+   max-width: 100px;
+   max-height: 100px;
+   border-radius: 5px;
+}
+
+.property-details {
+   padding: 10px;
+}
+.tag1{
+   /* background-color: white; */
+   /* border-radius: 5px; */
+   position: absolute;
+   /* color: black; */
+   left: 0.5rem;
+   top: 2.5rem;
+   z-index: 1;
+   padding: 0 0.3rem;
+}
+.tag2{
+   /* background-color: white; */
+   /* border-radius: 5px; */
+   position: absolute;
+   /* color: black; */
+   left: 0.5rem;
+   top: 4rem;
+   z-index: 1;
+   padding: 0 0.3rem;
+}
+.details{
+   height: 155px;
+   /* border-bottom: 0.5px solid grey; */
+}
+.room_details{
+   display: flex;
+   align-items: center;
+   color: #737D8C;
+}
+
+.property-name {
+   font-size: 18px;
+   font-weight: bold;
+   color: #333333;
+   margin-bottom: 5px;
+}
+
+.property-info {
+   font-size: 16px;
+   color: #666666;
+   margin-bottom: 5px;
+}
+.card-text{
+   display: flex;
+   margin-top:6px;
+   color: #737D8C;
+}
+.item-1 p{
+   color:#1252AE;
+}
+.item-2 button{
+   height: 26px;
+   background-color:#EBEEF2;
+   border:1px solid #EBEEF2;
+}
+
+.arrow {
+   color: white;
+   background-color: rgb(255, 255, 255);
+   border-radius: 50%;
+   padding: 0.4rem;
+   margin: 0.1rem;
+   cursor: pointer;
+}
+.arrowbtn{
+   display: flex;
+   align-items: center;
+   box-shadow: 0 1 4px 0 rgba(0, 0, 0, 0.25);
+
+}
+.pagebuttons{
+   height: 50px;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.pagebuttons .second,.third{
+   margin-right: 10px;
+   width: 50px;
+   cursor: pointer;
+   border-bottom: 2px solid rgba(163, 201, 231, 1);
+}
+.first{
+   margin-right: 10px;
+   width: 50px;
+   cursor: pointer;
+   border-bottom: 2px solid rgba(1, 118, 211, 1);
+}

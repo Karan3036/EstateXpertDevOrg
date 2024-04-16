@@ -1,11 +1,6 @@
 import { LightningElement, track, api, wire } from 'lwc';
-import property_icons from '@salesforce/resourceUrl/PropertyViewIcons';
 import Property_view_example from '@salesforce/resourceUrl/propertyviewposter';
-import NextArrowIcon from '@salesforce/resourceUrl/NextArrowIcon';
-import PrevArrowIcon from '@salesforce/resourceUrl/PrevArrowIcon';
-import map1 from '@salesforce/resourceUrl/map1';
-import propertybg from '@salesforce/resourceUrl/propertybg';
-import getListingData from '@salesforce/apex/propertyViewController.getListingData';
+import getListingData from '@salesforce/apex/propertyListedViewController.getListingData';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -13,40 +8,12 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
 
     listingrecordid;
     @track spinnerdatatable = false;
-    @track PhoneIcon = property_icons + '/Phone.png';
-    @track EmailIcon = property_icons + '/Email.png';
-
-    @track BedroomIcon = property_icons + '/Bedroom.png';
-    @track BathroomIcon = property_icons + '/Bathroom.png';
-    @track BathroomSqftIcon = property_icons + '/BathroomSqft.png';
-    @track SafetyIcon = property_icons + '/SafetyRank1.png';
-    @track SafetyIcon2 = property_icons + '/SafetyRank2.png';
-
-    @track CarParkingIcon = property_icons + '/CarParking.png';
-    @track SwimmingIcon = property_icons + '/Swimming.png';
-    @track GymIcon = property_icons + '/Gym.png';
-    @track RestaurantIcon = property_icons + '/Restaurant.png';
-    @track WifiIcon = property_icons + '/Wifi.png';
-    @track PetCenterIcon = property_icons + '/PetCenter.png';
-    @track SportsIcon = property_icons + '/Sports.png';
-    @track LaundryIcon = property_icons + '/Vector (4).png';
-    @track ParkIcon = property_icons + '/Park.png';
-    @track BicycleIcon = property_icons + '/Bicycle.png';
-    @track EmergencyIcon = property_icons + '/Emergency.png';
-    @track HockeyIcon = property_icons + '/Hockey.png';
-    @track LibraryIcon = property_icons + '/Library.png';
-    @track BabyParkIcon = property_icons + '/BabyPark.png';
 
     @track propertyView = Property_view_example;
-    @track nextArrowIcon = NextArrowIcon;
-    @track prevArrowIcon = PrevArrowIcon;
 
     @track propertyData = [];
     @track feature_icons;
-    @track propertyImages = [];   // @track isResidential;
-    @track firstImageToshow;
-    @track map1 = map1;
-    @track propertybg = propertybg;
+    @track propertyImages = []; 
     @track errorMessage = false;
 
     @track Show_ImagePreview = false;
@@ -58,12 +25,15 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track NotLastImg = false;
     @track totalImagesInGallery;
 
+    isInitalRender = true;
+    mapMarkers = [];
+
 
     connectedCallback() {
         const urlParams = new URLSearchParams(window.location.search);
         this.listingrecordid = urlParams.get('c__listingrecordid');
         console.log('Listing Record Id:', this.listingrecordid);
-        this.getPropertyData();
+        this.getListingDetail();
     }
 
     renderedCallback() {
@@ -84,6 +54,25 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
                 this.template.querySelector('[data-id="' + target + '"]').classList.add("active-tab-content");
             });
         });
+
+        if (this.isInitalRender) {
+            const body = document.querySelector("body");
+
+            const style = document.createElement('style');
+            style.innerText = `
+                .map lightning-map{
+                    width: -webkit-fill-available;
+                    height: -webkit-fill-available;
+                }
+
+                .map .slds-map:before {
+                    display: none !important;
+                }
+            `;
+
+            body.appendChild(style);
+            this.isInitalRender = false;
+        }
     }
 
     get nextImages() {
@@ -105,7 +94,7 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
         }
     }
 
-    getPropertyData() {
+    getListingDetail() {
         this.spinnerdatatable = true;
         getListingData({ recordId: this.listingrecordid }).then((result) => {
             console.log('result: ', result);
@@ -114,6 +103,7 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             this.propertyImages = result.Medias;
             this.totalImagesInGallery = this.propertyImages.length;
             this.ogPropertyImages = result.Medias;
+    
             this.propertyData.forEach(row => {
                 if (row.Property_Features__c) {
                     const amenitiesArray = row.Property_Features__c.split(";");
@@ -127,7 +117,21 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
                     row.Property_Features__c = [];
                 }
             });
+
             console.log('amenties: ', this.propertyData);
+
+            const location = this.getLocationFromRecord(result.Listings);
+        
+            if (location) {
+                console.log('location-->',location);
+                this.mapMarkers = [{
+                    location,
+                    title: 'Location'
+                }];
+            } else {
+                console.error('No location information found in record data');
+            }
+
             setTimeout(() => {
                 this.spinnerdatatable = false;
             }, 5000);
@@ -277,6 +281,26 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             });
             this.totalImagesInGallery = this.propertyImages.length;
         }
+    }
+
+    getLocationFromRecord(recordData) {
+        if (recordData[0].Street__c && recordData[0].City__c && recordData[0].State__c && recordData[0].Country__c && recordData[0].Postal_Code__c) {
+            return {
+                Street: recordData[0].Street__c,
+                City: recordData[0].City__c,
+                State: recordData[0].State__c,
+                Country: recordData[0].Country__c,
+                PostalCode: recordData[0].Postal_Code__c
+            };
+        } else if (recordData[0].Area__c && recordData[0].City__c && recordData[0].State__c && recordData[0].Postal_Code__c) {
+            return {
+                Street: recordData[0].Area__c,
+                City: recordData[0].City__c,
+                State: recordData[0].State__c,
+                PostalCode: recordData[0].Postal_Code__c
+            };
+        }
+        return null;
     }
 
 }

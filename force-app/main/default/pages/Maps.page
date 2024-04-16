@@ -1,37 +1,73 @@
-<apex:page standardController="Listing__c" extensions="Mapcontroller">
-    <head>
+<apex:page standardController="Property__c">
+    <apex:includeLightning />
+<head>
         <meta charset="utf-8"/>
         <title>Guides</title>
         <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
-         <apex:stylesheet value="{!$Resource.MapboxCSS}"/>
-         <apex:includeScript value="{!$Resource.MapboxJS}"/>
+        <apex:stylesheet value="{!$Resource.MapboxCSS}"/>
+        <apex:includeScript value="{!$Resource.MapboxJS}"/>
         <style>
             body { margin: 0; padding: 0; }
-            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            /* #main { display: flex} */
+            #container {padding-top:300px }
+            #map { position: absolute; top: 0; bottom: 0; width: 95% }
             .buttoncss{
                 z-index: 1 !important;
                 position: relative;
+                /* top: -175px;
+                left: 560px */
             }
+            .marker { background-image: url('https://cdn-icons-png.flaticon.com/128/684/684908.png'); background-size: cover; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;position:relative;top:-50px }
+            .mapboxgl-popup { max-width: 200px; }
+            .mapboxgl-popup-content { text-align: center; font-family: 'Open Sans', sans-serif; }
         </style>
     </head>
     <body>
-        <div>
+        <div id="map">
             <apex:form >
-           
-                    <apex:commandButton onclick="toggleMapView(); return false;" styleClass="slds-button buttoncss slds-button--brand" value="Toggle View"/>
-              
-        </apex:form>
+            <apex:commandButton onclick="toggleMapView(); return false;" styleClass="slds-button buttoncss slds-button--brand" value="Toggle View"/>
+            </apex:form>
         </div>
-
-        <div id="map"></div>
+        <div id="container"></div>
+        <apex:outputText value="Id from LWC: {!$CurrentPage.parameters.id}" />
+        <!-- <div id="main">
+        </div> -->
         
         <script>
+            var images;
             var map;
             var mapView = 'streets-v9';
             var satelliteView = 'satellite-v9';
             var currentView = mapView;
-
+            var name = '{!Property__c.Name}'
+            var recordId = '{!Property__c.Id}'; 
+            var address = "{!Property__c.Street__c},{!Property__c.City__c},{!Property__c.Postal_Code__c},{!Property__c.State__c},{!Property__c.Country__c}"
             mapboxgl.accessToken = 'pk.eyJ1IjoiaGFyc2h2NTM0IiwiYSI6ImNsdXJ5MTB4bDBmcTYyanBrbXY3dnV0NnUifQ.vCHQzLM4VkPzB3MXFl6AoA';
+
+            window.addEventListener('passids', function(event) {
+                console.log('test');
+                                debugger;
+            const ids = event.detail.ids;
+            console.log('Ids received in VF page:', ids);
+        });
+
+            $Lightning.use("c:Map", function() {
+            $Lightning.createComponent(
+                "c:mapsComponent",
+                {},
+                "container",
+                function(component) {
+                    console.log(recordId);
+                    console.log("Component created successfully");
+                }
+            );
+        });
+
+        // window.addEventListener('passimage', function(event) {
+        //     images = event.detail.images;
+        //     console.log(images);
+        // });
+
             map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/' + currentView,
@@ -48,6 +84,73 @@
                     map.setStyle('mapbox://styles/mapbox/' + mapView);
                     currentView = mapView;
                 }
+            }
+
+            window.addEventListener('passimage', function(event) {
+    images = event.detail.images;
+    console.log(images);
+
+    // Check if images are available before creating the marker
+    if (images) {
+        console.log('inside if condition');
+        createMarker();
+    }
+});
+
+function createMarker() {
+    // debugger;
+    try {
+        console.log('createMarker is called');
+    // map.on('load', function () {
+        geocode(address, function (err, data) {
+            if (err) throw err;
+            var coordinates = data.features[0].geometry.coordinates;
+            console.log(coordinates);
+            map.flyTo({
+                center: coordinates,
+                zoom: 14 
+            });
+
+            // Creating marker
+            const el = document.createElement('div');
+            el.className = 'marker';
+            new mapboxgl.Marker(el)
+                .setLngLat(coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({ offset: 25 })
+                        .setHTML(`<div style="background-color: white; border-radius: 5px; padding: 10px;">
+                                    <h2 style="margin-bottom: 5px;"><a href=/${recordId} style="text-decoration: none; color: #333;">${name}</a></h2>
+                                    <div><img src=${images} height='30px'></img></div>
+                                    <p style="margin: 0;">${address}</p>
+                                </div>`) 
+                )
+                .addTo(map);
+        });
+    // });
+    } catch (error) {
+        console.log('error-->',error);
+    }
+    
+}
+
+
+            function geocode(address, callback) {
+                console.log('inside geocode');
+                var accessToken = mapboxgl.accessToken;
+                var apiUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(address) + '.json?access_token=' + accessToken;
+
+                fetch(apiUrl)
+                    .then(function (response) {
+                        if (!response.ok) throw response;
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        callback(null, data);
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                        callback(error);
+                    });
             }
         </script>
     </body>

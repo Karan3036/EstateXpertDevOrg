@@ -35,7 +35,7 @@
     cursor: pointer;
 }
 
-.buttons{
+.buttons {
     height: 10%;
     position: absolute;
     top: 0;
@@ -162,7 +162,7 @@
     border: 1px solid white;
 }
 
-.info_Name h1{
+.info_Name h1 {
     font-family: Inter;
     font-size: 20px;
     font-weight: 600;
@@ -171,7 +171,7 @@
     color: rgba(0, 0, 0, 1);
 }
 
-.info_Name p{
+.info_Name p {
     font-family: Inter;
     font-size: 13px;
     font-weight: 400;
@@ -181,7 +181,7 @@
     padding-top: 1rem;
 }
 
-.info_Price_tp{
+.info_Price_tp {
     font-family: Poppins;
     font-size: 15px;
     font-weight: 600;
@@ -190,7 +190,7 @@
     color: rgba(42, 43, 63, 1);
 }
 
-.info_Price_value{
+.info_Price_value {
     font-family: Poppins;
     font-size: 22px;
     font-weight: 500;
@@ -204,6 +204,11 @@
     width: 100%;
     height: 100%;
     padding: 1rem;
+    background-image: url('/sfsites/c/resource/propertybg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: contain;
 }
 
 .box3 {
@@ -261,7 +266,7 @@
     justify-content: center; */
 }
 
-.facilities h1{
+.facilities h1 {
     font-family: Inter;
     font-size: 20px;
     font-weight: 600;
@@ -310,7 +315,7 @@
     text-align: justify;
 }
 
-.about h1{
+.about h1 {
     font-family: Inter;
     font-size: 20px;
     font-weight: 600;
@@ -323,7 +328,7 @@
     height: 100%;
 }
 
-.address h1{
+.address h1 {
     font-family: Inter;
     font-size: 20px;
     font-weight: 600;
@@ -335,13 +340,8 @@
     width: 100%;
     height: 300px;
     border-radius: 8px;
+    overflow: hidden;
     /* border: 1px solid black; */
-}
-
-.map img {
-    height: -webkit-fill-available;
-    width: -webkit-fill-available;
-    border-radius: 20px;
 }
 
 .slds-tabs_default__nav {
@@ -518,7 +518,7 @@ img {
     -ms-user-select: none;
 }
 
-.main_BG{
+.main_BG {
     height: 100%;
     width: 100%;
     position: fixed;
@@ -526,7 +526,7 @@ img {
     opacity: 0.5;
 }
 
-.galleryFilterIcon{
+.galleryFilterIcon {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
@@ -534,7 +534,7 @@ img {
     padding-bottom: 1rem;
 }
 
-.galleryFilterIcon_btn{
+.galleryFilterIcon_btn {
     padding: 10px 30px 10px 30px;
     border-radius: 8px;
     border: 2px solid rgba(1, 118, 211, 1);
@@ -552,7 +552,7 @@ img {
     background: rgba(1, 118, 211, 1);
 }
 
-.images_total{
+.images_total {
     font-family: Inter;
     font-size: 20px;
     font-weight: 600;
@@ -560,7 +560,7 @@ img {
     text-align: left;
 }
 
-.images_total p b{
+.images_total p b {
     font-family: Inter;
     font-size: 20px;
     font-weight: 600;
@@ -569,7 +569,7 @@ img {
     color: rgba(1, 118, 211, 1);
 }
 
-.map_d1{
+.map_d1 {
     font-family: Inter;
     font-size: 15px;
     font-weight: 700;
@@ -578,7 +578,7 @@ img {
     color: rgba(42, 43, 63, 1);
 }
 
-.map_d2{
+.map_d2 {
     font-family: Inter;
     font-size: 20px;
     font-weight: 500;
@@ -587,10 +587,77 @@ img {
     color: rgba(0, 110, 255, 1);
 }
 
-.map_details{
+.map_details {
     padding-bottom: 1rem;
     display: flex;
     flex-direction: row;
     padding-top: 1rem;
     justify-content: space-between;
+}
+
+.vendorName {
+    font-family: Poppins;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 19.5px;
+    text-align: center;
+    color: rgba(42, 43, 63, 1);
+}
+
+.vendorType {
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16.5px;
+    text-align: center;
+    color: rgba(140, 140, 140, 1);
+}
+
+.leftSide_details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-direction: row;
+}
+
+.vendor_info {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.commu_option {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.property_v_span {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 1rem;
+    gap: 1.5rem;
+}
+
+.property_v {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.property_v b {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 15.36px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+}
+
+.upper_header_data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
