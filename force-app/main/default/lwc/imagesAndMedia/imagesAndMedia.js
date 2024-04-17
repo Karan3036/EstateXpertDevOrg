@@ -675,7 +675,7 @@ export default class UploadImage extends LightningElement {
                     Bucket: confData.S3_Bucket_Name__c
                 }
             });
-
+            console.log('s3:' + JSON.stringify(this.s3));
             this.isAwsSdkInitialized = true;
         } catch (error) {
             console.log("error initializeAwsSdk ", error);
@@ -792,6 +792,8 @@ export default class UploadImage extends LightningElement {
                             ACL: "public-read"
                         };
 
+                        console.log('params:' + JSON.stringify(params));
+
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
@@ -807,6 +809,7 @@ export default class UploadImage extends LightningElement {
                         this.listS3Objects();
                     }
                 } else {
+                    console.log('this.selectedFilesToUpload[f]---->',this.selectedFilesToUpload[f]);
                     if (this.selectedFilesToUpload[f]) {
                         let objKey = this.fileName[f]
                             .replace(/\s+/g, "_")
@@ -818,6 +821,8 @@ export default class UploadImage extends LightningElement {
                             Body: this.selectedFilesToUpload[f],
                             ACL: "public-read"
                         };
+
+                        console.log('params:' + JSON.stringify(params));
 
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;

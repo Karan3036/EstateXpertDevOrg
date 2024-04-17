@@ -106,11 +106,8 @@ input[type="search"]{
     padding-top: 5vh;
  }
 .mainFilterDiv .searchButton button{
-    /* margin-left: 10px; */
     background-color: rgba(1, 118, 211, 1);
     color: rgba(255, 255, 255, 1);
-    /* line-height: 24px;
-    font-size: 18px; */
     border-radius: 50%;
     padding: 10px 10px 10px 10px;
     border: none;
@@ -124,13 +121,6 @@ input[type="search"]{
     border-radius: 40px;
     padding: 10px 25px 10px 25px;
     border: none;
- }
- .views-list button{
-    margin-left: 10px;
-    line-height: 24px;
-    font-size: 18px;
-    border-radius: 8px;
-    padding: 10px 8px 10px 8px;
  }
 
  .box2{
@@ -159,14 +149,11 @@ input[type="search"]{
    width:95%;
    margin: auto;
    border-radius:12px;
-   /* margin-bottom:2%; */
 }
 .cardDetail{
    display:flex;
    justify-content:inline;
-   /* background-color:rgba(225, 241, 254, 1); */
    background-color:white;
-
    border-radius:12px;
 }
 
@@ -201,7 +188,6 @@ input[type="search"]{
 }
 .numbers{
    display: flex;
-   /* justify-content:center; */
 }
 .layout{
    width: 619px;
@@ -216,23 +202,6 @@ input[type="search"]{
 .property_data_number{
    margin-left: 10px;
 }
-.availability_badge{
-   background-color:rgba(1, 118, 211, 1);
-   color:white;
-}
-.property_price{
-   margin-left: 15%;
-}
-
-.data_not_found{
-   width: 100%;
-   display:flex;
-   justify-content:center;
-}
-.data_not_found p{
-   font-size: 22px;
-}
-
 .navigation-boxes {
    width: 100%;
    top: 70%;
@@ -280,14 +249,13 @@ input[type="search"]{
 
 .box img {
    border-radius: 8px;
-   width: 333px; /* Set your desired width */
-   height: 158px; /* Set your desired height */
+   width: 333px;
+   height: 158px; 
 }
 
  .listedproperty{
    border-radius: 8px;
    height: 550px;
-   /* background-color: #E1F1FE; */
 
  }
  .list{
@@ -303,8 +271,6 @@ input[type="search"]{
     backdrop-filter: blur(5px);
    width: 100%;
    height: 520px;
-   /* margin-left: auto;
-   display: flex; */
    flex-wrap: wrap;
    flex-direction: row;
    align-items: center;
@@ -317,7 +283,8 @@ input[type="search"]{
    display: flex;
    padding: 2%;
    overflow: hidden;
-   width: 100%;
+   width: 90%;
+   margin: auto;
    height: 100%;
    margin-top: 2%;
 }
@@ -325,7 +292,6 @@ input[type="search"]{
 .property-item {
    flex: 0 0 auto;
    transition: transform 0.5s ease;
-  
    background-color: #ffffff;
    position: relative;
    width: 350px;
@@ -336,7 +302,6 @@ input[type="search"]{
    border-radius: 8px;
    margin-bottom: 15px;
    margin-right: 2%;
-   /* display: flex; */
    align-items: center;
 }
 .card-body{
@@ -358,20 +323,14 @@ input[type="search"]{
    padding: 10px;
 }
 .tag1{
-   /* background-color: white; */
-   /* border-radius: 5px; */
    position: absolute;
-   /* color: black; */
    left: 0.5rem;
    top: 2.5rem;
    z-index: 1;
    padding: 0 0.3rem;
 }
 .tag2{
-   /* background-color: white; */
-   /* border-radius: 5px; */
    position: absolute;
-   /* color: black; */
    left: 0.5rem;
    top: 4rem;
    z-index: 1;
@@ -379,7 +338,6 @@ input[type="search"]{
 }
 .details{
    height: 155px;
-   /* border-bottom: 0.5px solid grey; */
 }
 .room_details{
    display: flex;
@@ -404,15 +362,6 @@ input[type="search"]{
    margin-top:6px;
    color: #737D8C;
 }
-.item-1 p{
-   color:#1252AE;
-}
-.item-2 button{
-   height: 26px;
-   background-color:#EBEEF2;
-   border:1px solid #EBEEF2;
-}
-
 .arrow {
    color: white;
    background-color: rgb(255, 255, 255);
@@ -426,23 +375,4 @@ input[type="search"]{
    align-items: center;
    box-shadow: 0 1 4px 0 rgba(0, 0, 0, 0.25);
 
-}
-.pagebuttons{
-   height: 50px;
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.pagebuttons .second,.third{
-   margin-right: 10px;
-   width: 50px;
-   cursor: pointer;
-   border-bottom: 2px solid rgba(163, 201, 231, 1);
-}
-.first{
-   margin-right: 10px;
-   width: 50px;
-   cursor: pointer;
-   border-bottom: 2px solid rgba(1, 118, 211, 1);
 }

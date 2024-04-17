@@ -71,7 +71,7 @@
     width: auto;
     padding: 1%;
     border-radius: 28px;
-    overflow: overlay;
+    /* overflow: overlay; */
 }
 
 .tab-container::-webkit-scrollbar {

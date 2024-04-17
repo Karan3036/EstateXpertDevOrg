@@ -52,6 +52,43 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     plvimg3 = plvimg + '/plvimgs/plvimg3.png';
     plvimg4 = plvimg + '/plvimgs/plvimg4.png';
 
+
+    // First tab variables
+
+    @track BathroomSqftIcon = plvimg + '/plvimgs/BathroomSqft.png';
+    @track bgImage = background;
+    propertyView = Property_view_example;
+
+
+    @track featuredProperties = [];
+
+    @track ListingData1 = [];
+    @track FilteredListingData1 = [];
+    @track propertyMediaUrls1 = [];
+    @track result_found_numbers1 = 0;
+    @track pagedFilteredListingData1 = [];
+
+    @track SalebtnVarient = 'brand-outline';
+    @track RentbtnVarient = 'brand-outline';
+    @track AllbtnVarient = 'brand';
+    @track featProp = true;
+    @track showFeaturedProperties = [];
+    @track firstIndex = 0;
+    @track lastIndex = 4;
+
+    @track firstIndex_listing = 0;
+    @track lastIndex_listing = 4;
+    @track listing_type1;
+    @track left_arrow_disabled1 = true;
+    @track right_arrow_disabled1 = false;
+    @track listing_left_arrow_disabled = true;
+    @track listing_right_arrow_disabled = false;
+
+    @track mainFeatProperty = {};
+
+    @track homeBedrooms = 0;
+    @track homeBathrooms = 0;
+
     get totalPages() {
         let totalPages = Math.ceil(this.ListingData.filter(listing => {
             const featured_prop = this.FeaturedProperty ? listing.Featured_Property__c == true : false;
@@ -417,63 +454,34 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     // First tab js methods
 
 
-    @track BedroomIcon = property_icons + '/Bedroom.png';
-    @track BathroomIcon = property_icons + '/Bathroom.png';
-    @track BathroomSqftIcon = property_icons + '/BathroomSqft.png';
-    @track bgImage = background;
-    propertyView = Property_view_example;
-
-    @track featBedroomIcon = featPropIcons + '/plvimgs/plvimg1.png';
-    @track featBathroomIcon = featPropIcons + '/plvimgs/plvimg2.png';
-    @track featCarspaceIcon = featPropIcons + '/plvimgs/plvimg3.png';
-    @track featStudyIcon = featPropIcons + '/plvimgs/plvimg4.png';
 
 
-    @track featuredProperties = [];
 
-    @track ListingData = [];
-    @track FilteredListingData = [];
-    @track propertyMediaUrls = [];
-    @track result_found_numbers = 0;
-    @track pagedFilteredListingData = [];
-    @track currentPage = 1;
 
-    @track SalebtnVarient = 'brand-outline';
-    @track RentbtnVarient = 'brand-outline';
-    @track AllbtnVarient = 'brand';
-    @track featProp = true;
-    @track showFeaturedProperties = [];
-    @track firstIndex = 0;
-    @track lastIndex = 4;
-    @track listing_type;
-    @track left_arrow_disabled = true;
-    @track right_arrow_disabled = false;
-
-    @track mainFeatProperty = {};
 
     fetchListingData1() {
         getListingData1().then((result) => {
             console.log('result:', result);
-            this.FilteredListingData = result.Listings;
-            this.ListingData = result.Listings;
-            this.propertyMediaUrls = result.Medias;
-            this.ListingData.forEach(row => {
+            this.FilteredListingData1 = result.Listings;
+            this.ListingData1 = result.Listings;
+            this.propertyMediaUrls1 = result.Medias;
+            this.ListingData1.forEach(row => {
                 const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] : '/sfsites/c/resource/nopropertyfound';
+                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
                 row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
                 row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
             });
-            this.FilteredListingData.forEach(row => {
+            this.FilteredListingData1.forEach(row => {
                 const prop_id = row.Property_ID__c;
                 row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
                 row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
-                row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] : '/sfsites/c/resource/nopropertyfound';
+                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
             });
-            this.result_found_numbers = this.FilteredListingData.length;
-            this.pagedFilteredListingData = this.FilteredListingData.slice(0, 4);
-            console.log('ListingData:', this.ListingData);
+            this.result_found_numbers1 = this.FilteredListingData1.length;
+            this.pagedFilteredListingData1 = this.FilteredListingData1.slice(0, 4);
+            console.log('ListingData1:', this.ListingData1);
 
-            this.featuredProperties = this.ListingData.filter(listing => {
+            this.featuredProperties = this.ListingData1.filter(listing => {
                 const isfeat = this.featProp ? listing.Featured_Property__c == true : false;
                 return isfeat;
             });
@@ -495,70 +503,38 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.mainFeatProperty = this.featuredProperties[selectedIndex];
         this.template.querySelectorAll('.black_enabled').forEach(element => element.classList.remove('black_enabled'));
         event.target.classList.add('black_enabled');
-
-
     }
 
     goToNext1() {
-        this.left_arrow_disabled = false;
+        this.left_arrow_disabled1 = false;
         this.firstIndex = this.firstIndex + 4;
         this.lastIndex = this.lastIndex + 4;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
         console.log('length:', this.featuredProperties.length);
         if (this.lastIndex >= this.featuredProperties.length - 1) {
-            this.right_arrow_disabled = true;
+            this.right_arrow_disabled1 = true;
         }
     }
 
     goToPrevious1() {
-        this.right_arrow_disabled = false;
+        this.right_arrow_disabled1 = false;
         this.firstIndex = this.firstIndex - 4;
         this.lastIndex = this.lastIndex - 4;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
         if (this.firstIndex <= 0) {
-            this.left_arrow_disabled = true;
+            this.left_arrow_disabled1 = true;
         }
     }
 
-    nextListing(event) {
-        if (event.target.classList.contains('first')) {
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                return isPropertyType;
-            }).slice(0, 5);
-            this.template.querySelector('.first').style.borderBottom = "2px solid rgba(1, 118, 211, 1)";
-            this.template.querySelector('.second').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-            this.template.querySelector('.third').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-        }
-        if (event.target.classList.contains('second')) {
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                return isPropertyType;
-            }).slice(4, 9);
-            this.template.querySelector('.second').style.borderBottom = "2px solid rgba(1, 118, 211, 1)";
-            this.template.querySelector('.first').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-            this.template.querySelector('.third').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-
-        }
-        if (event.target.classList.contains('third')) {
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                return isPropertyType;
-            }).slice(8, 11);
-            this.template.querySelector('.third').style.borderBottom = "2px solid rgba(1, 118, 211, 1)";
-            this.template.querySelector('.first').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-            this.template.querySelector('.second').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-        }
-    }
 
     handleVarient(event) {
         if (event.target.label === 'All') {
             this.AllbtnVarient = 'brand';
             this.RentbtnVarient = 'brand-outline';
             this.SalebtnVarient = 'brand-outline';
-            this.listing_type = '';
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
+            this.listing_type1 = '';
+            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
+                const isPropertyType = this.listing_type1 ? String(listing.Listing_Type__c) == String(this.listing_type1) : true;
                 return isPropertyType;
             }).slice(0, 9);
         }
@@ -566,9 +542,9 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.AllbtnVarient = 'brand-outline';
             this.RentbtnVarient = 'brand-outline';
             this.SalebtnVarient = 'brand';
-            this.listing_type = event.target.label;
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
+            this.listing_type1 = event.target.label;
+            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
+                const isPropertyType = this.listing_type1 ? String(listing.Listing_Type__c) == String(this.listing_type1) : true;
                 return isPropertyType;
             }).slice(0, 9);
         }
@@ -576,11 +552,54 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.AllbtnVarient = 'brand-outline';
             this.RentbtnVarient = 'brand';
             this.SalebtnVarient = 'brand-outline';
-            this.listing_type = event.target.label;
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
+            this.listing_type1 = event.target.label;
+            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
+                const isPropertyType = this.listing_type1 ? String(listing.Listing_Type__c) == String(this.listing_type1) : true;
                 return isPropertyType;
             }).slice(0, 9);
         }
     }
+    
+    goToNextListing() {
+        // this.pagedFilteredListingData1 = this.FilteredListingData1.slice(4,8);
+        this.listing_left_arrow_disabled = false;
+        this.firstIndex_listing = this.firstIndex_listing + 4;
+        this.lastIndex_listing = this.lastIndex_listing + 4;
+        this.pagedFilteredListingData1 = this.FilteredListingData1.slice(this.firstIndex_listing, this.lastIndex_listing);
+        console.log('length:', this.featuredProperties.length);
+        if (this.lastIndex_listing >= this.FilteredListingData1.slice(0, 13).length - 1) {
+            this.listing_right_arrow_disabled = true;
+        }
+    }
+
+    goTobackListing() {
+        this.listing_right_arrow_disabled = false;
+        this.firstIndex_listing = this.firstIndex_listing - 4;
+        this.lastIndex_listing = this.lastIndex_listing - 4;
+        this.pagedFilteredListingData1 = this.FilteredListingData1.slice(this.firstIndex_listing, this.lastIndex_listing);
+        if (this.firstIndex_listing <= 0) {
+            this.listing_left_arrow_disabled = true;
+        }
+    }
+
+    switchToPropertyTab() {
+        this.template.querySelectorAll(".tab-menu a").forEach(tab => {
+            tab.classList.remove("active-tab");
+        });
+    
+        this.template.querySelectorAll(".tab").forEach(tabContent => {
+            tabContent.classList.remove("active-tab-content");
+        });
+    
+        this.template.querySelector('[data-id="tab2"]').classList.add("active-tab-content");
+        this.template.querySelector('[data-tab-id="tab2"]').classList.add("active-tab");
+    }
+
+    applySearchOnProperty() {
+        this.homeBedrooms = 0;
+        this.homeBathrooms = 0;
+        console.log('homeBedrooms--->',this.homeBedrooms);
+        console.log('homeBathrooms--->',this.homeBathrooms);
+    }
+    
 }

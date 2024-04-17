@@ -233,7 +233,7 @@
                             <lightning-layout-item class="arrowbtn">
                                 <lightning-button-icon icon-name="utility:chevronleft" size="large" variant="bare"
                                     onclick={goTobackListing} class="arrow left-arrow"
-                                    disabled={left_arrow_disabled}></lightning-button-icon>
+                                    disabled={listing_left_arrow_disabled}></lightning-button-icon>
                             </lightning-layout-item>
                             <div class="property_items">
                                 <template for:each={pagedFilteredListingData} for:item="listing">
@@ -339,15 +339,15 @@
                             <lightning-layout-item class="arrowbtn">
                                 <lightning-button-icon icon-name="utility:chevronright" size="large" variant="bare"
                                     onclick={goToNextListing} class="arrow right-arrow"
-                                    disabled={right_arrow_disabled}></lightning-button-icon>
+                                    disabled={listing_right_arrow_disabled}></lightning-button-icon>
                             </lightning-layout-item>
                         </lightning-layout>
 
-                        <div class="pagebuttons">
+                        <!-- <div class="pagebuttons">
                             <div class="first" onclick={nextListing}></div>
                             <div class="second" onclick={nextListing}></div>
                             <div class="third" onclick={nextListing}></div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

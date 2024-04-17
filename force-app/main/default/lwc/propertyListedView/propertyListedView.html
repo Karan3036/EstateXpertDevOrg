@@ -15,8 +15,8 @@
                 </div>
                 <div class="tab-menu">
                     <ul>
-                        <li><a data-tab-id="tab1">Home</a></li>
-                        <li><a class="active-tab" data-tab-id="tab2">Property</a></li>
+                        <li><a class="active-tab" data-tab-id="tab1">Home</a></li>
+                        <li><a data-tab-id="tab2">Property</a></li>
                         <li><a data-tab-id="tab3">About</a></li>
                     </ul>
                 </div>
@@ -24,11 +24,11 @@
                     <p>Contact us</p>
                 </div>
             </div>
-            <div class="tab" data-id="tab1">
+            <div class="tab active-tab-content" data-id="tab1">
                 <div class="container">
-                    <div class="box1">
+                    <div class="box11">
                         <div class="welcomebox">
-                            <div class="title" style="display: flex;">
+                            <div class="title">
                                 <div class="titletext">
                                     <br />
                                     <p class="welcometext">Welcome to EstateXpert</p>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="searchbox">
                                 <div class="filterSetting">
-                                    <div class="mainFilterDiv">
+                                    <div class="mainFilterDiv1">
                                         <div class="SearchFilter">
                                             <lightning-input class="" type="search" variant="label-hidden" label=""
                                                 placeholder="Select a city" value="" autocomplete="false"
@@ -61,7 +61,7 @@
                                             Rooms
                                             <button name="rooms" class="minus" aria-label="Decrease"
                                                 onclick={decreaseNumber}>&minus;</button>
-                                            <input type="number" class="input-box bedrooms_number" value="1" min="1"
+                                            <input type="number" class="input-box bedrooms_number" value={homeBedrooms} min="1"
                                                 max="10">
                                             <button name="rooms" class="plus" aria-label="Increase"
                                                 onclick={increaseNumber}>&plus;</button>
@@ -76,13 +76,13 @@
                                             Bathroom
                                             <button name="bathrooms" class="minus" aria-label="Decrease"
                                                 onclick={decreaseNumber}>&minus;</button>
-                                            <input type="number" class="input-box bathrooms_number" value="1" min="1"
+                                            <input type="number" class="input-box bathrooms_number" value={homeBathrooms} min="1"
                                                 max="10">
                                             <button name="bathrooms" class="plus" aria-label="Increase"
                                                 onclick={increaseNumber}>&plus;</button>
                                         </div>
                                         <div class="searchButton">
-                                            <button onclick={applySearch}><svg width="16" height="16"
+                                            <button onclick={applySearchOnProperty}><svg width="16" height="16"
                                                     viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M15.7372 14.4753L12.7159 11.463C13.6907 10.2211 14.2196 8.68756 14.2176 7.10882C14.2176 5.70283 13.8007 4.32841 13.0196 3.15937C12.2385 1.99033 11.1282 1.07918 9.82925 0.54113C8.53028 0.00308012 7.10094 -0.137698 5.72196 0.136597C4.34299 0.410893 3.07631 1.08794 2.08213 2.08213C1.08794 3.07631 0.410893 4.34299 0.136597 5.72196C-0.137698 7.10094 0.00308012 8.53028 0.54113 9.82925C1.07918 11.1282 1.99033 12.2385 3.15937 13.0196C4.32841 13.8007 5.70283 14.2176 7.10882 14.2176C8.68756 14.2196 10.2211 13.6907 11.463 12.7159L14.4753 15.7372C14.5579 15.8204 14.6562 15.8865 14.7645 15.9317C14.8728 15.9768 14.9889 16 15.1062 16C15.2236 16 15.3397 15.9768 15.448 15.9317C15.5563 15.8865 15.6545 15.8204 15.7372 15.7372C15.8204 15.6545 15.8865 15.5563 15.9317 15.448C15.9768 15.3397 16 15.2236 16 15.1062C16 14.9889 15.9768 14.8728 15.9317 14.7645C15.8865 14.6562 15.8204 14.5579 15.7372 14.4753ZM1.77721 7.10882C1.77721 6.05433 2.0899 5.02352 2.67575 4.14674C3.26159 3.26996 4.09428 2.58659 5.0685 2.18305C6.04273 1.77952 7.11474 1.67393 8.14897 1.87965C9.1832 2.08538 10.1332 2.59316 10.8788 3.3388C11.6245 4.08444 12.1323 5.03444 12.338 6.06868C12.5437 7.10291 12.4381 8.17492 12.0346 9.14914C11.6311 10.1234 10.9477 10.9561 10.0709 11.5419C9.19413 12.1277 8.16332 12.4404 7.10882 12.4404C5.69479 12.4404 4.33867 11.8787 3.3388 10.8788C2.33893 9.87897 1.77721 8.52285 1.77721 7.10882Z"
@@ -100,21 +100,20 @@
                         <div class="innerbox1">
                             <div class="featuredproperty">
                                 <div class="heading" style="width: 95%;margin:auto;">
-                                    <lightning-layout multiple-rows class="listed_property_heading">
-                                        <lightning-layout-item style="margin-top: 2%;">
-                                            <h1 style="font-size: 40px;margin-left:4%;width:100%;">Featured Property
-                                            </h1>
-                                        </lightning-layout-item>
-                                        <lightning-layout-item alignment-bump="left" style="margin-top: 2%;">
-                                            <p><a href="#">Browse All Featured-></a></p>
-                                        </lightning-layout-item>
-                                    </lightning-layout>
+                                    <div multiple-rows class="listed_property_heading">
+                                        <div class="featured_prop">
+                                            <h1>Featured Property</h1>
+                                        </div>
+                                        <div class="browse_all_featured" onclick={switchToPropertyTab}>
+                                            <p>Browse All Properties -></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="imagePreview_listview">
+                                <div class="imagePreview_listview1">
                                     <br />
-                                    <div class="mb-3 property_card">
+                                    <div class="mb-3 property_card1">
                                         <div class="cardDetail">
-                                            <div class="property_image">
+                                            <div class="property_image1">
                                                 <img src={mainFeatProperty.media_url} class="img-fluid rounded-start"
                                                     alt="...">
                                             </div>
@@ -142,17 +141,17 @@
                                                                 {mainFeatProperty.Postal_Code__c}</p>
                                                         </div>
                                                     </div>
-                                                    <p class="card-text" style="font-size: 16px;">A limited collection
+                                                    <p class="card-text2" style="font-size: 16px;">A limited collection
                                                         of exquisite individual residences,
                                                         positioned in the heart of Melbourne's Bayside. </p>
                                                     <br />
                                                     <lightning-layout multiple-rows class="layout">
-                                                        <lightning-layout-item class="property_layout_item">
+                                                        <lightning-layout-item class="property_layout_item1">
                                                             <div class="custom-box slds-text-align_center numberBox">
                                                                 <p style="font-size: 20px;">Bedrooms</p>
                                                                 <div class="numbers">
                                                                     <div class="imgicon">
-                                                                        <img src={featBedroomIcon} class="iconImg"
+                                                                        <img src={plvimg1} class="iconImg"
                                                                             style="height:17px;width:20px;"></img>
                                                                     </div>
                                                                     &nbsp;
@@ -164,12 +163,12 @@
                                                                 </div>
                                                             </div>
                                                         </lightning-layout-item>
-                                                        <lightning-layout-item class="property_layout_item">
+                                                        <lightning-layout-item class="property_layout_item1">
                                                             <div class="custom-box slds-text-align_center numberBox">
                                                                 <p style="font-size: 20px;">Bathrooms</p>
                                                                 <div class="numbers">
                                                                     <div class="imgicon">
-                                                                        <img src={featBathroomIcon} class="iconImg"
+                                                                        <img src={plvimg2} class="iconImg"
                                                                             style="height:17px;width:20px;"></img>
                                                                     </div>
                                                                     &nbsp;
@@ -181,12 +180,12 @@
                                                                 </div>
                                                             </div>
                                                         </lightning-layout-item>
-                                                        <lightning-layout-item class="property_layout_item">
+                                                        <lightning-layout-item class="property_layout_item1">
                                                             <div class="custom-box slds-text-align_center numberBox">
                                                                 <p style="font-size: 20px;">Car Space</p>
                                                                 <div class="numbers">
                                                                     <div class="imgicon">
-                                                                        <img src={featCarspaceIcon} class="iconImg"
+                                                                        <img src={plvimg3} class="iconImg"
                                                                             style="height:17px;width:20px;"></img>
                                                                     </div>
                                                                     &nbsp;
@@ -196,12 +195,12 @@
                                                                 </div>
                                                             </div>
                                                         </lightning-layout-item>
-                                                        <lightning-layout-item class="property_layout_item">
+                                                        <lightning-layout-item class="property_layout_item1">
                                                             <div class="custom-box slds-text-align_center numberBox">
                                                                 <p style="font-size: 20px;">Reading Room</p>
                                                                 <div class="numbers">
                                                                     <div class="imgicon">
-                                                                        <img src={featStudyIcon} class="iconImg"
+                                                                        <img src={plvimg4} class="iconImg"
                                                                             style="height:17px;width:20px;"></img>
                                                                     </div>
                                                                     &nbsp;
@@ -221,14 +220,14 @@
                                         <lightning-layout>
                                             <lightning-layout-item class="arrowbtn">
                                                 <lightning-button-icon icon-name="utility:chevronleft" size="large"
-                                                    variant="bare" onclick={goToPrevious1} class="arrow left-arrow"
-                                                    disabled={left_arrow_disabled}></lightning-button-icon>
+                                                    variant="bare" onclick={goToPrevious1} class="arrow1 left-arrow"
+                                                    disabled={left_arrow_disabled1}></lightning-button-icon>
                                             </lightning-layout-item>
                                             <div class="navigation-boxes">
                                                 <template for:each={nextProperties} for:item="nextImg">
                                                     <div class="box" key={nextImg.Id}>
                                                         <img src={nextImg.media_url} />
-                                                        <div class="black" onclick={handleBoxClick}
+                                                        <div class="black1" onclick={handleBoxClick}
                                                             data-id={nextImg.Id}>
                                                             <div class="imgInfo">
                                                                 <p>{nextImg.Name}</p>
@@ -239,8 +238,8 @@
                                             </div>
                                             <lightning-layout-item class="arrowbtn">
                                                 <lightning-button-icon icon-name="utility:chevronright" size="large"
-                                                    variant="bare" onclick={goToNext1} class="arrow right-arrow"
-                                                    disabled={right_arrow_disabled}></lightning-button-icon>
+                                                    variant="bare" onclick={goToNext1} class="arrow1 right-arrow"
+                                                    disabled={right_arrow_disabled1}></lightning-button-icon>
                                             </lightning-layout-item>
                                         </lightning-layout>
 
@@ -256,9 +255,6 @@
                                         <lightning-layout-item>
                                             <h1 style="font-size: 40px;margin-left:4%;width:100%;">Latest Listed
                                                 Properties</h1>
-                                            <p style="margin-left:4%;width:100%;">Lorem ipsum, dolor sit amet
-                                                consectetur
-                                                adipisicing elit. Rerum, voluptatibus?</p>
                                         </lightning-layout-item>
                                         <lightning-layout-item alignment-bump="left">
                                             <lightning-button variant={AllbtnVarient} label="All"
@@ -278,11 +274,11 @@
                                     <lightning-layout>
                                         <lightning-layout-item class="arrowbtn">
                                             <lightning-button-icon icon-name="utility:chevronleft" size="large"
-                                                variant="bare" onclick={goTobackListing} class="arrow left-arrow"
-                                                disabled={left_arrow_disabled}></lightning-button-icon>
+                                                variant="bare" onclick={goTobackListing} class="arrow1 left-arrow"
+                                                disabled={listing_left_arrow_disabled}></lightning-button-icon>
                                         </lightning-layout-item>
                                         <div class="property_items">
-                                            <template for:each={pagedFilteredListingData} for:item="listing">
+                                            <template for:each={pagedFilteredListingData1} for:item="listing">
                                                 <div class="property-item card slds-border_bottom" key={listing.Id}>
                                                     <img class="property-image card-img-top" src={listing.media_url}
                                                         alt="Card image cap" style="height:220px;width:100%;"></img>
@@ -315,17 +311,17 @@
                                                     </template>
                                                     <div class="card-body details">
                                                         <h5 class="card-title"><b>{listing.Name}</b></h5>
-                                                        <div class="card-text">
+                                                        <div class="card-text2">
                                                             <svg width="24" height="24" viewBox="0 0 18 16" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M6 4.50001V10M10 6.00001V11.5M10.3353 13.832L13.5853 12.2073C13.8393 12.0807 14 11.8207 14 11.5367V3.21334C14 2.65601 13.4133 2.29334 12.9147 2.54267L10.3353 3.83201C10.124 3.93801 9.87533 3.93801 9.66467 3.83201L6.33533 2.16801C6.23121 2.11596 6.1164 2.08887 6 2.08887C5.8836 2.08887 5.76879 2.11596 5.66467 2.16801L2.41467 3.79268C2.16 3.92001 2 4.18001 2 4.46334V12.7867C2 13.344 2.58667 13.7067 3.08533 13.4573L5.66467 12.168C5.876 12.062 6.12467 12.062 6.33533 12.168L9.66467 13.8327C9.876 13.938 10.1247 13.938 10.3353 13.8327V13.832Z"
                                                                     stroke="#8E8E93" stroke-linecap="round"
                                                                     stroke-linejoin="round" />
-                                                            </svg>
-                                                            <p class="slds-m-left_xx-small">{listing.Area__c},
+                                                            </svg> &nbsp;
+                                                            {listing.Area__c},
                                                                 {listing.City__c},
-                                                                {listing.State__c},<br /> {listing.Postal_Code__c}</p>
+                                                                {listing.State__c},{listing.Postal_Code__c}
                                                         </div>
                                                         <br />
                                                         <div class="listingprice">
@@ -388,16 +384,10 @@
                                         </div>
                                         <lightning-layout-item class="arrowbtn">
                                             <lightning-button-icon icon-name="utility:chevronright" size="large"
-                                                variant="bare" onclick={goToNextListing} class="arrow right-arrow"
-                                                disabled={right_arrow_disabled}></lightning-button-icon>
+                                                variant="bare" onclick={goToNextListing} class="arrow1 right-arrow"
+                                                disabled={listing_right_arrow_disabled}></lightning-button-icon>
                                         </lightning-layout-item>
                                     </lightning-layout>
-
-                                    <div class="pagebuttons">
-                                        <div class="first" onclick={nextListing}></div>
-                                        <div class="second" onclick={nextListing}></div>
-                                        <div class="third" onclick={nextListing}></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -405,7 +395,7 @@
                 </div>
             </div>
 
-            <div class="tab active-tab-content" data-id="tab2">
+            <div class="tab" data-id="tab2">
                 <div class="featuredProperty">
                     <div class="box1">
                         <h1 class="main_heading"><span style="border-bottom:1px solid #2A323C;">Featured</span><span

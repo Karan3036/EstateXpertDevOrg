@@ -5,7 +5,7 @@
     <div class="container">
         <div class="box1">
             <div class="carousel">
-                <img src={propertyView} loading="eager" style="width:100%;height:80vh;" />
+                <img src={propertyView} style="width:100%;height:80vh;" />
                 <div if:true={errorMessage} class="black">
                     <h3>EstateXpert</h3>
                     <p>"404 Error: Data Not Found"</p>
@@ -97,7 +97,7 @@
                                         <lightning-layout-item padding="around-small" key={amenty}>
                                             <div
                                                 class="custom-box slds-box slds-p-around_medium slds-text-align_center facilityBox">
-                                                <img src={amenty.imgUrl} loading="eager" class="iconImg"></img>
+                                                <img src={amenty.imgUrl} class="iconImg"></img>
                                                 <br />
                                                 <p>{amenty.name}</p>
                                             </div>
@@ -136,7 +136,7 @@
                         <div class="PropertyImages">
                             <template for:each={propertyImages} for:item="propertyImage">
                                 <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
-                                    <img src={propertyImage.FilenameUrlEncoded__c} loading="eager" alt="Property">
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
                                 </div>
                             </template>
                         </div>

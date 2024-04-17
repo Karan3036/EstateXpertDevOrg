@@ -35,9 +35,14 @@ export default class EstateXpert_Home_Page extends LightningElement {
     @track showFeaturedProperties = [];
     @track firstIndex = 0;
     @track lastIndex = 4;
+
+    @track firstIndex_listing = 0;
+    @track lastIndex_listing = 4;
     @track listing_type;
     @track left_arrow_disabled = true;
     @track right_arrow_disabled = false;
+    @track listing_left_arrow_disabled = true;
+    @track listing_right_arrow_disabled = false;
 
     @track mainFeatProperty = {};
     connectedCallback() {
@@ -110,36 +115,7 @@ export default class EstateXpert_Home_Page extends LightningElement {
         }
     }
 
-    nextListing(event){
-        if(event.target.classList.contains('first')){
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                return isPropertyType;
-            }).slice(0, 5);
-            this.template.querySelector('.first').style.borderBottom = "2px solid rgba(1, 118, 211, 1)";
-            this.template.querySelector('.second').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-            this.template.querySelector('.third').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-        }
-        if(event.target.classList.contains('second')){
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                return isPropertyType;
-            }).slice(4, 9);
-            this.template.querySelector('.second').style.borderBottom = "2px solid rgba(1, 118, 211, 1)";
-            this.template.querySelector('.first').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-            this.template.querySelector('.third').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
 
-        }
-        if(event.target.classList.contains('third')){
-            this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
-                const isPropertyType = this.listing_type ? String(listing.Listing_Type__c) == String(this.listing_type) : true;
-                return isPropertyType;
-            }).slice(8, 11);
-            this.template.querySelector('.third').style.borderBottom = "2px solid rgba(1, 118, 211, 1)";
-            this.template.querySelector('.first').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-            this.template.querySelector('.second').style.borderBottom = "2px solid rgba(163, 201, 231, 1)";
-        }
-    }
     handleVarient(event) {
         if (event.target.label === 'All') {
             this.AllbtnVarient = 'brand';
@@ -172,5 +148,27 @@ export default class EstateXpert_Home_Page extends LightningElement {
             }).slice(0,9);
         }
     }
+    goToNextListing(){
+        // this.pagedFilteredListingData = this.FilteredListingData.slice(4,8);
+        this.listing_left_arrow_disabled = false;
+        this.firstIndex_listing = this.firstIndex_listing + 4;
+        this.lastIndex_listing = this.lastIndex_listing + 4;
+        this.pagedFilteredListingData = this.FilteredListingData.slice(this.firstIndex_listing, this.lastIndex_listing);
+        console.log('length:',this.featuredProperties.length);
+        if(this.lastIndex_listing >= this.FilteredListingData.slice(0,13).length-1){
+            this.listing_right_arrow_disabled = true;
+        }
+    }
+
+    goTobackListing(){
+        this.listing_right_arrow_disabled = false;
+        this.firstIndex_listing = this.firstIndex_listing - 4;
+        this.lastIndex_listing = this.lastIndex_listing - 4;
+        this.pagedFilteredListingData = this.FilteredListingData.slice(this.firstIndex_listing, this.lastIndex_listing);
+        if(this.firstIndex_listing <= 0){
+            this.listing_left_arrow_disabled = true;
+        }
+    }
+
 
 }

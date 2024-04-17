@@ -1,0 +1,92 @@
+<template>
+    <lightning-card title="Property Form">
+        <!-- Broker Information -->
+        <div class="slds-m-around_medium">
+            <lightning-input label="FirstName" value={brokerFirstName}
+                onchange={handleBrokerFirstNameChange}></lightning-input>
+            <lightning-input label="LastName" value={brokerLastName}
+                onchange={handleBrokerLastNameChange}></lightning-input>
+            <lightning-input type="email" label="Email" value={brokerEmail}
+                onchange={handleBrokerEmailChange}></lightning-input>
+            <lightning-input label="Phone" value={brokerPhone} onchange={handleBrokerPhoneChange}></lightning-input>
+
+            <!-- Property Address Details -->
+            <lightning-input label="Landmark" value={propertyLandmark}
+                onchange={handleLandmarkChange}></lightning-input>
+            <lightning-input label="Street" value={propertyStreet} onchange={handleStreetChange}></lightning-input>
+            <lightning-input label="City" value={propertyCity} onchange={handleCityChange}></lightning-input>
+            <lightning-input label="State" value={propertyState} onchange={handleStateChange}></lightning-input>
+            <lightning-input label="Country" value={propertyCountry} onchange={handleCountryChange}></lightning-input>
+
+            <!-- File Upload -->
+            <!-- <div class="slds-form-element slds-p-top_medium slds-p-bottom_x-small">
+                <div class="slds-form-element__control">
+                    <input type="file" class="slds-file-selector__input slds-assistive-text"
+                        onchange={handleSelectedFiles} accept="image/png, image/jpeg, image/jpg"
+                        id="file-upload-input-107"
+                        aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106" multiple />
+                    <label class="slds-file-selector__body" for="file-upload-input-107"
+                        id="file-selector-secondary-label106">
+                        <span class="slds-file-selector__button slds-button slds-button_brand formbold-browse">
+                            Upload Property Images</span>
+                    </label>
+                    <br />
+                    <template if:true={isfileuploading}>
+                        <div class="slds-p-around_medium lgc-bg progress slds-box">
+                            <div class="content">
+                                <div class="left-content">{fileName}</div>
+                                <div class="right-content">{uploadProgress}% , {fileSize} kb</div>
+                            </div>
+                            <progress value={uploadProgress} max="100"></progress>
+                            <b><lightning-icon icon-name="utility:upload" size="x-small"></lightning-icon> Uploading</b>
+                        </div>
+                    </template>
+                </div>
+            </div> -->
+
+            <!-- <div class="button_Group">
+                <lightning-button class="slds-m-top--medium buttons" label="Cancel" onclick={removefile}
+                    disabled={isnull}>
+                </lightning-button>
+            </div> -->
+
+            <div class="file_uploader slds-form-element slds-p-top_medium slds-p-bottom_x-small" style="display: flex;justify-content: flex-start;flex-direction: column;">
+                <input type="file" class="slds-file-selector__input slds-assistive-text"
+                                onchange={handleSelectedFiles} accept="image/png, image/jpeg, image/jpg"
+                                id="file-upload-input-107"
+                                aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106"
+                                multiple />
+                <label class="slds-file-selector__body" for="file-upload-input-107"
+                    id="file-selector-secondary-label106">
+                    <span class="slds-file-selector__button slds-button slds-button_brand formbold-browse">
+                        Upload Property Images</span>
+                </label>
+
+                <template if:true={imagesAvail}>
+                    <div class="lightning_pill" style="display: flex;flex-direction: row;gap: 10px;padding-bottom: 10px;flex-wrap: wrap;padding-top: 5px;">
+                        <template for:each={fileName} for:item="file">
+                            <lightning-pill key={file} label={file} onremove={handleRemove}></lightning-pill>
+                        </template>
+                    </div>
+                </template>    
+
+                <lightning-button class="slds-m-top--medium buttons" label="Cancel" onclick={removefile}
+                    disabled={isnull}>
+                </lightning-button>
+            </div>
+
+
+            <!-- Property Type and Description -->
+            <lightning-combobox label="Property Type" options={propertyTypeOptions} value={selectedPropertyType}
+                onchange={handlePropertyTypeChange}>
+            </lightning-combobox>
+            <lightning-textarea label="Description" value={propertyDescription} onchange={handleDescriptionChange}>
+            </lightning-textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="slds-m-around_medium">
+            <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
