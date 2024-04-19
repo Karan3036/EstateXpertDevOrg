@@ -92,6 +92,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     selectionModel = false;
 
+    @track selectedId;
+
     get totalPages() {
         let totalPages = Math.ceil(this.ListingData.filter(listing => {
             const featured_prop = this.FeaturedProperty ? listing.Featured_Property__c == true : false;
@@ -199,8 +201,19 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                     width: 1rem;
                     height: 1rem;
                 }
+
+                .container12 .slds-button:focus .slds-button__icon{
+                    fill: white;
+                }
+
+                .container12 .slds-button:hover .slds-button__icon{
+                    fill: white;
+                }
                 
-                
+                .closeIcon .slds-icon-text-default {
+                    height: 25px;
+                    width: 25px;
+                }
             `;
 
             body.appendChild(style);
@@ -222,7 +235,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     ToggleFilters() {
-        this.dropDownClass = this.dropDownClass === 'drop-down-none' ? 'drop-down-block' : 'drop-down-none';
+        this.selectionModel = true;
     }
 
     fetchListingData() {
@@ -347,15 +360,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     applySearch() {
         this.spinnerdatatable = true;
-        console.log('searchterm:', this.searchTerm);
-        console.log('bedrooms:', this.bedrooms);
-        console.log('bathrooms:', this.bathrooms);
-        console.log('listing type:', this.listing_type);
-        console.log('min_price:', this.min_price);
-        console.log('max_price:', this.max_price);
-        console.log('sq_ft:', this.sq_ft);
-        console.log('city:', this.city);
-        console.log('zip_code:', this.zip_code);
+        this.selectionModel = false;
+        this.clearFilter();
 
         this.pagedFilteredListingData = this.ListingData.filter(listing => {
             const nameIncludesSearch = this.searchTerm ? listing.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
@@ -389,7 +395,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     clearFilter() {
-        this.searchTerm = '';
+        const selectElement = this.template.querySelector('select[name="listing_type"]');
+        selectElement.value = '';
         this.bedrooms = 0;
         this.bathrooms = 0;
         this.listing_type = '';
@@ -417,6 +424,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         if (selectedValue == 'viewall') {
             this.sortingProperties = 'View All';
             this.fetchListingData();
+            this.show_more_button_class = 'show_last_button'
         } else if (selectedValue == 'availability') {
             this.sortingProperties = 'Availability';
             this.pagedFilteredListingData = this.ListingData.filter(listing => {
@@ -444,32 +452,33 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.propertyMediaUrls1 = result.Medias;
             this.ListingData1.forEach(row => {
                 const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls1[prop_id]? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
-                row.isSale = row.Listing_Type__c==='Sale'?true:false;
-                row.isRent = row.Listing_Type__c==='Rent'?true:false;
+                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
+                row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
+                row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
             });
             this.FilteredListingData1.forEach(row => {
                 const prop_id = row.Property_ID__c;
-                row.isSale = row.Listing_Type__c==='Sale'?true:false;
-                row.isRent = row.Listing_Type__c==='Rent'?true:false;
-                row.media_url =this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
-                });
+                row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
+                row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
+                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
+            });
             // this.result_found_numbers = this.FilteredListingData1.length;
             this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
-                const isfeat = this.featProp===true ? listing.Featured_Property__c == false : false;
+                const isfeat = this.featProp === true ? listing.Featured_Property__c == false : false;
                 return isfeat;
-            }).slice(0,4);
+            }).slice(0, 4);
             console.log('pagedListingData:', this.pagedFilteredListingData1);
             this.featuredProperties = this.ListingData1.filter(listing => {
                 const isfeat = this.featProp ? listing.Featured_Property__c == true : false;
-                return isfeat;
+                return isfeat; 
             });
 
             this.mainFeatProperty = this.featuredProperties[0];
+            this.selectedId = this.featuredProperties[0].Id;
             this.showFeaturedProperties = this.featuredProperties;
             setTimeout(() => {
-                let element =this.template.querySelectorAll('.black1')[0];
-                console.log('element:',element);
+                let element = this.template.querySelectorAll('.black1')[0];
+                console.log('element:', element);
                 element.classList.add('black_enabled');
             }, 1000);
 
@@ -484,6 +493,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     handleBoxClick(event) {
         console.log('boxcalled');
         const selectedImageId = event.currentTarget.dataset.id;
+        this.selectedId = selectedImageId;
         const selectedIndex = this.featuredProperties.findIndex(image => image.Id === selectedImageId);
         this.mainFeatProperty = this.featuredProperties[selectedIndex];
         this.template.querySelectorAll('.black_enabled').forEach(element => element.classList.remove('black_enabled'));
@@ -498,6 +508,13 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         if (this.lastIndex >= this.featuredProperties.length - 1) {
             this.rightArrowDisabled = true;
         }
+        setTimeout(() => {
+            let target = this.template.querySelector(`[data-id="${this.selectedId}"]`);
+            console.log('target:', target);
+            if (target != null) {
+                target.classList.add('black_enabled');
+            }
+        }, 0);
     }
 
     goToPrevFeaturedProperty() {
@@ -508,6 +525,13 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         if (this.firstIndex <= 0) {
             this.leftArrowDisabled = true;
         }
+        setTimeout(() => {
+            let target = this.template.querySelector(`[data-id="${this.selectedId}"]`);
+            console.log('target:', target);
+            if (target != null) {
+                target.classList.add('black_enabled');
+            }
+        }, 0);
     }
 
 
@@ -538,7 +562,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             return isPropertyType && isfeat;
         });
 
-        this.pagedFilteredListingData1 =  filteredListings.slice(0, 4);
+        this.pagedFilteredListingData1 = filteredListings.slice(0, 4);
 
         console.log('filtered data:', this.pagedFilteredListingData1);
         if (filteredListings.length <= 4) {
@@ -549,7 +573,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             // this.listingLeftArrowDisabled = false;
         }
     }
-    
+
     goToNextListing() {
         this.listingLeftArrowDisabled = false;
         this.firstIndexListing += 4;
@@ -591,6 +615,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     switchToPropertyTab() {
         this.redirectToSecondTab();
         this.fetchListingData();
+        this.show_more_button_class = 'show_last_button'
         this.bedrooms = 0;
         this.bathrooms = 0;
     }
@@ -599,11 +624,11 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.template.querySelectorAll(".tab-menu a").forEach(tab => {
             tab.classList.remove("active-tab");
         });
-    
+
         this.template.querySelectorAll(".tab").forEach(tabContent => {
             tabContent.classList.remove("active-tab-content");
         });
-    
+
         this.template.querySelector('[data-id="tab2"]').classList.add("active-tab-content");
         this.template.querySelector('[data-tab-id="tab2"]').classList.add("active-tab");
     }
@@ -665,8 +690,12 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.listView = true;
         }
     }
-    
+
     closetheFilterDiv() {
         console.log('closetheFilterDiv method is called');
+    }
+
+    handleCloseModal() {
+        this.selectionModel = false;
     }
 }

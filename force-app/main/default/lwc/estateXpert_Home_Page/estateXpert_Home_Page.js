@@ -24,7 +24,6 @@ export default class EstateXpert_Home_Page extends LightningElement {
     @track ListingData = [];
     @track FilteredListingData = [];
     @track propertyMediaUrls = [];
-    @track result_found_numbers = 0;
     @track pagedFilteredListingData = [];
     @track currentPage = 1;
 
@@ -45,10 +44,11 @@ export default class EstateXpert_Home_Page extends LightningElement {
     @track rightArrowDisabled = false;
     @track listingLeftArrowDisabled = true;
     @track listingRightArrowDisabled = false;
+    @track selectedId;
 
     connectedCallback() {
         this.fetchListingData();
-        }
+    }
 
 
     fetchListingData() {
@@ -69,7 +69,6 @@ export default class EstateXpert_Home_Page extends LightningElement {
                 row.isRent = row.Listing_Type__c==='Rent'?true:false;
                 row.media_url =this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] : '/sfsites/c/resource/nopropertyfound';
                 });
-            this.result_found_numbers = this.FilteredListingData.length;
             this.pagedFilteredListingData = this.FilteredListingData.filter(listing => {
                 const isfeat = this.featProp===true ? listing.Featured_Property__c == false : false;
                 return isfeat;
@@ -98,6 +97,8 @@ export default class EstateXpert_Home_Page extends LightningElement {
     handleBoxClick(event) {
         console.log('boxcalled');
         const selectedImageId = event.currentTarget.dataset.id;
+        this.selectedId = selectedImageId;
+        console.log('selectedId:',this.selectedId);
         const selectedIndex = this.featuredProperties.findIndex(image => image.Id === selectedImageId);
         this.mainFeatProperty = this.featuredProperties[selectedIndex];
         this.template.querySelectorAll('.black_enabled').forEach(element => element.classList.remove('black_enabled'));
@@ -113,6 +114,14 @@ export default class EstateXpert_Home_Page extends LightningElement {
         if (this.lastIndex >= this.featuredProperties.length - 1) {
             this.rightArrowDisabled = true;
         }
+        
+         setTimeout(() => {
+            let target = this.template.querySelector(`[data-id="${this.selectedId}"]`);
+            console.log('target:', target);
+            if(target!=null) {
+                target.classList.add('black_enabled');
+                }   
+            }, 0);
     }
     goToPrevious() {
         this.rightArrowDisabled = false;
@@ -122,6 +131,15 @@ export default class EstateXpert_Home_Page extends LightningElement {
         if (this.firstIndex <= 0) {
             this.leftArrowDisabled = true;
         }
+        setTimeout(() => {
+            let target = this.template.querySelector(`[data-id="${this.selectedId}"]`);
+            console.log('target:', target);
+            if(target!=null) {
+                target.classList.add('black_enabled');
+                }   
+            }, 0); 
+
+
     }
 
     handleVarient(event) {

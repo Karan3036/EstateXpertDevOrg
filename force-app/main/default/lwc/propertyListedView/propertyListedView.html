@@ -47,9 +47,14 @@
                                 <div class="filterSetting">
                                     <div class="mainFilterDiv1">
                                         <div class="SearchFilter">
-                                            <lightning-input class="" type="search" variant="label-hidden" label=""
+                                            <!-- <lightning-input class="" type="search" variant="label-hidden" label=""
                                                 placeholder="Select a city" value="" autocomplete="false"
-                                                onchange={searchTermValue}></lightning-input>
+                                                onchange={searchTermValue}></lightning-input> -->
+                                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14.7583 13.575L11.925 10.75C12.8392 9.58538 13.3352 8.14722 13.3333 6.66667C13.3333 5.34813 12.9423 4.0592 12.2098 2.96287C11.4773 1.86654 10.4361 1.01206 9.21789 0.507473C7.99972 0.00288854 6.65927 -0.129134 5.36607 0.128101C4.07286 0.385336 2.88497 1.02027 1.95262 1.95262C1.02027 2.88497 0.385336 4.07286 0.128101 5.36607C-0.129134 6.65927 0.00288854 7.99972 0.507473 9.21789C1.01206 10.4361 1.86654 11.4773 2.96287 12.2098C4.0592 12.9423 5.34813 13.3333 6.66667 13.3333C8.14722 13.3352 9.58538 12.8392 10.75 11.925L13.575 14.7583C13.6525 14.8364 13.7446 14.8984 13.8462 14.9407C13.9477 14.9831 14.0567 15.0048 14.1667 15.0048C14.2767 15.0048 14.3856 14.9831 14.4872 14.9407C14.5887 14.8984 14.6809 14.8364 14.7583 14.7583C14.8364 14.6809 14.8984 14.5887 14.9407 14.4872C14.9831 14.3856 15.0048 14.2767 15.0048 14.1667C15.0048 14.0567 14.9831 13.9477 14.9407 13.8462C14.8984 13.7446 14.8364 13.6525 14.7583 13.575ZM1.66667 6.66667C1.66667 5.67776 1.95991 4.71106 2.50932 3.88882C3.05873 3.06657 3.83962 2.42571 4.75325 2.04727C5.66688 1.66883 6.67222 1.56982 7.64212 1.76274C8.61203 1.95567 9.50294 2.43187 10.2022 3.13114C10.9015 3.8304 11.3777 4.72131 11.5706 5.69122C11.7635 6.66112 11.6645 7.66646 11.2861 8.58009C10.9076 9.49372 10.2668 10.2746 9.44452 10.824C8.62228 11.3734 7.65558 11.6667 6.66667 11.6667C5.34059 11.6667 4.06882 11.1399 3.13114 10.2022C2.19345 9.26452 1.66667 7.99275 1.66667 6.66667Z" fill="#181A18"/>
+                                                </svg>                                        
+                                                <input type="search" placeholder="Search" value={searchTerm} autocomplete="false"
+                                                onchange={searchTermValue}>
                                         </div>
                                         <div class="quantity">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -520,14 +525,7 @@
                         <div class="more-filter-div">
                             <div class="more-filter-sub-div">
                                 <div class="more-filter-button">
-                                    <button onclick={ToggleFilters}>More Filters <svg width="20"
-                                            height="20" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M10.001 14.1667C9.78823 14.1656 9.5784 14.1172 9.38669 14.0249C9.19499 13.9327 9.02622 13.7989 8.89264 13.6333L5.38431 9.38334C5.1793 9.12748 5.05029 8.81917 5.01199 8.49356C4.97368 8.16795 5.02761 7.83812 5.16764 7.54167C5.28121 7.28403 5.46653 7.06452 5.70149 6.90936C5.93644 6.7542 6.2111 6.66995 6.49264 6.66667H13.5093C13.7909 6.66995 14.0655 6.7542 14.3005 6.90936C14.5354 7.06452 14.7207 7.28403 14.8343 7.54167C14.9743 7.83812 15.0283 8.16795 14.99 8.49356C14.9517 8.81917 14.8226 9.12748 14.6176 9.38334L11.1093 13.6333C10.9757 13.7989 10.807 13.9327 10.6153 14.0249C10.4236 14.1172 10.2137 14.1656 10.001 14.1667Z"
-                                                fill="white" />
-                                        </svg>
-                                    </button>
+                                    <button onclick={ToggleFilters}>More Filters</button>
                                     <!-- <div class={dropDownClass} onmouseout={closetheFilterDiv}>
                                         <div class="drop-down-filters">
                                             <div class="fliter_options">
@@ -884,172 +882,98 @@
             <div class="popup">
                 <div class="popup__content">
                     <div class="popup__header">
-                        <h2 class="popup__header-title">Select Feature Icons</h2>
+                        <h2 class="popup__header-title">Filter Properties</h2>
                         <button class="closeIcon" title="Close" onclick={handleCloseModal}>
                             <lightning-icon icon-name="utility:close" alternative-text="Close"
                                 size="x-small"></lightning-icon>
                         </button>
                     </div>
                     <div class="popup__body">
-                        <lightning-card class="popup__custom-card">
-                            <div class="slds-p-around_medium tableContainer">
-                                <div class="popup__header-row">
-                                    <div class="slds-col">
-                                        <p class="header-text">Picklist Value</p>
+                        <div class="drop-down-filters">
+                            <div class="fliter_options">
+                                <div class="group_fields">
+                                    <div>
+                                        <label for="listing-type">Listing Type</label>
+                                        <span>
+                                            <select name="listing_type" id="listing-type-value"
+                                                onchange={store_filter_values}>
+                                                <option value="">--None--</option>
+                                                <option value="Sale">Sale</option>
+                                                <option value="Rent">Rent</option>
+                                            </select>
+                                            <svg width="15" height="8" viewBox="0 0 15 8" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.84375 0L7.74219 8L14.6406 0L0.84375 0Z"
+                                                    fill="#0176D3" />
+                                            </svg>
+                                        </span>
                                     </div>
-                                    <div class="slds-col">
-                                        <p class="header-text">Icons</p>
-                                    </div>
-                                    <div class="slds-col">
+                                    <div>
+                                        <label for="min-price">Min Price</label>
+                                        <span>
+                                            <input name="min_price" type="number" placeholder="Enter Min Price"
+                                                value={min_price} onchange={store_filter_values}></input>
+                                                <svg fill="#0176D3" width="23" height="20" viewBox="-96 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier4" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier4" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier4">
+                                                        <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                                                    </g>
+                                                </svg>
+                                        </span>
+    
                                     </div>
                                 </div>
-                                <div class="popup__recordValues">
-                                    <template for:each={pickListvalue} for:item="val">
-                                        <div key={pickListvalue} class="popup__data-row">
-                                            <template if:true={val.isEditing}>
-                                                <div class="slds-col slds-truncate">
-                                                    <p class="popup__record-value">{val.name}</p>
-                                                </div>
-                                                <div class="slds-col comboHideLabel">
-                                                    <div style="display: flex; padding-left: 1%; flex-direction: column;"
-                                                        class="rkIconClass">
-                                                        <div class="slds-input-has-icon slds-input-has-iconright"
-                                                            style="width: 60%;">
-                                                            <template if:true={val.iconURL}>
-                                                                <span
-                                                                    class="slds-icon_container slds-combobox__input-entity-icon searchIcon"
-                                                                    title="record">
-                                                                    <img src={val.iconURL} class="icon-image"
-                                                                        alt="Icon" />
-                                                                    <span class="slds-assistive-text"></span>
-                                                                </span>
-                                                            </template>
-                                                            <template if:false={val.iconURL}>
-                                                                <span
-                                                                    class="slds-icon_container slds-combobox__input-entity-icon"
-                                                                    title="record">
-                                                                    <lightning-icon
-                                                                        class="slds-icon slds-icon slds-icon_small"
-                                                                        icon-name="utility:search" size="x-small"
-                                                                        alternative-text="icon"></lightning-icon>
-                                                                    <span class="slds-assistive-text"></span>
-                                                                </span>
-                                                            </template>
-                                                            <lightning-input class="poInput" autocomplete="off"
-                                                                type="search" placeholder="Search Icon..."
-                                                                variant="label-hidden" value={val.iconname}
-                                                                onclick={searchIconData} onchange={keyupIconData}
-                                                                onblur={hideList}></lightning-input>
-                                                            <template if:true={val.iconname}>
-                                                                <span
-                                                                    class="slds-icon_container slds-combobox__input-entity-icon searchIcon crossicon"
-                                                                    title="record">
-                                                                    <lightning-icon icon-name="utility:clear"
-                                                                        alternative-text="Clear" onclick={clearInput}
-                                                                        class="slds-icon slds-icon slds-icon_small"
-                                                                        data-name={val.name}></lightning-icon>
-                                                                    <span class="slds-assistive-text"></span>
-                                                                </span>
-                                                            </template>
-                                                            <template if:true={displayIcon}>
-                                                                <div id="listbox-id-11"
-                                                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid searchResult"
-                                                                    role="listbox" style="position: absolute;"
-                                                                    onmousedown={preventHide}>
-                                                                    <ul class="slds-listbox slds-listbox_vertical"
-                                                                        role="presentation">
-                                                                        <template for:each={iconsValue}
-                                                                            for:item="result">
-                                                                            <li key={result.Id} role="presentation"
-                                                                                class="slds-listbox__item"
-                                                                                data-value={result.name}
-                                                                                data-name={val.name}
-                                                                                data-url={result.iconURL}
-                                                                                onclick={clickHandlerIcon}>
-                                                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
-                                                                                    role="option">
-                                                                                    <span
-                                                                                        class="slds-media__figure slds-listbox__option-icon">
-                                                                                        <img src={result.iconURL}
-                                                                                            class="icon-image"
-                                                                                            alt={result.name}
-                                                                                            title={result.name} />
-                                                                                    </span>
-                                                                                    <span class="slds-media__body">
-                                                                                        <span class="slds-truncate"
-                                                                                            title={result.name}>
-                                                                                            <span>{result.name}</span>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </li>
-                                                                        </template>
-                                                                    </ul>
-                                                                </div>
-                                                            </template>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="slds-col icons">
-                                                    <lightning-icon icon-name='utility:save' alternative-text='save'
-                                                        size='x-small' title='save' onclick={saveIconDetails}
-                                                        data-name={val.name} data-iconname={val.iconname}
-                                                        data-icon={val.iconURL}></lightning-icon>
-                                                    <lightning-icon icon-name='utility:close' alternative-text='close'
-                                                        size='x-small' title='close' onclick={closeEditFields}
-                                                        data-name={val.name}></lightning-icon>
-                                                </div>
-                                            </template>
-                                            <template if:false={val.isEditing}>
-                                                <div class="slds-col slds-truncate">
-                                                    <p class="popup__record-value">{val.name}</p>
-                                                </div>
-                                                <template if:true={val.iconURL}>
-                                                    <div class="slds-col">
-                                                        <img src={val.iconURL} alt="TEST">
-                                                    </div>
-                                                </template>
-                                                <template if:false={val.iconURL}>
-                                                    <div class="slds-col slds-truncate">
-                                                        <p>None</p>
-                                                    </div>
-                                                </template>
-                                                <div class="slds-col icons">
-                                                    <lightning-icon icon-name="utility:edit" alternative-text="Edit"
-                                                        size="x-small" title='edit' onclick={editIconValue}
-                                                        data-name={val.name} data-iconname={val.iconname}
-                                                        data-icon={val.iconURL}
-                                                        class="popup__record-value redirectIcon"></lightning-icon>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </template>
+                                <div class="group_fields">
+                                    <div>
+                                        <label for="max-price">Max Price</label>
+                                        <span>
+                                            <input name="max_price" type="number" placeholder="Enter Max Price"
+                                                onchange={store_filter_values} value={max_price}></input>
+                                                <svg fill="#0176D3" width="23" height="20" viewBox="-96 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier5" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier5" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier5">
+                                                        <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                                                    </g>
+                                                </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label for="sf">Square Footage</label>
+                                        <span>
+                                            <input name="sq_ft" type="number" placeholder="Enter Square Footage"
+                                                onchange={store_filter_values} value={sq_ft}></input>
+                                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M2.57217 3.61111C2.57217 2.53778 3.43065 1.66667 4.48841 1.66667H6.13089C6.3487 1.66667 6.55758 1.57887 6.7116 1.42259C6.86561 1.26631 6.95213 1.05435 6.95213 0.833333C6.95213 0.61232 6.86561 0.400358 6.7116 0.244078C6.55758 0.0877973 6.3487 0 6.13089 0H4.48841C3.54457 0 2.6394 0.380455 1.97201 1.05767C1.30462 1.73488 0.929688 2.65338 0.929688 3.61111V5.27778C0.929688 5.49879 1.01621 5.71075 1.17022 5.86703C1.32424 6.02331 1.53312 6.11111 1.75093 6.11111C1.96874 6.11111 2.17762 6.02331 2.33164 5.86703C2.48565 5.71075 2.57217 5.49879 2.57217 5.27778V3.61111ZM17.0808 1.66667C18.1386 1.66667 18.997 2.53778 18.997 3.61111V5.27778C18.997 5.49879 19.0835 5.71075 19.2376 5.86703C19.3916 6.02331 19.6005 6.11111 19.8183 6.11111C20.0361 6.11111 20.245 6.02331 20.399 5.86703C20.553 5.71075 20.6395 5.49879 20.6395 5.27778V3.61111C20.6395 2.65338 20.2646 1.73488 19.5972 1.05767C18.9298 0.380455 18.0246 0 17.0808 0H15.4383C15.2205 0 15.0116 0.0877973 14.8576 0.244078C14.7036 0.400358 14.6171 0.61232 14.6171 0.833333C14.6171 1.05435 14.7036 1.26631 14.8576 1.42259C15.0116 1.57887 15.2205 1.66667 15.4383 1.66667H17.0808ZM17.0808 18.3333C17.589 18.3333 18.0764 18.1285 18.4358 17.7638C18.7951 17.3992 18.997 16.9046 18.997 16.3889V14.7222C18.997 14.5012 19.0835 14.2892 19.2376 14.133C19.3916 13.9767 19.6005 13.8889 19.8183 13.8889C20.0361 13.8889 20.245 13.9767 20.399 14.133C20.553 14.2892 20.6395 14.5012 20.6395 14.7222V16.3889C20.6395 17.3466 20.2646 18.2651 19.5972 18.9423C18.9298 19.6195 18.0246 20 17.0808 20H15.4383C15.2205 20 15.0116 19.9122 14.8576 19.7559C14.7036 19.5996 14.6171 19.3877 14.6171 19.1667C14.6171 18.9457 14.7036 18.7337 14.8576 18.5774C15.0116 18.4211 15.2205 18.3333 15.4383 18.3333H17.0808ZM4.48841 18.3333C3.98019 18.3333 3.49279 18.1285 3.13342 17.7638C2.77406 17.3992 2.57217 16.9046 2.57217 16.3889V14.7222C2.57217 14.5012 2.48565 14.2892 2.33164 14.133C2.17762 13.9767 1.96874 13.8889 1.75093 13.8889C1.53312 13.8889 1.32424 13.9767 1.17022 14.133C1.01621 14.2892 0.929688 14.5012 0.929688 14.7222V16.3889C0.929688 17.3466 1.30462 18.2651 1.97201 18.9423C2.6394 19.6195 3.54457 20 4.48841 20H6.13089C6.3487 20 6.55758 19.9122 6.7116 19.7559C6.86561 19.5996 6.95213 19.3877 6.95213 19.1667C6.95213 18.9457 6.86561 18.7337 6.7116 18.5774C6.55758 18.4211 6.3487 18.3333 6.13089 18.3333H4.48841ZM6.67839 3.33333C6.02496 3.33333 5.39831 3.59673 4.93627 4.06557C4.47423 4.53441 4.21466 5.17029 4.21466 5.83333V14.1667C4.21466 14.8297 4.47423 15.4656 4.93627 15.9344C5.39831 16.4033 6.02496 16.6667 6.67839 16.6667H14.8908C15.5442 16.6667 16.1709 16.4033 16.6329 15.9344C17.095 15.4656 17.3545 14.8297 17.3545 14.1667V5.83333C17.3545 5.17029 17.095 4.53441 16.6329 4.06557C16.1709 3.59673 15.5442 3.33333 14.8908 3.33333H6.67839Z"
+                                                    fill="#0176D3" />
+                                            </svg>
+                                        </span>
+                                    </div>
                                 </div>
+                                <div class="group_fields">
+                                    <div>
+                                        <label for="city">City</label>
+                                        <input name="city" type="text" placeholder="Enter City"
+                                            onchange={store_filter_values} value={city}></input>
+                                    </div>
+                                    <div>
+                                        <label for="zipcode">ZipCode</label>
+                                        <input name="zip_code" type="number" placeholder="Enter ZipCode"
+                                            onchange={store_filter_values} value={zip_code}></input>
+                                    </div>
+                                </div>
+                                
+                                
+                                
                             </div>
-                        </lightning-card>
+                        </div>
                     </div>
                     <div class="popup__footer">
-                        <div class="subFooter">
-                            <div class="slds-m-around_medium comboHideLabel">
-                                <lightning-input type="file" accept=".png" onchange={openfileUpload}></lightning-input>
-                            </div>
-                            <template if:true={fileData}>
-                                <div class="filedata">
-                                    <p>{fileData.filename}</p>
-                                    <lightning-icon icon-name="action:remove" alternative-text="Remove"
-                                                        size="xx-small" title='remove' onclick={removeImg} style="cursor: pointer;"></lightning-icon>
-                                </div>
-                            </template>
-                        </div>
-                        <template if:true={fileData}>
-                            <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
-                                class="slds-m-left_x-small"></lightning-button>
-                        </template>
-                        <template if:false={fileData}>
-                            <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
-                                class="slds-m-left_x-small" disabled="true"></lightning-button>
-                        </template>
+                        <button class="apply-btn" onclick={applySearch}>Apply</button>
+                        <button class="clear-btn" onclick={clearFilter}>Clear</button>
                     </div>
                 </div>
             </div>

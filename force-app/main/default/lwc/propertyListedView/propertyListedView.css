@@ -172,7 +172,7 @@ lightning-input {
 
 /* listview css */
 .imagePreview_listview {
-   padding: 3%;
+   padding: 2rem;
 }
 
 .imagePreview_columnview {
@@ -725,6 +725,7 @@ lightning-input {
    align-items: center;
    font-size: 18px;
    width: -webkit-fill-available;
+   padding-left: 2rem;
 }
 
 .quantity button {
@@ -795,7 +796,7 @@ lightning-input {
    padding: 5px;
    justify-content: center;
    align-items: center;
-   width: 75%;
+   width: 70%;
 }
 
 .mainFilterDiv .quantity svg {
@@ -821,7 +822,7 @@ lightning-input {
 
 .more-filter-div {
    display: flex;
-   width: 75%;
+   width: 70%;
    justify-content: space-between;
    text-align: center;
    align-items: center;
@@ -885,36 +886,34 @@ lightning-input {
 .fliter_options {
    display: flex;
    flex-direction: column;
-   height: 40vh;
+   /* height: 40vh; */
    overflow: scroll;
 }
 
-.drop-down-filters {
-   margin-top: 1vh;
-   padding: 20px;
-   float: right;
-   position: absolute;
+.group_fields{
    display: flex;
-   flex-direction: column;
-   gap: 10px;
-   text-align: center;
-   z-index: 30;
-   width: 400px;
-   color: #0176D3;
+   flex-direction: row;
+   justify-content: space-between;
+   width: 100%;
+}
+
+.drop-down-filters {
+   padding: 2rem;
    background-color: #FFFFFF;
    border-radius: 15px;
-
    -webkit-box-shadow: 0 0 10px black;
    box-shadow: 0 0 10px black;
 }
 
-.drop-down-filters div div {
+.drop-down-filters div .group_fields div {
    display: flex;
    flex-direction: column;
    text-align: left;
+   width: 45%;
+   padding: 0.2rem;
 }
 
-.drop-down-filters div div label {
+.drop-down-filters div .group_fields div label {
    color: #0176D3;
    font-weight: 700;
    margin-top: 10px;
@@ -922,8 +921,8 @@ lightning-input {
    font-size: 1rem;
 }
 
-.drop-down-filters div div select,
-.drop-down-filters div div input {
+.drop-down-filters div .group_fields div select,
+.drop-down-filters div .group_fields div input {
    padding: 10px;
    font-size: 0.75rem;
    background-color: #E1F1FE;
@@ -934,11 +933,11 @@ lightning-input {
    width: 100%;
 }
 
-.drop-down-filters div div span {
+.drop-down-filters div .group_fields div span {
    position: relative;
 }
 
-.drop-down-filters div div span svg {
+.drop-down-filters div .group_fields div span svg {
    position: absolute;
    right: 10px;
    width: 20px;
@@ -946,7 +945,7 @@ lightning-input {
    top: 15px;
 }
 
-.drop-down-filters div div span select {
+.drop-down-filters div .group_fields div span select {
    appearance: none;
 }
 
@@ -960,19 +959,29 @@ lightning-input {
    align-items: center;
 }
 
-.filter-btn .apply-btn,
-.filter-btn .clear-btn {
+.apply-btn,
+.clear-btn {
    color: #FFFFFF;
    width: 20%;
    border-radius: 8px;
    padding: 10px 5px 10px 5px !important;
+   color: #FFFFFF;
+   width: 15%;
+   border-radius: 8px;
+   padding: 10px 5px 10px 5px !important;
+   border: none;
+   font-size: 18px;
+   font-weight: 700;
+   line-height: 21.09px;
+   letter-spacing: 0.03em;
+   text-align: center;
 }
 
-.filter-btn .apply-btn {
+.apply-btn {
    background-color: #0176D3;
 }
 
-.filter-btn .clear-btn {
+.clear-btn {
    background-color: gray;
 }
 
@@ -991,24 +1000,6 @@ lightning-input {
 
 .down-icon {
    --sds-c-icon-color-foreground-default: white;
-}
-
-.featuredCss {
-   height: 12vh;
-   overflow: auto;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.featuredCss::-webkit-scrollbar {
-   display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.featuredCss {
-   -ms-overflow-style: none;
-   /* IE and Edge */
-   scrollbar-width: none;
-   /* Firefox */
 }
 
 .show_last_button {
@@ -1153,7 +1144,7 @@ img {
 
 
 .box11 {
-   padding: 2%;
+   padding: 0 2% 2% 2%;
 }
 
 .welcomebox {
@@ -1193,7 +1184,7 @@ img {
 }
 
 .searchbox {
-   width: -webkit-fill-available;
+   width: 95.8%;
    position: absolute;
    bottom: 0;
    padding-bottom: 3%;
@@ -1212,6 +1203,7 @@ img {
    padding: 5px;
    justify-content: center;
    align-items: center;
+   width: 70rem;
 }
 
 input[type="search"] {
@@ -1588,7 +1580,7 @@ input[type=number] {
 }
 
 .total_count span {
-   width: 75%;
+   width: 70%;
    font-family: Lato;
    font-size: 16px;
    font-weight: 400;
@@ -1604,4 +1596,90 @@ input[type=number] {
    display: flex;
    flex-direction: row;
    align-items: center;
+}
+
+/* model pop css */
+
+.popup-container {
+   position: relative;
+}
+
+.popup-container .popup {
+   background-color: rgba(255, 255, 255, 0.95);
+   border-radius: 0.5rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.backdrop {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 999;
+   background-color: #000000b0;
+}
+
+.popup {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 10000;
+   animation: fadeIn 0.3s ease forwards;
+   width: 60rem;
+}
+
+.popup__content {
+   padding: 1.5rem;
+   max-height: 100%;
+   overflow-y: auto;
+}
+
+.popup__header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 1rem;
+}
+
+.popup__header-title {
+   margin: 0;
+   font-size: 1.5rem;
+}
+
+.closeIcon {
+   position: absolute;
+   top: -2.5rem;
+   right: -2.5rem;
+   width: 32px;
+   height: 32px;
+   border: none;
+   cursor: pointer;
+   z-index: 9999;
+   --slds-c-icon-color-foreground-default: white !important;
+   background-color: unset;
+}
+
+.popup__body {
+   margin-bottom: 1.5rem;
+   color: #333;
+}
+
+.popup__footer {
+   text-align: center;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   gap: 2rem;
+}
+
+.SearchFilter input:focus{
+   outline: none;
+}
+
+.navigation-boxes {
+   display: flex;
+   flex-wrap: nowrap;
+   transition: transform 0.5s ease; /* Add a transition effect to the transform property */
 }
