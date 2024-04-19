@@ -4,35 +4,36 @@
 .welcomebox{
     border-radius: 8px;
     background-image: linear-gradient(to right, rgba(193, 222, 232, 1), rgba(251, 217, 185, 1));
-    height: 500px;
+    height: 617px;
 }
 
 .title{
    display: flex;
     width: 100%;
-    padding: 4%;
+    height: 617px;
+    /* padding: 4%; */
     padding-left: 2%;
     padding-bottom: 1%;
     margin-left: 2%;
     margin-top:8%;
 }
 .titletext{
-   width: 49%;
+   width: 47%;
+   padding: 4% 4% 4% 0%;
 }
 .welcometext{
-   font-size: 18px;
+   font-size: 20px;
 }
 .titleimg{
    width: 50%;
 }
 .titleimg img{
    width: 100%;
-   height: 400px;
-   opacity: 0.8;
+   height: 617px;
 }
 
 .searchbox{
-   top: 26%;
+   top: 28%;
    width: 96%;
    margin: auto;
    position: absolute;
@@ -244,13 +245,16 @@ input[type="search"]{
    border-radius: 8px;
    border: 3px solid white;
    margin: 0 15px;
+   height: 215px;
    cursor: pointer;
 }
 
 .box img {
    border-radius: 8px;
    width: 333px;
-   height: 158px; 
+   /* height: 158px;  */
+   height: 208px; 
+
 }
 
  .listedproperty{
@@ -263,14 +267,14 @@ input[type="search"]{
  }
 
  .property-container {
-   background: url(/sfsites/c/resource/bottomrightbg);
+   background: url(/sfsites/c/resource/bottomrightbg),url(/sfsites/c/resource/bottomlefteclipse);
     background-repeat: no-repeat;
-    background-position-x: 90%;
-    background-position-y: top;
-    background-size: 100px;
+    background-position-x: 93%,5%;
+    background-position-y: 4%,bottom;
+    background-size: 100px,100px;
     backdrop-filter: blur(5px);
    width: 100%;
-   height: 520px;
+   height: 620px;
    flex-wrap: wrap;
    flex-direction: row;
    align-items: center;
@@ -322,17 +326,17 @@ input[type="search"]{
 .property-details {
    padding: 10px;
 }
-.tag1{
+/* .tag1{
    position: absolute;
    left: 0.5rem;
    top: 2.5rem;
    z-index: 1;
    padding: 0 0.3rem;
-}
+} */
 .tag2{
    position: absolute;
    left: 0.5rem;
-   top: 4rem;
+   top: 2.5rem;
    z-index: 1;
    padding: 0 0.3rem;
 }
@@ -343,6 +347,22 @@ input[type="search"]{
    display: flex;
    align-items: center;
    color: #737D8C;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   width: 20rem;
+   white-space: nowrap;
+}
+.room_details h1{
+   text-overflow: ellipsis;
+   overflow: hidden;
+   width: 6rem;
+   white-space: nowrap;
+}
+.card-text p{
+   text-overflow: ellipsis;
+   overflow: hidden;
+   width: 14rem;
+   white-space: nowrap;
 }
 
 .property-name {
@@ -369,10 +389,10 @@ input[type="search"]{
    padding: 0.4rem;
    margin: 0.1rem;
    cursor: pointer;
+   box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .arrowbtn{
    display: flex;
    align-items: center;
-   box-shadow: 0 1 4px 0 rgba(0, 0, 0, 0.25);
 
 }

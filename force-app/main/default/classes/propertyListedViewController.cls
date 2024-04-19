@@ -65,7 +65,7 @@ public with sharing class propertyListedViewController {
             wr.Medias = media;
             return wr;
         } catch (Exception e) {
-            Exception_Logs.createExceptionRecord(e, 'propertyListedViewController', 'getListingInformation');
+            Exception_Logs.createExceptionRecord(e, 'propertyListedViewController', 'getListingData');
             throw new AuraHandledException(e.getMessage());
         }
     }

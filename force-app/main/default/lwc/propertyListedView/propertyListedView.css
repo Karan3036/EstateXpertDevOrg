@@ -181,7 +181,7 @@ lightning-input {
    grid: auto / auto auto;
    grid-gap: 4rem;
    padding: 2rem;
-   justify-content: center;
+   /* justify-content: center; */
    align-items: center;
 }
 
@@ -213,8 +213,13 @@ lightning-input {
 
 .cardDetail {
    display: flex;
-   justify-content: inline;
    background-color: rgba(225, 241, 254, 1);
+   border-radius: 12px;
+}
+
+.cardDetail3 {
+   display: flex;
+   background-color: #FFFFFF;
    border-radius: 12px;
 }
 
@@ -226,7 +231,7 @@ lightning-input {
 }
 
 .property_image1 {
-   width: 30%;
+   width: 40%;
    border-left: 1px;
    border-radius: 12px;
    cursor: pointer;
@@ -235,7 +240,7 @@ lightning-input {
 .property_image1 img {
    border-top-left-radius: 12px;
    border-bottom-left-radius: 12px;
-   height: 45vh;
+   height: 25rem;
    width: 100%;
 }
 
@@ -249,12 +254,12 @@ lightning-input {
 .property_image img {
    border-top-left-radius: 12px;
    border-bottom-left-radius: 12px;
-   height: 30vh;
+   height: 25vh;
    width: 100%;
 }
 
 .property_image2 {
-   width: 30%;
+   width: 40%;
    border-left: 1px;
    border-radius: 12px;
    cursor: pointer;
@@ -263,8 +268,8 @@ lightning-input {
 .property_image2 img {
    border-top-left-radius: 12px;
    border-bottom-left-radius: 12px;
-   height: 25vh;
-   width: 100%;
+   height: 12rem;
+   width: -webkit-fill-available;
 }
 
 .property_details1 {
@@ -278,9 +283,16 @@ lightning-input {
 
 .property_details {
    width: 80%;
-   padding: 1%;
+   padding: 2%;
    display: flex;
-   justify-content: inline;
+}
+
+.property_details3 {
+   width: 60%;
+   padding: 2%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 .property_details2 {
@@ -293,26 +305,45 @@ lightning-input {
 
 .leftside {
    width: 90%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 .card-title {
-   font-size: 18px;
+   font-family: Lato;
+   font-size: 20px;
+   font-weight: 700;
+   line-height: 24px;
+   text-align: left;
 }
 
 .card-text {
-   font-size: 16px;
-   text-overflow: ellipsis;
-   overflow: hidden;
    width: 45rem;
    white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-size: 18px;
 }
 
 .property_layout_item {
    margin-right: 1%;
+   display: flex;
+   flex-direction: row;
+   gap: 2rem;
 }
 
 .property_data_number {
    margin-left: 10px;
+}
+
+.property_data_number p b {
+   font-family: Inter;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 15.36px;
+   text-align: left;
+   color: #000;
 }
 
 .availability_badge {
@@ -330,6 +361,15 @@ lightning-input {
 
 .property_price {
    margin-left: 15%;
+}
+
+.property_price b {
+   font-family: Lato;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 20px;
+   text-align: left;
+   color: #181A18;
 }
 
 .data_not_found {
@@ -516,8 +556,8 @@ lightning-input {
    grid: auto / auto auto auto;
    grid-gap: 7rem;
    padding: 2rem;
-   justify-content: center;
    align-items: center;
+   justify-content: center;
 }
 
 .custom-box {
@@ -526,7 +566,7 @@ lightning-input {
 
 .numbers {
    display: flex;
-   /* justify-content:center; */
+   align-items: end;
 }
 
 .imgicon img {
@@ -546,6 +586,30 @@ lightning-input {
 
 .propertyInfo span {
    margin-right: 15px;
+   font-family: Lato;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 16px;
+   text-align: left;
+}
+
+.propertyInfo1 {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
+.propertyInfo1 span svg {
+   margin-right: 5px;
+}
+
+.propertyInfo1 span {
+   margin-right: 15px;
+   font-family: Lato;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 16px;
+   text-align: left;
 }
 
 .imgInfo p {
@@ -554,6 +618,20 @@ lightning-input {
    font-weight: 700;
    line-height: 20px;
    color: rgba(255, 255, 255, 1);
+}
+
+.imgInfo1 p {
+   font-family: Lato;
+   font-size: 16px;
+   font-weight: 700;
+   line-height: 20px;
+   color: rgba(255, 255, 255, 1);
+}
+
+.imgInfo1 {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
 }
 
 .loadMoreButton {
@@ -630,10 +708,23 @@ lightning-input {
    border-right: 1px solid rgba(73, 115, 90, 1);
    justify-content: center;
    align-items: center;
+   font-family: Lato;
+   font-size: 18px;
+   font-weight: 700;
+   line-height: 24px;
+   width: -webkit-fill-available;
+   /* text-align: left; */
 }
 
 .SearchFilter {
+   padding: 7px 6px 7px 18px;
    border-right: 1px solid rgba(73, 115, 90, 1);
+   display: flex;
+   flex-direction: row;
+   gap: 0.5rem;
+   align-items: center;
+   font-size: 18px;
+   width: -webkit-fill-available;
 }
 
 .quantity button {
@@ -704,6 +795,7 @@ lightning-input {
    padding: 5px;
    justify-content: center;
    align-items: center;
+   width: 75%;
 }
 
 .mainFilterDiv .quantity svg {
@@ -729,7 +821,7 @@ lightning-input {
 
 .more-filter-div {
    display: flex;
-   width: 788px;
+   width: 75%;
    justify-content: space-between;
    text-align: center;
    align-items: center;
@@ -769,7 +861,7 @@ lightning-input {
    line-height: 24px;
    font-size: 18px;
    border-radius: 8px;
-   padding: 4px 8px 6px 8px;
+   padding: 8px 8px 8px 8px;
    background-color: rgba(1, 118, 211, 1);
    border: none;
    display: flex;
@@ -1006,6 +1098,13 @@ img {
    color: rgba(35, 30, 28, 1);
 }
 
+/* .properties_descreption p {
+   width: -webkit-fill-available;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+} */
+
 .propertiesClass_img img {
    width: 30px;
    height: 30px;
@@ -1166,16 +1265,16 @@ input[type="search"] {
    border-radius: 12px;
 }
 
-.property_image1 {
+.property_image3 {
    width: 40%;
    border-left: 1px;
    border-radius: 12px;
 }
 
-.property_image1 img {
+.property_image3 img {
    border-top-left-radius: 12px;
    border-bottom-left-radius: 12px;
-   height: 364px;
+   height: 25rem;
    width: 100%;
 }
 
@@ -1188,7 +1287,13 @@ input[type="search"] {
 }
 
 .property_layout_item1 {
-   margin-right: 5%;
+   display: flex;
+   flex-direction: row;
+   width: -webkit-fill-available;
+   background: #0176D30D;
+   justify-content: space-between;
+   padding: 1rem;
+   border-radius: 16px;
 }
 
 .navigation-boxes {
@@ -1367,6 +1472,22 @@ input[type="search"] {
    color: #737D8C;
 }
 
+.card-text3 {
+   font-family: Inter;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 19.2px;
+   text-align: left;
+   color: #231E1C;
+}
+
+.card-text3 p {
+   width: -webkit-fill-available;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
 .arrow1 {
    color: white;
    background-color: rgb(255, 255, 255);
@@ -1394,12 +1515,93 @@ input[type="search"] {
    cursor: pointer;
 }
 
-.featured_prop{
+.featured_prop {
    margin-top: 2%;
 }
 
-.featured_prop h1{
+.featured_prop h1 {
    font-size: 40px;
-   margin-left:4%;
-   width:100%;
+   margin-left: 4%;
+   width: 100%;
+}
+
+.property_price1 b {
+   font-family: Lato;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 20px;
+   text-align: left;
+   color: #181A18;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+   -moz-appearance: textfield;
+}
+
+.rightside {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   align-items: end;
+}
+
+.property_layout_item .numberBox p {
+   font-family: Inter;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 15.36px;
+   text-align: left;
+   color: #8C8C8C;
+}
+
+.property_layout_item1 .numberBox p {
+   font-family: Inter;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 24px;
+   text-align: left;
+   color: #231E1C99;
+}
+
+.address {
+   display: flex;
+   align-items: center;
+   font-family: Inter;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 24px;
+   color: #9B9A98;
+}
+
+.total_count {
+   display: flex;
+   justify-content: center;
+   padding-top: 1vh;
+}
+
+.total_count span {
+   width: 75%;
+   font-family: Lato;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 20px;
+}
+
+.sort-by-main {
+   font-family: Lato;
+   font-size: 18px;
+   font-weight: 700;
+   line-height: 24px;
+   text-align: left;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }

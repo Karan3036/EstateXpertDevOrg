@@ -60,11 +60,11 @@
                                             </svg>
                                             Rooms
                                             <button name="rooms" class="minus" aria-label="Decrease"
-                                                onclick={decreaseNumber}>&minus;</button>
-                                            <input type="number" class="input-box bedrooms_number" value={homeBedrooms} min="1"
+                                                onclick={decreaseNumber1}>&minus;</button>
+                                            <input type="number" class="input-box bedrooms_number1" value={homeBedrooms} min="1"
                                                 max="10">
                                             <button name="rooms" class="plus" aria-label="Increase"
-                                                onclick={increaseNumber}>&plus;</button>
+                                                onclick={increaseNumber1}>&plus;</button>
                                         </div>
                                         <div class="quantity">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -75,11 +75,11 @@
                                             </svg>
                                             Bathroom
                                             <button name="bathrooms" class="minus" aria-label="Decrease"
-                                                onclick={decreaseNumber}>&minus;</button>
-                                            <input type="number" class="input-box bathrooms_number" value={homeBathrooms} min="1"
+                                                onclick={decreaseNumber1}>&minus;</button>
+                                            <input type="number" class="input-box bathrooms_number1" value={homeBathrooms} min="1"
                                                 max="10">
                                             <button name="bathrooms" class="plus" aria-label="Increase"
-                                                onclick={increaseNumber}>&plus;</button>
+                                                onclick={increaseNumber1}>&plus;</button>
                                         </div>
                                         <div class="searchButton">
                                             <button onclick={applySearchOnProperty}><svg width="16" height="16"
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <br /><br /><br /> -->
+
                     <div class="box2">
                         <div class="innerbox1">
                             <div class="featuredproperty">
@@ -110,108 +110,86 @@
                                     </div>
                                 </div>
                                 <div class="imagePreview_listview1">
-                                    <br />
-                                    <div class="mb-3 property_card1">
-                                        <div class="cardDetail">
-                                            <div class="property_image1">
+                                    <div class="property_card1">
+                                        <div class="cardDetail3">
+                                            <div class="property_image3">
                                                 <img src={mainFeatProperty.media_url} class="img-fluid rounded-start"
                                                     alt="...">
                                             </div>
-                                            <div class="property_details">
-                                                <div class="leftside">
-                                                    <h5 class="card-title" style="font-size: 32px;"><b>Rs.
-                                                            {mainFeatProperty.Listing_Price__c}</b></h5>
-                                                    <h5 class="card-title" style="font-size: 40px;">
-                                                        <b>{mainFeatProperty.Name}</b></h5>
-                                                    <br />
-                                                    <div class="address" style="display: flex;align-items:center;">
-                                                        <div class="imgicon">
-                                                            <svg width="18" height="18" viewBox="0 0 22 30" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M11 6C10.0111 6 9.04439 6.29325 8.22215 6.84265C7.3999 7.39206 6.75904 8.17295 6.3806 9.08658C6.00216 10.0002 5.90315 11.0055 6.09607 11.9755C6.289 12.9454 6.7652 13.8363 7.46447 14.5355C8.16373 15.2348 9.05464 15.711 10.0245 15.9039C10.9945 16.0969 11.9998 15.9978 12.9134 15.6194C13.827 15.241 14.6079 14.6001 15.1573 13.7779C15.7068 12.9556 16 11.9889 16 11C16 9.67392 15.4732 8.40215 14.5355 7.46447C13.5979 6.52678 12.3261 6 11 6ZM11 14C10.4067 14 9.82664 13.8241 9.33329 13.4944C8.83994 13.1648 8.45542 12.6962 8.22836 12.1481C8.0013 11.5999 7.94189 10.9967 8.05764 10.4147C8.1734 9.83279 8.45912 9.29824 8.87868 8.87868C9.29824 8.45912 9.83279 8.1734 10.4147 8.05764C10.9967 7.94189 11.5999 8.0013 12.1481 8.22836C12.6962 8.45542 13.1648 8.83994 13.4944 9.33329C13.8241 9.82664 14 10.4067 14 11C14 11.7956 13.6839 12.5587 13.1213 13.1213C12.5587 13.6839 11.7956 14 11 14ZM11 0C8.08363 0.00330842 5.28766 1.1633 3.22548 3.22548C1.1633 5.28766 0.00330842 8.08363 0 11C0 14.925 1.81375 19.085 5.25 23.0312C6.79403 24.8145 8.53182 26.4202 10.4312 27.8188C10.5994 27.9365 10.7997 27.9997 11.005 27.9997C11.2103 27.9997 11.4106 27.9365 11.5788 27.8188C13.4747 26.4196 15.2091 24.8139 16.75 23.0312C20.1812 19.085 22 14.925 22 11C21.9967 8.08363 20.8367 5.28766 18.7745 3.22548C16.7123 1.1633 13.9164 0.00330842 11 0ZM11 25.75C8.93375 24.125 2 18.1562 2 11C2 8.61305 2.94821 6.32387 4.63604 4.63604C6.32387 2.94821 8.61305 2 11 2C13.3869 2 15.6761 2.94821 17.364 4.63604C19.0518 6.32387 20 8.61305 20 11C20 18.1537 13.0662 24.125 11 25.75Z"
-                                                                    fill="#9B9A98" />
-                                                            </svg>
+                                            <div class="property_details3">
+                                                <!-- <div class="leftside"> -->
+                                                    <div class="card-title" style="font-size: 32px;">Rs.{mainFeatProperty.Listing_Price__c}</div>
+                                                    <div class="card-title" style="font-size: 40px;"><b>{mainFeatProperty.Name}</b></div>
+                                                    <div class="address">
+                                                        <svg width="22" height="28" viewBox="0 0 22 30" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M11 6C10.0111 6 9.04439 6.29325 8.22215 6.84265C7.3999 7.39206 6.75904 8.17295 6.3806 9.08658C6.00216 10.0002 5.90315 11.0055 6.09607 11.9755C6.289 12.9454 6.7652 13.8363 7.46447 14.5355C8.16373 15.2348 9.05464 15.711 10.0245 15.9039C10.9945 16.0969 11.9998 15.9978 12.9134 15.6194C13.827 15.241 14.6079 14.6001 15.1573 13.7779C15.7068 12.9556 16 11.9889 16 11C16 9.67392 15.4732 8.40215 14.5355 7.46447C13.5979 6.52678 12.3261 6 11 6ZM11 14C10.4067 14 9.82664 13.8241 9.33329 13.4944C8.83994 13.1648 8.45542 12.6962 8.22836 12.1481C8.0013 11.5999 7.94189 10.9967 8.05764 10.4147C8.1734 9.83279 8.45912 9.29824 8.87868 8.87868C9.29824 8.45912 9.83279 8.1734 10.4147 8.05764C10.9967 7.94189 11.5999 8.0013 12.1481 8.22836C12.6962 8.45542 13.1648 8.83994 13.4944 9.33329C13.8241 9.82664 14 10.4067 14 11C14 11.7956 13.6839 12.5587 13.1213 13.1213C12.5587 13.6839 11.7956 14 11 14ZM11 0C8.08363 0.00330842 5.28766 1.1633 3.22548 3.22548C1.1633 5.28766 0.00330842 8.08363 0 11C0 14.925 1.81375 19.085 5.25 23.0312C6.79403 24.8145 8.53182 26.4202 10.4312 27.8188C10.5994 27.9365 10.7997 27.9997 11.005 27.9997C11.2103 27.9997 11.4106 27.9365 11.5788 27.8188C13.4747 26.4196 15.2091 24.8139 16.75 23.0312C20.1812 19.085 22 14.925 22 11C21.9967 8.08363 20.8367 5.28766 18.7745 3.22548C16.7123 1.1633 13.9164 0.00330842 11 0ZM11 25.75C8.93375 24.125 2 18.1562 2 11C2 8.61305 2.94821 6.32387 4.63604 4.63604C6.32387 2.94821 8.61305 2 11 2C13.3869 2 15.6761 2.94821 17.364 4.63604C19.0518 6.32387 20 8.61305 20 11C20 18.1537 13.0662 24.125 11 25.75Z"
+                                                                fill="#9B9A98" />
+                                                        </svg> &nbsp; {mainFeatProperty.Area__c},
+                                                            {mainFeatProperty.City__c},
+                                                            {mainFeatProperty.State__c},
+                                                            {mainFeatProperty.Postal_Code__c}
+                                                    </div>
+                                                    <div if:true={mainFeatProperty.Listing_Description__c} class="card-text3"><p>{mainFeatProperty.Listing_Description__c}</p></div>
+                                                    <div class="property_layout_item1">
+                                                        <div class="numberBox">
+                                                            <p style="font-size: 20px;">Bedrooms</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={plvimg1} class="iconImg"
+                                                                        style="height:28px;width:30px;"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p style="font-size: 16px;">
+                                                                        <b>{mainFeatProperty.Number_of_Bedrooms__c}</b>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        &nbsp;
-                                                        <div class="property_address">
-                                                            <p style="font-size: 20px;">{mainFeatProperty.Area__c},
-                                                                {mainFeatProperty.City__c},
-                                                                {mainFeatProperty.State__c},
-                                                                {mainFeatProperty.Postal_Code__c}</p>
+                                                        <div class="numberBox">
+                                                            <p style="font-size: 20px;">Bathrooms</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={plvimg2} class="iconImg"
+                                                                        style="height:28px;width:30px;"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p style="font-size: 16px;">
+                                                                        <b>{mainFeatProperty.Number_of_Bathrooms__c}</b>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="numberBox">
+                                                            <p style="font-size: 20px;">Car Space</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={plvimg3} class="iconImg"
+                                                                        style="height:28px;width:30px;"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p style="font-size: 16px;"><b>{mainFeatProperty.Number_of_Bedrooms__c}</b></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="numberBox">
+                                                            <p style="font-size: 20px;">Reading Room</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={plvimg4} class="iconImg"
+                                                                        style="height:28px;width:30px;"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p style="font-size: 16px;"><b>{mainFeatProperty.Number_of_Bedrooms__c}</b></p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <p class="card-text2" style="font-size: 16px;">A limited collection
-                                                        of exquisite individual residences,
-                                                        positioned in the heart of Melbourne's Bayside. </p>
-                                                    <br />
-                                                    <lightning-layout multiple-rows class="layout">
-                                                        <lightning-layout-item class="property_layout_item1">
-                                                            <div class="custom-box slds-text-align_center numberBox">
-                                                                <p style="font-size: 20px;">Bedrooms</p>
-                                                                <div class="numbers">
-                                                                    <div class="imgicon">
-                                                                        <img src={plvimg1} class="iconImg"
-                                                                            style="height:17px;width:20px;"></img>
-                                                                    </div>
-                                                                    &nbsp;
-                                                                    <div class="property_data_number">
-                                                                        <p style="font-size: 16px;">
-                                                                            <b>{mainFeatProperty.Number_of_Bedrooms__c}</b>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </lightning-layout-item>
-                                                        <lightning-layout-item class="property_layout_item1">
-                                                            <div class="custom-box slds-text-align_center numberBox">
-                                                                <p style="font-size: 20px;">Bathrooms</p>
-                                                                <div class="numbers">
-                                                                    <div class="imgicon">
-                                                                        <img src={plvimg2} class="iconImg"
-                                                                            style="height:17px;width:20px;"></img>
-                                                                    </div>
-                                                                    &nbsp;
-                                                                    <div class="property_data_number">
-                                                                        <p style="font-size: 16px;">
-                                                                            <b>{mainFeatProperty.Number_of_Bathrooms__c}</b>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </lightning-layout-item>
-                                                        <lightning-layout-item class="property_layout_item1">
-                                                            <div class="custom-box slds-text-align_center numberBox">
-                                                                <p style="font-size: 20px;">Car Space</p>
-                                                                <div class="numbers">
-                                                                    <div class="imgicon">
-                                                                        <img src={plvimg3} class="iconImg"
-                                                                            style="height:17px;width:20px;"></img>
-                                                                    </div>
-                                                                    &nbsp;
-                                                                    <div class="property_data_number">
-                                                                        <p style="font-size: 16px;"><b>4</b></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </lightning-layout-item>
-                                                        <lightning-layout-item class="property_layout_item1">
-                                                            <div class="custom-box slds-text-align_center numberBox">
-                                                                <p style="font-size: 20px;">Reading Room</p>
-                                                                <div class="numbers">
-                                                                    <div class="imgicon">
-                                                                        <img src={plvimg4} class="iconImg"
-                                                                            style="height:17px;width:20px;"></img>
-                                                                    </div>
-                                                                    &nbsp;
-                                                                    <div class="property_data_number">
-                                                                        <p style="font-size: 16px;"><b>4</b></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </lightning-layout-item>
-                                                    </lightning-layout>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -220,8 +198,8 @@
                                         <lightning-layout>
                                             <lightning-layout-item class="arrowbtn">
                                                 <lightning-button-icon icon-name="utility:chevronleft" size="large"
-                                                    variant="bare" onclick={goToPrevious1} class="arrow1 left-arrow"
-                                                    disabled={left_arrow_disabled1}></lightning-button-icon>
+                                                    variant="bare" onclick={goToPrevFeaturedProperty} class="arrow1 left-arrow"
+                                                    disabled={leftArrowDisabled}></lightning-button-icon>
                                             </lightning-layout-item>
                                             <div class="navigation-boxes">
                                                 <template for:each={nextProperties} for:item="nextImg">
@@ -238,8 +216,8 @@
                                             </div>
                                             <lightning-layout-item class="arrowbtn">
                                                 <lightning-button-icon icon-name="utility:chevronright" size="large"
-                                                    variant="bare" onclick={goToNext1} class="arrow1 right-arrow"
-                                                    disabled={right_arrow_disabled1}></lightning-button-icon>
+                                                    variant="bare" onclick={goToNextFeaturedProperty} class="arrow1 right-arrow"
+                                                    disabled={rightArrowDisabled}></lightning-button-icon>
                                             </lightning-layout-item>
                                         </lightning-layout>
 
@@ -275,7 +253,7 @@
                                         <lightning-layout-item class="arrowbtn">
                                             <lightning-button-icon icon-name="utility:chevronleft" size="large"
                                                 variant="bare" onclick={goTobackListing} class="arrow1 left-arrow"
-                                                disabled={listing_left_arrow_disabled}></lightning-button-icon>
+                                                disabled={listingLeftArrowDisabled}></lightning-button-icon>
                                         </lightning-layout-item>
                                         <div class="property_items">
                                             <template for:each={pagedFilteredListingData1} for:item="listing">
@@ -385,7 +363,7 @@
                                         <lightning-layout-item class="arrowbtn">
                                             <lightning-button-icon icon-name="utility:chevronright" size="large"
                                                 variant="bare" onclick={goToNextListing} class="arrow1 right-arrow"
-                                                disabled={listing_right_arrow_disabled}></lightning-button-icon>
+                                                disabled={listingRightArrowDisabled}></lightning-button-icon>
                                         </lightning-layout-item>
                                     </lightning-layout>
                                 </div>
@@ -417,7 +395,7 @@
                             <div class="featurePropertyCSS">
                                 <template for:each={pagedProperties} for:item="fetured_property">
                                     <template if:true={fetured_property.Featured_Property__c}>
-                                        <div class="mb-3 property_card1" key={fetured_property.Id}>
+                                        <div class="property_card1" key={fetured_property.Id}>
                                             <div class="cardDetail1">
                                                 <div class="property_image1" data-id={fetured_property.Id}
                                                     onclick={showPropertyDetails}>
@@ -437,8 +415,7 @@
                                                         </svg> &nbsp;
                                                         {fetured_property.City__c},{fetured_property.State__c},{fetured_property.Postal_Code__c}
                                                     </div>
-                                                    <div class="properties_descreption">
-                                                        {fetured_property.Listing_Description__c}</div>
+                                                    <div class="properties_descreption" if:true={fetured_property.Listing_Description__c}><p>{fetured_property.Listing_Description__c}</p></div>
                                                     <div class="properties_details">
                                                         <span class="properties_bedroom">
                                                             <p class="same_P">Bedroom</p>
@@ -495,9 +472,14 @@
                     <div class="filterSetting">
                         <div class="mainFilterDiv">
                             <div class="SearchFilter">
-                                <lightning-input class={inputClass} type="search" variant="label-hidden" label=""
+                                <!-- <lightning-input class={inputClass} type="search" variant="label-hidden" label=""
                                     placeholder="Search by name" value={searchTerm} autocomplete="false"
-                                    onchange={searchTermValue}></lightning-input>
+                                    onchange={searchTermValue}></lightning-input> -->
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.7583 13.575L11.925 10.75C12.8392 9.58538 13.3352 8.14722 13.3333 6.66667C13.3333 5.34813 12.9423 4.0592 12.2098 2.96287C11.4773 1.86654 10.4361 1.01206 9.21789 0.507473C7.99972 0.00288854 6.65927 -0.129134 5.36607 0.128101C4.07286 0.385336 2.88497 1.02027 1.95262 1.95262C1.02027 2.88497 0.385336 4.07286 0.128101 5.36607C-0.129134 6.65927 0.00288854 7.99972 0.507473 9.21789C1.01206 10.4361 1.86654 11.4773 2.96287 12.2098C4.0592 12.9423 5.34813 13.3333 6.66667 13.3333C8.14722 13.3352 9.58538 12.8392 10.75 11.925L13.575 14.7583C13.6525 14.8364 13.7446 14.8984 13.8462 14.9407C13.9477 14.9831 14.0567 15.0048 14.1667 15.0048C14.2767 15.0048 14.3856 14.9831 14.4872 14.9407C14.5887 14.8984 14.6809 14.8364 14.7583 14.7583C14.8364 14.6809 14.8984 14.5887 14.9407 14.4872C14.9831 14.3856 15.0048 14.2767 15.0048 14.1667C15.0048 14.0567 14.9831 13.9477 14.9407 13.8462C14.8984 13.7446 14.8364 13.6525 14.7583 13.575ZM1.66667 6.66667C1.66667 5.67776 1.95991 4.71106 2.50932 3.88882C3.05873 3.06657 3.83962 2.42571 4.75325 2.04727C5.66688 1.66883 6.67222 1.56982 7.64212 1.76274C8.61203 1.95567 9.50294 2.43187 10.2022 3.13114C10.9015 3.8304 11.3777 4.72131 11.5706 5.69122C11.7635 6.66112 11.6645 7.66646 11.2861 8.58009C10.9076 9.49372 10.2668 10.2746 9.44452 10.824C8.62228 11.3734 7.65558 11.6667 6.66667 11.6667C5.34059 11.6667 4.06882 11.1399 3.13114 10.2022C2.19345 9.26452 1.66667 7.99275 1.66667 6.66667Z" fill="#181A18"/>
+                                    </svg>                                        
+                                    <input type="search" placeholder="Search" value={searchTerm} autocomplete="false"
+                                    onchange={searchTermValue}>
                             </div>
                             <div class="quantity">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -538,7 +520,7 @@
                         <div class="more-filter-div">
                             <div class="more-filter-sub-div">
                                 <div class="more-filter-button">
-                                    <button onclick={ToggleFilters}>More Filters </lightning-icon><svg width="20"
+                                    <button onclick={ToggleFilters}>More Filters <svg width="20"
                                             height="20" viewBox="0 0 20 20" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -546,7 +528,7 @@
                                                 fill="white" />
                                         </svg>
                                     </button>
-                                    <div class={dropDownClass}>
+                                    <!-- <div class={dropDownClass} onmouseout={closetheFilterDiv}>
                                         <div class="drop-down-filters">
                                             <div class="fliter_options">
                                                 <div>
@@ -568,34 +550,36 @@
                                                 <div>
                                                     <label for="min-price">Min Price</label>
                                                     <span>
-                                                        <input name="min_price" type="number" placeholder="$ 150,000"
+                                                        <input name="min_price" type="number" placeholder="Enter Min Price"
                                                             value={min_price} onchange={store_filter_values}></input>
-                                                        <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M8.63601 10.5793L8.63664 10.6407C8.63765 11.4902 8.33667 12.309 7.79337 12.9349L7.79527 12.9323C7.22933 13.5912 6.46395 14.0213 5.63066 14.1484L5.61111 14.1511V15.7246C5.61111 15.7977 5.58366 15.8677 5.53481 15.9193C5.48596 15.971 5.41971 16 5.35062 16H5.3399H4.20083C4.12933 15.9991 4.06098 15.9687 4.01041 15.9153C3.95985 15.8618 3.93108 15.7896 3.93026 15.714V14.1511C3.55018 14.0974 3.17673 14.0004 2.81642 13.8617L2.85363 13.8744C2.31543 13.6841 1.81044 13.4016 1.35884 13.0383L1.37145 13.0483C1.23352 12.9428 1.10108 12.8295 0.974736 12.7089L0.979151 12.7129C0.908931 12.6418 0.859736 12.5885 0.831564 12.5529C0.785966 12.505 0.759044 12.4407 0.756124 12.3728C0.753205 12.3049 0.774499 12.2383 0.815796 12.1862L1.68492 10.9814C1.70803 10.9499 1.73729 10.9241 1.77071 10.9057C1.80413 10.8873 1.84091 10.8767 1.87855 10.8747C1.91595 10.8674 1.95515 10.8711 1.99072 10.8853C2.02629 10.8995 2.05751 10.9238 2.08101 10.9554L2.09804 10.9734C2.6683 11.5253 3.36623 11.9085 4.12136 12.0842L4.15038 12.0902C4.33833 12.1355 4.55403 12.1615 4.77541 12.1615L4.81452 12.1622C5.25034 12.1622 5.654 12.0182 5.98638 11.7728L5.97944 11.7775C6.14709 11.6577 6.28289 11.4944 6.37387 11.3033C6.46486 11.1123 6.50799 10.8997 6.49915 10.686V10.6887C6.49915 10.5133 6.45185 10.35 6.37048 10.2119L6.37238 10.2159C6.29549 10.0783 6.20058 9.9528 6.09045 9.84323C5.94384 9.71323 5.782 9.60217 5.60985 9.51386L5.59597 9.50719C5.37059 9.3854 5.18559 9.29005 5.04094 9.22115C4.8963 9.15226 4.67113 9.05558 4.36545 8.93112C4.14596 8.83599 3.97272 8.76154 3.84574 8.70776C3.71876 8.65397 3.54552 8.57507 3.32603 8.47106C3.10655 8.36705 2.93058 8.27481 2.79813 8.19436C2.66568 8.1139 2.50653 8.00833 2.32068 7.87765C2.15787 7.76676 2.00558 7.63948 1.86593 7.4976C1.7392 7.36203 1.61983 7.22027 1.50706 7.07155L1.49886 7.06088C1.37942 6.90783 1.28032 6.73824 1.20432 6.55682L1.19927 6.54282C1.12601 6.35867 1.06798 6.16815 1.02582 5.97341L1.02141 5.94941C0.973155 5.72587 0.949033 5.49727 0.949507 5.26799V5.25199V5.23199C0.949507 4.39855 1.26549 3.64246 1.77826 3.09172C2.34982 2.46356 3.09609 2.04619 3.90881 1.89957L3.93152 1.89624V0.286036V0.283369C3.93152 0.205359 3.96242 0.134684 4.01162 0.0846773C4.03593 0.057901 4.06511 0.036597 4.09741 0.0220455C4.12971 0.00749403 4.16446 -4.67234e-06 4.19957 2.18414e-09H5.35188C5.49569 2.18414e-09 5.61237 0.123349 5.61237 0.275368V0.286703V1.85757C5.95926 1.89624 6.27588 1.96891 6.57925 2.07293L6.54582 2.06292C6.83532 2.15627 7.07878 2.25828 7.31277 2.37696L7.27997 2.3623C7.48685 2.47098 7.66282 2.58232 7.82932 2.70634L7.81671 2.697C7.9849 2.82235 8.09464 2.90859 8.14594 2.9557C8.19724 3.00282 8.2395 3.04438 8.27271 3.08039C8.31808 3.12167 8.34742 3.17922 8.35511 3.24198C8.36279 3.30474 8.34827 3.36829 8.31434 3.42043L7.63254 4.72392C7.61551 4.76401 7.5885 4.79846 7.5544 4.82359C7.5203 4.84872 7.48038 4.86358 7.43891 4.86661C7.39886 4.87541 7.35679 4.87434 7.3172 4.86347C7.2776 4.8526 7.2409 4.83223 7.20996 4.80393C7.19314 4.78615 7.15299 4.75059 7.08824 4.69725C7.02348 4.64391 6.91374 4.56501 6.759 4.46056C6.60887 4.35883 6.45277 4.2673 6.29165 4.18652L6.26516 4.17452C6.07101 4.08015 5.86921 4.0045 5.66219 3.94849L5.6357 3.94249C5.40059 3.87446 5.15793 3.83992 4.91417 3.83981C4.44708 3.8172 3.98483 3.95369 3.59661 4.2292L3.60481 4.22386C3.39009 4.37468 3.23028 4.59823 3.15166 4.85777C3.07303 5.11732 3.08025 5.39741 3.17214 5.65204L3.16962 5.64404C3.22764 5.79072 3.31216 5.91474 3.41812 6.01408L3.41938 6.01475C3.52092 6.11543 3.62941 6.21211 3.74293 6.30212L3.75303 6.30945C3.88863 6.40813 4.04442 6.50081 4.20777 6.57816L4.22669 6.58616C4.43777 6.69017 4.60806 6.77062 4.73757 6.82752C4.86708 6.88442 5.06428 6.9662 5.32918 7.07288C5.62772 7.19201 5.85582 7.2858 6.0135 7.35425C6.17118 7.42271 6.3852 7.52694 6.65557 7.66696C6.88331 7.78002 7.10277 7.91084 7.31214 8.05834L7.29385 8.04634C7.48937 8.19302 7.65966 8.33971 7.82175 8.4964L7.81797 8.49239C7.99268 8.65375 8.14153 8.84044 8.2601 9.04913L8.26578 9.0598C8.37048 9.25516 8.46067 9.48252 8.52626 9.72055L8.53194 9.74322C8.60069 9.98658 8.63979 10.2666 8.63979 10.556V10.584V10.5827L8.63601 10.5793Z"
-                                                                fill="#0176D3" />
-                                                        </svg>
+                                                            <svg fill="#0176D3" width="23" height="20" viewBox="-96 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                                <g id="SVGRepo_bgCarrier4" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier4" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_iconCarrier4">
+                                                                    <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                                                                </g>
+                                                            </svg>
                                                     </span>
 
                                                 </div>
                                                 <div>
                                                     <label for="max-price">Max Price</label>
                                                     <span>
-                                                        <input name="max_price" type="number" placeholder="$ 250,000"
+                                                        <input name="max_price" type="number" placeholder="Enter Max Price"
                                                             onchange={store_filter_values} value={max_price}></input>
-                                                        <svg width="9" height="16" viewBox="0 0 9 16" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M8.63601 10.5793L8.63664 10.6407C8.63765 11.4902 8.33667 12.309 7.79337 12.9349L7.79527 12.9323C7.22933 13.5912 6.46395 14.0213 5.63066 14.1484L5.61111 14.1511V15.7246C5.61111 15.7977 5.58366 15.8677 5.53481 15.9193C5.48596 15.971 5.41971 16 5.35062 16H5.3399H4.20083C4.12933 15.9991 4.06098 15.9687 4.01041 15.9153C3.95985 15.8618 3.93108 15.7896 3.93026 15.714V14.1511C3.55018 14.0974 3.17673 14.0004 2.81642 13.8617L2.85363 13.8744C2.31543 13.6841 1.81044 13.4016 1.35884 13.0383L1.37145 13.0483C1.23352 12.9428 1.10108 12.8295 0.974736 12.7089L0.979151 12.7129C0.908931 12.6418 0.859736 12.5885 0.831564 12.5529C0.785966 12.505 0.759044 12.4407 0.756124 12.3728C0.753205 12.3049 0.774499 12.2383 0.815796 12.1862L1.68492 10.9814C1.70803 10.9499 1.73729 10.9241 1.77071 10.9057C1.80413 10.8873 1.84091 10.8767 1.87855 10.8747C1.91595 10.8674 1.95515 10.8711 1.99072 10.8853C2.02629 10.8995 2.05751 10.9238 2.08101 10.9554L2.09804 10.9734C2.6683 11.5253 3.36623 11.9085 4.12136 12.0842L4.15038 12.0902C4.33833 12.1355 4.55403 12.1615 4.77541 12.1615L4.81452 12.1622C5.25034 12.1622 5.654 12.0182 5.98638 11.7728L5.97944 11.7775C6.14709 11.6577 6.28289 11.4944 6.37387 11.3033C6.46486 11.1123 6.50799 10.8997 6.49915 10.686V10.6887C6.49915 10.5133 6.45185 10.35 6.37048 10.2119L6.37238 10.2159C6.29549 10.0783 6.20058 9.9528 6.09045 9.84323C5.94384 9.71323 5.782 9.60217 5.60985 9.51386L5.59597 9.50719C5.37059 9.3854 5.18559 9.29005 5.04094 9.22115C4.8963 9.15226 4.67113 9.05558 4.36545 8.93112C4.14596 8.83599 3.97272 8.76154 3.84574 8.70776C3.71876 8.65397 3.54552 8.57507 3.32603 8.47106C3.10655 8.36705 2.93058 8.27481 2.79813 8.19436C2.66568 8.1139 2.50653 8.00833 2.32068 7.87765C2.15787 7.76676 2.00558 7.63948 1.86593 7.4976C1.7392 7.36203 1.61983 7.22027 1.50706 7.07155L1.49886 7.06088C1.37942 6.90783 1.28032 6.73824 1.20432 6.55682L1.19927 6.54282C1.12601 6.35867 1.06798 6.16815 1.02582 5.97341L1.02141 5.94941C0.973155 5.72587 0.949033 5.49727 0.949507 5.26799V5.25199V5.23199C0.949507 4.39855 1.26549 3.64246 1.77826 3.09172C2.34982 2.46356 3.09609 2.04619 3.90881 1.89957L3.93152 1.89624V0.286036V0.283369C3.93152 0.205359 3.96242 0.134684 4.01162 0.0846773C4.03593 0.057901 4.06511 0.036597 4.09741 0.0220455C4.12971 0.00749403 4.16446 -4.67234e-06 4.19957 2.18414e-09H5.35188C5.49569 2.18414e-09 5.61237 0.123349 5.61237 0.275368V0.286703V1.85757C5.95926 1.89624 6.27588 1.96891 6.57925 2.07293L6.54582 2.06292C6.83532 2.15627 7.07878 2.25828 7.31277 2.37696L7.27997 2.3623C7.48685 2.47098 7.66282 2.58232 7.82932 2.70634L7.81671 2.697C7.9849 2.82235 8.09464 2.90859 8.14594 2.9557C8.19724 3.00282 8.2395 3.04438 8.27271 3.08039C8.31808 3.12167 8.34742 3.17922 8.35511 3.24198C8.36279 3.30474 8.34827 3.36829 8.31434 3.42043L7.63254 4.72392C7.61551 4.76401 7.5885 4.79846 7.5544 4.82359C7.5203 4.84872 7.48038 4.86358 7.43891 4.86661C7.39886 4.87541 7.35679 4.87434 7.3172 4.86347C7.2776 4.8526 7.2409 4.83223 7.20996 4.80393C7.19314 4.78615 7.15299 4.75059 7.08824 4.69725C7.02348 4.64391 6.91374 4.56501 6.759 4.46056C6.60887 4.35883 6.45277 4.2673 6.29165 4.18652L6.26516 4.17452C6.07101 4.08015 5.86921 4.0045 5.66219 3.94849L5.6357 3.94249C5.40059 3.87446 5.15793 3.83992 4.91417 3.83981C4.44708 3.8172 3.98483 3.95369 3.59661 4.2292L3.60481 4.22386C3.39009 4.37468 3.23028 4.59823 3.15166 4.85777C3.07303 5.11732 3.08025 5.39741 3.17214 5.65204L3.16962 5.64404C3.22764 5.79072 3.31216 5.91474 3.41812 6.01408L3.41938 6.01475C3.52092 6.11543 3.62941 6.21211 3.74293 6.30212L3.75303 6.30945C3.88863 6.40813 4.04442 6.50081 4.20777 6.57816L4.22669 6.58616C4.43777 6.69017 4.60806 6.77062 4.73757 6.82752C4.86708 6.88442 5.06428 6.9662 5.32918 7.07288C5.62772 7.19201 5.85582 7.2858 6.0135 7.35425C6.17118 7.42271 6.3852 7.52694 6.65557 7.66696C6.88331 7.78002 7.10277 7.91084 7.31214 8.05834L7.29385 8.04634C7.48937 8.19302 7.65966 8.33971 7.82175 8.4964L7.81797 8.49239C7.99268 8.65375 8.14153 8.84044 8.2601 9.04913L8.26578 9.0598C8.37048 9.25516 8.46067 9.48252 8.52626 9.72055L8.53194 9.74322C8.60069 9.98658 8.63979 10.2666 8.63979 10.556V10.584V10.5827L8.63601 10.5793Z"
-                                                                fill="#0176D3" />
-                                                        </svg>
+                                                            <svg fill="#0176D3" width="23" height="20" viewBox="-96 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                                <g id="SVGRepo_bgCarrier5" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier5" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_iconCarrier5">
+                                                                    <path d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z"></path>
+                                                                </g>
+                                                            </svg>
                                                     </span>
                                                 </div>
                                                 <div>
                                                     <label for="sf">Square Footage</label>
                                                     <span>
-                                                        <input name="sq_ft" type="number" placeholder="23 m³"
+                                                        <input name="sq_ft" type="number" placeholder="Enter Square Footage"
                                                             onchange={store_filter_values} value={sq_ft}></input>
                                                         <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -621,7 +605,7 @@
                                                 <button class="clear-btn" onclick={clearFilter}>Clear</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="more-filter-sub-div">
@@ -640,20 +624,12 @@
                                 <div class="views-list">
                                     <span class="listView_icons">
                                         <template if:true={columnView}>
-                                            <svg width="30" height="29" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                                            <svg width="30" height="29" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                    stroke-linejoin="round"></g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path
-                                                        d="M6.8 3H6.2C5.0799 3 4.51984 3 4.09202 3.21799C3.71569 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.07989 3 6.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.0799 21 6.2 21H6.8C7.9201 21 8.48016 21 8.90798 20.782C9.28431 20.5903 9.59027 20.2843 9.78201 19.908C10 19.4802 10 18.9201 10 17.8V6.2C10 5.0799 10 4.51984 9.78201 4.09202C9.59027 3.71569 9.28431 3.40973 8.90798 3.21799C8.48016 3 7.9201 3 6.8 3Z"
-                                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                    <path
-                                                        d="M17.8 3H17.2C16.0799 3 15.5198 3 15.092 3.21799C14.7157 3.40973 14.4097 3.71569 14.218 4.09202C14 4.51984 14 5.0799 14 6.2V17.8C14 18.9201 14 19.4802 14.218 19.908C14.4097 20.2843 14.7157 20.5903 15.092 20.782C15.5198 21 16.0799 21 17.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.71569 20.2843 3.40973 19.908 3.21799C19.4802 3 18.9201 3 17.8 3Z"
-                                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier"> 
+                                                    <rect width="48" height="48" fill="white" fill-opacity="0.01"></rect> 
+                                                    <path d="M41 4H7C5.34315 4 4 5.34315 4 7V41C4 42.6569 5.34315 44 7 44H41C42.6569 44 44 42.6569 44 41V7C44 5.34315 42.6569 4 41 4Z" stroke="#ffffff" stroke-width="4"></path> <path d="M24 4L24 44" stroke="#ffffff" stroke-width="4" stroke-linecap="round"></path> 
                                                 </g>
                                             </svg> &nbsp;
                                         </template>
@@ -688,18 +664,11 @@
                                         </template>
                                     </span>
                                     <div class="container12">
-                                        <div class="upkey" onclick={handleUpClick}>
-                                            <svg width="13" height="9" viewBox="0 0 9 6" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9 6L4.5 0L0 6L9 6Z" fill="white" />
-                                            </svg>
-                                        </div>
-                                        <div class="downkey" onclick={handleDownClick}>
-                                            <svg width="13" height="9" viewBox="0 0 9 6" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0 0L4.5 6L9 0L0 0Z" fill="white" />
-                                            </svg>
-                                        </div>
+                                        <lightning-button-menu alternative-text="Show menu" variant="bare" onselect={handleViewOfProperty}>
+                                            <lightning-menu-item value="coloumnview" label="Column"></lightning-menu-item>
+                                            <lightning-menu-item value="gridview" label="Grid"></lightning-menu-item>
+                                            <lightning-menu-item value="listview" label="List"></lightning-menu-item>
+                                        </lightning-button-menu>
                                     </div>
 
 
@@ -707,14 +676,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <p><b>{result_found_numbers} Properties </b>found:</p>
+                    <div class="total_count">
+                        <span><b>{result_found_numbers} Properties </b>found:</span>
+                    </div>
 
                     <template if:true={columnView}>
                         <div class="imagePreview_columnview">
                             <template if:true={isData}>
                                 <template for:each={pagedFilteredListingData} for:item="listing">
-                                    <div class="mb-3 property_card2" key={listing.Id}>
+                                    <div class="property_card2" key={listing.Id}>
                                         <div class="cardDetail2">
                                             <div class="property_image2" data-id={listing.Id}
                                                 onclick={showPropertyDetails}>
@@ -722,7 +692,7 @@
                                             </div>
                                             <div class="property_details2">
                                                 <div class="card-title"><b>{listing.Name}, {listing.City__c}</b></div>
-                                                <div class="card-text1">{listing.Property_Features__c}</div>
+                                                <div if:true={listing.Property_Features__c} class="card-text1">{listing.Property_Features__c}</div>
                                                 <div class="propertyInfo">
                                                     <span>
                                                         <svg width="18" height="15" viewBox="0 0 18 15" fill="none"
@@ -755,7 +725,17 @@
                                                         {listing.Sq_Ft__c} m<sup>2</sup>
                                                     </span>
                                                 </div>
-                                                <div class="property_price1"><b>$ {listing.Listing_Price__c}</b></div>
+                                                <div class="property_price1">
+                                                    <b>
+                                                        <svg width="23" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier1" stroke-width="0"></g>
+                                                            <g id="SVGRepo_tracerCarrier1" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                            <g id="SVGRepo_iconCarrier1"> 
+                                                                <path d="M6 4H10.5M10.5 4C12.9853 4 15 6.01472 15 8.5C15 10.9853 12.9853 13 10.5 13H6L13 20M10.5 4H18M6 8.5H18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                                            </g>
+                                                        </svg> {listing.Listing_Price__c}
+                                                    </b>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -772,9 +752,9 @@
                                         onclick={showPropertyDetails}>
                                         <img src={listing.media_url} alt="Property">
                                         <div class="black">
-                                            <div class="imgInfo">
+                                            <div class="imgInfo1">
                                                 <p>{listing.Name}, {listing.City__c}</p>
-                                                <div class="propertyInfo">
+                                                <div class="propertyInfo1">
                                                     <span>
                                                         <svg width="18" height="15" viewBox="0 0 18 15" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -818,7 +798,7 @@
                         <div class="imagePreview_listview">
                             <template if:true={isData}>
                                 <template for:each={pagedFilteredListingData} for:item="listing">
-                                    <div class="mb-3 property_card" key={listing.Id}>
+                                    <div class="property_card" key={listing.Id}>
                                         <div class="cardDetail">
                                             <div class="property_image" data-id={listing.Id}
                                                 onclick={showPropertyDetails}>
@@ -826,47 +806,47 @@
                                             </div>
                                             <div class="property_details">
                                                 <div class="leftside">
-                                                    <h5 class="card-title"><b>{listing.Name}, {listing.City__c}</b></h5>
-                                                    <br />
-                                                    <p class="card-text">{listing.Property_Features__c}</p>
-                                                    <br />
-                                                    <lightning-layout multiple-rows class="layout">
-                                                        <lightning-layout-item class="property_layout_item">
-                                                            <div class="custom-box slds-text-align_center numberBox">
-                                                                <p>Bedrooms</p>
-                                                                <div class="numbers">
-                                                                    <div class="imgicon">
-                                                                        <img src={BedroomIcon} class="iconImg"></img>
-                                                                    </div>
-                                                                    &nbsp;
-                                                                    <div class="property_data_number">
-                                                                        <p><b>{listing.Number_of_Bedrooms__c}</b></p>
-                                                                    </div>
+                                                    <div class="card-title"><b>{listing.Name}, {listing.City__c}</b></div>
+                                                    <div class="card-text"><p>{listing.Property_Features__c}</p></div>
+                                                    <div class="property_layout_item">
+                                                        <div class="numberBox">
+                                                            <p>Bedrooms</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={BedroomIcon} class="iconImg"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p><b>{listing.Number_of_Bedrooms__c}</b></p>
                                                                 </div>
                                                             </div>
-                                                        </lightning-layout-item>
-                                                        <lightning-layout-item>
-                                                            <div class="custom-box slds-text-align_center numberBox">
-                                                                <p>Bathrooms</p>
-                                                                <div class="numbers">
-                                                                    <div class="imgicon">
-                                                                        <img src={BathroomIcon} class="iconImg"></img>
-                                                                    </div>
-                                                                    &nbsp;
-                                                                    <div class="property_data_number">
-                                                                        <p><b>{listing.Number_of_Bathrooms__c}</b></p>
-                                                                    </div>
+                                                        </div>
+                                                        <div class="numberBox">
+                                                            <p>Bathrooms</p>
+                                                            <div class="numbers">
+                                                                <div class="imgicon">
+                                                                    <img src={BathroomIcon} class="iconImg"></img>
+                                                                </div>
+                                                                &nbsp;
+                                                                <div class="property_data_number">
+                                                                    <p><b>{listing.Number_of_Bathrooms__c}</b></p>
                                                                 </div>
                                                             </div>
-                                                        </lightning-layout-item>
-                                                    </lightning-layout>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="rightside">
                                                     <div class="availability_badge">
                                                         <p>Available <b>{listing.Availability_Date__c}</b></p>
                                                     </div>
-                                                    <br /><br />
-                                                    <p class="property_price"><b>$ {listing.Listing_Price__c}</b></p>
+                                                    <p class="property_price"><b>
+                                                        <svg width="23" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier2" stroke-width="0"></g>
+                                                            <g id="SVGRepo_tracerCarrier2" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                            <g id="SVGRepo_iconCarrier2"> 
+                                                                <path d="M6 4H10.5M10.5 4C12.9853 4 15 6.01472 15 8.5C15 10.9853 12.9853 13 10.5 13H6L13 20M10.5 4H18M6 8.5H18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                                            </g>
+                                                        </svg> {listing.Listing_Price__c}</b></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -897,4 +877,182 @@
             </div>
         </div>
     </div>
+
+    <template if:true={selectionModel}>
+        <div class="popup-container">
+            <div class="backdrop"></div>
+            <div class="popup">
+                <div class="popup__content">
+                    <div class="popup__header">
+                        <h2 class="popup__header-title">Select Feature Icons</h2>
+                        <button class="closeIcon" title="Close" onclick={handleCloseModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="Close"
+                                size="x-small"></lightning-icon>
+                        </button>
+                    </div>
+                    <div class="popup__body">
+                        <lightning-card class="popup__custom-card">
+                            <div class="slds-p-around_medium tableContainer">
+                                <div class="popup__header-row">
+                                    <div class="slds-col">
+                                        <p class="header-text">Picklist Value</p>
+                                    </div>
+                                    <div class="slds-col">
+                                        <p class="header-text">Icons</p>
+                                    </div>
+                                    <div class="slds-col">
+                                    </div>
+                                </div>
+                                <div class="popup__recordValues">
+                                    <template for:each={pickListvalue} for:item="val">
+                                        <div key={pickListvalue} class="popup__data-row">
+                                            <template if:true={val.isEditing}>
+                                                <div class="slds-col slds-truncate">
+                                                    <p class="popup__record-value">{val.name}</p>
+                                                </div>
+                                                <div class="slds-col comboHideLabel">
+                                                    <div style="display: flex; padding-left: 1%; flex-direction: column;"
+                                                        class="rkIconClass">
+                                                        <div class="slds-input-has-icon slds-input-has-iconright"
+                                                            style="width: 60%;">
+                                                            <template if:true={val.iconURL}>
+                                                                <span
+                                                                    class="slds-icon_container slds-combobox__input-entity-icon searchIcon"
+                                                                    title="record">
+                                                                    <img src={val.iconURL} class="icon-image"
+                                                                        alt="Icon" />
+                                                                    <span class="slds-assistive-text"></span>
+                                                                </span>
+                                                            </template>
+                                                            <template if:false={val.iconURL}>
+                                                                <span
+                                                                    class="slds-icon_container slds-combobox__input-entity-icon"
+                                                                    title="record">
+                                                                    <lightning-icon
+                                                                        class="slds-icon slds-icon slds-icon_small"
+                                                                        icon-name="utility:search" size="x-small"
+                                                                        alternative-text="icon"></lightning-icon>
+                                                                    <span class="slds-assistive-text"></span>
+                                                                </span>
+                                                            </template>
+                                                            <lightning-input class="poInput" autocomplete="off"
+                                                                type="search" placeholder="Search Icon..."
+                                                                variant="label-hidden" value={val.iconname}
+                                                                onclick={searchIconData} onchange={keyupIconData}
+                                                                onblur={hideList}></lightning-input>
+                                                            <template if:true={val.iconname}>
+                                                                <span
+                                                                    class="slds-icon_container slds-combobox__input-entity-icon searchIcon crossicon"
+                                                                    title="record">
+                                                                    <lightning-icon icon-name="utility:clear"
+                                                                        alternative-text="Clear" onclick={clearInput}
+                                                                        class="slds-icon slds-icon slds-icon_small"
+                                                                        data-name={val.name}></lightning-icon>
+                                                                    <span class="slds-assistive-text"></span>
+                                                                </span>
+                                                            </template>
+                                                            <template if:true={displayIcon}>
+                                                                <div id="listbox-id-11"
+                                                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid searchResult"
+                                                                    role="listbox" style="position: absolute;"
+                                                                    onmousedown={preventHide}>
+                                                                    <ul class="slds-listbox slds-listbox_vertical"
+                                                                        role="presentation">
+                                                                        <template for:each={iconsValue}
+                                                                            for:item="result">
+                                                                            <li key={result.Id} role="presentation"
+                                                                                class="slds-listbox__item"
+                                                                                data-value={result.name}
+                                                                                data-name={val.name}
+                                                                                data-url={result.iconURL}
+                                                                                onclick={clickHandlerIcon}>
+                                                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                                                                                    role="option">
+                                                                                    <span
+                                                                                        class="slds-media__figure slds-listbox__option-icon">
+                                                                                        <img src={result.iconURL}
+                                                                                            class="icon-image"
+                                                                                            alt={result.name}
+                                                                                            title={result.name} />
+                                                                                    </span>
+                                                                                    <span class="slds-media__body">
+                                                                                        <span class="slds-truncate"
+                                                                                            title={result.name}>
+                                                                                            <span>{result.name}</span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </template>
+                                                                    </ul>
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="slds-col icons">
+                                                    <lightning-icon icon-name='utility:save' alternative-text='save'
+                                                        size='x-small' title='save' onclick={saveIconDetails}
+                                                        data-name={val.name} data-iconname={val.iconname}
+                                                        data-icon={val.iconURL}></lightning-icon>
+                                                    <lightning-icon icon-name='utility:close' alternative-text='close'
+                                                        size='x-small' title='close' onclick={closeEditFields}
+                                                        data-name={val.name}></lightning-icon>
+                                                </div>
+                                            </template>
+                                            <template if:false={val.isEditing}>
+                                                <div class="slds-col slds-truncate">
+                                                    <p class="popup__record-value">{val.name}</p>
+                                                </div>
+                                                <template if:true={val.iconURL}>
+                                                    <div class="slds-col">
+                                                        <img src={val.iconURL} alt="TEST">
+                                                    </div>
+                                                </template>
+                                                <template if:false={val.iconURL}>
+                                                    <div class="slds-col slds-truncate">
+                                                        <p>None</p>
+                                                    </div>
+                                                </template>
+                                                <div class="slds-col icons">
+                                                    <lightning-icon icon-name="utility:edit" alternative-text="Edit"
+                                                        size="x-small" title='edit' onclick={editIconValue}
+                                                        data-name={val.name} data-iconname={val.iconname}
+                                                        data-icon={val.iconURL}
+                                                        class="popup__record-value redirectIcon"></lightning-icon>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </lightning-card>
+                    </div>
+                    <div class="popup__footer">
+                        <div class="subFooter">
+                            <div class="slds-m-around_medium comboHideLabel">
+                                <lightning-input type="file" accept=".png" onchange={openfileUpload}></lightning-input>
+                            </div>
+                            <template if:true={fileData}>
+                                <div class="filedata">
+                                    <p>{fileData.filename}</p>
+                                    <lightning-icon icon-name="action:remove" alternative-text="Remove"
+                                                        size="xx-small" title='remove' onclick={removeImg} style="cursor: pointer;"></lightning-icon>
+                                </div>
+                            </template>
+                        </div>
+                        <template if:true={fileData}>
+                            <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
+                                class="slds-m-left_x-small"></lightning-button>
+                        </template>
+                        <template if:false={fileData}>
+                            <lightning-button variant="brand" label="Upload" title="Upload" onclick={handleClick}
+                                class="slds-m-left_x-small" disabled="true"></lightning-button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 </template>

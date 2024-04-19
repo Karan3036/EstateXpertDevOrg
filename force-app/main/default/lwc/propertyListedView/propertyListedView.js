@@ -2,12 +2,9 @@ import { LightningElement, track, wire } from 'lwc';
 import plvimg from '@salesforce/resourceUrl/plvimgs';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingInformation';
 import { NavigationMixin } from 'lightning/navigation';
-
-import property_icons from '@salesforce/resourceUrl/PropertyViewIcons';
-import featPropIcons from '@salesforce/resourceUrl/plvimgs';
 import Property_view_example from '@salesforce/resourceUrl/Property_view_example';
 import background from '@salesforce/resourceUrl/bgimghomepage';
-import getListingData1 from '@salesforce/apex/propertyListedViewController.getListingInformation';
+// import getListingData1 from '@salesforce/apex/propertyListedViewController.getListingInformation';
 
 const PAGE_SIZE = 1;
 
@@ -39,7 +36,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track pagedFilteredListingData = [];
     @track show_more_button_class = 'show_last_button';
     @track sortingProperties = 'View All';
-    @track selectedOption = 'Column';
 
     isInitalRender = true;
 
@@ -65,7 +61,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track ListingData1 = [];
     @track FilteredListingData1 = [];
     @track propertyMediaUrls1 = [];
-    @track result_found_numbers1 = 0;
     @track pagedFilteredListingData1 = [];
 
     @track SalebtnVarient = 'brand-outline';
@@ -79,15 +74,23 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track firstIndex_listing = 0;
     @track lastIndex_listing = 4;
     @track listing_type1;
-    @track left_arrow_disabled1 = true;
-    @track right_arrow_disabled1 = false;
-    @track listing_left_arrow_disabled = true;
-    @track listing_right_arrow_disabled = false;
+    @track leftArrowDisabled = true;
+    @track rightArrowDisabled = false;
+    @track listingLeftArrowDisabled = true;
+    @track listingRightArrowDisabled = false;
 
     @track mainFeatProperty = {};
 
     @track homeBedrooms = 0;
     @track homeBathrooms = 0;
+
+    @track firstIndexListing = 0;
+    @track lastIndexListing = 4;
+
+    @track firstIndex = 0;
+    @track lastIndex = 4;
+
+    selectionModel = false;
 
     get totalPages() {
         let totalPages = Math.ceil(this.ListingData.filter(listing => {
@@ -166,6 +169,9 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                 
                 .sort-selected .slds-button__icon {
                     fill: #49735A !important;
+                    height: 18px;
+                    width: 18px;
+                    margin-bottom: 2px;
                 }
                 
                 .leftButton .slds-button__icon{
@@ -187,6 +193,14 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                 .rightButton .slds-button:hover .slds-button__icon, .slds-button:focus .slds-button__icon, .slds-button:active .slds-button__icon, .slds-button[disabled] .slds-button__icon, .slds-button:disabled .slds-button__icon {
                     fill: rgba(18, 82, 174, 0.5);
                 }
+
+                .container12 .slds-button__icon{
+                    fill: white;
+                    width: 1rem;
+                    height: 1rem;
+                }
+                
+                
             `;
 
             body.appendChild(style);
@@ -412,43 +426,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         }
     }
 
-    handleUpClick() {
-        switch (this.selectedOption) {
-            case 'Grid':
-                this.selectedOption = 'Column';
-                this.columnView = true;
-                this.gridView = false;
-                this.listView = false;
-                break;
-            case 'List':
-                this.selectedOption = 'Grid';
-                this.columnView = false;
-                this.gridView = true;
-                this.listView = false;
-                break;
-            default:
-                break;
-        }
-    }
-
-    handleDownClick() {
-        switch (this.selectedOption) {
-            case 'Column':
-                this.selectedOption = 'Grid';
-                this.columnView = false;
-                this.gridView = true;
-                this.listView = false;
-                break;
-            case 'Grid':
-                this.selectedOption = 'List';
-                this.columnView = false;
-                this.gridView = false;
-                this.listView = true;
-                break;
-            default:
-                break;
-        }
-    }
 
 
     // First tab js methods
@@ -460,33 +437,41 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
 
     fetchListingData1() {
-        getListingData1().then((result) => {
+        getListingData().then((result) => {
             console.log('result:', result);
             this.FilteredListingData1 = result.Listings;
             this.ListingData1 = result.Listings;
             this.propertyMediaUrls1 = result.Medias;
             this.ListingData1.forEach(row => {
                 const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
-                row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
-                row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
+                row.media_url = this.propertyMediaUrls1[prop_id]? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
+                row.isSale = row.Listing_Type__c==='Sale'?true:false;
+                row.isRent = row.Listing_Type__c==='Rent'?true:false;
             });
             this.FilteredListingData1.forEach(row => {
                 const prop_id = row.Property_ID__c;
-                row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
-                row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
-                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
-            });
-            this.result_found_numbers1 = this.FilteredListingData1.length;
-            this.pagedFilteredListingData1 = this.FilteredListingData1.slice(0, 4);
-            console.log('ListingData1:', this.ListingData1);
-
+                row.isSale = row.Listing_Type__c==='Sale'?true:false;
+                row.isRent = row.Listing_Type__c==='Rent'?true:false;
+                row.media_url =this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
+                });
+            // this.result_found_numbers = this.FilteredListingData1.length;
+            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
+                const isfeat = this.featProp===true ? listing.Featured_Property__c == false : false;
+                return isfeat;
+            }).slice(0,4);
+            console.log('pagedListingData:', this.pagedFilteredListingData1);
             this.featuredProperties = this.ListingData1.filter(listing => {
                 const isfeat = this.featProp ? listing.Featured_Property__c == true : false;
                 return isfeat;
             });
+
             this.mainFeatProperty = this.featuredProperties[0];
             this.showFeaturedProperties = this.featuredProperties;
+            setTimeout(() => {
+                let element =this.template.querySelectorAll('.black1')[0];
+                console.log('element:',element);
+                element.classList.add('black_enabled');
+            }, 1000);
 
         });
     }
@@ -505,84 +490,112 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         event.target.classList.add('black_enabled');
     }
 
-    goToNext1() {
-        this.left_arrow_disabled1 = false;
-        this.firstIndex = this.firstIndex + 4;
-        this.lastIndex = this.lastIndex + 4;
+    goToNextFeaturedProperty() {
+        this.leftArrowDisabled = false;
+        this.firstIndex += 4;
+        this.lastIndex += 4;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
-        console.log('length:', this.featuredProperties.length);
         if (this.lastIndex >= this.featuredProperties.length - 1) {
-            this.right_arrow_disabled1 = true;
+            this.rightArrowDisabled = true;
         }
     }
 
-    goToPrevious1() {
-        this.right_arrow_disabled1 = false;
-        this.firstIndex = this.firstIndex - 4;
-        this.lastIndex = this.lastIndex - 4;
+    goToPrevFeaturedProperty() {
+        this.rightArrowDisabled = false;
+        this.firstIndex -= 4;
+        this.lastIndex -= 4;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
         if (this.firstIndex <= 0) {
-            this.left_arrow_disabled1 = true;
+            this.leftArrowDisabled = true;
         }
     }
 
 
     handleVarient(event) {
+        let listingType = '';
+        let allbtnVarient = 'brand-outline';
+        let rentbtnVarient = 'brand-outline';
+        let salebtnVarient = 'brand-outline';
+
         if (event.target.label === 'All') {
-            this.AllbtnVarient = 'brand';
-            this.RentbtnVarient = 'brand-outline';
-            this.SalebtnVarient = 'brand-outline';
-            this.listing_type1 = '';
-            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
-                const isPropertyType = this.listing_type1 ? String(listing.Listing_Type__c) == String(this.listing_type1) : true;
-                return isPropertyType;
-            }).slice(0, 9);
+            allbtnVarient = 'brand';
+        } else if (event.target.label === 'Sale') {
+            salebtnVarient = 'brand';
+            listingType = event.target.label;
+        } else if (event.target.label === 'Rent') {
+            rentbtnVarient = 'brand';
+            listingType = event.target.label;
         }
-        if (event.target.label === 'Sale') {
-            this.AllbtnVarient = 'brand-outline';
-            this.RentbtnVarient = 'brand-outline';
-            this.SalebtnVarient = 'brand';
-            this.listing_type1 = event.target.label;
-            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
-                const isPropertyType = this.listing_type1 ? String(listing.Listing_Type__c) == String(this.listing_type1) : true;
-                return isPropertyType;
-            }).slice(0, 9);
-        }
-        if (event.target.label === 'Rent') {
-            this.AllbtnVarient = 'brand-outline';
-            this.RentbtnVarient = 'brand';
-            this.SalebtnVarient = 'brand-outline';
-            this.listing_type1 = event.target.label;
-            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
-                const isPropertyType = this.listing_type1 ? String(listing.Listing_Type__c) == String(this.listing_type1) : true;
-                return isPropertyType;
-            }).slice(0, 9);
+
+        this.AllbtnVarient = allbtnVarient;
+        this.RentbtnVarient = rentbtnVarient;
+        this.SalebtnVarient = salebtnVarient;
+        this.listing_type = listingType;
+
+        const filteredListings = this.FilteredListingData1.filter(listing => {
+            const isPropertyType = !listingType || String(listing.Listing_Type__c) === String(listingType);
+            const isfeat = this.featProp === true ? listing.Featured_Property__c == false : false;
+            return isPropertyType && isfeat;
+        });
+
+        this.pagedFilteredListingData1 =  filteredListings.slice(0, 4);
+
+        console.log('filtered data:', this.pagedFilteredListingData1);
+        if (filteredListings.length <= 4) {
+            this.listingRightArrowDisabled = true;
+            this.listingLeftArrowDisabled = true;
+        } else {
+            this.listingRightArrowDisabled = false;
+            // this.listingLeftArrowDisabled = false;
         }
     }
     
     goToNextListing() {
-        // this.pagedFilteredListingData1 = this.FilteredListingData1.slice(4,8);
-        this.listing_left_arrow_disabled = false;
-        this.firstIndex_listing = this.firstIndex_listing + 4;
-        this.lastIndex_listing = this.lastIndex_listing + 4;
-        this.pagedFilteredListingData1 = this.FilteredListingData1.slice(this.firstIndex_listing, this.lastIndex_listing);
+        this.listingLeftArrowDisabled = false;
+        this.firstIndexListing += 4;
+        this.lastIndexListing += 4;
+
+        const filteredListings = this.FilteredListingData1.filter(listing => {
+            const isPropertyType = !this.listing_type || String(listing.Listing_Type__c) === String(this.listing_type);
+            const isFeat = this.featProp === true ? listing.Featured_Property__c == false : false;
+            return isPropertyType && isFeat;
+        });
+
+        this.pagedFilteredListingData1 = filteredListings.slice(this.firstIndexListing, this.lastIndexListing);
+
         console.log('length:', this.featuredProperties.length);
-        if (this.lastIndex_listing >= this.FilteredListingData1.slice(0, 13).length - 1) {
-            this.listing_right_arrow_disabled = true;
+
+        if (this.lastIndexListing >= filteredListings.length - 1) {
+            this.listingRightArrowDisabled = true;
         }
     }
 
     goTobackListing() {
-        this.listing_right_arrow_disabled = false;
-        this.firstIndex_listing = this.firstIndex_listing - 4;
-        this.lastIndex_listing = this.lastIndex_listing - 4;
-        this.pagedFilteredListingData1 = this.FilteredListingData1.slice(this.firstIndex_listing, this.lastIndex_listing);
-        if (this.firstIndex_listing <= 0) {
-            this.listing_left_arrow_disabled = true;
+        this.listingRightArrowDisabled = false;
+        this.firstIndexListing -= 4;
+        this.lastIndexListing -= 4;
+
+        const filteredListings = this.FilteredListingData1.filter(listing => {
+            const isPropertyType = !this.listing_type || String(listing.Listing_Type__c) === String(this.listing_type);
+            const isFeat = this.featProp === true ? listing.Featured_Property__c == false : false;
+            return isPropertyType && isFeat;
+        });
+
+        this.pagedFilteredListingData1 = filteredListings.slice(this.firstIndexListing, this.lastIndexListing);
+
+        if (this.firstIndexListing <= 0) {
+            this.listingLeftArrowDisabled = true;
         }
     }
 
     switchToPropertyTab() {
+        this.redirectToSecondTab();
+        this.fetchListingData();
+        this.bedrooms = 0;
+        this.bathrooms = 0;
+    }
+
+    redirectToSecondTab() {
         this.template.querySelectorAll(".tab-menu a").forEach(tab => {
             tab.classList.remove("active-tab");
         });
@@ -596,10 +609,64 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     applySearchOnProperty() {
-        this.homeBedrooms = 0;
-        this.homeBathrooms = 0;
-        console.log('homeBedrooms--->',this.homeBedrooms);
-        console.log('homeBathrooms--->',this.homeBathrooms);
+        this.bedrooms = this.homeBedrooms;
+        this.bathrooms = this.homeBathrooms;
+        this.redirectToSecondTab();
+        this.applySearch();
+    }
+
+    increaseNumber1(event) {
+        if (event.target.name === 'rooms') {
+            var input = this.template.querySelector('.bedrooms_number1');
+        } else {
+            var input = this.template.querySelector('.bathrooms_number1');
+        }
+        var val = parseInt(input.value, 10);
+        if (val < 10) {
+            input.value = val + 1;
+            if (event.target.name === 'rooms') {
+                this.homeBedrooms = input.value;
+            } else {
+                this.homeBathrooms = input.value;
+            }
+        }
+    }
+
+    decreaseNumber1(event) {
+        if (event.target.name === 'rooms') {
+            var input = this.template.querySelector('.bedrooms_number1');
+        } else {
+            var input = this.template.querySelector('.bathrooms_number1');
+        }
+        var val = parseInt(input.value, 10);
+        if (val > 0) {
+            input.value = val - 1;
+            if (event.target.name === 'rooms') {
+                this.homeBedrooms = input.value;
+            } else {
+                this.homeBathrooms = input.value;
+            }
+        }
+    }
+
+    handleViewOfProperty(event) {
+        var selectedValue = event.detail.value;
+        if (selectedValue == 'coloumnview') {
+            this.columnView = true;
+            this.gridView = false;
+            this.listView = false;
+        } else if (selectedValue == 'gridview') {
+            this.columnView = false;
+            this.gridView = true;
+            this.listView = false;
+        } else if (selectedValue == 'listview') {
+            this.columnView = false;
+            this.gridView = false;
+            this.listView = true;
+        }
     }
     
+    closetheFilterDiv() {
+        console.log('closetheFilterDiv method is called');
+    }
 }
