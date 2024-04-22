@@ -4,7 +4,6 @@ import getListingData from '@salesforce/apex/propertyListedViewController.getLis
 import { NavigationMixin } from 'lightning/navigation';
 import Property_view_example from '@salesforce/resourceUrl/Property_view_example';
 import background from '@salesforce/resourceUrl/bgimghomepage';
-// import getListingData1 from '@salesforce/apex/propertyListedViewController.getListingInformation';
 
 const PAGE_SIZE = 1;
 
@@ -94,53 +93,9 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     @track selectedId;
 
-    get totalPages() {
-        let totalPages = Math.ceil(this.ListingData.filter(listing => {
-            const featured_prop = this.FeaturedProperty ? listing.Featured_Property__c == true : false;
-            return featured_prop;
-        }).length / PAGE_SIZE);
-
-        if (totalPages === 1 && this.currentPage == 1) {
-            this.right_arrow_disabled = true;
-            this.left_arrow_disabled = true;
-        }
-        return totalPages;
-    }
-
-    get pagedProperties() {
-        const startIndex = (this.currentPage - 1) * PAGE_SIZE;
-        const endIndex = startIndex + PAGE_SIZE;
-        return this.ListingData.filter(listing => {
-            const featured_prop = this.FeaturedProperty ? listing.Featured_Property__c == true : false;
-            return featured_prop;
-        }).slice(startIndex, endIndex);
-    }
-
-    goToPrevious() {
-        if (this.currentPage !== 1) {
-            this.currentPage -= 1;
-            this.right_arrow_disabled = false;
-            this.pagedProperties;
-        } else if (this.currentPage === 1) {
-            this.left_arrow_disabled = true;
-        }
-    }
-
-    goToNext() {
-        if (this.currentPage !== this.totalPages) {
-            this.currentPage += 1;
-            this.left_arrow_disabled = false;
-            this.pagedProperties;
-        } else if (this.currentPage === this.totalPages) {
-            this.right_arrow_disabled = true;
-        }
-    }
-
     connectedCallback() {
-        this.fetchListingData();
-        this.fetchListingData1();
+        this.getAllListingsRecord();
     }
-
 
     renderedCallback() {
         this.template.querySelectorAll("a").forEach(element => {
@@ -214,6 +169,16 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
                     height: 25px;
                     width: 25px;
                 }
+
+                .leftButton .slds-button:focus .slds-button__icon,
+                .rightButton .slds-button:focus .slds-button__icon{
+                    fill: rgba(18, 82, 174, 1);
+                }
+
+                .leftButton .slds-button:hover .slds-button__icon,
+                .rightButton .slds-button:hover .slds-button__icon{
+                    fill: rgba(18, 82, 174, 1);
+                }
             `;
 
             body.appendChild(style);
@@ -221,6 +186,49 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         }
     }
 
+    get totalPages() {
+        let totalPages = Math.ceil(this.ListingData.filter(listing => {
+            const featured_prop = this.FeaturedProperty ? listing.Featured_Property__c == true : false;
+            return featured_prop;
+        }).length / PAGE_SIZE);
+
+        if (totalPages === 1 && this.currentPage == 1) {
+            this.right_arrow_disabled = true;
+            this.left_arrow_disabled = true;
+        }
+        return totalPages;
+    }
+
+    get pagedProperties() {
+        const startIndex = (this.currentPage - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+        return this.ListingData.filter(listing => {
+            const featured_prop = this.FeaturedProperty ? listing.Featured_Property__c == true : false;
+            return featured_prop;
+        }).slice(startIndex, endIndex);
+    }
+
+    goToPrevious() {
+        if (this.currentPage !== 1) {
+            this.currentPage -= 1;
+            this.right_arrow_disabled = false;
+            this.pagedProperties;
+        } else if (this.currentPage === 1) {
+            this.left_arrow_disabled = true;
+        }
+    }
+
+    goToNext() {
+        console.log('currentPage-->',this.currentPage);
+        console.log('totalPages-->',this.totalPages);
+        if (this.currentPage !== this.totalPages) {
+            this.currentPage += 1;
+            this.left_arrow_disabled = false;
+            this.pagedProperties;
+        } else if (this.currentPage === this.totalPages) {
+            this.right_arrow_disabled = true;
+        }
+    }
 
     tabing() {
         const target = "tab1";
@@ -238,31 +246,36 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.selectionModel = true;
     }
 
-    fetchListingData() {
-        this.spinnerdatatable = true;
+    getAllListingsRecord(){
         getListingData().then((result) => {
             console.log('result:', result);
 
-            this.FilteredListingData = result.Listings;
-            this.ListingData = result.Listings;
-            this.propertyMediaUrls = result.Medias;
-            this.ListingData.forEach(row => {
-                const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls[prop_id];
-            });
-            this.FilteredListingData.forEach(row => {
-                const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] : '/sfsites/c/resource/nopropertyfound';
-                row.Availability_Date__c = row.Availability_Date__c ? this.formatDate(row.Availability_Date__c) : 'N/A';
-                row.Listing_Price__c = row.Listing_Price__c ? row.Listing_Price__c : 'TBD';
-                row.Property_Features__c = row.Property_Features__c ? this.changeAmenitiesFormat(row.Property_Features__c) : row.Property_Features__c;
-            });
-            this.result_found_numbers = this.FilteredListingData.length;
-            this.pagedFilteredListingData = this.FilteredListingData.slice(0, 6);
-            console.log('ListingData:', this.ListingData);
-            this.isData = true;
-            this.spinnerdatatable = false;
+            this.listingDataForProperty(result);
+            this.listingDataForHome(result);
         });
+    }
+
+    listingDataForProperty(result) {
+        this.spinnerdatatable = true;
+        this.FilteredListingData = result.Listings;
+        this.ListingData = result.Listings;
+        this.propertyMediaUrls = result.Medias;
+        this.ListingData.forEach(row => {
+            const prop_id = row.Property_ID__c;
+            row.media_url = this.propertyMediaUrls[prop_id];
+        });
+        this.FilteredListingData.forEach(row => {
+            const prop_id = row.Property_ID__c;
+            row.media_url = this.propertyMediaUrls[prop_id] ? this.propertyMediaUrls[prop_id] : '/sfsites/c/resource/nopropertyfound';
+            row.Availability_Date__c = row.Availability_Date__c ? this.formatDate(row.Availability_Date__c) : 'N/A';
+            row.Listing_Price__c = row.Listing_Price__c ? row.Listing_Price__c : 'TBD';
+            row.Property_Features__c = row.Property_Features__c ? this.changeAmenitiesFormat(row.Property_Features__c) : row.Property_Features__c;
+        });
+        this.result_found_numbers = this.FilteredListingData.length;
+        this.pagedFilteredListingData = this.FilteredListingData.slice(0, 6);
+        console.log('ListingData:', this.ListingData);
+        this.isData = true;
+        this.spinnerdatatable = false;
     }
 
     showPropertyDetails(event) {
@@ -423,7 +436,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         var selectedValue = event.detail.value;
         if (selectedValue == 'viewall') {
             this.sortingProperties = 'View All';
-            this.fetchListingData();
+            this.getAllListingsRecord();
             this.show_more_button_class = 'show_last_button'
         } else if (selectedValue == 'availability') {
             this.sortingProperties = 'Availability';
@@ -444,45 +457,40 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
 
 
-    fetchListingData1() {
-        getListingData().then((result) => {
-            console.log('result:', result);
-            this.FilteredListingData1 = result.Listings;
-            this.ListingData1 = result.Listings;
-            this.propertyMediaUrls1 = result.Medias;
-            this.ListingData1.forEach(row => {
-                const prop_id = row.Property_ID__c;
-                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
-                row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
-                row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
-            });
-            this.FilteredListingData1.forEach(row => {
-                const prop_id = row.Property_ID__c;
-                row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
-                row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
-                row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
-            });
-            // this.result_found_numbers = this.FilteredListingData1.length;
-            this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
-                const isfeat = this.featProp === true ? listing.Featured_Property__c == false : false;
-                return isfeat;
-            }).slice(0, 4);
-            console.log('pagedListingData:', this.pagedFilteredListingData1);
-            this.featuredProperties = this.ListingData1.filter(listing => {
-                const isfeat = this.featProp ? listing.Featured_Property__c == true : false;
-                return isfeat; 
-            });
-
-            this.mainFeatProperty = this.featuredProperties[0];
-            this.selectedId = this.featuredProperties[0].Id;
-            this.showFeaturedProperties = this.featuredProperties;
-            setTimeout(() => {
-                let element = this.template.querySelectorAll('.black1')[0];
-                console.log('element:', element);
-                element.classList.add('black_enabled');
-            }, 1000);
-
+    listingDataForHome(result) {
+        this.FilteredListingData1 = result.Listings;
+        this.ListingData1 = result.Listings;
+        this.propertyMediaUrls1 = result.Medias;
+        this.ListingData1.forEach(row => {
+            const prop_id = row.Property_ID__c;
+            row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
+            row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
+            row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
         });
+        this.FilteredListingData1.forEach(row => {
+            const prop_id = row.Property_ID__c;
+            row.isSale = row.Listing_Type__c === 'Sale' ? true : false;
+            row.isRent = row.Listing_Type__c === 'Rent' ? true : false;
+            row.media_url = this.propertyMediaUrls1[prop_id] ? this.propertyMediaUrls1[prop_id] : '/sfsites/c/resource/nopropertyfound';
+        });
+        this.pagedFilteredListingData1 = this.FilteredListingData1.filter(listing => {
+            const isfeat = this.featProp === true ? listing.Featured_Property__c == false : false;
+            return isfeat;
+        }).slice(0, 4);
+        console.log('pagedListingData:', this.pagedFilteredListingData1);
+        this.featuredProperties = this.ListingData1.filter(listing => {
+            const isfeat = this.featProp ? listing.Featured_Property__c == true : false;
+            return isfeat; 
+        });
+
+        this.mainFeatProperty = this.featuredProperties[0];
+        this.selectedId = this.featuredProperties[0].Id;
+        this.showFeaturedProperties = this.featuredProperties;
+        setTimeout(() => {
+            let element = this.template.querySelectorAll('.black1')[0];
+            console.log('element:', element);
+            element.classList.add('black_enabled');
+        }, 1000);
     }
 
     get nextProperties() {
@@ -614,7 +622,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     switchToPropertyTab() {
         this.redirectToSecondTab();
-        this.fetchListingData();
+        this.getAllListingsRecord();
         this.show_more_button_class = 'show_last_button'
         this.bedrooms = 0;
         this.bathrooms = 0;
@@ -689,10 +697,6 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
             this.gridView = false;
             this.listView = true;
         }
-    }
-
-    closetheFilterDiv() {
-        console.log('closetheFilterDiv method is called');
     }
 
     handleCloseModal() {

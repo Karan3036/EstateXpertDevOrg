@@ -1,9 +1,5 @@
 .tab-container {
    height: 100%;
-   width: auto;
-   padding: 1%;
-   border-radius: 28px;
-   /* overflow: overlay; */
 }
 
 .tab-container::-webkit-scrollbar {
@@ -43,7 +39,7 @@
 }
 
 .tab {
-   padding-top: 25px;
+   padding-top: 1rem;
    display: none;
 }
 
@@ -273,12 +269,12 @@ lightning-input {
 }
 
 .property_details1 {
-   width: 70%;
-   padding: 3rem;
+   width: 60%;
+   padding: 2rem;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
-   backdrop-filter: blur(1px);
+   backdrop-filter: blur(20px);
 }
 
 .property_details {
@@ -289,14 +285,14 @@ lightning-input {
 
 .property_details3 {
    width: 60%;
-   padding: 2%;
+   padding: 2rem;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
 }
 
 .property_details2 {
-   width: 70%;
+   width: 60%;
    padding: 2%;
    display: flex;
    flex-direction: column;
@@ -308,6 +304,7 @@ lightning-input {
    display: flex;
    flex-direction: column;
    justify-content: space-between;
+   position: relative;
 }
 
 .card-title {
@@ -319,11 +316,19 @@ lightning-input {
 }
 
 .card-text {
-   width: 45rem;
+   /* width: 45rem; */
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
    font-size: 18px;
+}
+
+.card-text p {
+   width: -webkit-fill-available;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   position: absolute;
 }
 
 .property_layout_item {
@@ -492,22 +497,7 @@ lightning-input {
    padding-top: 10px;
 }
 
-/* .container {
-   display: flex;
-   flex-wrap: wrap;
-} */
-
-.tab-container {
-   height: 100%;
-   width: auto;
-   padding: 1%;
-   /* overflow: overlay; */
-}
-
-/* gridview css */
-
 .thumbnails {
-   width: 23vw;
    height: 30vh;
    display: flex;
    justify-content: center;
@@ -557,7 +547,7 @@ lightning-input {
    grid-gap: 7rem;
    padding: 2rem;
    align-items: center;
-   justify-content: center;
+   /* justify-content: center; */
 }
 
 .custom-box {
@@ -591,6 +581,10 @@ lightning-input {
    font-weight: 400;
    line-height: 16px;
    text-align: left;
+   width: -webkit-fill-available;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 .propertyInfo1 {
@@ -647,8 +641,9 @@ lightning-input {
    color: white;
    border: none;
    line-height: 30px;
-   padding-left: 20px;
-   padding-right: 20px;
+   font-size: 18px;
+   font-weight: 700;
+   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 }
 
 .helpButton {
@@ -890,7 +885,7 @@ lightning-input {
    overflow: scroll;
 }
 
-.group_fields{
+.group_fields {
    display: flex;
    flex-direction: row;
    justify-content: space-between;
@@ -1087,14 +1082,16 @@ img {
    line-height: 19.2px;
    text-align: left;
    color: rgba(35, 30, 28, 1);
+   position: relative;
 }
 
-/* .properties_descreption p {
+.properties_descreption p {
    width: -webkit-fill-available;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
-} */
+   position: absolute;
+}
 
 .propertiesClass_img img {
    width: 30px;
@@ -1135,8 +1132,15 @@ img {
    font-size: 16px;
    text-overflow: ellipsis;
    overflow: hidden;
-   width: 23rem;
+   /* width: 23rem; */
    white-space: nowrap;
+}
+
+.card-text1 p {
+   width: 18rem;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 
@@ -1261,6 +1265,7 @@ input[type="search"] {
    width: 40%;
    border-left: 1px;
    border-radius: 12px;
+   cursor: pointer;
 }
 
 .property_image3 img {
@@ -1391,7 +1396,7 @@ input[type="search"] {
    position: relative;
    width: 23.5%;
    padding: 16px;
-   height: 430px;
+   height: 100%;
    border: 1px solid white;
    box-shadow: 0 0 26px 0 rgba(66, 71, 76, 0.08);
    border-radius: 8px;
@@ -1437,12 +1442,33 @@ input[type="search"] {
 
 .details {
    height: 155px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 .room_details {
    display: flex;
    align-items: center;
-   color: #737D8C;
+   justify-content: space-between;
+}
+
+.room_details div {
+   display: flex;
+   align-items: center;
+}
+
+.room_details div p {
+   font-family: Inter;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 21px;
+   text-align: left;
+   color: #3A3A3C;
+   width: -webkit-fill-available;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 .property-name {
@@ -1461,7 +1487,16 @@ input[type="search"] {
 .card-text2 {
    display: flex;
    margin-top: 6px;
-   color: #737D8C;
+   color: #3A3A3C;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+.card-text2 p {
+   width: -webkit-fill-available;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 .card-text3 {
@@ -1674,12 +1709,10 @@ input[type=number] {
    gap: 2rem;
 }
 
-.SearchFilter input:focus{
+.SearchFilter input:focus {
    outline: none;
 }
 
-.navigation-boxes {
-   display: flex;
-   flex-wrap: nowrap;
-   transition: transform 0.5s ease; /* Add a transition effect to the transform property */
+.latest_property_img{
+   cursor: pointer;
 }

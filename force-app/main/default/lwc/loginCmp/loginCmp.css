@@ -1,0 +1,223 @@
+.header-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height:4.4375rem;
+    background-color: white;
+}
+
+.header-logo{
+    height: 3.8125rem;
+    width: 5.625rem;
+    margin-left: 3.75rem;
+}
+
+.cover-div{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.image-bg{
+    height: 100%;
+    width: 100%;
+    transform: scaleX(-1);
+}
+
+.main-div{
+    height:100%;
+    width: 100%;
+}
+
+.contact-us-btn {
+    height: 2.35rem; /* 2.9375rem * 0.8 */
+    width: 7.95rem; /* 9.9375rem * 0.8 */
+    border-radius: 32px; /* 40px * 0.8 */
+    border: 0.15rem solid #0176D3; /* 0.1875rem * 0.8 */
+    margin-right: 3rem; /* 3.75rem * 0.8 */
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-size: 1rem; /* 1.25rem * 0.8 */
+    font-weight: 400;
+    color: #1F1F1F;
+}
+
+.body-div {
+    /* background-image: url('/sfsites/c/resource/LoginBg'); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    transform: scaleX(-1);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.form-div {
+    background-color: #FFFFFFE5;
+    border-radius: 12.8px; /* 16px * 0.8 */
+    width: 54rem; /* 67.5rem * 0.8 */
+    height: 34.85rem; /* 43.5625rem * 0.8 */
+    display: flex;
+    transform: scaleX(-1);
+}
+
+.inner-div1 {
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.back-div {
+    position: absolute;
+    top: 0.8rem; /* 1rem * 0.8 */
+    left: 0.8rem; /* 1rem * 0.8 */
+}
+
+
+.back-icon{
+    height: 1.3rem;
+    width: 1rem;
+}
+
+.back-logo {
+    position: absolute;
+    width: 1.5rem; /* 1.875rem * 0.8 */
+    height: 0.75rem; /* 0.9375rem * 0.8 */
+    top: 1rem; /* 1.25rem * 0.8 */
+    left: 1.75rem; /* 2.1875rem * 0.8 */
+    border: 0.2rem 0rem 0rem 0rem; /* 0.25rem * 0.8 */
+    opacity: 0; /* No change */
+    transform: -90deg; /* No change */
+}
+
+.image-cover {
+    position: absolute;
+    width: 19.5rem; /* 24.375rem * 0.8 */
+    height: 14.45rem; /* 18.0625rem * 0.8 */
+    top: 10.2rem; /* 12.75rem * 0.8 */
+    left: 3.35rem; /* 4.1875rem * 0.8 */
+}
+
+.inner-div2 {
+    width: fit-content;
+    height: 100%;
+}
+
+.login-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px; /* 30px * 0.8 */
+    line-height: 36px; /* 45px * 0.8 */
+    letter-spacing: 0.08px; /* 0.1px * 0.8 */
+    margin-top: 9.05rem; /* 10.5625rem * 0.8 */
+}
+
+.div1 {
+    margin-top: 1.5rem; /* 1.875rem * 0.8 */
+}
+
+.div2 {
+    margin-top: 1rem; /* 1.25rem * 0.8 */
+}
+
+.input-div {
+    width: 22.1rem; /* 27.625rem * 0.8 */
+    height: 2.25rem; /* 2.8125rem * 0.8 */
+    padding: 0.6rem 1rem; /* 0.75rem * 0.8, 1.25rem * 0.8 */
+    border-radius: 0.4rem; /* 0.5rem * 0.8 */
+    border: 0.08rem solid #E0E2E9; /* 0.1rem * 0.8 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input-fields {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: #969AB8;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 0.75rem; /* 0.9375rem * 0.8 */
+    padding: 0.6rem 1rem; /* 0.75rem * 0.8, 1.25rem * 0.8 */
+    background-color: transparent;
+}
+
+.input-field:focus {
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: #969AB8;
+}
+
+.login-btn {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.75rem; /* 0.9375rem * 0.8 */
+    width: 22.1rem; /* 27.625rem * 0.8 */
+    height: 2.35rem; /* 2.9375rem * 0.8 */
+    margin-top: 1rem; /* 1.25rem * 0.8 */
+    border-radius: 0.4rem; /* 0.5rem * 0.8 */
+    background-color: #0176D3;
+    color: white;
+    border: none;
+}
+
+.forgot-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.75rem; /* 0.9375rem * 0.8 */
+    color: #0176D3;
+    text-align: end;
+    margin-top: 1rem; /* 1.25rem * 0.8 */
+    cursor: pointer;
+}
+
+.accounttext {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.75rem; /* 0.9375rem * 0.8 */
+    color: #969AB8;
+}
+
+.span {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.75rem; /* 0.9375rem * 0.8 */
+    color: #0176D3;
+    margin-left: 0.16rem; /* 0.2rem * 0.8 */
+}
+
+.signUp-div {
+    margin-top: 1.5rem; /* 1.875rem * 0.8 */
+    display: flex;
+    cursor: pointer;
+}
+
+.error-message {
+    color: rgba(255, 0, 0, 0.464);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    position: absolute;
+    font-size: 0.7rem;
+    top: 92%; /* -45% * 0.8 */
+    left: 0;
+}
+
+.eye-icon {
+    width: 1.5rem; /* 1.5rem * 0.8 */
+}
