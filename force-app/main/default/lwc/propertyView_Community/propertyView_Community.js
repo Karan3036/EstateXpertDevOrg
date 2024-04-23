@@ -3,6 +3,7 @@ import Property_view_example from '@salesforce/resourceUrl/propertyviewposter';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingData';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import plvimg from '@salesforce/resourceUrl/plvimgs';
 
 export default class propertyView_Community extends NavigationMixin(LightningElement) {
 
@@ -14,6 +15,8 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track propertyData = [];
     @track feature_icons;
     @track propertyImages = []; 
+    @track imagesOnDescription = []
+    @track totalCountOfImg;
     @track errorMessage = false;
 
     @track Show_ImagePreview = false;
@@ -24,6 +27,11 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track NotFirstImg = false;
     @track NotLastImg = false;
     @track totalImagesInGallery;
+
+    plvimg1 = plvimg + '/plvimgs/Bedroom.png';
+    plvimg2 = plvimg + '/plvimgs/Bathroom.png';
+    plvimg3 = plvimg + '/plvimgs/balconyImg.png';
+    plvimg4 = plvimg + '/plvimgs/furnished.png';
 
     isInitalRender = true;
     mapMarkers = [];
@@ -101,6 +109,7 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             this.propertyData = result.Listings;
             this.feature_icons = result.FeatureIcons;
             this.propertyImages = result.Medias;
+            this.totalCountOfImg = this.propertyImages.length - 5;
             this.totalImagesInGallery = this.propertyImages.length;
             this.ogPropertyImages = result.Medias;
     
@@ -131,10 +140,16 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             } else {
                 console.error('No location information found in record data');
             }
-
+            if (result.Medias.length > 6) {
+                this.imagesOnDescription = result.Medias.slice(0, 3);
+                setTimeout(() => {
+                    let element = this.template.querySelectorAll('.black1')[5];
+                    element.classList.add('black_enabled');
+                }, 1000);
+            }
             setTimeout(() => {
                 this.spinnerdatatable = false;
-            }, 5000);
+            }, 3000);
         })
             .catch(error => {
                 console.log('Error-->', error);
