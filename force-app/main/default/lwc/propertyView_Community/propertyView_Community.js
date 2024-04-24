@@ -91,15 +91,17 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
         return event.currentTarget.dataset.id === propertyImages[1].Id ? 'active' : '';
     }
 
-    handleBoxClick(event) {
-        const selectedImageId = event.currentTarget.dataset.id;
-        const selectedIndex = this.propertyImages.findIndex(image => image.Id === selectedImageId);
-        if (selectedIndex !== -1) {
-            const mainCarousel = this.template.querySelector('.carousel');
-            const imageWidth = mainCarousel.clientWidth;
-            mainCarousel.scrollLeft = selectedIndex * imageWidth;
+    handleBoxClick() {
+        this.template.querySelectorAll(".tab-menu a").forEach(tab => {
+            tab.classList.remove("active-tab");
+        });
 
-        }
+        this.template.querySelectorAll(".tab").forEach(tabContent => {
+            tabContent.classList.remove("active-tab-content");
+        });
+
+        this.template.querySelector('[data-id="tab2"]').classList.add("active-tab-content");
+        this.template.querySelector('[data-tab-id="tab2"]').classList.add("active-tab");
     }
 
     getListingDetail() {
@@ -109,7 +111,6 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             this.propertyData = result.Listings;
             this.feature_icons = result.FeatureIcons;
             this.propertyImages = result.Medias;
-            this.totalCountOfImg = this.propertyImages.length - 5;
             this.totalImagesInGallery = this.propertyImages.length;
             this.ogPropertyImages = result.Medias;
     
@@ -141,11 +142,14 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
                 console.error('No location information found in record data');
             }
             if (result.Medias.length > 6) {
-                this.imagesOnDescription = result.Medias.slice(0, 3);
+                this.imagesOnDescription = result.Medias.slice(0, 6);
+                this.totalCountOfImg = this.propertyImages.length - 5;
                 setTimeout(() => {
                     let element = this.template.querySelectorAll('.black1')[5];
                     element.classList.add('black_enabled');
                 }, 1000);
+            } else {
+                this.imagesOnDescription = result.Medias;
             }
             setTimeout(() => {
                 this.spinnerdatatable = false;

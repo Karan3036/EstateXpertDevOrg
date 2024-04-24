@@ -8,7 +8,7 @@
 .carousel {
     overflow: hidden;
     width: 59%;
-    height: 55vh;
+    /* height: 55vh; */
     border-radius: 16px;
 }
 
@@ -27,7 +27,7 @@
 
 .buttons {
     width: -webkit-fill-available;
-    padding: 1rem;
+    padding-bottom: 1rem;
 }
 
 .box {
@@ -52,7 +52,7 @@
 .tab-container {
     height: 100%;
     width: auto;
-    padding: 1%;
+    /* padding: 1%; */
     border-radius: 28px;
     /* overflow: overlay; */
 }
@@ -115,7 +115,7 @@
 .box1 {
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -196,17 +196,21 @@
 .container {
     width: 100%;
     height: 100%;
-    /* padding: 1rem; */
+    padding: 1rem;
 }
 
 .box3 {
-    position: relative;
+    /* position: relative; */
     width: 100%;
     height: 100%;
+    /* padding: 1rem; */
 }
 
 .layout {
-    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .roomDetails {
@@ -246,28 +250,12 @@
     cursor: pointer;
 }
 
-.facilities {
-    width: 100%;
-    height: 100%;
-    /* margin: auto; */
-    /* display: flex;
-    justify-content: center; */
-}
-
-.facilities h1 {
-    font-family: Inter;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 19.2px;
-    text-align: left;
-}
-
 .facilityBox {
     width: 130px;
     height: 90px;
     border-radius: 12px;
     background-color: #E1F1FE;
-    margin: 6%;
+    /* margin: 6%; */
     color: #6B6B6B;
     cursor: pointer;
 }
@@ -292,36 +280,31 @@
     margin-top: 5px;
 }
 
-.about {
+.about,
+.facilities,
+.address {
     width: 100%;
     height: 100%;
-    /* margin: auto; */
+    padding-bottom: 2rem;
 
 }
 
 .about p {
-    text-align: justify;
-}
-
-.about h1 {
     font-family: Inter;
     font-size: 20px;
-    font-weight: 600;
-    line-height: 19.2px;
-    text-align: left;
+    font-weight: 400;
+    line-height: 30px;
 }
 
-.address {
-    width: 100%;
-    height: 100%;
-}
-
+.about h1,
+.facilities h1,
 .address h1 {
-    font-family: Inter;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 19.2px;
     text-align: left;
+    color: #0176D3;
+    padding-bottom: 1rem;
 }
 
 .map {
@@ -579,8 +562,8 @@ img {
     padding-bottom: 1rem;
     display: flex;
     flex-direction: row;
-    padding-top: 1rem;
-    justify-content: space-between;
+    justify-content: end;
+    width: -webkit-fill-available;
 }
 
 .vendorName {
@@ -654,7 +637,7 @@ img {
 
 .listing_property_details {
     width: 39%;
-    height: 55vh;
+    /* height: 55vh; */
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -719,7 +702,7 @@ img {
     display: grid;
     align-items: baseline;
     justify-content: normal;
-    grid: auto / auto auto auto;
+    grid: auto / 30% 30% 30%;
     gap: inherit;
 }
 
@@ -756,7 +739,7 @@ img {
 
 .main_detail_box {
     width: 100%;
-    height: 100%;
+    height: 55vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -764,22 +747,28 @@ img {
 }
 
 .image_loop {
-    width: 100%;
+    /* width: 100%;
     display: grid;
-    /* grid: auto / auto auto auto auto auto auto; */
-    grid-gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid: auto / 16.67% 16.67% 16.67% 16.67% 16.67% 16.67%;
+    grid-gap: 2rem; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: -webkit-fill-available;
 }
 
 .each_image {
     width: 100%;
     height: 20vh;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
-    transition: transform .3s;
+    /* transition: transform .3s; */
     border-radius: 12px;
+    flex: 0 0 calc(16.6667% - 19px);
+    margin: 5px 9.5px;
+    position: relative;
 }
 
 .each_image img {
@@ -816,11 +805,96 @@ img {
     color: #FFFFFF;
 }
 
-@media only screen and (max-width: 1440px) {
-    .carousel {
+@media only screen and (max-width: 1536px) {
+    .main_detail_box {
         height: 70vh;
     }
-    .listing_property_details {
-        height: 70vh;
-    }
+}
+
+.address_class h1,
+.landmark_class h1,
+.loc_neighbor h1 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+    color: #000000;
+    padding-bottom: 0.3rem;
+}
+
+.edu_ins h1,
+.shop_cen h1,
+.hospi h1,
+.comm_hub h1 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 19.2px;
+    text-align: left;
+    color: #000000;
+    padding-bottom: 1rem;
+}
+
+.edu_ins p,
+.shop_cen p,
+.hospi p,
+.comm_hub p {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 17.28px;
+    text-align: left;
+    color: #000000;
+    padding: 2px 0;
+    width: -webkit-fill-available;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.address_class p,
+.landmark_class p,
+.loc_neighbor p {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    color: #000000;
+}
+
+.address_and_landmark {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.address_class,
+.landmark_class {
+    width: 49%;
+}
+
+.loc_neighbor {
+    padding-bottom: 1rem;
+}
+
+.edu_ins,
+.shop_cen,
+.hospi,
+.comm_hub {
+    border: 0.5px solid #00000080;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.other_facility {
+    width: 100%;
+    display: grid;
+    grid: auto / 32% 32% 32%;
+    grid-gap: 2rem;
+    justify-content: flex-start;
+}
+
+.container {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
   }
