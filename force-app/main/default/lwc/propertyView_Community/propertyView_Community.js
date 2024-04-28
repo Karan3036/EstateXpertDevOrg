@@ -15,7 +15,19 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track propertyData = [];
     @track feature_icons;
     @track propertyImages = []; 
-    @track imagesOnDescription = []
+    @track livingImages = []; 
+    @track guestImages = []; 
+    @track kitchenImages = []; 
+    @track diningImages = []; 
+    @track otherImages = []; 
+
+    @track livingTotal; 
+    @track guestTotal; 
+    @track kitchenTotal; 
+    @track diningTotal; 
+    @track otherTotal; 
+    @track clickedImage;
+    @track imagesOnDescription = [];
     @track totalCountOfImg;
     @track errorMessage = false;
 
@@ -112,8 +124,35 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             this.feature_icons = result.FeatureIcons;
             this.propertyImages = result.Medias;
             this.totalImagesInGallery = this.propertyImages.length;
+            result.Medias.forEach(media => {
+                const labelParts = media.ExternalLink__c.split('_');
+                const lastPart = labelParts[labelParts.length - 1]; // Get the last part of the label after the last underscore
+                console.log('lastpart'+lastPart);
+                switch (lastPart) {
+                    case 'livingRoom':
+                        this.livingImages.push(media);
+                        break;
+                    case 'diningRoom':
+                        this.diningImages.push(media);
+                        break;
+                    case 'kitchen':
+                        this.kitchenImages.push(media);
+                        break;
+                    case 'guestRoom':
+                        this.guestImages.push(media);
+                        break;
+                    default:
+                        this.otherImages.push(media);
+                    // Add additional cases for other categories as needed
+                }
+            });
+            this.livingTotal = this.livingImages.length;
+            this.diningTotal = this.diningImages.length;
+            this.kitchenTotal = this.kitchenImages.length;
+            this.guestTotal = this.guestImages.length;
+            this.otherTotal = this.otherImages.length;
             this.ogPropertyImages = result.Medias;
-    
+            console.log('Image'+result.Medias[0]);
             this.propertyData.forEach(row => {
                 if (row.Property_Features__c) {
                     const amenitiesArray = row.Property_Features__c.split(";");
@@ -192,7 +231,29 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
 
     changeImageHelper(imageId, nextPreviusBtnClick) {
         try {
-            const imagePreviewList = this.propertyImages;
+            var imagePreviewList = [];
+            // const imagePreviewList = this.propertyImages;
+            var labelParts = this.clickedImage.split('_');
+            var lastPart = labelParts[labelParts.length - 1]; // Get the last part of the label after the last underscore
+            console.log('lastpart'+lastPart);
+            switch (lastPart) {
+                case 'livingRoom':
+                    imagePreviewList = this.livingImages;
+                    break;
+                case 'diningRoom':
+                    imagePreviewList = this.diningImages;
+                    break;
+                case 'kitchen':
+                    imagePreviewList = this.kitchenImages;
+                    break;
+                case 'guestRoom':
+                    imagePreviewList = this.guestImages;
+                    break;
+                default:
+                    imagePreviewList = this.otherImages;
+                // Add additional cases for other categories as needed
+            }
+            console.log(JSON.stringify(imagePreviewList));
             for (let i in imagePreviewList) {
                 if (imagePreviewList[i].Id == imageId) {
                     if (nextPreviusBtnClick == true) {
@@ -248,6 +309,10 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
         var imageId = event.currentTarget.dataset.id;
         var imageName = event.currentTarget.dataset.name;
         var imageURL = event.currentTarget.dataset.url;
+        this.clickedImage = imageURL;
+        console.log('imageId'+imageId);
+        console.log('inmageName'+imageName);
+        console.log('imageURL'+imageURL);
         this.changeImageHelper(imageId, false);
         this.openCustomPreviewHelper(imageURL, imageName, imageId);
     }

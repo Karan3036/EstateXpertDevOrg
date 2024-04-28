@@ -136,7 +136,7 @@
                     <div class="tab-menu">
                         <ul>
                             <li><a class="active-tab" data-tab-id="tab1">Description</a></li>
-                            <li><a data-tab-id="tab2">Gallery</a></li>
+                            <li><a class="" data-tab-id="tab2" >Gallery</a></li>
                         </ul>
                     </div>
                 </div>
@@ -236,22 +236,66 @@
                         </div>
                     </template>
                 </div>
-                <div class="tab" data-id="tab2">
-                    <div class="galleryFilterIcon">
+                 <div class="tab" data-id="tab2">
+                   <!-- <div class="galleryFilterIcon">
                         <button class="galleryFilterIcon_btn active" onclick={applyFilter} data-name="galleryFilterIcon_all">All</button>
                         <button class="galleryFilterIcon_btn" onclick={applyFilter} data-name="galleryFilterIcon_room">Room</button>
                         <button class="galleryFilterIcon_btn" onclick={applyFilter} data-name="galleryFilterIcon_kitchen">Kitchen</button>
-                    </div>
+                    </div> -->
 
-                    <div class="images_total"><p>Gallery <b>({totalImagesInGallery})</b></p></div>
+                    <template if:true={livingTotal}>
+                        <div class="images_total"><p> Living Room <b>({livingTotal})</b></p></div>
+                        <div class="PropertyImages">
+                            <template for:each={livingImages} for:item="propertyImage">
+                                <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
+                                </div>
+                            </template>
+                        </div>
+                    </template>
 
-                    <div class="PropertyImages">
-                        <template for:each={propertyImages} for:item="propertyImage">
-                            <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
-                                <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
-                            </div>
-                        </template>
-                    </div>
+                    <template if:true={diningTotal}>
+                        <div class="images_total"><p> Dining Room <b>({diningTotal})</b></p></div>
+                        <div class="PropertyImages">
+                            <template for:each={diningImages} for:item="propertyImage">
+                                <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template if:true={kitchenTotal}>
+                        <div class="images_total"><p> Kitchen <b>({kitchenTotal})</b></p></div>
+                        <div class="PropertyImages">
+                            <template for:each={kitchenImages} for:item="propertyImage">
+                                <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template if:true={guestTotal}>
+                        <div class="images_total"><p> Guest Room <b>({guestTotal})</b></p></div>
+                        <div class="PropertyImages">
+                            <template for:each={guestImages} for:item="propertyImage">
+                                <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <template if:true={otherTotal}>
+                        <div class="images_total"><p> Others <b>({otherTotal})</b></p></div>
+                        <div class="PropertyImages">
+                            <template for:each={otherImages} for:item="propertyImage">
+                                <div class="thumbnails" key={propertyImage.Id} data-id={propertyImage.Id} data-name={propertyImage.Name} data-url={propertyImage.FilenameUrlEncoded__c} onclick={previewAllImages}>
+                                    <img src={propertyImage.FilenameUrlEncoded__c} alt="Property">
+                                </div>
+                            </template>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>

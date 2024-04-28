@@ -1521,6 +1521,16 @@ input[type="search"] {
    text-overflow: ellipsis;
 }
 
+/* .transition-left-to-right {
+   transform: translateX(-15%);
+   transition: transform 0.5s ease;
+}
+
+.transition-right-to-left {
+   transform: translateX(15%);
+   transition: transform 0.5s ease;
+} */
+
 .arrow1 {
    color: white;
    background-color: rgb(255, 255, 255);

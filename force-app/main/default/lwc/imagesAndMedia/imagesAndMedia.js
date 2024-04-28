@@ -77,10 +77,20 @@ export default class UploadImage extends LightningElement {
     isSaveDisabled = true;
     nameIsChanged = false;
     tagIsChanged = false;
+    selectedRadio;
     get options() {
         return [
             { label: 'Image', value: 'Image' },
             { label: 'Video', value: 'Video' }
+        ];
+    }
+
+    get radioOptions() {
+        return [
+            { label: 'Living Room', value: 'livingRoom' },
+            { label: 'Dining Room', value: 'diningRoom' },
+            { label: 'Kitchen', value: 'kitchen' },
+            { label: 'Guest Room', value: 'guestRoom' },
         ];
     }
 
@@ -93,10 +103,60 @@ export default class UploadImage extends LightningElement {
     @track NotLastImg = false;
     buttonClickName;
     @track FileNameInAWS;
+    @track checked = {
+        livingRoom :false,
+        diningRoom :false,
+        kitchen :false,
+        guestRoom :false,
+    }
 
     connectedCallback() {
         this.getS3ConfigDataAsync();
         this.fetchingdata();
+    }
+
+    timeInString(){
+        const currentDateTime = new Date();
+
+        const day = currentDateTime.getDate().toString().padStart(2, '0');
+        const month = (currentDateTime.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-indexed, so add 1
+        const year = currentDateTime.getFullYear().toString();
+        const hours = currentDateTime.getHours().toString().padStart(2, '0');
+        const minutes = currentDateTime.getMinutes().toString().padStart(2, '0');
+        const seconds = currentDateTime.getSeconds().toString().padStart(2, '0');
+
+        const formattedDateTime = `${day}_${month}_${year}_${hours}:${minutes}:${seconds}`;
+        return formattedDateTime;
+    }
+
+    radioChange(event){
+        this.selectedRadio = event.target.value;
+        console.log(this.selectedRadio);
+        
+        if(this.selectedRadio == "livingRoom"){
+            this.checked.livingRoom = true;
+            this.checked.diningRoom = false;
+            this.checked.kitchen = false;
+            this.checked.guestRoom = false;
+        }else if(this.selectedRadio == "diningRoom"){
+            this.checked.livingRoom = false;
+            this.checked.diningRoom = true;
+            this.checked.kitchen = false;
+            this.checked.guestRoom = false;
+            
+        }else if(this.selectedRadio == "kitchen"){
+            this.checked.livingRoom = false;
+            this.checked.diningRoom = false;
+            this.checked.kitchen = true;
+            this.checked.guestRoom = false;
+            
+        }else if(this.selectedRadio == "guestRoom"){
+            this.checked.livingRoom = false;
+            this.checked.diningRoom = false;
+            this.checked.kitchen = false;
+            this.checked.guestRoom = true;
+
+        }
     }
 
     save_changes() {
@@ -779,11 +839,14 @@ export default class UploadImage extends LightningElement {
                     const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
                     const Buffer = buffer.Buffer;
                     const buff = new Buffer(base64String, 'base64');
-
+                    
                     if (buff) {
+                        const time = this.timeInString();
+                        const imageType = this.selectedRadio;
+                        console.log(imageType);
                         let objKey = this.fileName[f]
-                            .replace(/\s+/g, "_")
-                            .toLowerCase() + 'watermark';
+                        .replace(/\s+/g, "_")
+                        .toLowerCase()+time+'_'+'watermark'+'_'+imageType;
                         let params = {
                             Key: objKey,
                             ContentType: 'image/jpeg',
@@ -791,17 +854,17 @@ export default class UploadImage extends LightningElement {
                             ContentEncoding: 'base64',
                             ACL: "public-read"
                         };
-
+                        
                         console.log('params:' + JSON.stringify(params));
-
+                        
                         let upload = this.s3.upload(params);
                         this.isfileuploading = true;
                         upload.on('httpUploadProgress', (progress) => {
                             this.uploadProgress = Math.round((progress.loaded / progress.total) * 100);
                         });
-
+                        
                         await upload.promise();
-
+                        
                         let bucketName = this.confData.S3_Bucket_Name__c;
                         this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
                         this.isfileuploading = false;
@@ -811,9 +874,11 @@ export default class UploadImage extends LightningElement {
                 } else {
                     console.log('this.selectedFilesToUpload[f]---->',this.selectedFilesToUpload[f]);
                     if (this.selectedFilesToUpload[f]) {
+                        const time = this.timeInString();
+                        const imageType = this.selectedRadio;
                         let objKey = this.fileName[f]
                             .replace(/\s+/g, "_")
-                            .toLowerCase();
+                            .toLowerCase()+time+'_'+imageType;
 
                         let params = {
                             Key: objKey,

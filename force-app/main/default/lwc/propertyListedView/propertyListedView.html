@@ -20,8 +20,8 @@
                         <li><a data-tab-id="tab3">About</a></li>
                     </ul>
                 </div>
-                <div class="contact_us">
-                    <p>Contact us</p>
+                <div>
+                    <c-pop-up-login></c-pop-up-login>
                 </div>
             </div>
             <div class="tab active-tab-content" data-id="tab1">
@@ -211,7 +211,7 @@
                                                     <div class="box" key={nextImg.Id}>
                                                         <img src={nextImg.media_url} />
                                                         <div class="black1" onclick={handleBoxClick}
-                                                            data-id={nextImg.Id}>
+                                                            data-id={nextImg.Id} >
                                                             <div class="imgInfo">
                                                                 <p>{nextImg.Name}</p>
                                                             </div>

@@ -375,7 +375,9 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.spinnerdatatable = true;
         this.selectionModel = false;
         this.clearFilter();
-
+        console.log('1');
+        console.log('Listing Data'+this.ListingData);
+        console.log('2');
         this.pagedFilteredListingData = this.ListingData.filter(listing => {
             const nameIncludesSearch = this.searchTerm ? listing.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true;
             const num_of_bathrooms = this.bathrooms ? listing.Number_of_Bathrooms__c == this.bathrooms : true;
@@ -393,12 +395,16 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         console.log('FilteredListingData:', this.FilteredListingData);
 
         if (this.pagedFilteredListingData.length <= 0) {
+            console.log(this.spinnerdatatable);
+            console.log(this.pagedFilteredListingData.length);
             this.isData = false;
             this.show_more_button_class = 'not-show_last_button';
             this.result_found_numbers = this.pagedFilteredListingData.length;
             this.dropDownClass = 'drop-down-none';
             this.spinnerdatatable = false;
         } else {
+            console.log(this.spinnerdatatable);
+            console.log(this.pagedFilteredListingData.length);
             this.isData = true;
             this.show_more_button_class = 'not-show_last_button';
             this.result_found_numbers = this.pagedFilteredListingData.length;
@@ -408,16 +414,25 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     }
 
     clearFilter() {
-        const selectElement = this.template.querySelector('select[name="listing_type"]');
-        selectElement.value = '';
-        this.bedrooms = 0;
-        this.bathrooms = 0;
-        this.listing_type = '';
-        this.min_price = '';
-        this.max_price = '';
-        this.sq_ft = '';
-        this.city = '';
-        this.zip_code = '';
+        try{
+            console.log('clear filter');
+            console.log('1');
+            const selectElement = this.template.querySelector('select[name="listing_type"]');
+            console.log('2',selectElement);
+            selectElement.value = '';
+            console.log('3');
+            this.bedrooms = 0;
+            this.bathrooms = 0;
+            this.listing_type = '';
+            this.min_price = '';
+            this.max_price = '';
+            this.sq_ft = '';
+            this.city = '';
+            this.zip_code = '';
+            console.log('end');
+        }catch(e){
+            console.log('error=>'+e);
+        }
     }
 
     formatDate(inputDate) {
@@ -510,36 +525,60 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     goToNextFeaturedProperty() {
         this.leftArrowDisabled = false;
-        this.firstIndex += 4;
-        this.lastIndex += 4;
+        this.firstIndex += 1;
+        this.lastIndex += 1;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
         if (this.lastIndex >= this.featuredProperties.length - 1) {
             this.rightArrowDisabled = true;
         }
         setTimeout(() => {
-            let target = this.template.querySelector(`[data-id="${this.selectedId}"]`);
-            console.log('target:', target);
+            let target = this.template.querySelector('[data-id="' + this.selectedId + '"]');
+           
+            console.log('target:', JSON.stringify(target));
+            console.log('target:', this.selectedId);
+           
             if (target != null) {
                 target.classList.add('black_enabled');
             }
         }, 0);
+        // setTimeout(() => {
+        //     let targetDiv = this.template.querySelector('.navigation-boxes');
+        //     if (targetDiv != null) {
+        //         targetDiv.classList.add('transition-left-to-right');
+        //         setTimeout(() => {
+        //             targetDiv.classList.remove('transition-left-to-right');
+        //         }, 500); // Adjust the duration to match the transition duration
+        //     }
+        // }, 0);
+        
     }
 
     goToPrevFeaturedProperty() {
         this.rightArrowDisabled = false;
-        this.firstIndex -= 4;
-        this.lastIndex -= 4;
+        this.firstIndex -= 1;
+        this.lastIndex -= 1;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
         if (this.firstIndex <= 0) {
             this.leftArrowDisabled = true;
         }
         setTimeout(() => {
-            let target = this.template.querySelector(`[data-id="${this.selectedId}"]`);
-            console.log('target:', target);
+            let target = this.template.querySelector('[data-id="' + this.selectedId + '"]');
+          
+            console.log('target:', JSON.stringify(target));
+            console.log('Id:', this.selectedId);
             if (target != null) {
                 target.classList.add('black_enabled');
             }
         }, 0);
+        // setTimeout(() => {
+        //     let targetDiv = this.template.querySelector('.navigation-boxes');
+        //     if (targetDiv != null) {
+        //         targetDiv.classList.add('transition-right-to-left');
+        //         setTimeout(() => {
+        //             targetDiv.classList.remove('transition-right-to-left');
+        //         }, 500); // Adjust the duration to match the transition duration
+        //     }
+        // }, 0);
     }
 
 
@@ -584,8 +623,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     goToNextListing() {
         this.listingLeftArrowDisabled = false;
-        this.firstIndexListing += 4;
-        this.lastIndexListing += 4;
+        this.firstIndexListing += 3;
+        this.lastIndexListing += 3;
 
         const filteredListings = this.FilteredListingData1.filter(listing => {
             const isPropertyType = !this.listing_type || String(listing.Listing_Type__c) === String(this.listing_type);
@@ -604,8 +643,8 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     goTobackListing() {
         this.listingRightArrowDisabled = false;
-        this.firstIndexListing -= 4;
-        this.lastIndexListing -= 4;
+        this.firstIndexListing -= 3;
+        this.lastIndexListing -= 3;
 
         const filteredListings = this.FilteredListingData1.filter(listing => {
             const isPropertyType = !this.listing_type || String(listing.Listing_Type__c) === String(this.listing_type);
