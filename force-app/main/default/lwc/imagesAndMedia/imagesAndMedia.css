@@ -5,17 +5,24 @@ body {
 .radio-group {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    padding-bottom: 1rem;
 }
 
 .radio-label{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: 5px;
     background-color: #1899ff;
     border-radius: 14px;
     padding: 10px;
-    width: 60px;
+    width: max-content;
     box-shadow: 1px 3px 6px -1px;
+    color: white;
+}
+
+.radio-label input{
+    margin-right: 5px;
 }
 
 .formbold-mb-5 {

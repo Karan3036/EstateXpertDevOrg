@@ -1,6 +1,29 @@
 <template>
     <div class="mainContainer">
         <lightning-card title="Images and Media" class="imagesAndMediaClass">
+            <div class="radio-group">
+                <label for="option1" class="radio-label">
+                    <input type="radio" id="option1" name="property images" value="propertyImages" onclick={radioChange} checked={checked.propertyImages}>
+                    Property Images
+                </label>
+                <label for="option2" class="radio-label">
+                    <input type="radio" id="option2" name="living room" value="livingRoom" onclick={radioChange} checked={checked.livingRoom}>
+                    Living Room
+                </label>
+                <label for="option3" class="radio-label">
+                    <input type="radio" id="option3" name="dining room" value="diningRoom" onclick={radioChange} checked={checked.diningRoom}>
+                    Dining Room
+                </label>
+                <label for="option4" class="radio-label">
+                    <input type="radio" id="option4" name="kitchen" value="kitchen" onclick={radioChange} checked={checked.kitchen}>
+                    Kitchen
+                </label>
+                <label for="option5" class="radio-label">
+                    <input type="radio" id="option5" name="guest room" value="guestRoom" onclick={radioChange} checked={checked.guestRoom}>
+                    Guest Room
+                </label>
+            </div>
+
             <div class="slds-form-element">
                 <div class="slds-form-element__control">
                     <div class="slds-file-selector slds-file-selector_images" ondrop={handleDrop}
@@ -105,24 +128,6 @@
                     <lightning-button class="slds-m-top--medium buttons" label="Cancel" onclick={removefile}
                         variant="brand" disabled={isnull}>
                     </lightning-button>
-                    <div class="radio-group">
-                        <label for="option1" class="radio-label">
-                            <input type="radio" id="option1" name="living room" value="livingRoom" onclick={radioChange} checked={checked.livingRoom}>
-                            Living Room
-                        </label>
-                        <label for="option2" class="radio-label">
-                            <input type="radio" id="option2" name="dining room" value="diningRoom" onclick={radioChange} checked={checked.diningRoom}>
-                            Dining Room
-                        </label>
-                        <label for="option3" class="radio-label">
-                            <input type="radio" id="option3" name="kitchen" value="kitchen" onclick={radioChange} checked={checked.kitchen}>
-                            Kitchen
-                        </label>
-                        <label for="option4" class="radio-label">
-                            <input type="radio" id="option4" name="guest room" value="guestRoom" onclick={radioChange} checked={checked.guestRoom}>
-                            Guest Room
-                        </label>
-                    </div>
                 </div>
             </div>
         </lightning-card>

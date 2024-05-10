@@ -8,6 +8,7 @@ import createMediaForAWS from "@salesforce/apex/imagesAndMediaController.createM
 import deletemedia from "@salesforce/apex/imagesAndMediaController.deletelistingmedia";
 import update_media_name from "@salesforce/apex/imagesAndMediaController.update_media_name";
 import updateOrderState from '@salesforce/apex/imagesAndMediaController.updateOrderState';
+import estatexpertlogo from '@salesforce/resourceUrl/estatexpertlogo';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { refreshApex } from '@salesforce/apex';
 import updateSortOrder from '@salesforce/apex/imagesAndMediaController.updateSortOrder';
@@ -78,6 +79,7 @@ export default class UploadImage extends LightningElement {
     nameIsChanged = false;
     tagIsChanged = false;
     selectedRadio;
+    
     get options() {
         return [
             { label: 'Image', value: 'Image' },
@@ -104,6 +106,7 @@ export default class UploadImage extends LightningElement {
     buttonClickName;
     @track FileNameInAWS;
     @track checked = {
+        propertyImages : true,
         livingRoom :false,
         diningRoom :false,
         kitchen :false,
@@ -138,24 +141,31 @@ export default class UploadImage extends LightningElement {
             this.checked.diningRoom = false;
             this.checked.kitchen = false;
             this.checked.guestRoom = false;
+            this.checked.propertyImages = false;
         }else if(this.selectedRadio == "diningRoom"){
             this.checked.livingRoom = false;
             this.checked.diningRoom = true;
             this.checked.kitchen = false;
             this.checked.guestRoom = false;
-            
+            this.checked.propertyImages = false;
         }else if(this.selectedRadio == "kitchen"){
             this.checked.livingRoom = false;
             this.checked.diningRoom = false;
             this.checked.kitchen = true;
             this.checked.guestRoom = false;
-            
+            this.checked.propertyImages = false;
         }else if(this.selectedRadio == "guestRoom"){
             this.checked.livingRoom = false;
             this.checked.diningRoom = false;
             this.checked.kitchen = false;
             this.checked.guestRoom = true;
-
+            this.checked.propertyImages = false;
+        }else if(this.selectedRadio == "propertyImages"){
+            this.checked.livingRoom = false;
+            this.checked.diningRoom = false;
+            this.checked.kitchen = false;
+            this.checked.guestRoom = false;
+            this.checked.propertyImages = true;
         }
     }
 
@@ -1210,8 +1220,9 @@ export default class UploadImage extends LightningElement {
     async imageWithWatermark(image) {
         try {
             let file = image;
-            const watermarkedImage = await watermark([file])
-                .image(watermark.text.center('EstateXpert', '30em sans-serif', '#fff', 0.5));
+            let logoImg = estatexpertlogo;
+            const watermarkedImage = await watermark([file,logoImg])
+                .image(watermark.image.center(0.5));
             return watermarkedImage.src;
         } catch (error) {
             throw error;
