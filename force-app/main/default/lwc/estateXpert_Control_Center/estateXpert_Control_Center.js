@@ -115,6 +115,10 @@ export default class EstateXpert_Control_Center extends LightningElement {
         this.selectionModel2 = false;
     }
 
+    handleMessage(event) {
+        this.selectionModel2 = event.detail.message;
+    }
+
     fetchPicklistValue() {
         getPicklistValues()
             .then(result => {
