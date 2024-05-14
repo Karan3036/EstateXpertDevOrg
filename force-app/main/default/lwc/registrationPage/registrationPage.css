@@ -1,0 +1,558 @@
+.estateLogo{
+    width: 5em;
+height: 3.39em;
+margin-top: 0.313em;
+margin-left: 3.75em;
+}
+
+.main-content{
+    width: 100%;
+    min-height: 100vh;
+    transform: scaleX(-1);
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0; 
+    bottom: 0;
+    overflow: hidden;
+
+   
+}
+
+.content{
+    display:flex;
+    justify-content: space-between;
+}
+
+
+div .inner-content{  
+    position: relative;
+    width: 74em;
+    height: 47.563em;
+    border-radius: 1em;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-logo{
+    position: absolute;
+transform: scaleX(-1);   
+width: 24.375em;
+height: 18.063em;
+top: 12.688em;
+left: 44.125em;
+}
+
+.back-div{
+    position: absolute;
+    transform: scaleX(-1); 
+    border: 0.25em;
+    right: 1.5em;
+    top: 1.5em;
+}
+
+
+
+.inner-logo img {
+    opacity: 1;
+    position: absolute;
+    top: 1.9em;
+}
+div .form{
+    transform: scaleX(-1); 
+    position: absolute;
+left: 5.375em;
+width: 27.625rem; 
+margin-top: 0em;
+}
+
+div .signUp{
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 45px;
+    letter-spacing: 0.10000000149011612px;
+}
+
+
+
+.radio-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.radiobtn {
+    margin-right: 1rem; 
+}
+
+.radioIcon {
+    transform: scale(1.5);
+    margin-right: 0.7rem;
+}
+
+.radio-label {
+    font-size: 16px;
+}
+
+
+
+.names{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+.input-name{
+    width: 10.875em;
+    height: 3em;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+    border: 0.1rem solid #E0E2E9; 
+    color: #969AB8;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 0.9375rem;
+    padding: 0.75rem 1.25rem;
+    margin-left: 0.6em;
+}
+
+.input-name:focus {
+    outline: none; 
+}
+
+
+.drop-div{
+    display: inline-block;
+    margin-right: 0.6em;
+}
+.drop-div .drop{
+    width: 5.725em;
+    height: 3em;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+    border: 0.1rem solid #E0E2E9; 
+    color: #969AB8;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 0.9375rem;
+    padding: 0.75rem 1.25rem;
+}
+
+.drop:focus {
+    outline: none; 
+}
+
+
+.div1{
+    margin-top: 0.9rem;
+}
+.div2{
+    margin-top: 0.8rem;
+}
+.div3{
+    margin-top: 0.8rem;
+}
+
+.input-div{
+    position: relative;
+    width: 27.625rem; 
+    height: 2.8125rem; 
+    padding: 0.75rem 1.25rem; 
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+    border: 0.1rem solid #E0E2E9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+
+}
+
+.signUp-div{
+    margin-top: 1em;
+    display: flex;
+    cursor: pointer;
+}
+
+.accounttext{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.9375rem;
+    color: #969AB8;
+}
+
+.span{
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.9375rem;
+    color:#0176D3 ;
+    margin-left:0.2rem ;
+}
+.login-btn {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.9375rem;
+    width: 27.625rem;
+    height: 2.9375rem; 
+    margin-top: 1.25rem; 
+    border-radius: 0.5rem; 
+    background-color: #0176D3;
+    color: white;
+    border: none;
+
+}
+
+.terms{
+    display: flex;
+    margin-left:0.5em;
+    margin-top: 1em;
+}
+.agree{
+    margin-right: 1.5em;
+    transform: scale(1.5);
+}
+
+.input-fields{
+    flex: 1; 
+    border: none; 
+    outline: none;
+    color: #969AB8;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 0.9375rem;
+    padding: 0.25rem 1.25rem; 
+    
+}
+
+.input-field:focus {
+    outline: none; 
+}
+.input-field::placeholder {
+    color: #969AB8; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 0.9375rem;
+    
+}
+
+.error{
+    color: red;
+    position:absolute;
+    font-size: 10px;
+    width: 27.625rem; 
+}
+
+.passerror{
+    color: red;
+    font-size: 10px;
+    width: 27.625rem; 
+    margin-bottom: 0em;
+}
+
+.SignupError{
+    color: red;
+    position:absolute;
+    font-size: 12px;
+    width: 27.625rem; 
+}
+
+/* -----------------------------------For Mobile View------------------------------ */
+
+@media only screen and (max-width: 480px){
+
+    .inner-logo{
+    transform: scaleX(-1);   
+    width: 8em;
+    top: 1em;
+    position:absolute;
+    left: 8em;
+    }
+
+
+    div .inner-content{  
+        position: relative;
+        width: 90%;
+        height: 47.5em;
+        border-radius: 1em;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        }
+
+
+        .main-content{
+            width: 100%;
+            min-height:100vh;
+            transform: scaleX(-1);
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+        }
+        
+
+    /* div .form{
+    position: absolute;
+    width: 15rem; 
+    left: 5em;
+    top: 7em;
+    background-color: aqua;
+    } */
+
+    div .form{
+        position: absolute;
+        width: 19rem; 
+        left: 1em;
+        top: 8em;
+        }
+
+    .div1{
+        margin-top: 0.5rem;
+    }
+    .div2{
+        margin-top: 0.4rem;
+    }
+    .div3{
+        margin-top: 0.4rem;
+    }
+
+    .container{
+        position:relative;
+        height: 100%;
+    }
+
+    .input-div{
+        position: relative;
+        width: 17rem; 
+        height: 2.6em; 
+        top: 1.2em;
+    
+    }
+    .input-div svg{
+        position: absolute;
+        width: 14px;
+        height: 15px;
+        left: 0.5em;
+
+    }
+
+    .input-div svg{
+        position: absolute;
+        width: 12px;
+        height: 13px;
+        left: 0.5em;
+
+    }
+
+    .input-fields{
+        font-size: 0.7rem;
+        padding: 0.25rem;
+        
+    }
+
+    .names{
+        position: relative;
+        top: 1.2em;
+    }
+   
+    .input-name{
+        width: 9.5em;
+        height: 3em;
+        font-size: 0.7rem;
+        padding: 0 0.5rem;
+    }
+    
+    .drop-div{
+        margin-right: 0.05em;
+    }
+    .drop-div .drop{
+        width: 2.8rem;
+        height: 2rem;
+        font-size: 0.4rem;
+      
+    }
+
+    .login-btn {
+        position: relative;
+        font-size: 0.7rem;
+        width: 17rem; 
+        height: 2.6rem; 
+        top: 1.1em;
+    }
+
+   
+     .radio-container {
+        margin-left: 0rem; 
+    }
+
+    .radiobtn {
+        position: relative;
+        top: 1.5em;
+    }
+    
+    .radioIcon {
+        transform: scale(1);
+    }
+    
+    .radio-label {
+        font-size: 0.75rem;
+        display:flex;
+        justify-content:center;
+    }
+
+
+    .terms{
+        position: relative;
+        top: 1.2em;
+        width: 17rem; 
+    }
+    .terms p{
+        font-size: 0.7rem;
+    }
+    .agree{
+        margin-right: 1.5em;
+        transform: scale(1);
+    }
+   
+    .signUp-div{
+        position: relative;
+        top: 0.7em;
+    }
+    .accounttext{
+        font-size: 0.7rem;
+    }
+    
+    .span{
+        font-size: 0.7rem;
+        margin-left:0.2rem ;
+    }
+    
+
+    div .signUp{
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+    }
+
+    .error{
+        color: red;
+        position:relative;
+        top: 2em;
+        font-size: 8px;
+        width: 17rem; 
+    }
+    
+    .passerror{
+        color: red;
+        font-size: 8px;
+        position:relative;
+        top: 2em;
+        width: 17rem; 
+    }
+
+    .SignupError{
+        color: red;
+        position:relative;
+        top: 2em;
+        font-size: 9px;
+        width: 17rem; 
+    }
+
+    .back-div svg{
+        height: 20px;
+        width: 18px;
+        position: absolute;
+        top: 0.8em;
+    }
+}
+
+/* ----------------------------------------------Tablet View------------------------------------------------------ */
+
+@media (min-width: 768px) and (max-width: 1024px){
+    div .inner-content{  
+        position: absolute;
+        width: 90%;
+        height: 47em;
+       
+        }
+
+        div .form{           
+        left: 1em;
+        width: 22rem; 
+        }
+
+        .input-div{
+            width: 20rem; 
+            height: 2.5rem; 
+        }
+        
+        .drop-div{
+            margin-right: 0.3em;
+        }
+        .drop{
+            width: 3em;
+            height: 2.5em;
+        }
+
+        .input-name{
+            width: 8em;
+            height: 2.5em;
+            margin-left: 0.3em;
+        }
+
+        .login-btn {
+            width: 20rem;
+            height: 2.6rem; 
+                   
+        }
+
+        .error{
+            color: red;
+            position:absolute;
+            font-size: 10px;
+            width: 20rem; 
+        }
+        
+        .passerror{
+            color: red;
+            font-size: 10px;
+            width: 20rem; 
+            margin-bottom: 0em;
+        }
+        .SignupError{
+           color: red;
+            position:absolute;
+            font-size: 12px;
+            width: 20rem; 
+        }
+
+        .inner-logo{   
+        width: 20em;
+        height: 14em;
+        top: 15em;
+        left: 30em;
+        }
+       
+}

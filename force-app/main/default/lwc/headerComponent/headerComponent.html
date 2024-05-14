@@ -1,0 +1,32 @@
+<template>
+    <template if:true={spinnerdatatable}>
+        <c-spinner-component></c-spinner-component>
+    </template>
+
+    
+    <div class="main">
+        <!--<c-header-component logo={logo} ></c-header-component>-->
+        <div class="tab-container">
+            <div class="div1">
+                <div class="logox">
+                    <img src={logo} alt="EstateXpert">
+                </div>
+                <div class="tab-menu">
+                    <ul>
+                        <li><a  class="active-tab" data-tab-id="tab1" onclick={handleHomeComponent}>Home</a></li>
+                        <li><a data-tab-id="tab2" onclick={handlePropertyComponent}>Property</a></li>
+                        <li><a data-tab-id="tab3" onclick={handleAboutComponent}>About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <c-pop-up-login></c-pop-up-login>
+                </div>
+            </div>
+            </div>
+    </div>
+
+   
+  
+    
+   
+</template>

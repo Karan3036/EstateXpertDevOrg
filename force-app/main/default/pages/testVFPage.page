@@ -1,0 +1,105 @@
+<apex:page standardController="Property__c">
+<head>
+        <meta charset="utf-8"/>
+        <title>Guides</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+        <apex:stylesheet value="{!$Resource.MapboxCSS}"/>
+        <apex:includeScript value="{!$Resource.MapboxJS}"/>
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            .buttoncss{
+                z-index: 1 !important;
+                position: relative;
+            }
+            .marker { background-image: url('https://cdn-icons-png.flaticon.com/128/684/684908.png'); background-size: cover; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;position:relative;top:-50px }
+            .mapboxgl-popup { max-width: 200px; }
+            .mapboxgl-popup-content { text-align: center; font-family: 'Open Sans', sans-serif; }
+        </style>
+    </head>
+    <body>
+        <div>         
+            <apex:form >
+                <apex:commandButton onclick="toggleMapView(); return false;" styleClass="slds-button buttoncss slds-button--brand" value="Toggle View"/>
+            </apex:form>
+        </div>
+
+        <div id="map">
+            <apex:outputText styleClass="buttoncss" value="{!Property__c.Id}"></apex:outputText>
+            <!-- <apex:outputText styleClass="buttoncss" value="{!Property__c.Street__c}"></apex:outputText>
+            <apex:outputText styleClass="buttoncss" value="{!Property__c.City__c}"></apex:outputText>
+            <apex:outputText styleClass="buttoncss" value="{!Property__c.Postal_Code__c}"></apex:outputText>
+            <apex:outputText styleClass="buttoncss" value="{!Property__c.State__c}"></apex:outputText>
+            <apex:outputText styleClass="buttoncss" value="{!Property__c.Country__c}"></apex:outputText> -->
+        </div>
+        
+        <script>
+            var map;
+            var mapView = 'streets-v9';
+            var satelliteView = 'satellite-v9';
+            var currentView = mapView;
+            var name = '{!Property__c.Name}'
+            var recordId = '{!Property__c.Id}'; 
+            var address = "{!Property__c.Street__c},{!Property__c.City__c},{!Property__c.Postal_Code__c},{!Property__c.State__c},{!Property__c.Country__c}"
+            mapboxgl.accessToken = 'pk.eyJ1IjoiaGFyc2h2NTM0IiwiYSI6ImNsdXJ5MTB4bDBmcTYyanBrbXY3dnV0NnUifQ.vCHQzLM4VkPzB3MXFl6AoA';
+            map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/' + currentView,
+                zoom: 1,
+                center: [30, 15]
+            });
+            map.addControl(new mapboxgl.NavigationControl());
+
+            function toggleMapView() {
+                if (currentView === mapView) {
+                    map.setStyle('mapbox://styles/mapbox/' + satelliteView);
+                    currentView = satelliteView;
+                } else {
+                    map.setStyle('mapbox://styles/mapbox/' + mapView);
+                    currentView = mapView;
+                }
+            }
+
+            map.on('load', function () {
+                geocode(address, function (err, data) {
+                    if (err) throw err;
+                    var coordinates = data.features[0].geometry.coordinates;
+                    console.log(coordinates);
+                    map.flyTo({
+                        center: coordinates,
+                        zoom: 14 
+                    });
+
+                    // Creating marker
+                    const el = document.createElement('div');
+                    el.className = 'marker';
+                    new mapboxgl.Marker(el)
+                        .setLngLat(coordinates)
+                        .setPopup(
+                            new mapboxgl.Popup({ offset: 25 })
+                                .setHTML(`<h2><a href=/${recordId}>${name}</a></h2><br></br><h3>${address}</h3>`) 
+                        )
+                        .addTo(map);
+                });
+            });
+
+            function geocode(address, callback) {
+                var accessToken = mapboxgl.accessToken;
+                var apiUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(address) + '.json?access_token=' + accessToken;
+
+                fetch(apiUrl)
+                    .then(function (response) {
+                        if (!response.ok) throw response;
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        callback(null, data);
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                        callback(error);
+                    });
+            }
+        </script>
+    </body>
+</apex:page>

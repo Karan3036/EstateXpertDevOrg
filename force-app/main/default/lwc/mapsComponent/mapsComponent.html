@@ -1,3 +1,55 @@
 <template>
-    <div class="map" lwc:dom="manual"></div>
- </template>
+   <div class="slds-m-around_medium">
+       <!-- search bar -->
+       <div class="slds-m-bottom_small">
+           <lightning-input type="text"
+                           value={searchValue}
+                           label="Address"
+                           onchange={searchKeyword}>
+           </lightning-input>
+       </div>
+       
+       <!-- search button -->
+       <lightning-button label="Search"
+                       onclick={handleSearchKeyword}
+                       variant="brand">
+       </lightning-button>
+
+       <!-- Iterate over addresses and display them in a Lightning card -->
+       <template if:true={address}>
+           <lightning-card style="font-weight:bold" title="Searched Addresses">
+               <template for:each={address} for:item="addr">
+                   <div style="display:flex;border:1px solid black;border-radius:5px" key={addr.Id} data-id={addr.Id} onclick={handleCard}>
+                     <b><h1 style="color: black;">Property Name:</h1></b><div><h3><b>{addr.Name}</b></h3></div>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <b><h1 style="color: black;">Address:</h1></b><div><h3><b>{addr.Street__c},{addr.City__c},{addr.State__c},{addr.Country__c}</b></h3></div>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <b><h1 style="color: black;">Bedroom:</h1></b><div><h3><b>{addr.Number_of_Bedrooms__c}</b></h3></div>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <b><h1 style="color: black;">Bathroom:</h1></b><div><h3><b>{addr.Number_of_Bathrooms__c}</b></h3></div>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <b><h1 style="color: black;">Floors:</h1></b><div><h3><b>{addr.Number_of_Floors__c}</b></h3></div>
+                   </div>
+               </template>
+           </lightning-card>
+       </template>
+
+       <!-- Show a message if no addresses are found -->
+       <template if:true={showNoResults}>
+           <p>No addresses found</p>
+       </template>
+
+       <lightning-card title="Images">
+        <template if:true={images}>
+            <template for:each={images} for:item="image">
+                <div key={image.Id} class="image-container">
+                    <img src={image.FilenameUrlEncoded__c} alt="Property Image" />
+                </div>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p>Error fetching images</p>
+        </template>
+    </lightning-card>
+   </div>
+</template>

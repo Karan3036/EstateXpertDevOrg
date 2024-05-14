@@ -35,7 +35,7 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
     @track pagedFilteredListingData = [];
     @track show_more_button_class = 'show_last_button';
     @track sortingProperties = 'View All';
-
+    @track listingId;
     isInitalRender = true;
 
     propertybg = plvimg + '/plvimgs/propertybg.png';
@@ -93,8 +93,10 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     @track selectedId;
 
+ 
     connectedCallback() {
         this.getAllListingsRecord();
+        
     }
 
     renderedCallback() {
@@ -280,12 +282,15 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
 
     showPropertyDetails(event) {
         try {
+         
             var listRecordId = event.currentTarget.dataset.id;
             console.log('listRecordId:', listRecordId);
+           
             this[NavigationMixin.Navigate]({
                 type: 'comm__namedPage',
                 attributes: {
                     name: 'PropertyView__c',
+                    //url: '/c/propertyView_Community?listRecordId=' +listRecordId
                 },
                 state: {
                     c__listingrecordid: listRecordId
@@ -513,7 +518,18 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         return this.showFeaturedProperties;
     }
 
-    handleBoxClick(event) {
+    handleNewTarget(selectedImageId) {
+        let newTarget = this.template.querySelector('[data-id="' + selectedImageId + '"]');
+        if (newTarget != null) {
+            newTarget.classList.add('black_enabled');
+        }
+        this.setSelectedId(selectedImageId);
+    }
+
+    
+    
+    handleBoxClick(event){
+       
         console.log('boxcalled');
         const selectedImageId = event.currentTarget.dataset.id;
         this.selectedId = selectedImageId;
@@ -521,26 +537,66 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         this.mainFeatProperty = this.featuredProperties[selectedIndex];
         this.template.querySelectorAll('.black_enabled').forEach(element => element.classList.remove('black_enabled'));
         event.target.classList.add('black_enabled');
+        
+        
     }
 
+    handleBoxClickcommon(){
+       
+        console.log('boxcalled');
+        const selectedImageId = this.listingId;
+        this.selectedId = selectedImageId;
+        const selectedIndex = this.featuredProperties.findIndex(image => image.Id === selectedImageId);
+        this.mainFeatProperty = this.featuredProperties[selectedIndex];
+       // this.template.querySelectorAll('.black_enabled').forEach(element => element.classList.remove('black_enabled'));
+         //event.target.classList.add('black_enabled');
+        
+        
+    }
+    
+
+   
     goToNextFeaturedProperty() {
         this.leftArrowDisabled = false;
+        
         this.firstIndex += 1;
         this.lastIndex += 1;
         this.showFeaturedProperties = this.featuredProperties.slice(this.firstIndex, this.lastIndex);
+        
         if (this.lastIndex >= this.featuredProperties.length - 1) {
             this.rightArrowDisabled = true;
         }
+        
         setTimeout(() => {
-            let target = this.template.querySelector('[data-id="' + this.selectedId + '"]');
-           
-            console.log('target:', JSON.stringify(target));
-            console.log('target:', this.selectedId);
-           
-            if (target != null) {
-                target.classList.add('black_enabled');
+            let previousTarget = this.template.querySelector('.black_enabled');
+            if (previousTarget) {
+                previousTarget.classList.remove('black_enabled');
             }
+    
+            let target = this.showFeaturedProperties[0]; 
+            this.listingId = target.Id;
+            console.log('Id: ' + this.listingId);
+            console.log('target:', JSON.stringify(target));
+            if (target && target.Id !== undefined) {
+                console.log('Id:', target.id);
+    
+                // Log target id
+                console.log('Target id:', target.Id);
+                
+                let newTarget = this.template.querySelector('[data-id="' + target.Id + '"]');
+                console.log('New target:', newTarget); 
+                if (newTarget) {
+                    newTarget.classList.add('black_enabled');
+                    console.log('Class added:', newTarget.classList.contains('black_enabled')); // Log if class is added
+                }
+            }
+            this.handleBoxClickcommon();
+          
         }, 0);
+    }
+    
+
+        
         // setTimeout(() => {
         //     let targetDiv = this.template.querySelector('.navigation-boxes');
         //     if (targetDiv != null) {
@@ -550,8 +606,11 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         //         }, 500); // Adjust the duration to match the transition duration
         //     }
         // }, 0);
+
         
-    }
+    
+
+
 
     goToPrevFeaturedProperty() {
         this.rightArrowDisabled = false;
@@ -561,15 +620,29 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         if (this.firstIndex <= 0) {
             this.leftArrowDisabled = true;
         }
-        setTimeout(() => {
-            let target = this.template.querySelector('[data-id="' + this.selectedId + '"]');
-          
-            console.log('target:', JSON.stringify(target));
-            console.log('Id:', this.selectedId);
-            if (target != null) {
-                target.classList.add('black_enabled');
+
+
+       setTimeout(() => {
+        let previousTarget = this.template.querySelector('.black_enabled');
+        if (previousTarget) {
+            previousTarget.classList.remove('black_enabled');
+        }
+
+        let target = this.showFeaturedProperties[0]; // Targeting the new 0th index of the sliced array
+        this.listingId = target.Id;
+      
+        console.log('target:', JSON.stringify(target));
+        if (target && target.Id !== undefined) {
+            console.log('Id:', target.Id);
+            let newTarget = this.template.querySelector('[data-id="' + target.Id + '"]');
+            if (newTarget) {
+                newTarget.classList.add('black_enabled');
             }
-        }, 0);
+        }
+        this.handleBoxClickcommon();
+    }, 0);
+
+           
         // setTimeout(() => {
         //     let targetDiv = this.template.querySelector('.navigation-boxes');
         //     if (targetDiv != null) {
@@ -578,11 +651,14 @@ export default class Bt_HomePage extends NavigationMixin(LightningElement) {
         //             targetDiv.classList.remove('transition-right-to-left');
         //         }, 500); // Adjust the duration to match the transition duration
         //     }
-        // }, 0);
+        // }, 0);*/
     }
 
+   
+    
 
-    handleVarient(event) {
+
+    handleVarient(event){
         let listingType = '';
         let allbtnVarient = 'brand-outline';
         let rentbtnVarient = 'brand-outline';

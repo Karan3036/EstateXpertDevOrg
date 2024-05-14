@@ -1,0 +1,73 @@
+<template>
+    <div class="main-div">
+        <div class="wrapper-div">
+            <template for:each={FilteredListingData} for:item="listing">
+                <div class="list-cover" key={listing.Id}>
+                    <div class="list-div" >
+                
+                    <div class="image-cover" data-id={listing.Id}>
+                        <img src={listing.media_url} alt="Cover Image">
+                    </div>
+                    <div class="data-div">
+                        <div class="listing-head">
+                            <p>{listing.Name}</p>
+                        </div>
+                        <div class="details-div">
+                            <p class="details">City view | 3rd floor | Elevator | Parking</p>
+                        </div>
+                        <!-- <div class="listing-addresh">
+                           <img class="icon"  src={locationIcon} alt="location"/>
+                            <p>{listing.Area__c},{listing.City__c},{listing.State__c}</p>
+                        </div>
+                        <div class="listing-dec">
+                            <p>{listing.Listing_Description__c}</p>
+                        </div> -->
+                        <div class="icons-wrapper">
+                            <div class="icon-div">
+                                <p>Bedroom</p>
+                                <div class="icon-wrapper">
+                                    <img class="icon" src={bedIcon} alt="Icon 1" /><span>{listing.Number_of_Bedrooms__c}</span> 
+                                </div>
+                            </div>
+                            <div class="icon-div">
+                                <p>Bathroom</p>
+                                <div class="icon-wrapper">
+                                    <img class="icon" src={bathIcon} alt="Icon 1" /><span>{listing.Number_of_Bathrooms__c}</span> 
+                                </div>
+                            </div>
+                            <div class="icon-div">
+                                <p>Carpet Area</p>
+                                <div class="icon-wrapper">
+                                    <img class="icon" src={areaIcon} alt="Icon 1" /><span>200m2</span> 
+                                </div>
+                            </div>
+                            <div class="icon-div">
+                                <p>Safetey Rank</p>
+                                <div class="icon-wrapper">
+                                    <img class="icon" src={approveIcon} alt="Icon 1" /><span>4447</span> 
+                                </div>
+                            </div>
+                            <div class="icon-div">
+                                <p>Safetey Rank</p>
+                                <div class="icon-wrapper">
+                                    <img class="icon" src={securityIcon} alt="Icon 1" /><span>Active</span> 
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- <div class="contact-btn">
+                            <button label="All" onclick={handleTabClick} data-tab="1" class="contact-buyer">Contact Buyer</button>
+                        </div> -->
+                    </div>
+                    <div class="Buyers-detail">
+                      <p class="price-lable">Rs.45,00,000</p>
+                    </div>
+                </div>
+        
+            </div>
+            
+            </template>
+          
+        </div>
+    </div>
+</template>

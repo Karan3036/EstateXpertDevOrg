@@ -80,6 +80,29 @@
     padding-left: 3%;
 }
 
-.Confirm-Msg{
-    text-align: center;
+.custom-width-33 {
+    width: 33%;
+}
+
+.label-text{
+    margin-left: 10px;
+    font-size:15px
+}
+
+.icon-button-del{
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.del-button{
+    margin-top: 15%;
+}
+
+.picklist-div{
+    width: 100%;
+}
+
+.con-msg{
+    margin-top: 13px;
 }

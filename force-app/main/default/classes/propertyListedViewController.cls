@@ -1,4 +1,4 @@
-public with sharing class propertyListedViewController {
+public without sharing class propertyListedViewController {
 
     public class WrapperClass{
         @AuraEnabled
@@ -66,6 +66,53 @@ public with sharing class propertyListedViewController {
             return wr;
         } catch (Exception e) {
             Exception_Logs.createExceptionRecord(e, 'propertyListedViewController', 'getListingData');
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+
+    @AuraEnabled
+    public static Boolean addFavorite(String ListingId, String ContactId){
+    List<Linked_Listing__c> isData = [SELECT Id FROM Linked_Listing__c WHERE Listing__c =: ListingId AND Contact__c =:ContactId];
+    if(!isData.isEmpty()){
+        delete isData;
+        return false;
+
+    }else {
+        
+    Linked_Listing__c newFav = new Linked_Listing__c();
+       System.debug('lsiting'+ListingId);
+       System.debug('Contact'+ContactId);
+       // Populate the fields with the required values
+       newFav.Listing__c = ListingId;
+       newFav.Contact__c = ContactId;
+       newFav.RecordTypeId = '012GA000000C1xwYAC';
+       // Assuming this is the correct Record Type Id
+   
+       // Insert the record into the database
+       try {
+           insert newFav;
+           System.debug('New Favorite Listing Inserted: ' + newFav.Id);
+       } catch (DmlException e) {
+           // Handle any exceptions, such as validation rules or triggers causing the insert to fail
+           System.debug('An error occurred while inserting the record: ' + e.getMessage());
+       }
+   
+       // Optionally, you can return a success message if needed
+       return true;
+    }
+    }
+
+    @AuraEnabled
+    public static Boolean checkLike(String ListingId, String ContactId){
+        try {
+            List<Linked_Listing__c> isData = [SELECT Id FROM Linked_Listing__c WHERE Listing__c =: ListingId AND Contact__c =:ContactId];
+            if(!isData.isEmpty()){
+                return true;
+            }else {
+                return false;
+            }
+        } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }

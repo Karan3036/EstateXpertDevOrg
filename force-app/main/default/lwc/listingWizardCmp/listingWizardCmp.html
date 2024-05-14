@@ -1,0 +1,127 @@
+<template>
+    <lightning-card >
+        <div class="Outer-div">
+            <template if:true={isLoading}>
+                <div class="slds-m-around_large">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+            <template if:false={isLoading}>
+                <div class="record-div">
+                    <div class="slds-text-align_center slds-p-bottom_x-small">
+                        <h1 class="slds-text-title_caps HeadingTag slds-p-horizontal_medium">
+                            Create New Listing
+                        </h1>
+                    </div>
+                    <lightning-record-edit-form record-id={recordId} object-api-name={objectName} 
+                    onsuccess={handleSuccess} onsubmit={validateFields} onerror={handleError}>
+                        <lightning-messages data-id="message">
+                        </lightning-messages>
+                            <div class="slds-grid slds-gutters div-cover">
+                                <div class="slds-col slds-size_1-of-2" >
+                                    
+                                        <div class="fields-cover">
+                                            <template if:true={fields}>
+                                                <template for:each={fields} for:item="f">
+                                                   <div key={f.Id} >
+                                                    <lightning-input-field field-name={f.APIName} required={f.Required} onchange={handleFieldChange}>
+                                                    </lightning-input-field>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                        </div>
+                                        <!-- <div class="slds-border_left" style="height:100%;"></div> -->
+                                    
+                                </div>
+                                <!-- <div >
+                                </div> -->
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="dupli">
+                                        <div class="">
+                                            <h1 class="title_cls">Related Properties</h1>
+                                        </div>
+                                        <div if:true={isLoading2} class="spinner">
+                                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </div>
+                                        <template if:false={isLoading2}>
+                                            <template for:each={mylist} for:item="keyValue">
+                                                <div key={keyValue.key}>
+                                                    <div class="property-div">
+                                                        <div class="accordion" data-record={keyValue.key} id={keyValue.key}
+                                                            >
+                                                            <div class="listing-div">
+                                                                <div><input type="radio" value={keyValue.key} id={keyValue.key} onclick={getRadio}
+                                                                        name="wrapping-text" autocomplete="Off"
+                                                                        class="radio-input" /></div>
+                                                                <div class="icon-cover">
+                                                                    <lightning-icon size="small"
+                                                                        icon-name="custom:custom24" alternative-text="Listing"
+                                                                        title="Listing"></lightning-icon>
+                                                                </div>
+                                                                <div class="anchor-div"><a class="anchor"
+                                                                        data-record={keyValue.key} onclick={linkOpener}>{keyValue.name}</a>
+                                                                </div>
+                                                                <div class="count">{keyValue.count}</div>
+                                                            </div>
+                                                            <template if:false={keyValue.show}>
+                                                                <div class="add_cls slds-p-top_medium slds-m-left_x-large">
+                                                                    <h2>Address:-</h2>
+                                                                    <p 
+                                                                        class="slds-m-left_large addresh">{keyValue.address}</p>
+                                                                </div>
+                                                                <div class="acc_cls accordion accordian2" 
+                                                                    data-record={keyValue.key} id={keyValue.key} onclick={handleAcco}>
+                                                                    <div class="activeListing-div">
+                                                                        <div class="listing-title">
+                                                                            <h2>Active Listings</h2>
+                                                                            <div key={keyValue.key} id={keyValue.key}>
+                                                                                <!--data-id={keyValue.key}-->
+                                                                                <lightning-icon icon-name={iconName} alternative-text="Down"
+                                                                                    size="small" class="showIconclass" title="">
+                                                                                </lightning-icon>
+                                                                            </div>
+                                                                        </div>
+                                                                        <template for:each={keyValue.value} for:item="key1">
+                                                                            <div key={key1.Id} data-id={keyValue.key} class="panel">
+                                                                                <a data-record={key1.Id} onclick={linkOpenerListing}
+                                                                                    class="listing-opener">{key1.Name}&nbsp;</a>
+                                                                            </div>
+                                                                        </template>
+                                                                    </div>
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </template>
+                                        <template if:false={foundDupli}>
+                                            <div class="empty-state">
+                                                <div class="empty-state__content">
+                                                    <div class="slds-illustration slds-illustration_medium propertyNotAvl" aria-hidden="true">
+                                                        <img src="/img/chatter/Desert.svg" class="slds-illustration__svg" alt="" />
+                                                        <div class="slds-text-color_weak">
+                                                            <h4 class="slds-text-heading_medium property-heading">
+                                                                Properties Not Available</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-div">
+                                <div class="slds-m-around_medium">
+                                    <button class="slds-button slds-button_neutral" onclick={clearForm} >CLEAR</button>
+                                </div>
+                                <div class="slds-m-around_medium">
+                                    <button class="slds-button slds-button_brand" type="button" onclick={handleButtonClick}>SAVE</button>
+                                </div>
+                            </div>
+                        </lightning-record-edit-form>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -54,152 +54,237 @@
             </div>
 
             <!-- ----------------------Left Side View------------------ -->
-            <div class="left-div slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+            <div class="left-div slds-col slds-size_1-of-1 slds-large-size_3-of-12"
+                style="height: 562px; position:relative;">
+
+                <!-- <div class="slds-form-element form1">
+                    <template for:each={listingType} for:item="list">
+                        <label key={list.id} class="slds-form-element__label label1" for="text-input-id-1">Listing
+                            Type</label>
+                        <div key={list.id}
+                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                            <lightning-icon size="x-small"
+                                class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default myIcon"
+                                icon-name="utility:search"></lightning-icon>
+                            <input type="text" placeholder={list.placeholder} class="slds-input listType"
+                                onchange={handleListingChange} />
+                            <div if:true={showDropdown} class="slds-dropdown slds-dropdown_left" style={dropdownStyle}>
+                                <ul class="slds-dropdown__list" role="menu" aria-label="Options">
+                                    <template for:each={listings} for:item="listing">
+                                        <li key={listing} class="slds-dropdown__item" role="presentation"
+                                            onclick={handleSelect}>
+                                            <a role="menuitem" tabindex="0">{listing}</a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                            <div class="trash-Btn">
+                                <button
+                                    class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium"
+                                    onclick={removeListing} data-id={list.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                        </use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div> -->
+
                 <div class="slds-form-element form1">
-                    <label class="slds-form-element__label label1" for="text-input-id-1">Listing Type</label>
-                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                        <lightning-icon size="x-small"
-                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default myIcon"
-                            icon-name="utility:search"></lightning-icon>
-                        <input type="text" id="text-input-id-1" placeholder="Filter for Listing Type..."
-                            class="slds-input listType" />
-                        <div class="trash-Btn">
-                            <button
-                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
-                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use
-                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
-                                    </use>
-                                </svg>
-                                <span class="slds-assistive-text">Description of icon when needed</span>
-                                <!-- </span> -->
-                            </button>
+                    <template for:each={listingType} for:item="list">
+                        <label key={list.id} class="slds-form-element__label label1" for="text-input-id-1">Listing Type</label>
+                        <div key={list.id} class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                            <lightning-combobox key={list.id} name="listingTypeCombobox" placeholder="Select Listing Type"  value={selectedValue} options={listingOptions} onchange={handleListingChange}></lightning-combobox>
+                            <div class="trash-Btn">
+                                <button class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium" onclick={removeListing} data-id={list.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </button>
+                            </div>
                         </div>
+                    </template>
+                </div>
+               
+                
+
+                <div class="slds-form-element">
+                    <template for:each={leadSource} for:item="lead">
+                        <label key={lead.id} class="slds-form-element__label" for="text-input-id-2">Lead Source</label>
+                        <div key={lead.id}
+                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                            <lightning-icon size="x-small"
+                                class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                                icon-name="utility:search"></lightning-icon>
+                            <input type="text" placeholder={lead.placeholder} class="slds-input" />
+                            <div class="trash-Btn">
+                                <button
+                                    class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium"
+                                    onclick={removeLead} data-id={lead.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete"
+                                            icon-size="large"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Description of icon when needed</span>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="slds-form-element">
+
+                    <template for:each={cities} for:item="city">
+                        <label key={city.id} class="slds-form-element__label" for="text-input-id-3">City</label>
+                        <div key={city.id}
+                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right city-div">
+                            <lightning-icon size="x-small"
+                                class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                                icon-name="utility:search"></lightning-icon>
+                            <input type="text" placeholder="Filter for City..." class="slds-input" value={city.name}
+                                onchange={handleInputChange} />
+                            <div class="trash-Btn">
+                                <button
+                                    class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium"
+                                    onclick={removeCity} data-id={city.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                        </use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- <lightning-button class="add-btn" variant="neutral" label="Add City" title="Add City" icon-name="utility:add" icon-size="small" onclick={addCity}></lightning-button> -->
+                    <div class="slds-p-horizontal_small">
+                        <template for:each={labelItem} for:item="pillItem" for:index="index">
+                            <lightning-pill label={pillItem.label} onremove={removePill} key={pillItem.label}
+                                name={index} style="margin-right: 5px;">
+                            </lightning-pill>
+                        </template>
                     </div>
                 </div>
 
                 <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="text-input-id-2">Lead Source</label>
-                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                        <lightning-icon size="x-small"
-                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
-                            icon-name="utility:search"></lightning-icon>
-                        <input type="text" id="text-input-id-2" placeholder="Filter for Lead Source..."
-                            class="slds-input" />
-                        <div class="trash-Btn">
-                            <button
-                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
-                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete"
-                                        icon-size="large"></use>
-                                </svg>
-                                <span class="slds-assistive-text">Description of icon when needed</span>
-                                <!-- </span> -->
-                            </button>
+                    <template for:each={prices} for:item="price">
+                        <label key={price.id} class="slds-form-element__label" for="text-input-id-4">Price - Max</label>
+                        <div key={price.id}
+                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                            <lightning-icon size="x-small"
+                                class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                                icon-name="utility:search"></lightning-icon>
+                            <input type="text" value={price.value} class="slds-input price-max" />
+                            <div class="trash-Btn">
+                                <button
+                                    class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium"
+                                    onclick={removePrices} data-id={price.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                        </use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </template>
                 </div>
 
                 <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="text-input-id-3">City</label>
-                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right  city-div">
-                        <lightning-icon size="x-small"
-                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
-                            icon-name="utility:search"></lightning-icon>
-                        <input type="text" id="text-input-id-3" placeholder="Filter for City..." class="slds-input" />
-                        <div class="trash-Btn">
-                            <button
-                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
-                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use
-                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
-                                    </use>
-                                </svg>
-                                <span class="slds-assistive-text">Description of icon when needed</span>
-                                <!-- </span> -->
+                    <template for:each={bedrooms} for:item="bedroom">
+                        <label key={bedroom.id} class="slds-form-element__label" for="text-input-id-5">Bedrooms -
+                            Min</label>
+                        <div key={bedroom.id}
+                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+
+                            <button class="slds-button slds-button_icon 
+                                        slds-button_icon-small slds-input__button_decrement" title="Decrement counter">
+                                <lightning-icon icon-name="utility:ban" alternative-text="" size="xx-small" title=""
+                                    onclick={setDecrementBedroom}>
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Decrement counter</span>
                             </button>
+
+                            <input type="number" value={qtyBedroom} class="slds-input slds-input_counter" />
+                            <button class="slds-button slds-button_icon 
+                           slds-button_icon-small 
+                           slds-input__button_increment" title="Increment counter" style="margin-right: 45px;">
+                                <lightning-icon icon-name="utility:new" alternative-text="" size="xx-small" title=""
+                                    onclick={setIncrementBedroom}>
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Increment counter</span>
+                            </button>
+
+                            <div class="trash-Btn">
+                                <button
+                                    class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium"
+                                    onclick={removeBedroom} data-id={bedroom.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                        </use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <lightning-button class="add-btn" variant="neutral" label="Add City" title="Add City"
-                        icon-name="utility:add" icon-size="small"></lightning-button>
+                    </template>
                 </div>
 
-                <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="text-input-id-4">Price - Max</label>
-                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                        <lightning-icon size="x-small"
-                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
-                            icon-name="utility:search"></lightning-icon>
-                        <input type="text" id="text-input-id-4" value="0 GBP" class="slds-input price-max" />
-                        <div class="trash-Btn">
-                            <button
-                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
-                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use
-                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
-                                    </use>
-                                </svg>
-                                <span class="slds-assistive-text">Description of icon when needed</span>
-                                <!-- </span> -->
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
+
 
                 <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="text-input-id-5">Bedrooms - Min</label>
-                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                        <lightning-icon size="x-small"
-                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
-                            icon-name="utility:search"></lightning-icon>
-                        <input type="text" id="text-input-id-5" placeholder="Filter for Bedrooms - Min..."
-                            class="slds-input" />
-                        <div class="trash-Btn">
-                            <button
-                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
-                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use
-                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
-                                    </use>
-                                </svg>
-                                <span class="slds-assistive-text">Description of icon when needed</span>
-                                <!-- </span> -->
+                    <template for:each={sizeMin} for:item="size">
+                        <label key={size.id} class="slds-form-element__label" for="text-input-id-6">Size - Min</label>
+                        <div key={size.id}
+                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+
+                            <button class="slds-button slds-button_icon 
+                                        slds-button_icon-small slds-input__button_decrement" title="Decrement counter">
+                                <lightning-icon icon-name="utility:ban" alternative-text="" size="xx-small" title=""
+                                    onclick={setDecrementSize}>
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Decrement counter</span>
                             </button>
+
+                            <input type="number" value={qtySize} class="slds-input slds-input_counter" />
+                            <button class="slds-button slds-button_icon 
+                           slds-button_icon-small 
+                           slds-input__button_increment" title="Increment counter" style="margin-right: 45px;">
+                                <lightning-icon icon-name="utility:new" alternative-text="" size="xx-small" title=""
+                                    onclick={setIncrementSize}>
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Increment counter</span>
+                            </button>
+
+                            <div class="trash-Btn">
+                                <button
+                                    class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium"
+                                    onclick={removeSizeMin} data-id={size.id}>
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
+                                        </use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Delete</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </template>
                 </div>
 
-                <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="text-input-id-6">Size - Min</label>
-                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                        <lightning-icon size="x-small"
-                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
-                            icon-name="utility:search"></lightning-icon>
-                        <input type="text" id="text-input-id-6" placeholder="Filter for Size - Min..."
-                            class="slds-input" />
-                        <div class="trash-Btn">
-                            <button
-                                class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-medium">
-                                <!-- <span class="slds-icon_container slds-icon-utility-delete" title="Description of icon when needed"> -->
-                                <svg class="slds-button__icon" aria-hidden="true">
-                                    <use
-                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#delete">
-                                    </use>
-                                </svg>
-                                <span class="slds-assistive-text">Description of icon when needed</span>
-                                <!-- </span> -->
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="add-fields">
                     <lightning-button class="field-btn" variant="neutral" label="Add More Fields"
-                        title="Add More Fields" onclick={handleClick}></lightning-button>
+                        title="Add More Fields" onclick={addInputField}></lightning-button>
                 </div>
             </div>
 

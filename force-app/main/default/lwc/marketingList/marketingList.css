@@ -94,9 +94,9 @@ div .bottom-btn{
 }
 .add-fields{
 	max-width: fit-content;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 15px;
+	position: absolute; 
+	bottom:20px;
+	left: 100px;
 }
 .second{
 	position: relative;
@@ -175,4 +175,19 @@ div > lightning-button.event{
 
 .row-grid{
 	border: 1px solid grey;
+}
+
+.slds-input.slds-combobox__input {
+    position: relative;
+}
+
+:host {
+    position: relative;
+}
+
+.slds-dropdown {
+    position: absolute;
+    top: calc(100% + 0px); 
+    left: 0;
+    z-index: 9999;
 }

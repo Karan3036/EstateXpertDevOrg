@@ -8,18 +8,16 @@
         <apex:includeScript value="{!$Resource.MapboxJS}"/>
         <style>
             body { margin: 0; padding: 0; }
-            /* #main { display: flex} */
-            #container {padding-top:300px }
-            #map { position: absolute; top: 0; bottom: 0; width: 95% }
+            #container {padding-top:500px }
+            #map { position: absolute; top: 0; bottom: 0; width: 97% ; height: 500px}
             .buttoncss{
                 z-index: 1 !important;
                 position: relative;
-                /* top: -175px;
-                left: 560px */
             }
-            .marker { background-image: url('https://cdn-icons-png.flaticon.com/128/684/684908.png'); background-size: cover; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;position:relative;top:-50px }
-            .mapboxgl-popup { max-width: 200px; }
-            .mapboxgl-popup-content { text-align: center; font-family: 'Open Sans', sans-serif; }
+            .marker { background-image: url('https://cdn-icons-png.flaticon.com/128/684/684908.png'); background-size: cover; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; position:relative; top:-60px; }
+            .mapboxgl-popup { max-width: 400px; position: relative; top: -100px; }
+            .mapboxgl-popup-content { text-align: center;width: 300px; font-family: 'Open Sans', sans-serif; }
+            .mapboxgl-popup-close-button{ font-size: 20px; }
         </style>
     </head>
     <body>
@@ -30,8 +28,6 @@
         </div>
         <div id="container"></div>
         <apex:outputText value="Id from LWC: {!$CurrentPage.parameters.id}" />
-        <!-- <div id="main">
-        </div> -->
         
         <script>
             var images;
@@ -41,7 +37,7 @@
             var currentView = mapView;
             var name = '{!Property__c.Name}'
             var recordId = '{!Property__c.Id}'; 
-            var address = "{!Property__c.Street__c},{!Property__c.City__c},{!Property__c.Postal_Code__c},{!Property__c.State__c},{!Property__c.Country__c}"
+            var address = "{!Property__c.Street__c},{!Property__c.City__c},{!Property__c.State__c},{!Property__c.Country__c}"
             mapboxgl.accessToken = 'pk.eyJ1IjoiaGFyc2h2NTM0IiwiYSI6ImNsdXJ5MTB4bDBmcTYyanBrbXY3dnV0NnUifQ.vCHQzLM4VkPzB3MXFl6AoA';
 
             window.addEventListener('passids', function(event) {
@@ -54,7 +50,9 @@
             $Lightning.use("c:Map", function() {
             $Lightning.createComponent(
                 "c:mapsComponent",
-                {},
+                {
+                    recordId:'{!Property__c.Id}'
+                },
                 "container",
                 function(component) {
                     console.log(recordId);
@@ -63,10 +61,36 @@
             );
         });
 
-        // window.addEventListener('passimage', function(event) {
-        //     images = event.detail.images;
-        //     console.log(images);
-        // });
+        function displayPopup(recordId, name, images, address) {
+                if (!window.$Lightning.createComponent) {
+                    // Lightning component has not been initialized yet, so initialize it
+                    $Lightning.use("c:Popup", function() {
+                        $Lightning.createComponent(
+                            "c:customPopupContent",
+                            {
+                                name: name,
+                                images: images,
+                                address: address
+                            },
+                            "popupContainer" // ID of the container where the component should be rendered
+                        );
+                    });
+                } else {
+                    // Lightning component has already been initialized, simply update its attributes
+                    var component = window.$Lightning.createComponent(
+                        "c:customPopupContent",
+                        {
+                            name: name,
+                            // images: images,
+                            address: address
+                        },
+                        "popupContainer" // ID of the container where the component should be rendered
+                    );
+                    component.set("v.name", name);
+                    // component.set("v.images", images);
+                    component.set("v.address", address);
+                }
+            }
 
             map = new mapboxgl.Map({
                 container: 'map',
@@ -87,51 +111,57 @@
             }
 
             window.addEventListener('passimage', function(event) {
-    images = event.detail.images;
-    console.log(images);
+            images = event.detail.images;
+            console.log(images);
 
-    // Check if images are available before creating the marker
-    if (images) {
-        console.log('inside if condition');
-        createMarker();
-    }
-});
-
-function createMarker() {
-    // debugger;
-    try {
-        console.log('createMarker is called');
-    // map.on('load', function () {
-        geocode(address, function (err, data) {
-            if (err) throw err;
-            var coordinates = data.features[0].geometry.coordinates;
-            console.log(coordinates);
-            map.flyTo({
-                center: coordinates,
-                zoom: 14 
-            });
-
-            // Creating marker
-            const el = document.createElement('div');
-            el.className = 'marker';
-            new mapboxgl.Marker(el)
-                .setLngLat(coordinates)
-                .setPopup(
-                    new mapboxgl.Popup({ offset: 25 })
-                        .setHTML(`<div style="background-color: white; border-radius: 5px; padding: 10px;">
-                                    <h2 style="margin-bottom: 5px;"><a href=/${recordId} style="text-decoration: none; color: #333;">${name}</a></h2>
-                                    <div><img src=${images} height='30px'></img></div>
-                                    <p style="margin: 0;">${address}</p>
-                                </div>`) 
-                )
-                .addTo(map);
+            // Check if images are available before creating the marker
+            if (images) {
+                console.log('inside if condition');
+                createMarker();
+            }
         });
-    // });
-    } catch (error) {
-        console.log('error-->',error);
-    }
-    
-}
+
+        function createMarker() {
+            // debugger;
+            try 
+            {
+                console.log('createMarker is called');
+                geocode(address, function (err, data) {
+                    if (err) throw err;
+                    // const features = map.queryRenderedFeatures(e.point);
+                    var coordinates = data.features[0].geometry.coordinates;
+                    console.log(coordinates);
+                    map.flyTo({
+                        center: coordinates,
+                        zoom: 14 
+                    });
+
+                    // Creating marker
+                    const el = document.createElement('div');
+                    el.className = 'marker';
+                    new mapboxgl.Marker(el)
+                        .setLngLat(coordinates)
+                        .setPopup(
+                            new mapboxgl.Popup({ offset: 25 })
+                                .setHTML(`<div style="background-color: Blue; border-radius: 5px; padding: 10px;">
+                                            <h2 style="margin-bottom: 5px;"><a href=/${recordId} style="text-decoration: none;list-style:none;font-size:larger;color: #333;border:none">${name}</a></h2>
+                                            <img id="popupImage" src=${images} height='100px' style="padding-top:15px" width='175px' onclick="displayPopup('${recordId}', '${name}', '${address}')"></img>
+                                            <div id="popupContainer" style="background-color:red;width:300px"></div>
+                                            <p style="margin: 0;padding-top:15px;color:black;font-size:15px">${address}</p>
+                                        </div>`) 
+                        )
+                        .addTo(map);
+
+                            // Your existing code..
+
+                });
+            } 
+            catch (error) 
+            {
+                console.log('error-->',error);
+            }
+            
+        }
 
 
             function geocode(address, callback) {

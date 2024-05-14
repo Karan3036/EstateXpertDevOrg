@@ -8,7 +8,17 @@
     </div> -->
 
     <div class="main">
-        <div class="tab-container">
+        <!--<c-header-component logo={logo} ></c-header-component>
+        <c-header-component logo={logo} leftarrowdisabled ={left_arrow_disabled}
+        rightarrowdisabled={right_arrow_disabled} search-term={searchTerm}
+        sorting-properties={sortingProperties} column-view={columnView}
+        grid-view={gridView} list-view={listView} resultfoundnumbers={result_found_numbers}
+        isdata={isData} paged-filtered-listing-data={pagedFilteredListingData}
+        bedrooms={bedrooms} home-bedrooms={homeBedrooms} bathrooms={bathrooms} 
+        home-bathrooms={homeBathrooms} current-page={currentPage} spinnerdatatable={spinnerdatatable}
+        selection-model={selectionModel} listing-data={ListingData} listingtype={listing_type}
+        filtered-listing-data={FilteredListingData} showmorebuttonclass={show_more_button_class} drop-down-class={dropDownClass}   ></c-header-component>-->
+       <div class="tab-container">
             <div class="div1">
                 <div class="logox">
                     <img src={logo} alt="EstateXpert">
@@ -24,6 +34,7 @@
                     <c-pop-up-login></c-pop-up-login>
                 </div>
             </div>
+            
             <div class="tab active-tab-content" data-id="tab1">
                 <div class="container">
                     <div class="box11">
@@ -200,15 +211,35 @@
                                     </div>
                                     <br />
                                     <div class="images">
-                                        <lightning-layout>
+                                       <lightning-layout>
                                             <lightning-layout-item class="arrowbtn">
                                                 <lightning-button-icon icon-name="utility:chevronleft" size="large"
                                                     variant="bare" onclick={goToPrevFeaturedProperty} class="arrow1 left-arrow"
                                                     disabled={leftArrowDisabled}></lightning-button-icon>
                                             </lightning-layout-item>
-                                            <div class="navigation-boxes">
+
+                                            <!--<div class="carousel">
+                                            <div class="carousel-inner">
+                                                <template for:each={nextProperties} for:item="nextImg">
+                                                    <div  class="box" key={nextImg.Id}>
+                                                        <img src={nextImg.media_url} />
+                                                
+                                                                <div class="black-1" onclick={handleBoxClick} 
+                                                                data-id={nextImg.Id}>
+                                                                <div class="imgInfo"> <p>{nextImg.Name}</p>
+                                                                </div>
+                                                                </div>
+                                                            
+                                                    </div>
+                                                
+                                                </template>
+                                            </div>
+                                            </div>-->
+                                            
+                                                <div class="navigation-boxes">
                                                 <template for:each={nextProperties} for:item="nextImg">
                                                     <div class="box" key={nextImg.Id}>
+                                                        
                                                         <img src={nextImg.media_url} />
                                                         <div class="black1" onclick={handleBoxClick}
                                                             data-id={nextImg.Id} >
@@ -218,7 +249,7 @@
                                                         </div>
                                                     </div>
                                                 </template>
-                                            </div>
+                                            </div> 
                                             <lightning-layout-item class="arrowbtn">
                                                 <lightning-button-icon icon-name="utility:chevronright" size="large"
                                                     variant="bare" onclick={goToNextFeaturedProperty} class="arrow1 right-arrow"
@@ -355,11 +386,12 @@
                                                 disabled={listingRightArrowDisabled}></lightning-button-icon>
                                         </lightning-layout-item>
                                     </lightning-layout>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
 
             <div class="tab" data-id="tab2">
@@ -875,5 +907,6 @@
                 </div>
             </div>
         </div>
+    
     </template>
 </template>

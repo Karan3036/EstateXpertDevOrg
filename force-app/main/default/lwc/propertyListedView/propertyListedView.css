@@ -77,9 +77,6 @@ lightning-input {
    position: absolute;
    top: 50%;
    width: 100%;
-   display: flex;
-   justify-content: space-between;
-   transform: translateY(-50%);
 }
 .image-wrapper {
    position: absolute;

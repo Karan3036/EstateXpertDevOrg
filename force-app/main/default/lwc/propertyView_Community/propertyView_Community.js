@@ -1,16 +1,24 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import Property_view_example from '@salesforce/resourceUrl/propertyviewposter';
 import getListingData from '@salesforce/apex/propertyListedViewController.getListingData';
+import addFavorite from '@salesforce/apex/propertyListedViewController.addFavorite';
+import checkListingLike from '@salesforce/apex/propertyListedViewController.checkLike';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import plvimg from '@salesforce/resourceUrl/plvimgs';
+import likeIcon from '@salesforce/resourceUrl/LikeIcons';
 
 export default class propertyView_Community extends NavigationMixin(LightningElement) {
 
     listingrecordid;
+    firstImageUrl;
+   
+    
+
     @track spinnerdatatable = false;
 
     @track propertyView = Property_view_example;
+    
 
     @track propertyData = [];
     @track feature_icons;
@@ -27,10 +35,10 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track diningTotal; 
     @track otherTotal; 
     @track clickedImage;
-    @track imagesOnDescription = [];
+    @api imagesOnDescription = [];
     @track totalCountOfImg;
     @track errorMessage = false;
-
+    @track likeIcon = likeIcon+'/like.png'
     @track Show_ImagePreview = false;
     @track PreviewImageTitle;
     @track Is_ImageHavePreview = false;
@@ -39,6 +47,8 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
     @track NotFirstImg = false;
     @track NotLastImg = false;
     @track totalImagesInGallery;
+    @track showLike = false;
+    contactInfo = {};
 
     plvimg1 = plvimg + '/plvimgs/Bedroom.png';
     plvimg2 = plvimg + '/plvimgs/Bathroom.png';
@@ -50,10 +60,16 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
 
 
     connectedCallback() {
+        this.checkCookie();
+        
         const urlParams = new URLSearchParams(window.location.search);
         this.listingrecordid = urlParams.get('c__listingrecordid');
         console.log('Listing Record Id:', this.listingrecordid);
+        
+       
+       
         this.getListingDetail();
+       
     }
 
     renderedCallback() {
@@ -95,6 +111,41 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
         }
     }
 
+    
+    checkCookie(){
+     
+        const cookieString = document.cookie;
+        const cookies = cookieString.split(';');
+        
+      
+        for (let cookie of cookies) {
+            if (cookie.includes('contactInfo')) {
+                const contactInfoString = cookie.split('=')[1].trim();  
+                try {
+                    this.contactInfo = JSON.parse(contactInfoString);
+                    this.ContactId = this.contactInfo.Id;
+                    if(this.contactInfo.RecordTypeId == '012GA000000C1UTYA0'){
+                        this.showLike = true;
+                    }
+                    
+                } catch (error) {
+                    console.error('Error parsing contactInfo:', error);
+                }
+                break;
+            }
+        }
+    }
+
+    checkLike(){
+        checkListingLike({ListingId:this.propertyData[0].Id,ContactId:this.contactInfo.Id}).then(result=>{
+            if(result == true){
+                this.likeIcon = likeIcon + '/redlike.png';
+            }else{
+                this.likeIcon = likeIcon + '/like.png';
+            }
+        })
+    }
+
     get nextImages() {
         return this.propertyImages.slice(0, 4);
     }
@@ -115,11 +166,13 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
         this.template.querySelector('[data-id="tab2"]').classList.add("active-tab-content");
         this.template.querySelector('[data-tab-id="tab2"]').classList.add("active-tab");
     }
+     
 
-    getListingDetail() {
+    getListingDetail(){
         this.spinnerdatatable = true;
         getListingData({ recordId: this.listingrecordid }).then((result) => {
             console.log('result: ', result);
+            
             this.propertyData = result.Listings;
             this.feature_icons = result.FeatureIcons;
             this.propertyImages = result.Medias;
@@ -181,18 +234,23 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
                 console.error('No location information found in record data');
             }
             if (result.Medias.length > 6) {
+                this.firstImageUrl = result.Medias[0].FilenameUrlEncoded__c;
                 this.imagesOnDescription = result.Medias.slice(0, 6);
                 this.totalCountOfImg = this.propertyImages.length - 5;
                 setTimeout(() => {
                     let element = this.template.querySelectorAll('.black1')[5];
                     element.classList.add('black_enabled');
                 }, 1000);
-            } else {
+            } else if(result.Medias.length ==1) {
+                this.firstImageUrl = result.Medias[0].FilenameUrlEncoded__c;
                 this.imagesOnDescription = result.Medias;
+            }else{
+                this.firstImageUrl = this.propertyView ;
             }
             setTimeout(() => {
                 this.spinnerdatatable = false;
             }, 3000);
+            this.checkLike();
         })
             .catch(error => {
                 console.log('Error-->', error);
@@ -201,6 +259,7 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
                     this.spinnerdatatable = false;
                 }, 3000);
             });
+
 
     }
 
@@ -337,6 +396,20 @@ export default class propertyView_Community extends NavigationMixin(LightningEle
             variant
         })
         this.dispatchEvent(toastEvent)
+    }
+
+
+    addInFavorite(){
+        this.propertyData[0].Id;
+        console.log(this.propertyData[0].Id);
+        console.log(this.contactInfo.Id+this.contactInfo.Name);
+        addFavorite({ListingId:this.propertyData[0].Id,ContactId:this.contactInfo.Id}).then(result=>{
+            if(result == true){
+                this.likeIcon = likeIcon + '/redlike.png';
+            }else{
+                this.likeIcon = likeIcon + '/like.png';
+            }
+        })
     }
 
     applyFilter(event){

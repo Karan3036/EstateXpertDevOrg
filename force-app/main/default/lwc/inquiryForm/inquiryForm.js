@@ -36,7 +36,6 @@ export default class inquiryForm extends NavigationMixin(LightningElement) {
 
     handleSubmit(event) {
         event.preventDefault();
-        alert("success");
         const fields = event.detail.fields;
         console.log(fields);
         const jsonfields = JSON.stringify(fields);
@@ -58,7 +57,12 @@ export default class inquiryForm extends NavigationMixin(LightningElement) {
     }
 
     handleSuccess(result) {
-        alert('Record Created Successfully');
+        const inputFields = this.template.querySelectorAll('lightning-input-field');
+        if (inputFields) {
+            inputFields.forEach(field => {
+                field.reset();
+            });
+        }
     }
 
     handleError(error) {

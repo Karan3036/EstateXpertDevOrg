@@ -1,0 +1,42 @@
+ <svg  viewBox="0 0 19 34" fill="none" xmlns="http://www.w3.org/2000/svg" id="backArrow">
+                            <path d="M17 32L2 17L17 2" stroke="black" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round" />
+  </svg>
+ <svg xmlns="http://www.w3.org/2000/svg"  fill="rgba(0, 0, 0, 0.5) "
+                                class="bi bi-person-fill" viewBox="0 0 16 16" id="personIcon">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" /></svg>
+ <svg  viewBox="0 0 22 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" id="emailIcon">
+                                <path
+                                    d="M21.5001 3.05003C21.5001 1.86753 20.5326 0.900024 19.3501 0.900024H2.15001C0.967503 0.900024 0 1.86753 0 3.05003V15.9501C0 17.1326 0.967503 18.1001 2.15001 18.1001H19.3501C20.5326 18.1001 21.5001 17.1326 21.5001 15.9501V3.05003ZM19.3501 3.05003L10.75 8.42505L2.15001 3.05003H19.3501ZM19.3501 15.9501H2.15001V5.20004L10.75 10.5751L19.3501 5.20004V15.9501Z"
+                                    fill="#ADB0CD" />
+                            </svg>
+ <svg  viewBox="0 0 23 23" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" id="passIcon">
+                                <path d="M15.8174 12.3636L17.5447 14.0909L20.9992 10.6363L19.2719 8.90906"
+                                    stroke="#ADB0CD" stroke-width="2.30303" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M10.8447 12.1546L20.9994 2" stroke="#ADB0CD" stroke-width="2.30303"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M7.18182 21C10.0437 21 12.3636 18.68 12.3636 15.8182C12.3636 12.9563 10.0437 10.6364 7.18182 10.6364C4.31998 10.6364 2 12.9563 2 15.8182C2 18.68 4.31998 21 7.18182 21Z"
+                                    stroke="#ADB0CD" stroke-width="2.30303" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+<svg  viewBox="0 0 23 23" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" id="confirmPassIcon">
+                                <path d="M15.8174 12.3636L17.5447 14.0909L20.9992 10.6363L19.2719 8.90906"
+                                    stroke="#ADB0CD" stroke-width="2.30303" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M10.8447 12.1546L20.9994 2" stroke="#ADB0CD" stroke-width="2.30303"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M7.18182 21C10.0437 21 12.3636 18.68 12.3636 15.8182C12.3636 12.9563 10.0437 10.6364 7.18182 10.6364C4.31998 10.6364 2 12.9563 2 15.8182C2 18.68 4.31998 21 7.18182 21Z"
+                                    stroke="#ADB0CD" stroke-width="2.30303" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+  <svg xmlns="http://www.w3.org/2000/svg"  fill="rgba(0, 0, 0, 0.5)"
+                                class="bi bi-telephone-fill" viewBox="0 0 16 16" id="phoneIcon">
+                                <path fill-rule="evenodd"
+                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                            </svg>

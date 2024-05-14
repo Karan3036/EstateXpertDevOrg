@@ -5,24 +5,46 @@ public with sharing class MapFieldCmp {
     public static List<Map<String, String>> getObjectFields(String objectName) {
         List<Map<String, String>> fieldDetails = new List<Map<String, String>>();
     
+        // Query Mapping_Metadata__mdt
+        Mapping_Metadata__mdt metaData = [SELECT Mapping_String__c, Autometic_Sync__c, BlockedFields__c FROM Mapping_Metadata__mdt LIMIT 1];
+    
         Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe().get(objectName).getDescribe();
+    
+        // Get all fields for the object
+        Map<String, Schema.SObjectField> allFieldsMap = describeResult.fields.getMap();
         
-        for (Schema.SObjectField field : describeResult.fields.getMap().values()) {
+        // Remove blocked fields
+        Set<String> blockedFields = new Set<String>(metaData.BlockedFields__c.split(';'));
+        allFieldsMap.keySet().removeAll(blockedFields);
+    
+        // Get unwritable fields
+        Set<String> unwritableFields = new Set<String>();
+        for (String fieldName : allFieldsMap.keySet()) {
+            if (!allFieldsMap.get(fieldName).getDescribe().isUpdateable()) {
+                unwritableFields.add(fieldName);
+            }
+        }
+        allFieldsMap.keySet().removeAll(unwritableFields);
+    
+        for (Schema.SObjectField field : allFieldsMap.values()) {
             Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
-            
+    
             Map<String, String> fieldMap = new Map<String, String>();
             fieldMap.put('label', fieldDescribe.getLabel());
             fieldMap.put('apiName', fieldDescribe.getName());
-            
+    
             // Convert data type enum value to string
             String dataType = fieldDescribe.getType().name();
             fieldMap.put('dataType', dataType);
-            
+    
             fieldDetails.add(fieldMap);
         }
     
         return fieldDetails;
     }
+    
+    
+    
 
     //save the mapping in the metadata
     @AuraEnabled

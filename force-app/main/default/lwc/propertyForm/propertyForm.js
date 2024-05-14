@@ -4,7 +4,6 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getS3ConfigData from "@salesforce/apex/PropertyController.getS3ConfigSettings";
 import AWS_SDK from "@salesforce/resourceUrl/AWSSDK";
 import watermarkjs from "@salesforce/resourceUrl/watermarkjs";
-import buffer from 'c/buffer';
 import createContactAndProperty from '@salesforce/apex/PropertyController.createContactAndProperty';
 import createmedia from "@salesforce/apex/PropertyController.createmediaforlisting";
 
@@ -137,14 +136,6 @@ export default class propertyForm extends LightningElement {
         this.dispatchEvent(toastEvent)
     }
 
-    removefile() {
-        this.selectedFilesToUpload = [];
-        this.fileName = [];
-        this.fileSize = [];
-        this.isnull = true;
-        this.disabled_checkbox = true;
-    }
-
     handleclick(propertyId) {
         this.property_id = propertyId;
         if (this.property_id) {
@@ -209,76 +200,42 @@ export default class propertyForm extends LightningElement {
                 this.currentFileName = this.fileName[f];
                 this.currentFileSize = this.fileSize[f];
                 this.initializeAwsSdk(this.confData);
-                if (this.isWatermark === true) {
-                    let outImage = await this.imageWithWatermark(this.selectedFilesToUpload[f]);
-                    const format = outImage.substring(outImage.indexOf('data:') + 5, outImage.indexOf(';base64'));
-                    const base64String = outImage.replace(/^data:image\/\w+;base64,/, '');
-                    const Buffer = buffer.Buffer;
-                    const buff = new Buffer(base64String, 'base64');
+                console.log('inside else');
+                console.log(this.selectedFilesToUpload.length);
+                console.log('this.selectedFilesToUpload[f]---->', this.selectedFilesToUpload[f]);
+                if (this.selectedFilesToUpload[f]) {
+                    let objKey = this.fileName[f]
+                        .replace(/\s+/g, "_")
+                        .toLowerCase();
 
-                    if (buff) {
-                        let objKey = this.fileName[f]
-                            .replace(/\s+/g, "_")
-                            .toLowerCase() + 'watermark';
-                        let params = {
-                            Key: objKey,
-                            ContentType: 'image/jpeg',
-                            Body: buff,
-                            ContentEncoding: 'base64',
-                            ACL: "public-read"
-                        };
+                    let params = {
+                        Key: objKey,
+                        ContentType: this.selectedFilesToUpload[f].type,
+                        Body: this.selectedFilesToUpload[f],
+                        ACL: "public-read"
+                    };
 
-                        console.log('params:' + JSON.stringify(params));
+                    console.log('params:' + JSON.stringify(params));
 
-                        let upload = this.s3.upload(params);
+                    let upload = this.s3.upload(params);
 
-                        await upload.promise();
+                    upload.on('httpUploadProgress', function (progress) {
+                        console.log('Upload progress:', progress);
+                    });
 
-                        let bucketName = this.confData.S3_Bucket_Name__c;
-                        this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
-                        this.isfileuploading = false;
-                        this.uploadProgress = 0;
-                        this.listS3Objects();
-                    }
-                } else {
-                    console.log('inside else');
-                    console.log('this.selectedFilesToUpload[f]---->',this.selectedFilesToUpload[f]);
-                    if (this.selectedFilesToUpload[f]) {
-                        let objKey = this.fileName[f]
-                            .replace(/\s+/g, "_")
-                            .toLowerCase();
+                    upload.send(function (err, data) {
+                        if (err) {
+                            console.error('Error uploading file:', err);
+                            // Handle error here
+                        } else {
+                            console.log('File uploaded successfully:', data);
+                            // Handle success here
+                        }
+                    });
 
-                        let params = {
-                            Key: objKey,
-                            ContentType: this.selectedFilesToUpload[f].type,
-                            Body: this.selectedFilesToUpload[f],
-                            ACL: "public-read"
-                        };
-
-                        console.log('params:' + JSON.stringify(params));
-
-                        let upload = this.s3.upload(params);
-
-                        upload.on('httpUploadProgress', function(progress) {
-                            console.log('Upload progress:', progress);
-                        });
-
-                        upload.send(function(err, data) {
-                            if (err) {
-                                console.error('Error uploading file:', err);
-                                // Handle error here
-                            } else {
-                                console.log('File uploaded successfully:', data);
-                                // Handle success here
-                            }
-                        });
-
-                        let bucketName = this.confData.S3_Bucket_Name__c;
-                        this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
-                        // this.isfileuploading = false;
-                        // this.uploadProgress = 0;
-                        this.listS3Objects();
-                    }
+                    let bucketName = this.confData.S3_Bucket_Name__c;
+                    this.fileURL.push(`https://${bucketName}.s3.amazonaws.com/${objKey}`);
+                    this.listS3Objects();
                 }
 
                 if (f < this.selectedFilesToUpload.length - 1) {
@@ -384,7 +341,7 @@ export default class propertyForm extends LightningElement {
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success',
-                        message:'Record created successfully.',
+                        message: 'Record created successfully.',
                         variant: 'success',
                     }),
                 )
@@ -395,22 +352,11 @@ export default class propertyForm extends LightningElement {
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
-                        message: 'Error creating records: '+ error.body.message,
+                        message: 'Error creating records: ' + error.body.message,
                         variant: 'error',
                     }),
                 )
             });
-    }
-
-    async imageWithWatermark(image) {
-        try {
-            let file = image;
-            const watermarkedImage = await watermark([file])
-                .image(watermark.text.center('EstateXpert', '30em sans-serif', '#fff', 0.5));
-            return watermarkedImage.src;
-        } catch (error) {
-            throw error;
-        }
     }
 
     handleRemove(event) {
@@ -420,10 +366,12 @@ export default class propertyForm extends LightningElement {
 
         // Find the index of the file to remove in the fileName array
         const indexToRemove = this.fileName.indexOf(fileNameToRemove);
+        console.log(indexToRemove);
 
         // If the file is found in the array, remove it
         if (indexToRemove !== -1) {
             this.fileName.splice(indexToRemove, 1);
+            console.log(this.fileName);
             this.selectedFilesToUpload.splice(indexToRemove, 1);
             this.fileSize.splice(indexToRemove, 1);
             this.isnull = this.fileName.length === 0;

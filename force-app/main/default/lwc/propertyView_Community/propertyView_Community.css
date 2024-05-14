@@ -12,8 +12,18 @@
     /* Set your desired height */
 }
 
+.likeButton{
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    cursor: pointer;
+}
+
 .carousel {
     overflow: hidden;
+    position: relative;
     width: 59%;
     /* height: 55vh; */
     border-radius: 16px;

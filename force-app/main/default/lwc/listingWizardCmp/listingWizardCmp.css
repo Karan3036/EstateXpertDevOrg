@@ -1,0 +1,249 @@
+*{
+  user-select: none;
+}
+
+.btn-div{
+    display: flex;
+}
+
+.Outer-div{
+  padding: 0px 20px 20px 20px;
+}
+/* :host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); 
+    overflow-y: auto; 
+} */
+
+.record-div {
+    width: 100%;
+    height: 34rem;
+    position: relative;
+    max-width: 1200px; /* Optional: Set a maximum width for the content */
+    margin: 0 auto; /* Center the content horizontally */
+    
+}
+
+.HeadingTag{
+  font-size: 20px;
+}
+
+.btn-div {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1; /* Ensure it's above other content */
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+}
+
+/* Define the style for the scroll bar */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the track */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scroll thumb */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scroll thumb on hover */
+  }
+  
+
+  .dupli {
+    width: 100%;
+    height: 100%;
+}
+
+.title_cls {
+  font-family: "Francois One", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: grey;
+  margin: 0 0 0.8rem 0;
+  text-align: center;
+}
+
+
+.rotateIcon {
+  transform: rotate(-180deg);
+}
+
+.showIconclass {
+  transition: all .3s ease-in-out;
+}
+
+.slds-accordion__summary-action-icon .slds-button__icon {
+  display: none !important;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  position: relative;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+
+
+.accordion:after {
+  content: normal;
+  color: rgb(206, 206, 206);
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.listing-div{
+  display: flex;
+}
+
+.anchor-div{
+  width: 75%;
+}
+
+.active:after {
+  content: normal;
+}
+
+.showH {
+  min-height: 2rem !important;
+  max-height: 3rem;
+  overflow-y: scroll;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+.add_cls {
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 10px;
+  width: 90%;
+  margin-top: 3px;
+  margin-left: 11px;
+}
+
+.add_cls h2 {
+  color: grey;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.add_cls p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.acc_cls {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  border-radius: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  margin-top: 4px;
+}
+
+.acc_cls h2 {
+  color: grey;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.count {
+  position: absolute;
+  right: 4%;
+  background-color: lightgray;
+  padding: 0px 5px;
+  font-size: 16px;
+  font-weight: 1000;
+  border-radius: 0.25rem;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.div-cover{
+  height:28rem;
+  overflow-y: auto;
+}
+
+.property-div{
+  display: flex;align-items:center;
+}
+
+.fields-cover{
+  padding-right:2rem;
+  border-right: 1px solid #D3D3D3;
+  width: 103%;
+}
+
+.radio-input{
+  margin-right: 4px;
+  z-index: 1;
+}
+
+.icon-cover{
+  margin-right:2%;
+}
+
+.anchor{
+  font-weight:10;
+  font-size:17px;
+}
+
+.addresh{
+  font-family: Salesforce Sans, Arial, sans-serif;
+  font-size: 13px;
+  font-weight:500;
+}
+
+.activeListing-div{
+  width: 100%;
+}
+
+.listing-title{
+  display: flex;
+}
+
+.listing-opener{
+  vertical-align: -webkit-baseline-middle;
+}
+
+.propertyNotAvl{
+  margin-top: 80px;
+}
+
+.property-heading{
+  margin-top:14px;
+  font-size:15px;
+}

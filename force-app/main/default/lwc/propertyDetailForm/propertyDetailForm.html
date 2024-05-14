@@ -1,0 +1,411 @@
+<template>
+
+    <template if:true={isLoading}>
+        <c-spinner-component></c-spinner-component>
+    </template>
+
+    <div class="main">
+
+        <!-- Property Information -->
+        <div class="propertyinfo">
+
+            <div class="propertyheading">
+                <h3 class="heading">Property Information</h3>
+                <div class="underline">
+                    <div class="underline1"></div>
+                    <div class="underline2"></div>
+                    <div class="underline3"></div>
+                </div>
+            </div>
+
+            <div class="propertydetail">
+                <div>
+                    <p class="blue">Property Details</p>
+                </div>
+
+                <div class="radiobtn div1">
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="userType" value="Sale"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Sale</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="userType" value="Rent/Lease"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Rent/Lease</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="userType" value="PG/Hostel"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">PG/Hostel</span>
+                    </label>
+                </div>
+
+                <div class="combobox">
+                    <lightning-combobox name="propertyType" label="Property Type" value={selectedPropertyType}
+                        options={propertyTypes} onchange={handlePropertyTypeChange}  class="custom-input-padding">
+                    </lightning-combobox>
+                </div>
+
+            </div>
+
+            <div class="propertylocation">
+                <div>
+                    <p class="blue">Property Location</p>
+                </div>
+
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="city">City</label>
+                            <div class="slds-form-element__control">
+                                <input class="input-width slds-input" type="text" id="city" name="City"
+                                    placeholder="Enter City" onchange={handleInputChange}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="locality">Locality</label>
+                            <div class="slds-form-element__control">
+                                <input class="input-width slds-input" type="text" id="locality" name="locality"
+                                    placeholder="Enter Locality" onchange={handleInputChange} >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <template if:true={selectedPropertyType}>
+            <div class="propertyfeatures">
+
+                <div>
+                    <p class="blue">Property Features</p>
+                </div>
+
+                <template if:true={isFlatOrApartment}>
+
+                    <div class="btns">
+                        <div>
+                            <p>Bedrooms</p>
+                            <div class="custom-box">
+                                <button name="rooms" class="custom-button" aria-label="Decrease"
+                                    onclick={decrementBedroom} >&minus;</button>
+                                <span>{bedroomValue}</span>
+                                <button name="rooms" class="custom-button" aria-label="Increase"
+                                    onclick={incrementBedroom} >&plus;</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Balconies</p>
+                            <div class="custom-box">
+                                <button name="rooms" class="custom-button" aria-label="Decrease"
+                                    onclick={decrementBalcony} >&minus;</button>
+                                <span>{balconyValue}</span>
+                                <button name="rooms" class="custom-button" aria-label="Increase"
+                                    onclick={incrementBalcony} >&plus;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </template>
+
+                <div class="slds-grid slds-wrap">
+                    <template for:each={fieldSetData} for:item="field">
+                        <template if:true={field.picklistOptions}>
+                            <div class="slds-col slds-size_1-of-2 slds-m-vertical_x-small" key={field.FieldName}>
+                                <lightning-combobox class="input-width custom-input-padding" label={field.FieldName}
+                                    options={field.picklistOptions}
+                                    onchange={handleDynamicInputChange}></lightning-combobox>
+                            </div>
+                        </template>
+                        <template if:true={field.BooleanValues}>
+                            <div class="slds-col slds-size_2-of-2 slds-m-vertical_x-small" key={field.FieldName}>
+                                <div class="radiobtn div1">
+                                    <label for={field.FieldName} style="margin-right: 13px;">{field.FieldName}</label>
+                                    <label class="radio-container">
+                                        <input class="radioIcon" type="radio" name={field.FieldName} value="Yes"
+                                            onchange={handleDynamicInputChange} />
+                                        <span class="radio-label">Yes</span>
+                                    </label>
+                                    <label class="radio-container">
+                                        <input class="radioIcon" type="radio" name={field.FieldName} value="No"
+                                            onchange={handleDynamicInputChange} />
+                                        <span class="radio-label">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:false={field.picklistOptions}>
+                            <template if:false={field.BooleanValues}>
+                            <div class="slds-col slds-size_1-of-2 slds-m-vertical_x-small" key={field.FieldName}>
+                                <lightning-input class="input-width custom-input-padding" label={field.FieldName}
+                                    onchange={handleDynamicInputChange}></lightning-input>
+                            </div>
+                            </template>
+                        </template>
+                    </template>
+                </div>
+
+                <template if:true={isFlatOrApartment}>
+
+                    <div>
+                        <p>Bathrooms</p>
+                        <div class="custom-box">
+                            <button name="rooms" class="custom-button" aria-label="Decrease" onclick={decrementBathroom}
+                                >&minus;</button>
+                            <span>{bathroomValue}</span>
+                            <button name="rooms" class="custom-button" aria-label="Increase" onclick={incrementBathroom}
+                                >&plus;</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="area">
+                <div>
+                    <p class="blue">Area</p>
+                </div>
+
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="area-inputs">
+                                <div class="big-div">
+                                    <lightning-input type="number" label="Covered Area" name="coveredArea"
+                                        value={coveredArea} placeholder="Covered Area" onchange={handleInputChange}
+                                        style="width: 100%;" class="custom-input-padding"></lightning-input>
+                                </div>
+                                <div class="small-div">
+                                    <lightning-combobox label="Unit" name="coveredAreaUnit" value={coveredAreaUnit}
+                                        options={areaUnits} onchange={handleInputChange} class="custom-input-padding"
+                                        style="width: 100%;" placeholder="Select"></lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="area-inputs">
+                                <div class="big-div">
+                                    <lightning-input type="number" label="Carpet Area" name="carpetArea"
+                                        value={carpetArea} placeholder="Carpet Area" onchange={handleInputChange}
+                                        style="width: 100%;" class="custom-input-padding"></lightning-input>
+                                </div>
+                                <div class="small-div">
+                                    <lightning-combobox label="Unit" name="carpetAreaUnit" value={carpetAreaUnit}
+                                        options={areaUnits} onchange={handleInputChange} class="custom-input-padding"
+                                        style="width: 100%;" placeholder="Select"></lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="transcaction">
+                <div>
+                    <p class="blue">Transaction Type , Property Availability</p>
+                </div>
+
+                <div>
+                    <p class="small-heading">Transaction Type</p>
+                </div>
+
+                <div class="radiobtn div1">
+
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="transactionType" value="New Property"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">New Property</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="transactionType" value="Resale"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Resale</span>
+                    </label>
+                </div>
+
+                <div>
+                    <p class="small-heading">Possession Status</p>
+                </div>
+
+                <div class="radiobtn div1">
+
+                    <label class="radio-container-first">
+                        <input class="radioIcon" type="radio" name="possessionStatus" value="Under Construction"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Under Construction</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="possessionStatus" value="Ready to Move"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Ready to Move</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="possessionStatus" value="Ongoing"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Ongoing</span>
+                    </label>
+                </div>
+
+                <div class="container">
+                    <div class="picklists">
+                        <lightning-combobox label="Available From" name="Month" options={monthOptions}
+                            onchange={handleInputChange} style="margin-right: 2rem; width:9%" class="custom-input-padding"
+                            placeholder="Month"></lightning-combobox>
+                        <lightning-combobox options={yearOptions} name="Year" onchange={handleInputChange}
+                            placeholder="Year" class="custom-input-padding" style="width: 9%; margin-top:7px"></lightning-combobox>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="pricedetails">
+                <div>
+                    <p class="blue">Price Details</p>
+                </div>
+
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="location">
+                                <lightning-input type="number" name="totalprice" label="Expected Price"
+                                    placeholder="Enter Total Price" onchange={handleInputChange}
+                                    class="input-width custom-input-padding"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="location">
+                                <lightning-input type="text" name="pricepersqft" label="Price Per Sq-ft:"
+                                    placeholder="Enter Price" onchange={handleInputChange}
+                                    class="input-width custom-input-padding"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="small-heading">Price Includes</p>
+                </div>
+
+                <div class="radiobtn div1">
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="priceType" value="PLC" onchange={handleInputChange} />
+                        <span class="radio-label">PLC</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="priceType" value="Car Parking"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Car Parking</span>
+                    </label>
+                    <label class="radio-container">
+                        <input class="radioIcon" type="radio" name="priceType" value="Club Membership"
+                            onchange={handleInputChange} />
+                        <span class="radio-label">Club Membership</span>
+                    </label>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-m-vertical_x-small">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="location">
+                                <lightning-input type="number" name="BookingAmount" label="Booking/Token Amount"
+                                    placeholder="Booking/Token Amount" value={bookingAmount} onchange={handleInputChange}
+                                    class="slds-m-bottom_small input-width custom-input-padding"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-m-vertical_x-small">
+                        <div class="input-container">
+                            <div class="location">
+                                <lightning-combobox class="input-width custom-input-padding" name="brokeragetype"
+                                    label="Brokerage (Brokers only)" placeholder="Select Brokerage" options={brokerages}
+                                    onchange={handleInputChange}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="location">
+                                <lightning-input type="number" name="MaintenanceCharges" label="Maintenance Charges"
+                                    placeholder="Maintenance Charges" value={maintenanceCharges}
+                                    onchange={handleInputChange} class="slds-m-bottom_small input-width custom-input-padding"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="input-container">
+                            <div class="location">
+                                <lightning-combobox class="input-width custom-input-padding" name="subscriptionType" label="per"
+                                    placeholder="Select an option" options={subscriptionOptions} 
+                                    onchange={handleInputChange}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="Photos">
+                <div>
+                    <p class="small-heading">Photos</p>
+                </div>
+
+                <div class="wrapper">
+                    <ul>
+                        <template for:each={selectedPropertyTags} for:item="tag">
+                            <li key={tag}
+                                onclick={handleChildSelect}
+                                data-tag={tag} 
+                                class="different">
+                                <a href="#" class="child">{tag}</a>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+
+                <div class="photo-upload-section">
+                    <div class="upload-bg">
+                        <div class="upload-area">
+                            <div class="upload-data">
+                                <img src={awsbgupload} alt="Background Image" class="awsbgimgae">
+                                <div>
+                                    <!-- <button onclick={handleImageUpload} >Add Photos Now</button> -->
+                                    <input type="file" class="slds-file-selector__input slds-assistive-text"
+                                        onchange={handleImageUpload} accept="image/png, image/jpeg, image/jpg"
+                                        id="file-upload-input-107"
+                                        aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106"
+                                        multiple />
+                                    <label class="slds-file-selector__body awsbtn" for="file-upload-input-107"
+                                        id="file-selector-secondary-label106">
+                                        <span style="border: none; outline:none; background: none; cursor: pointer;">
+                                            Add Photos Now</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-name-box">{uploadedFileName}</div> <!-- Display uploaded image name here -->
+
+            <div class="savebtn">
+                <button onclick={handleSave}>Save</button>
+            </div>
+        </template>
+
+    </div>
+
+</template>

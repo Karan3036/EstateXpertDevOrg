@@ -1,0 +1,159 @@
+<template>
+    <div class="main-div">
+        <div class="header-div">
+            <img src={logoImageUrl} class="header-logo desktop" />
+            <img src={mobileLogoUrl} class="header-logo mobile" />
+            <div class="profile">
+                <button class="contact-us-btn">Contact us</button>
+                <div class="avatar" style={backgroundStyle}>
+                    <span class="status active"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-div" style={backgroundImgStyle}>
+            <div class="username">{recordTypeName} Details
+                <span></span>
+            </div>
+            
+            <div class="detail">
+                <div class="image">
+                    <img src={profilepicUrl} class="user-image" />
+                    <button class="uploadImage" onclick={uploadProfileImage}>Upload Image</button>
+                    <input type="file" accept="image/*" onchange={handleFileUpload} style="display:none;" />
+                </div>
+                <div class="sideDetail">
+                    <div class="info">General Information</div>
+                    <div class="general-input">
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-46">Name</label>
+                            <div class="slds-form-element__control">
+                            <input type="text" class="slds-input input-field" name="name" value={name}  onchange={handleInputChange}/>
+                            </div>
+                        </div>
+
+                        <div class="gender-div">
+                            <label class="gen-label" for="male">Gender</label>
+                            <div class="inner-gender">
+                        
+                                <template for:each={genderOptions} for:item="user">
+                                    <div key={user} class="genderRadio">
+                                        <label class="gender-label">
+                                            <input class="genderIcon" value={user}  type="radio" name="userGender" onchange={handleInputChange} />
+                                            {user}
+                                        </label>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-46">Date of Birth</label>
+                            <div class="slds-form-element__control">
+                            <input value={dob} name="dob" type="date" class="slds-input input-field" onchange={handleInputChange}/>
+
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="second-div">
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-46">Age</label>
+                    <div class="slds-form-element__control">
+                    <input class="slds-input input-field" type="number" name="age" value={age}  onchange={handleInputChange}/>
+                    </div>
+                </div>
+
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label labelclass" for="text-input-id-46">Phone Number</label>
+                    <div class="slds-form-element__control">
+                    <input class="slds-input input-field phoneField" type="phone" name="phoneNumber" value={phoneNumber}  onchange={handleInputChange}/>
+                    </div>
+                </div>
+
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label labelclass" for="text-input-id-46">Email</label>
+                    <div class="slds-form-element__control">
+                    <input class="slds-input input-field phoneField"  type="email" name="email" value={email}  onchange={handleInputChange}/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="address-detail">
+                <div class="address-info">Address Details</div>
+                <div class="first-add">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-46">Address Line</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input input-address" value={addressLine} name="addressLine" type="text"  onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                </div>
+                <div class="sec-add">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-46">City</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input inner-field" value={city}  type="text" name="city"  onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label statePin" for="text-input-id-46">Pincode</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input inner-field addPhone" value={pincode} name="pincode"  type="number"  onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                </div>
+                <div class="third-add">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-46">State</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input inner-field" value={state}  type="text" name="state"  onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label statePin" for="text-input-id-46">Country</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input inner-field addPhone" value={country} name="country"  type="text"  onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-detail">
+                <div class="about-info">About</div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="text-input-id-46">Description</label>
+                    <div class="slds-form-element__control">
+                        <textarea class="slds-textarea about-field" name="description" onchange={handleInputChange}>{description}</textarea>
+                    </div>
+                </div>
+                <template if:true={isAboutField}>
+
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label " for="text-input-id-46">Deals in</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input about-field" value={dealsIn} name="deals" type="text"   onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label deals" for="text-input-id-46">Operates in</label>
+                        <div class="slds-form-element__control">
+                        <input class="slds-input about-field" value={operatesIn} name="operates" type="text"  onchange={handleInputChange}/>
+                        </div>
+                    </div>
+                </template></div>
+
+            <div class="saveBottom">
+                <button class="save-bottom" onclick={handleSave}>Save</button>
+            </div>
+        </div>
+    </div>
+</template>

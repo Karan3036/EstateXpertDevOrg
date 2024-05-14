@@ -4,7 +4,7 @@
     </template>
     <div class="container">
         <div if:false={errorMessage} class="buttons">
-            <div class="backbtn" onclick={moveToPropertyPage}>
+            <div class="backbtn" data-id={} onclick={moveToPropertyPage}>
                 <svg width="30" height="20" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M30 10C30 10.3788 29.8025 10.7421 29.4509 11.01C29.0993 11.2778 28.6224 11.4283 28.1252 11.4283H6.40389L14.4542 17.5586C14.6285 17.6914 14.7668 17.8491 14.8612 18.0226C14.9555 18.1961 15.004 18.3821 15.004 18.5699C15.004 18.7577 14.9555 18.9437 14.8612 19.1172C14.7668 19.2907 14.6285 19.4483 14.4542 19.5811C14.2799 19.7139 14.073 19.8193 13.8452 19.8911C13.6175 19.963 13.3734 20 13.1269 20C12.8804 20 12.6363 19.963 12.4085 19.8911C12.1808 19.8193 11.9738 19.7139 11.7995 19.5811L0.55079 11.0112C0.376197 10.8786 0.237677 10.721 0.143163 10.5474C0.0486494 10.3739 0 10.1879 0 10C0 9.81213 0.0486494 9.6261 0.143163 9.45257C0.237677 9.27905 0.376197 9.12143 0.55079 8.98875L11.7995 0.418872C12.1516 0.150673 12.629 0 13.1269 0C13.6247 0 14.1022 0.150673 14.4542 0.418872C14.8063 0.687071 15.004 1.05083 15.004 1.43012C15.004 1.80941 14.8063 2.17317 14.4542 2.44137L6.40389 8.57169H28.1252C28.6224 8.57169 29.0993 8.72217 29.4509 8.99003C29.8025 9.25789 30 9.62119 30 10Z" fill="black"/>
                 </svg>                                            
@@ -12,8 +12,18 @@
         </div>
         <div class="box1">
             <div class="main_detail_box">
+              
                 <div class="carousel">
-                    <img src={propertyView}/>
+                    <template if:true={showLike}>
+                        <div onclick={addInFavorite} class="likeButton">
+                            <img src={likeIcon} alt="like"/>
+                        </div>
+                    </template>
+                    <template if:true={imagesOnDescription}>
+                        <img src={firstImageUrl} alt="First Property Image">
+                    </template>
+                   <!---- <img src={propertyView}/>-->
+                   
                 </div>
                 <div class="listing_property_details">
                     <div class="listing_Featureproperty_details"><p>Featured Property</p></div>

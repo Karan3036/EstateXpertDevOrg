@@ -1,8 +1,8 @@
 import { LightningElement,track,wire } from 'lwc';
 import estatexpertlogo from '@salesforce/resourceUrl/estatexpertlogo';
 import getContact from '@salesforce/apex/loginPageController.getContact';
-import 	LoginBg from '@salesforce/resourceUrl/LoginBgs';
-import 	svgIcons from '@salesforce/resourceUrl/svgIcons';
+
+import Icons from '@salesforce/resourceUrl/loginPageIcons';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from "lightning/navigation";
 
@@ -10,64 +10,48 @@ import { NavigationMixin } from "lightning/navigation";
 export default class LoginCmp extends NavigationMixin(LightningElement) {
     @track username = '';
     @track password = '';
-    logoImageUrl ='';
-    showError1 = true;
-    showError2 = true;
-    showError3 = true;
-    showError4 = true;
-    svgIcon1
-    svgIcon2
-    svgIcon3
-    showpassword = 'password';
+    @track logoImageUrl =estatexpertlogo;
+    @track showError1 = true;
+    @track showError2 = true;
+    @track showError3 = true;
+    @track showError4 = true;
+    @track backLogo = Icons+'/backIcon.png';
+    @track emailLogo = Icons+'/emailIcon.png';
+    @track passwordLogo = Icons+'/keyIcon.png';
+    @track openEyes = Icons + '/openEye.png';
+    @track closeEyes = Icons+'/closeEye.png';
+    @track showpassword = 'password';
+    @track openEye = true;
+    @track closeEye = false;
     @track showSpinner = true;
-    @track LoginBgUrl = LoginBg;
-    svgIconsList = [];
-
-    loadSvgIcons() {
-        fetch(svgIcons)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to load SVG icons');
-                }
-                return response.text(); // Return the Promise to chain another .then()
-            })
-            .then(data => {
-                // Split the text into individual SVG icons
-                this.svgIconsList = data.split('===');
-                this.template.querySelector('.back-div').innerHTML = this.svgIconsList[0];
-                this.template.querySelector('.email-icon').innerHTML = this.svgIconsList[1];
-                this.template.querySelector('.password-icon').innerHTML = this.svgIconsList[2];
-                // this.template.querySelector('.eye-icon').innerHTML = this.svgIconsList[3];
-                console.log(this.svgIcon1);
-            })
-            .catch(error => {
-                console.error('Error loading SVG icons:', error);
-            });
-    }
-    
+   
 
     connectedCallback() {
-    //    this.showSpinner = false;
-    //    this.showSpinner = false;
-       this.loadSvgIcons();
-       this.logoImageUrl = estatexpertlogo;
-       this.LoginBgUrl = LoginBg;
-       
-       setTimeout(() =>{
-            this.showSpinner = false;
-       }, 3000);
+        const cookieString = document.cookie;
+        const cookies = cookieString.split(';');
+
+        let contactInfo = {};
+      
+        for (let cookie of cookies) {
+
+            if (cookie.includes('contactInfo')) {
+        
+                const contactInfoString = cookie.split('=')[1].trim();
+                
+                try {
+                    contactInfo = JSON.parse(contactInfoString);
+                } catch (error) {
+                    console.error('Error parsing contactInfo:', error);
+                }
+          
+                break;
+            }
+        }
+        
+        // Now contactInfo should contain the parsed object
+        console.log('hi'+contactInfo);
     }
 
-    // renderedCallback(){
-    //     setTimeout(this.delayedFunction, 3000);
-        // this.logoImageUrl = estatexpertlogo;
-    //     console.log('hi'+estatexpertlogo);
-    //     console.log('hi'+LoginBg);
-    //     // this.LoginBgUrl = LoginBg;
-    //     // const containerDiv = this.template.querySelector('[data-id="container"]');
-    //     // // Set background image using inline style
-    //     // containerDiv.style.backgroundImage = `url(${this.LoginBgUrl})`;
-    // }
 
     validate(){
         this.showError1 = this.validateEmail();
@@ -86,23 +70,10 @@ export default class LoginCmp extends NavigationMixin(LightningElement) {
 
     handleUsernameChange(event) {
         this.username = event.target.value;
-        
-        // if(this.username == ''){
-        //     this.showError3 = false;
-        //     this.showError1 = true;
-        // }else{
-        //     this.showError3 = true;
-        // }
     }
 
     handlePasswordChange(event) {
         this.password = event.target.value;
-        // if(this.username == ''){
-        //     this.showError4 = false;
-        //     this.showError2 = true;
-        // }else{
-        //     this.showError4 = true;
-        // }
     }
 
     handleLogin() {
@@ -128,9 +99,13 @@ export default class LoginCmp extends NavigationMixin(LightningElement) {
                     const contactInfo = { email: emailId, password: password };
                     const contactInfoJson = JSON.stringify(response.contact);
                     document.cookie = `contactInfo=${contactInfoJson}; expires=Thu, 31 Dec 2026 23:59:59 GMT; path=/`;
-                    // Log the cookie to console
                     console.log('Cookie:', document.cookie);
-                    window.location.href = 'https://mvcloudsprivatelimited2-dev-ed.develop.my.site.com/s/';
+                    this[NavigationMixin.Navigate]({
+                        "type": "standard__webPage",
+                        "attributes": {
+                            "url": "https://mvcloudsprivatelimited2-dev-ed.develop.my.site.com/s/property-list-view"
+                        }
+                    });
                    // document.cookie = `contactInfo=${contactInfoJson}; expires=Thu, 31 Dec 2002 23:59:59 GMT; path=/`;
                    // console.log('Cookie:', document.cookie);
                     const showToastEvent = new ShowToastEvent({
@@ -157,15 +132,48 @@ export default class LoginCmp extends NavigationMixin(LightningElement) {
     }
 
     deleteCookie(cookieName) {
-        // Set the expiration date of the cookie to a date in the past
         document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+
+    clickforgot(){
+        this[NavigationMixin.Navigate]({
+
+            "type": "standard__webPage",
+            "attributes": {
+                "url": "/ForgotPassword"
+            }
+        });
+    }
+
+    backClick(){
+        this[NavigationMixin.Navigate]({
+
+            "type": "standard__webPage",
+            "attributes": {
+                "url": "https://mvcloudsprivatelimited2-dev-ed.develop.my.site.com/s/property-list-view"
+            }
+        });
+    }
+    
+    signclick(){
+        this[NavigationMixin.Navigate]({
+
+            "type": "standard__webPage",
+            "attributes": {
+                "url": "https://mvcloudsprivatelimited2-dev-ed.develop.my.site.com/s/login/SelfRegister"
+            }
+        });
     }
 
     togglePasswordVisibility() {
         if(this.showpassword=='text'){
             this.showpassword = 'password';
+            this.openEye = true;
+            this.closeEye = false;
         }else{
             this.showpassword = 'text';
+            this.closeEye = true;
+            this.openEye = false;
         }
     }
 }

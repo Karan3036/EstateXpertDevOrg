@@ -1,0 +1,28 @@
+input{
+  padding: 3px !important;
+}
+
+input::placeholder {
+  padding-left: 10px; 
+}
+
+.fix-slds-input_faux{
+  padding: 3px !important;
+}
+
+.slds-input_faux:not(.slds-combobox__input-value){
+  padding-left: 10px !important;
+}
+
+.slds-input{
+  padding-left: 10px !important;
+}
+
+.slds-truncate{
+  padding-left: 10px !important;
+}
+
+.slds-form-element__label{
+  color: #696969 !important;
+  font-size: 16px !important;
+}

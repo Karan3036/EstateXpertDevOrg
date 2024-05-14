@@ -1,0 +1,395 @@
+*{
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  
+}
+
+body {
+    overflow: hidden;
+}
+
+.header-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height:4.4375rem;
+    background-color: white;
+}
+
+:host{
+    height: 100%;
+}
+
+.header-logo{
+    height: 3.8125rem;
+    width: 5.625rem;
+    margin-left: 3.75rem;
+}
+
+.contact_us {
+    border: 3px solid rgba(1, 118, 211, 1);
+    border-radius: 40px;
+    height: -webkit-fill-available;
+    padding: 10px 30px 10px 30px;
+    cursor: pointer;
+ }
+
+ .popup-btn{
+    font-size: 1rem;
+    font-weight: 600;
+ }
+
+.cover-div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: #00000062;
+    
+    /* background-image: url(/sfsites/c/resource/LoginBg); */
+    background-size: cover;
+    background-position: center;
+    /* transform: scaleX(-1); */
+}
+
+.image-bg{
+    height: 100%;
+    width: 100%;
+    /* transform: scaleX(-1); */
+}
+
+.main-div{
+    height:100%;
+    width: 100%;
+}
+
+.contact-us-btn {
+    height: 2.35rem; /* 2.9375rem * 0.8 */
+    width: 7.95rem; /* 9.9375rem * 0.8 */
+    border-radius: 32px; /* 40px * 0.8 */
+    border: 0.15rem solid #0176D3; /* 0.1875rem * 0.8 */
+    margin-right: 3rem; /* 3.75rem * 0.8 */
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-size: 1rem; /* 1.25rem * 0.8 */
+    font-weight: 400;
+    color: #1F1F1F;
+}
+
+.body-div {
+    /* background-image: url('/sfsites/c/resource/LoginBg'); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    /* transform: scaleX(-1); */
+    height: 100%;
+    width: 100%;
+    
+    
+}
+
+.form-div {
+    background-color: #FFFFFFE5;
+    border-radius: 12.8px; /* 16px * 0.8 */
+    width:74em; /* 67.5rem * 0.8 */
+    height: 47.563em; /* 43.5625rem * 0.8 */
+    display: flex;
+    position: relative;
+    /* transform: scaleX(-1); */
+}
+
+.inner-div1 {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.back-div {
+    position: absolute;
+    top: 0.8rem; /* 1rem * 0.8 */
+    left: 0.8rem; /* 1rem * 0.8 */
+    cursor: pointer;
+    z-index: 1100;
+}
+
+
+.emailicon{
+    height: 1.2rem;
+}
+
+.passwordicon{
+    height: 1.4rem;
+  
+}
+
+.back-icon{
+    height: 2rem;
+    width: 1rem;
+    
+}
+
+.back-logo {
+    position: absolute;
+    width: 1.5rem; /* 1.875rem * 0.8 */
+    height: 0.75rem; /* 0.9375rem * 0.8 */
+    top: 1rem; /* 1.25rem * 0.8 */
+    left: 1.75rem; /* 2.1875rem * 0.8 */
+    border: 0.2rem 0rem 0rem 0rem; /* 0.25rem * 0.8 */
+    opacity: 0; /* No change */
+    transform: -90deg; /* No change */
+}
+
+.image-cover {
+    /* position: absolute; */
+    width: 19.5rem; /* 24.375rem * 0.8 */
+    height: 14.45rem; /* 18.0625rem * 0.8 */
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    /* top: 10.2rem; 12.75rem * 0.8 */
+    /* left: 3.35rem; 4.1875rem * 0.8 */
+}
+
+.inner-div2 {
+    width: fit-content;
+    height: 100%;
+}
+
+.form-cover{
+    margin-top: 9.05rem;
+}
+
+.login-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 2rem; /* 30px * 0.8 */
+    line-height: 36px; /* 45px * 0.8 */
+    letter-spacing: 0.1px; /* 0.1px * 0.8 */
+    margin-top: 0rem; /* 10.5625rem * 0.8 */
+}
+
+.div1 {
+    margin-top: 1.5rem; /* 1.875rem * 0.8 */
+}
+
+.div2 {
+    margin-top: 1rem; /* 1.25rem * 0.8 */
+}
+
+.input-div {
+    width: 27.625rem; /* 27.625rem * 0.8 */
+    height: 2.8125rem; /* 2.8125rem * 0.8 */
+    padding: 0.75rem 1.25rem; /* 0.75rem * 0.8, 1.25rem * 0.8 */
+    border-radius: 0.5rem; /* 0.5rem * 0.8 */
+    border: 0.1rem solid #E0E2E9; /* 0.1rem * 0.8 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: white;
+}
+
+.input-fields {
+    flex: 1;
+    width: 80%;
+    border: none;
+    outline: none;
+    color: #212123;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 0.9375rem; /* 0.9375rem * 0.8 */
+    padding: 0.6rem 1rem; /* 0.75rem * 0.8, 1.25rem * 0.8 */
+    background-color: transparent;
+    letter-spacing: 0.01rem;
+}
+
+.input-field:focus {
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: #969AB8;
+}
+
+.login-btn {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.9375rem; /* 0.9375rem * 0.8 */
+    width: 27.625rem; /* 27.625rem * 0.8 */
+    height: 2.9375rem; /* 2.9375rem * 0.8 */
+    margin-top:2rem; /* 1.25rem * 0.8 */
+    border-radius: 0.5rem; /* 0.5rem * 0.8 */
+    background-color: #0176D3;
+    color: white;
+    border: none;
+}
+
+
+.forgot-text-div{
+    display: flex;
+    justify-content: end;
+}
+
+.forgot-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.9rem; /* 0.9375rem * 0.8 */
+    color: #0176D3;
+    text-align: end;
+    margin-top: 1rem; /* 1.25rem * 0.8 */
+    cursor: pointer;
+}
+
+.accounttext {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.9rem; /* 0.9375rem * 0.8 */
+    color: #969AB8;
+}
+
+.span {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 0.9rem; /* 0.9375rem * 0.8 */
+    color: #0176D3;
+    margin-left: 0.16rem; /* 0.2rem * 0.8 */
+    cursor: pointer;
+}
+
+.signUp-div {
+    margin-top: 1.5rem; /* 1.875rem * 0.8 */
+    display: flex;
+    width: fit-content;
+    font-size: 0.9rem;
+    
+}
+
+.error-message {
+    color: rgb(255, 0, 0);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    position: absolute;
+    font-size: 0.7rem;
+    top: 104%; /* -45% * 0.8 */
+    left: 0;
+}
+
+.eyeicon {
+    width: 1.8rem; /* 1.5rem * 0.8 */
+    height: 1.8rem;
+    cursor: pointer;
+
+}
+
+.closeicon{
+    width: 1.6rem; /* 1.5rem * 0.8 */
+    height: 1.6rem;
+    cursor: pointer;
+    
+}
+
+/* media query mobile view */
+
+@media screen and (max-width: 850px) {
+    /* Styles for screens smaller than 768px */
+    .form-div {
+        background-color: #FFFFFFE5;
+        border-radius: 12.8px; /* 16px * 0.8 */
+        width: 80%; /* 67.5rem * 0.8 */
+        height: 80%; /* 43.5625rem * 0.8 */
+        display: flex;
+        /* transform: scaleX(-1); */
+      
+    }
+
+    .form-cover{
+        margin-top: 0rem;
+        width: 90%;
+    }
+
+    .inner-div1{
+        /* visibility: hidden; */
+        /* display: none; */
+        width: 0%;
+    }
+
+    .inner-div2{
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .image-cover {
+        position: absolute;
+        display: none;
+        visibility: hidden;
+    }
+
+    .input-div {
+        width: 100%; /* 27.625rem * 0.8 */
+        height:  2.8125rem;; /* 2.8125rem * 0.8 */
+        padding: 0.6rem 1rem; /* 0.75rem * 0.8, 1.25rem * 0.8 */
+        border-radius: 0.4rem; /* 0.5rem * 0.8 */
+        border: 0.08rem solid #E0E2E9; /* 0.1rem * 0.8 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .login-btn {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        font-size: 0.937rem; /* 0.9375rem * 0.8 */
+        width: 100%; /* 27.625rem * 0.8 */
+        height: 2.35rem; /* 2.9375rem * 0.8 */
+        margin-top: 2rem; /* 1.25rem * 0.8 */
+        border-radius: 0.4rem; /* 0.5rem * 0.8 */
+        background-color: #0176D3;
+        color: white;
+        border: none;
+    }
+
+    
+
+}
+
+
+@media screen and (max-width: 450px) {
+    .form-div {
+ /* 67.5rem * 0.8 */
+        width: 90%;
+        height: 70%; /* 43.5625rem * 0.8 */
+    }
+
+    .contact-us-btn {
+        height: 2rem;
+        width: 6.5rem; /* 9.9375rem * 0.8 */
+        margin-right: 2rem;
+    }
+
+    .header-logo{
+        height: 2.5rem;
+        width: 3.5rem;
+    
+        margin-left: 2rem;
+    }
+}

@@ -1,0 +1,316 @@
+*{
+    font-size: 16px;
+}
+
+.heading{
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.main {
+    height: 100%;
+    background-image: url('/resource/bgimage');
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    width: 100%;
+    padding-bottom: 1rem;
+}
+/* -------------Property Information------------ */
+
+.propertyheading{
+    font-size: 30px;
+}
+
+.propertyheading h3{
+    width: 30% !important;
+
+}
+
+.underline1{
+    border-bottom: 1px solid black; 
+    width: 10%;
+}
+
+.underline{
+    display: flex;
+}
+
+.underline2{
+    border-bottom: 1px solid rgb(108, 108, 220);
+    width: 5%;
+    margin-left: 5px;
+}
+
+.underline3{
+    border-bottom: 1px solid rgb(85, 183, 245);
+    width: 3%;
+    margin-left: 2px;
+}
+
+
+.blue{
+    color: #0176D3;
+    font-size: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.radiobtn {
+    display: flex;
+}
+
+.radioIcon{
+    transform: scale(1.5);
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2%; 
+}
+
+.radio-container input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.radio-label{
+    font-size: 16px;
+}
+
+.div1{
+    margin-top: 0.5rem;
+    margin-left: 2px;
+}
+
+.combobox{
+    width: 454px ;
+    margin-top: 10px;
+}
+
+.input-container{
+    display: flex;
+    /* margin-top: 7px; */
+}
+
+.location{
+    margin-right: 4rem;
+}
+
+.location input{
+    width: 454px;
+    /* width: 65%; */
+    /* padding: 7px; */
+}
+
+.propertyfeatures{
+    display: flex;
+    flex-direction: column;
+}
+
+.btns{
+    display: flex;
+    gap: 67px;
+
+}
+
+.custom-box{
+    border: 1px solid #bbbbbb;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 192px;
+    background-color: white;
+    color: black;
+}
+
+.custom-button{
+    border: none;
+    text-decoration: none;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 6px;
+}
+
+.floors{
+    display: flex;
+
+}
+
+.area-inputs{
+    display: flex;
+}
+
+.big-div{
+    width: 19rem;
+    margin-right: 26px;
+}
+
+.small-div{
+    width: 8rem;
+    margin-right: 57px;
+}
+
+.radio-container-first{
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.radio-container-first input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.small-heading{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+
+}
+
+.picklists{
+    display: flex;
+}
+
+.container{
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.wrapper{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    float: left;
+    margin-bottom: 1rem;
+  }
+  
+  .wrapper ul {
+    display: flex; /* Change display to flex */
+    justify-content: space-around; /* Adjust spacing between items */
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+}
+  
+  .wrapper li{
+    display: block;
+    float: left;
+    text-align: center;
+    width: 25%;
+    height: 100%;
+    transition: all ease-in-out .2s;
+  }
+
+  .wrapper a{
+    display: block;
+    float: left;
+    color: black;
+    width: 100%;
+    padding: 0 .5em;
+    line-height: 50px;
+    text-decoration: none;
+  }
+  li.different{
+    border:none;
+    position: relative;
+  }
+  li.different:hover{
+    border: none;
+  }
+  li:hover {
+    border-bottom: 5px solid black;
+  }
+  .different::after{
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 5px;
+    left: 50%;
+    bottom: 0 !important;
+    background-color: black;
+    transition: all ease-in-out .2s;
+  }
+  .different:hover::after{
+    width: 100%;
+    left: 0;
+  }
+
+.photo-upload-section {
+    margin-top: 20px; 
+}
+
+.clicked{
+    border-bottom: 5px solid black !important;
+}
+
+.upload-bg {
+    width: 100%; 
+    height: 400px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc; 
+    border-radius: 5px;
+}
+
+.upload-area {
+    position: absolute;
+    display: flex;
+
+}
+
+.dotted-border lightning-button {
+    margin-top: 10px;
+}
+
+.upload-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.awsbgimgae{
+    margin-left: 1rem;
+    width: 350px;
+    height: 227px;
+    /* padding: 1rem; */
+
+}
+
+.awsbtn{
+    display: flex;
+    width: 24rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border: 3px solid #0176D3;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.savebtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.savebtn button{
+    width: 9rem;
+    padding: 10px;
+    border-radius: 2rem;
+    background-color: #0176D3;
+    color: white;
+    font-size: 20px;
+    border: 1px;
+}
+
+.input-width{
+    width: 454px !important;
+}

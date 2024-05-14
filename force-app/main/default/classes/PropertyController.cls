@@ -1,6 +1,5 @@
 public with sharing class PropertyController {
-
-    @AuraEnabled
+    @AuraEnabled(cacheable=false)
     public static Id createContactAndProperty(String brokerFirstName, String brokerLastName, String brokerEmail, String brokerPhone, String propertyLandmark, String propertyStreet, String propertyCity, String propertyState, String propertyCountry, String propertyType, String propertyDescription) {
         Contact newContact = new Contact(
             FirstName = brokerFirstName,

@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Select Phone Number">
+            <div class="inputNumber" style="margin-bottom: 1rem !important; max-width: 35vw !important; margin-left:1rem;">
+                <lightning-combobox
+                    name="phoneNumbers"
+                    label=""
+                    value={selectedPhoneNumber}
+                    options={phoneNumbers}
+                    onchange={handlePhoneNumberChange}>
+                </lightning-combobox>
+            </div>
+        <div style="margin-left:1rem;">
+            <lightning-button label="Submit" onclick={handleSubmit} variant="brand"></lightning-button>
+        </div>
+    </lightning-card>
+</template>

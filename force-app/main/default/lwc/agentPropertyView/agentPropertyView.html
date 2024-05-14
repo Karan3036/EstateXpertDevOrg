@@ -1,0 +1,203 @@
+<template>
+    <div class="main">
+        <div>
+            <div class="header_div">
+                <P>Buyer Information</P>
+            </div>
+            <div class="tab-container">
+                <button label="All" onclick={handleTabClick} data-tab-id="1" class="buttons activebtn ">All</button>
+                <button label="Buy" onclick={handleTabClick} data-tab-id="2" class="buttons">Buy</button>
+                <button label="Rent" onclick={handleTabClick} data-tab-id="3" class="buttons">Rent</button>
+            </div>
+            <div class="tab-content">
+                <template if:true={tab1Active}>
+                            <template for:each={FilteredListingData} for:item="listing">
+                                <div class="list-cover" key={listing.Id}>
+                                    <div class="list-div" >
+                                
+                                    <div class="image-cover" data-id={listing.Id}>
+                                        <img src={listing.media_url} alt="Cover Image">
+                                    </div>
+                                    <div class="data-div">
+                                        <div class="listing-head">
+                                            <p>{listing.Name}</p>
+                                        </div>
+                                        <div class="listing-addresh">
+                                           <img class="icon"  src={locationIcon} alt="location"/>
+                                            <p>{listing.Area__c},{listing.City__c},{listing.State__c}</p>
+                                        </div>
+                                        <div class="listing-dec">
+                                            <p>{listing.Listing_Description__c}</p>
+                                        </div>
+                                        <div class="icons-wrapper">
+                                            <div class="icon-div">
+                                                <p>Bedroom</p>
+                                                <img class="icon" src={bedIcon} alt="Icon 1" /><span>{listing.Number_of_Bedrooms__c}</span> 
+                                            </div>
+                                            <div class="icon-div">
+                                                <p>Bathroom</p>
+                                                <img class="icon" src={bathIcon} alt="Icon 1" /><span>{listing.Number_of_Bathrooms__c}</span> 
+                                            </div>
+                                            <div class="icon-div">
+                                                <p>Car Space</p>
+                                                <img class="icon" src={carIcon} alt="Icon 1" /><span>4</span> 
+                                            </div>
+                                            <div class="icon-div">
+                                                <p>Reading Room</p>
+                                                <img class="icon" src={deskIcon} alt="Icon 1" /><span>4</span> 
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="contact-btn">
+                                            <button label="All" onclick={handleTabClick} data-tab="1" class="contact-buyer">Contact Buyer</button>
+                                        </div>
+                                    </div>
+                                    <div class="Buyers-detail">
+                                        <p class="buyer-head">Buyers-Detail</p>
+                                        <div class="buyers-content">
+                                            <div class="buyer-cover">
+                                                <p class="buyer-tag">Name:- </p><p class="buyer-value">XYZ</p>
+                                            </div>
+                                            <div class="buyer-cover">
+                                                <p class="buyer-tag">Mobile No:- </p><p class="buyer-value">+91 0123456789</p>
+                                            </div>
+                                            <div class="buyer-cover">
+                                                <p class="buyer-tag">Email ID:- </p><p class="buyer-value">xyz@estatexpert.com</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            
+                            </template>
+                     
+                </template>
+                <template if:true={tab2Active}>
+                    <template for:each={SaleListing} for:item="listing">
+                        <div class="list-cover" key={listing.Id}>
+                            <div class="list-div" >
+                        
+                            <div class="image-cover" data-id={listing.Id}>
+                                <img src={listing.media_url} alt="Cover Image">
+                            </div>
+                            <div class="data-div">
+                                <div class="listing-head">
+                                    <p>{listing.Name}</p>
+                                </div>
+                                <div class="listing-addresh">
+                                   <img class="icon"  src={locationIcon} alt="location"/>
+                                    <p>{listing.Area__c},{listing.City__c},{listing.State__c}</p>
+                                </div>
+                                <div class="listing-dec">
+                                    <p>{listing.Listing_Description__c}</p>
+                                </div>
+                                <div class="icons-wrapper">
+                                    <div class="icon-div">
+                                        <p>Bedroom</p>
+                                        <img class="icon" src={bedIcon} alt="Icon 1" /><span>{listing.Number_of_Bedrooms__c}</span> 
+                                    </div>
+                                    <div class="icon-div">
+                                        <p>Bathroom</p>
+                                        <img class="icon" src={bathIcon} alt="Icon 1" /><span>{listing.Number_of_Bathrooms__c}</span> 
+                                    </div>
+                                    <div class="icon-div">
+                                        <p>Car Space</p>
+                                        <img class="icon" src={carIcon} alt="Icon 1" /><span>4</span> 
+                                    </div>
+                                    <div class="icon-div">
+                                        <p>Reading Room</p>
+                                        <img class="icon" src={deskIcon} alt="Icon 1" /><span>4</span> 
+                                    </div>
+                                    
+                                </div>
+                                <div class="contact-btn">
+                                    <button label="All" onclick={handleTabClick} data-tab="1" class="contact-buyer">Contact Buyer</button>
+                                </div>
+                            </div>
+                            <div class="Buyers-detail">
+                                <p class="buyer-head">Buyers-Detail</p>
+                                <div class="buyers-content">
+                                    <div class="buyer-cover">
+                                        <p class="buyer-tag">Name:- </p><p class="buyer-value">XYZ</p>
+                                    </div>
+                                    <div class="buyer-cover">
+                                        <p class="buyer-tag">Mobile No:- </p><p class="buyer-value">+91 0123456789</p>
+                                    </div>
+                                    <div class="buyer-cover">
+                                        <p class="buyer-tag">Email ID:- </p><p class="buyer-value">xyz@estatexpert.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                    
+                    </template>
+                </template>
+                <template if:true={tab3Active}>
+                    <template for:each={RentListing} for:item="listing">
+                        <div class="list-cover" key={listing.Id}>
+                            <div class="list-div" >
+                        
+                            <div class="image-cover" data-id={listing.Id}>
+                                <img src={listing.media_url} alt="Cover Image">
+                            </div>
+                            <div class="data-div">
+                                <div class="listing-head">
+                                    <p>{listing.Name}</p>
+                                </div>
+                                <div class="listing-addresh">
+                                   <img class="icon"  src={locationIcon} alt="location"/>
+                                    <p>{listing.Area__c},{listing.City__c},{listing.State__c}</p>
+                                </div>
+                                <div class="listing-dec">
+                                    <p>{listing.Listing_Description__c}</p>
+                                </div>
+                                <div class="icons-wrapper">
+                                    <div class="icon-div">
+                                        <p>Bedroom</p>
+                                        <img class="icon" src={bedIcon} alt="Icon 1" /><span>{listing.Number_of_Bedrooms__c}</span> 
+                                    </div>
+                                    <div class="icon-div">
+                                        <p>Bathroom</p>
+                                        <img class="icon" src={bathIcon} alt="Icon 1" /><span>{listing.Number_of_Bathrooms__c}</span> 
+                                    </div>
+                                    <div class="icon-div">
+                                        <p>Car Space</p>
+                                        <img class="icon" src={carIcon} alt="Icon 1" /><span>4</span> 
+                                    </div>
+                                    <div class="icon-div">
+                                        <p>Reading Room</p>
+                                        <img class="icon" src={deskIcon} alt="Icon 1" /><span>4</span> 
+                                    </div>
+                                    
+                                </div>
+                                <div class="contact-btn">
+                                    <button label="All" onclick={handleTabClick} data-tab="1" class="contact-buyer">Contact Buyer</button>
+                                </div>
+                            </div>
+                            <div class="Buyers-detail">
+                                <p class="buyer-head">Buyers-Detail</p>
+                                <div class="buyers-content">
+                                    <div class="buyer-cover">
+                                        <p class="buyer-tag">Name:- </p><p class="buyer-value">XYZ</p>
+                                    </div>
+                                    <div class="buyer-cover">
+                                        <p class="buyer-tag">Mobile No:- </p><p class="buyer-value">+91 0123456789</p>
+                                    </div>
+                                    <div class="buyer-cover">
+                                        <p class="buyer-tag">Email ID:- </p><p class="buyer-value">xyz@estatexpert.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                    
+                    </template>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

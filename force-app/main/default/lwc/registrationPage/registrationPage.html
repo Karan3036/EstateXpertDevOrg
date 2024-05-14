@@ -1,0 +1,155 @@
+<template>
+
+    <div class="main-content" data-id="main-Div" style={backgroundStyle}>
+        <div class="inner-content">
+            <div class="back-div">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="34">
+                    <use href={backArrow}></use>
+                </svg>
+            </div>
+            <div class="inner-logo">
+                <img src={estateXpertUrl} alt="">
+            </div>
+
+            <div class="slds-p-around_medium form">
+                <h2 class="signUp">Sign Up</h2>
+
+                <div class="radio-container">
+                    <template for:each={loggedUser} for:item="user">
+                        <div key={user} class="radiobtn">
+                            <label class="radio-label">
+                                <input class="radioIcon" type="radio" name="userType" value={user}
+                                    onchange={handleUserChange} />
+                                {user}
+                            </label>
+                        </div>
+                    </template>
+                </div>
+
+
+                <div class="names">
+
+                    <div class="drop-div">
+                        <select class="drop" name="salutation" value={salutation} onchange={handleInputChange}>
+                            <option>Select</option>
+                            <option value="">{salutation}</option>
+                            <template for:each={salutationOptions} for:item="option">
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            </template>
+                        </select>
+                    </div>
+
+
+                    <template if:true={errorMessages.salutation}>
+                        <div class="error">{errorMessages.salutation}</div>
+                    </template>
+                    <div class="fname">
+                        <input class="input-name" name="firstname" type="text" value={firstname}
+                            placeholder="First Name" onchange={handleInputChange} />
+                    </div>
+                    <template if:true={errorMessages.firstname}>
+                        <div class="error">{errorMessages.firstname}</div>
+                    </template>
+                    <div class="lname">
+                        <input class="input-name" name="lastname" type="text" value={lastname} placeholder="Last Name"
+                            onkeyup={handleInputChange} />
+                    </div>
+                </div>
+                <template if:true={errorMessages.lastname}>
+                    <div class="error">{errorMessages.lastname}</div>
+                </template>
+
+
+
+                <div class="input-div div1">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <use href={personIcon}></use>
+                    </svg>
+
+                    <input class="input-fields" name="userName" value={userName} placeholder="User Name"
+                        onchange={handleInputChange} />
+                </div>
+                <template if:true={errorMessages.userName}>
+                    <div class="error">{errorMessages.userName}</div>
+                </template>
+
+                <div class="input-div div2">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="19">
+                        <use href={emailIcon}></use>
+                    </svg>
+
+                    <input class="input-fields" name="email" type="email" placeholder="Your email"
+                        onkeyup={handleInputChange} value={email}>
+                </div>
+                <template if:true={errorMessages.email}>
+                    <div class="error">{errorMessages.email}</div>
+                </template>
+
+                <div class="input-div div2">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23">
+                        <use href={passwordIcon}></use>
+                    </svg>
+
+                    <input class="input-fields" name="password" type="password" onkeyup={handleInputChange}
+                        value={password} placeholder="Password" />
+                </div>
+                <template if:true={errorMessages.password}>
+                    <div class="passerror">{errorMessages.password}</div>
+                </template>
+                <div class="input-div div2">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23">
+                        <use href={confirmPassIcon}></use>
+                    </svg>
+
+                    <input class="input-fields" name="confirmPassword" type="password" onkeyup={handleInputChange}
+                        value={confirmPassword} placeholder="Confirm Password" />
+                    <template if:true={success.confirm}>
+                        <lightning-icon icon-name="utility:check" alternative-text="Success!" variant="success"
+                            title="success variant x-small" size="x-small"></lightning-icon>
+                    </template>
+                </div>
+                <template if:true={errorMessages.confirmPassword}>
+                    <div class="error">{errorMessages.confirmPassword}</div>
+                </template>
+                <div class="input-div div2">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                        <use href={phoneIcon}></use>
+                    </svg>
+
+
+                    <input class="input-fields mobile" name="mobileNumber" type="tel" value={mobileNumber}
+                        onkeyup={handleInputChange} placeholder="Mobile Number" />
+
+                </div>
+                <template if:true={errorMessages.mobileNumber}>
+                    <div class="error">{errorMessages.mobileNumber}</div>
+                </template>
+
+                <div class="terms">
+                    <input type="checkbox" class="agree" name="terms" checked={agreedToTerms}
+                        onchange={handleInputChange}>
+                    <p>I agree to EstateXpert <u>T&C</u>, <u>Privacy Policy</u>, & <u>Cookie Policy</u></p>
+                </div>
+                <template if:true={errorMessages.terms}>
+                    <div class="error">{errorMessages.terms}</div>
+                </template>
+
+                <button class="login-btn" onclick={handleSubmit}>Sign up</button>
+                <template if:true={errorMessages.signup}>
+                    <div class="SignupError">{errorMessages.signup}</div>
+                </template>
+                <div class="signUp-div">
+                    <p class="accounttext">Already have an account?</p>
+                    <p class="span" onclick={navigateLogin}>Log In</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

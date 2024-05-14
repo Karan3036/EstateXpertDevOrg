@@ -1,0 +1,605 @@
+.main {
+    /* position: absolute; */
+    height: 100%;
+    width: 100%;
+    /* border-radius: 28px; */
+    /* border: 1px solid gray;
+    background-color: #FFFFFF; */
+ }
+
+ .tab-container {
+    height: 100%;
+ }
+ 
+ .tab-container::-webkit-scrollbar {
+    display: none;
+ }
+ .div1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+ }
+ .logox {
+    width: 5%;
+ }
+ 
+ .logox img {
+    height: 100% !important;
+    width: 100% !important;
+ }
+ 
+ .tab-menu {
+    display: flex;
+    align-items: center;
+ }
+ 
+ .tab-menu ul {
+    margin: 0;
+    padding: 0;
+ }
+ 
+ .tab-menu ul li {
+    display: inline-block;
+    list-style-type: none;
+ }
+ 
+ .tab-menu ul li a {
+    text-decoration: none;
+    padding: 7px 35px;
+    color: rgb(0, 0, 0);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27.24px;
+    text-align: center;
+ 
+ }
+ 
+ .tab-menu ul li a.active-tab {
+    color: #1252AE;
+    border-bottom: 2px solid #1252AE;
+ }
+ .tab {
+    padding-top: 1rem;
+    display: none;
+ }
+ .featuredProperty {
+    background-color: rgba(1, 118, 211, 0.06);
+    height: auto;
+    width: auto;
+    border-radius: 20px;
+    background: url('/sfsites/c/resource/featurepropertybg');
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: bottom;
+    backdrop-filter: blur(5px);
+    padding: 0 1rem;
+ }
+ .box1{
+    padding: 4% 1% 2%;
+    background-color: rgba(1, 118, 211, 0.06);
+    border-radius: 20px;
+ }
+ 
+ .box1 h1 {
+    padding-left: 6%;
+ }
+ .main_heading {
+    font-size: 3rem;
+ }
+ .layout1 {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+ 
+ }
+ .leftButton {
+    padding-right: 2rem;
+ }
+ .featurePropertyCSS {
+    width: 100%;
+    padding: 10px;
+    padding-right: 42px;
+ }
+ .property_card1 {
+    width: 100%;
+    border-radius: 12px;
+ }
+ .cardDetail1 {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+ }
+ .property_image1 {
+    width: 40%;
+    border-left: 1px;
+    border-radius: 12px;
+    cursor: pointer;
+ }
+ 
+ .property_image1 img {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height: 25rem;
+    width: 100%;
+ }
+ .property_details1 {
+    width: 60%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+ }
+ .properties_price {
+    font-family: Inter;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 38.4px;
+    text-align: left;
+ }
+ .properties_name {
+    font-family: Inter;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
+    text-align: left;
+ }
+ 
+ .properties_loaction {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(155, 154, 152, 1);
+ }
+ 
+ .properties_descreption {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(35, 30, 28, 1);
+    position: relative;
+ }
+ 
+ .properties_descreption p {
+    width: -webkit-fill-available;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+ }
+ .properties_details {
+    flex-direction: column;
+ }
+ .propertiesClass_img img {
+    width: 30px;
+    height: 30px;
+ }
+ .same_P {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(35, 30, 28, 0.6);
+ }
+ .featuredProperty {
+    background-color: rgba(1, 118, 211, 0.06);
+    height: auto;
+    width: auto;
+    border-radius: 20px;
+    background: url('/sfsites/c/resource/featurepropertybg');
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: bottom;
+    backdrop-filter: blur(5px);
+    padding: 0 1rem;
+ }
+ .filterSetting {
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+ }
+ .mainFilterDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    border: 4px solid rgba(1, 118, 211, 1);
+    border-radius: 40px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+ }
+ 
+ .mainFilterDiv .quantity svg {
+    margin-right: 10px;
+ }
+ 
+ .mainFilterDiv .quantity .minus {
+    margin-left: 10px;
+ }
+ .SearchFilter {
+    padding: 7px 6px 7px 18px;
+    border-right: 1px solid rgba(73, 115, 90, 1);
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 18px;
+    width: -webkit-fill-available;
+    padding-left: 2rem;
+ }
+ .quantity {
+    display: flex;
+    border-right: 1px solid rgba(73, 115, 90, 1);
+    justify-content: center;
+    align-items: center;
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    width: -webkit-fill-available;
+    /* text-align: left; */
+ }
+ .mainFilterDiv .searchButton button {
+    margin-left: 10px;
+    background-color: rgba(1, 118, 211, 1);
+    color: rgba(255, 255, 255, 1);
+    line-height: 24px;
+    font-size: 18px;
+    border-radius: 40px;
+    padding: 10px 25px 10px 25px;
+    border: none;
+ }
+ .more-filters-setting {
+    display: flex;
+    justify-content: center;
+    padding-top: 1vh;
+    /* margin: auto 29%; */
+ }
+ .more-filter-div {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+ }
+ .more-filter-sub-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    gap: 30px;
+ }
+ .sort-by-main {
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+ }
+ .sort-selected {
+    color: #49735A;
+ }
+ .views-list {
+    margin-left: 10px;
+    line-height: 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    padding: 8px 8px 8px 8px;
+    background-color: rgba(1, 118, 211, 1);
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ }
+ .container12 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+ }
+ .total_count {
+    display: flex;
+    justify-content: center;
+    padding-top: 1vh;
+ }
+ 
+ .total_count span {
+    width: 70%;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+ }
+ .imagePreview_listview {
+    padding: 2rem;
+ }
+ 
+ .imagePreview_columnview {
+    width: 100%;
+    display: grid;
+    grid: auto / auto auto;
+    grid-gap: 4rem;
+    padding: 2rem;
+    /* justify-content: center; */
+    align-items: center;
+ }
+ .property_card2 {
+    width: 100%;
+    /* border: 1px solid black; */
+    border-radius: 12px;
+    /* margin-bottom: 2%; */
+    backdrop-filter: blur(1px);
+ }
+ .cardDetail2 {
+    display: flex;
+    justify-content: inline;
+    background-color: rgba(225, 241, 254, 1);
+    border-radius: 12px;
+ }  
+ .property_image2 {
+    width: 40%;
+    border-left: 1px;
+    border-radius: 12px;
+    cursor: pointer;
+ }
+ 
+ .property_image2 img {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height: 12rem;
+    width: -webkit-fill-available;
+ }
+ .property_details2 {
+    width: 60%;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ }
+ .card-title {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+ }
+ .card-text1 {
+    font-size: 16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* width: 23rem; */
+    white-space: nowrap;
+ }
+ 
+ .card-text1 p {
+    width: 18rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+ .propertyInfo {
+    display: flex;
+    flex-direction: row;
+ }
+ 
+ .propertyInfo span svg {
+    margin-right: 5px;
+ }
+ 
+ .propertyInfo span {
+    margin-right: 15px;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    width: -webkit-fill-available;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+ property_price1 b {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #181A18;
+ }  
+ .thumbnails {
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s;
+    border-radius: 12px;
+ }
+ 
+ .thumbnails img {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border-radius: 12px;
+ }
+ .imgInfo1 p {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 1);
+ }
+ 
+ .imgInfo1 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+ }
+ propertyInfo1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+ }
+ 
+ .propertyInfo1 span svg {
+    margin-right: 5px;
+ }
+ 
+ .propertyInfo1 span {
+    margin-right: 15px;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+ }
+ .property_card {
+    width: 100%;
+    /* border: 1px solid black; */
+    border-radius: 12px;
+    margin-bottom: 2%;
+ }
+ .cardDetail {
+    display: flex;
+    background-color: rgba(225, 241, 254, 1);
+    border-radius: 12px;
+ }
+ .property_details {
+    width: 80%;
+    padding: 2%;
+    display: flex;
+ }
+ .leftside {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+ }
+ .card-text {
+    /* width: 45rem; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+ }
+ 
+ .card-text p {
+    width: -webkit-fill-available;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+ }
+ .property_layout_item {
+    margin-right: 1%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+ }
+ .property_layout_item .numberBox p {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 15.36px;
+    text-align: left;
+    color: #8C8C8C;
+ }
+ 
+ .property_layout_item1 .numberBox p {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #231E1C99;
+ }
+ .numbers {
+    display: flex;
+    align-items: end;
+ } 
+ .imgicon img {
+    height: 16px;
+    width: 20px;
+    cursor: pointer;
+ }
+ .property_data_number {
+    margin-left: 10px;
+ }
+ 
+ .property_data_number p b {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 15.36px;
+    text-align: left;
+    color: #000;
+ }
+ .rightside {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: end;
+ }
+ .availability_badge {
+    background-color: rgba(1, 118, 211, 1);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem;
+    border-radius: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: max-content;
+ }
+ .property_price {
+    margin-left: 15%;
+ }
+ 
+ .property_price b {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #181A18;
+ }
+ .data_not_found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+ }
+ 
+ .data_not_found p {
+    font-size: 22px;
+ }
+ .loadMoreButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+ }
+ 
+ .loadMoreButton button {
+    background-color: #0176D3;
+    border-radius: 40px;
+    color: white;
+    border: none;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+ }

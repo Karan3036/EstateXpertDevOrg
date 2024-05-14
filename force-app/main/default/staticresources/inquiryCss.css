@@ -1,0 +1,33 @@
+.combobox{
+    background-color: transparent;
+}
+
+.slds-input_faux.slds-is-disabled{
+    background-color: rgba(255, 255, 255, 0.508);
+}
+
+.slds-input_faux {
+    background-color: transparent;
+    
+}
+
+
+@media screen and (max-width: 900px) {
+    
+    .slds-input_faux{
+        background:  #E4E4E4;
+        border-radius: 18px;
+        color: #0176D3;
+        font-weight: 400;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .slds-input_faux.slds-is-disabled{
+        background-color: rgba(255, 255, 255, 0.508);
+        color: rgb(160, 143, 143);
+    }
+    
+    .slds-icon-text-default{
+        fill: #0176D3;
+    }
+}

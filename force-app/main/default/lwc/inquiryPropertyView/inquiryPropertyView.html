@@ -1,0 +1,149 @@
+<template>
+    <div class="main">
+        <div>
+            <div class="header_div">
+                <P>Buyer Information</P>
+            </div>
+            <div class="tab-content">
+                <template if:true={tab1Active}>   
+                    <template if:true={FilteredListingData}>
+                        <template if:false={isMobile}>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="head head1">No. </th>
+                                        <th class="head head2">Property Name</th>
+                                        <th class="head head3">Buyer Name</th>
+                                        <th class="head head4">Mobile No.</th>
+                                        <th class="head head5">Email ID</th>
+                                        <th class="head head6">Inquiry date</th>
+                                        <th class="head head7">Status</th>
+                                        <th class="head head8">Action</th>       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={FilteredListingData} for:item="listing" for:index="index">
+                                        <tr key={listing.Id}>
+                                            <td>{listing.Index}</td>
+                                            <td>
+                                                <img class="listingImage" src={PropertyMedia}/>
+                                                {ListingName}</td>
+                                            <td>{listing.Name}</td>
+                                            <td>{listing.MobilePhone}</td>
+                                            <td>
+                                                {listing.Email}
+                                            </td>
+                                            <td>{listing.InquiryDate}</td>
+                                            <td>
+                                                <lightning-combobox class="combobox"  variant="label-hidden" 
+                                                    data-id={listing.Index}
+                                                    name="progress"
+                                                    label="Status"
+                                                    value={listing.Status}
+                                                    placeholder="Select Progress"
+                                                    options={options}
+                                                    onchange={handleChange} disabled={listing.disable}></lightning-combobox>
+                                            </td>
+                                            <td>
+                                                <div class="icons-div">
+                                                    <div class="icon-div" data-id={listing.Index} onclick={editClick}>
+                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M1.88628 13.36L6.64723 18.116L0 20L1.88628 13.36ZM12.8471 2.41204L17.607 7.16704L7.12195 17.64L2.361 12.886L12.8471 2.41204ZM16.4649 0.348037L19.5975 3.47704C20.4469 4.32504 19.688 5.09004 19.688 5.09004L18.087 6.69004L13.325 1.93304L14.926 0.334037L14.947 0.315037C15.0723 0.203037 15.7628 -0.352963 16.4649 0.348037Z" fill="#0176D3"/>
+                                                            </svg>                                                        
+                                                    </div>
+                                                    <div class="icon-div" data-id={listing.Index} onclick={saveClick}>
+                                                        <img class="saveIcon" src={saveIcon} alt="save"/>
+                                                    </div>
+                                                    <div class="icon-div" data-id={listing.Index} onclick={deleteClick}>
+                                                        <img src={deleteIcon} alt="delete"/>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>      
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template if:true={isMobile}>
+                            <template for:each={FilteredListingData} for:item="listing" for:index="index">
+                                <div class="MobileView" key={listing.Id}>
+                                    <div class="mobile-header">
+                                        <img class="listingImage" src={PropertyMedia}/>
+                                        <div class="InquiryName">
+                                            <p class="label">{ListingName}</p>
+                                            <p class="value">{listing.Name}</p>
+                                        </div>
+                                    </div>
+                                    <div class="Mobile-table">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="tableValue-div">
+                                                        <p class="label">Status</p>
+                                                        <lightning-combobox class="combobox"  variant="label-hidden" 
+                                                            data-id={listing.Index}
+                                                            name="progress"
+                                                            label="Status"
+                                                            value={listing.Status}
+                                                            placeholder="Select Progress"
+                                                            options={options}
+                                                            onchange={handleChange} disabled={listing.disable}></lightning-combobox>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="tableValue-div">
+                                                        <p class="label">Mobile No.</p>
+                                                        <p class="value">{listing.MobilePhone}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="tableValue-div">
+                                                        <p class="label">E-mail</p>
+                                                        <p class="value">{listing.Email}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="tableValue-div">
+                                                        <p class="label">Inquiry date</p>
+                                                        <p class="value">{listing.InquiryDate}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="tableValue-div">
+                                                        <div></div>
+                                                        <div class="icons-div">
+                                                            <div class="icon-div" data-id={listing.Index} onclick={editClick}>
+                                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M1.88628 13.36L6.64723 18.116L0 20L1.88628 13.36ZM12.8471 2.41204L17.607 7.16704L7.12195 17.64L2.361 12.886L12.8471 2.41204ZM16.4649 0.348037L19.5975 3.47704C20.4469 4.32504 19.688 5.09004 19.688 5.09004L18.087 6.69004L13.325 1.93304L14.926 0.334037L14.947 0.315037C15.0723 0.203037 15.7628 -0.352963 16.4649 0.348037Z" fill="#0176D3"/>
+                                                                    </svg>                                                        
+                                                            </div>
+                                                            <div class="icon-div" data-id={listing.Index} onclick={saveClick}>
+                                                                <img class="saveIcon" src={saveIcon} alt="save"/>
+                                                            </div>
+                                                            <div class="icon-div" data-id={listing.Index} onclick={deleteClick}>
+                                                                <img src={deleteIcon} alt="delete"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+
+                    </template>    
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

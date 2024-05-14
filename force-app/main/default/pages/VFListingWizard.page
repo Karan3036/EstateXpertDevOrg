@@ -1,0 +1,14 @@
+<apex:page standardcontroller="Listing__c" standardStylesheets="true" showHeader="false">
+    <apex:includeLightning />
+    <div id="LwcId" />
+    <script>
+        $Lightning.use("c:listingWizardAuraApp", function() {
+        $Lightning.createComponent("c:listingWizardCmp",
+        {},
+        "LwcId", // the Id of div tag where your component will be rendered
+        function(cmp) {
+            console.log('Calling the LWC Component');
+        });
+    });
+</script>
+</apex:page>

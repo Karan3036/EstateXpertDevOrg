@@ -1,0 +1,495 @@
+/* ------------------------------HEADER PART------------------------- */
+
+.main-div {
+    height: 100%;
+    width: 100%;
+}
+
+.header-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 4.4375rem;
+}
+
+.header-logo {
+    height: 2.5rem;
+    width: 3.5rem;
+    margin-left: 1rem;
+}
+
+
+.contact-us-btn {
+    height: 2.1rem;
+    width: 7.8rem;
+    border-radius: 32px;
+    background-color: #0176D3;
+    border: none;
+    margin-right: 1.5rem;
+    font-style: normal;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fbf7f7;
+}
+
+.saveBottom {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.save-bottom {
+    height: 1.7rem;
+    width: 7rem;
+    border-radius: 32px;
+    background-color: #0176D3;
+    border: none;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbf7f7;
+    cursor: pointer;
+}
+
+
+.profile {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 3rem;
+}
+
+.avatar {
+    height: 2.1rem;
+    width: 2.1rem;
+    border-radius: 50%;
+    position: relative;
+    background-size: cover;
+}
+
+.status {
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 2px solid rgb(249, 250, 251);
+    border-radius: 50%;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    transform: translate(10%, -5%);
+    background-color: rgb(48, 249, 75);
+}
+
+/* ------------------------------MAIN PART------------------------- */
+
+
+
+.detail {
+    margin-top: 1.3rem;
+    display: flex;
+    margin-right: 3.75rem;
+}
+
+
+.username {
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 0.5rem;
+    margin-right: 3.75rem;
+    position: relative; 
+}
+
+.username::before,
+.username::after {
+    content: ''; 
+    position: absolute;
+    bottom: -2px; 
+}
+
+.username::before {
+    width: 6.5rem; 
+    left: 0; 
+    border-bottom: 1px solid rgba(42, 50, 60, 1);
+}
+
+.username::after {
+    width: 2.9rem;
+    left: 6.9rem; 
+    border-bottom: 1px solid rgba(1, 118, 211, 0.5);
+}
+
+.user-image {
+    width: 10.6rem;
+    height: 12.4rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem; 
+}
+
+.image {
+    position: relative;
+    display: inline-block;
+}
+
+.uploadImage {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    color: black;
+    padding: 0.3rem;
+    font-size: 12px;
+    align-items: center;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.sideDetail {
+    margin-left: 1.5rem;
+}
+
+input {
+    flex: 1;
+    border: 1px solid rgba(191, 196, 215, 1);
+    
+}
+
+.input-field {
+    width: 25rem;
+    height: 1.5rem;
+    font-weight: 600 !important;
+}
+
+.gender-div {
+    margin-top: 0.8rem;
+}
+
+.info {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgba(1, 118, 211, 1);
+}
+
+label {
+    color: #696969;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+.gender-label {
+    margin-right: 5rem;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(44, 43, 43);
+}
+.inner-gender {
+    margin-right: 0.2rem;
+    display: flex;
+    margin-top: 0.4rem;
+    margin-bottom: 0.25rem;
+}
+
+.male-gender {
+    margin-right: 2rem;
+}
+.genderIcon{
+    margin-right: 0.5rem;
+}
+
+/* ------------------------------div after profile-pic---------------------------- */
+
+.second-div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    margin-right: 3.75rem;
+}
+
+/*---------------------------address info----------------------------*/
+.address-detail {
+    margin-top: 1rem;
+    margin-right: 3.75rem;
+}
+
+.address-info {
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: rgba(1, 118, 211, 1);
+}
+
+.sec-add {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.third-add {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.input-address {
+    width: 100%;
+    font-weight: 600;
+}
+
+.inner-field {
+    width: 38rem;
+    font-weight: 600;
+}
+
+
+/* -----------------------------------about details-------------------------------- */
+
+.about-detail {
+    margin-top: 1rem;
+    margin-right: 3.75rem;
+}
+
+.about-info {
+    font-size: 19px;
+    font-weight: 800;
+    color: rgba(1, 118, 211, 1);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.about-field {
+    /* margin-top: 0.5rem; */
+    font-weight: 600;
+    color: rgb(28, 28, 28);
+    font-size: 13px;
+}
+.about-field input {
+font-weight: 500;
+}
+
+.mobile{
+    display: none;
+}
+
+.deals{
+    margin-top: 0.5rem;
+}
+
+
+
+
+/* ------------------------------------Mobile View------------------------------------------ */
+
+@media only screen and (max-width: 600px) {
+
+    .main-div {
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+    .desktop{
+        display: none;
+    }
+
+    .mobile{
+        display: block;
+    }
+    .contact-us-btn {
+        display: none;
+    }
+
+    .header-div {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 4.4375rem;
+    }
+
+    .header-logo {
+        height: 2.3rem;
+        width: 3.3rem;
+        margin-left: 0rem;
+        margin-right: 14rem;
+    }
+
+    .profile {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .avatar {
+        height: 2.1rem;
+        width: 2.1rem;
+        border-radius: 50%;
+        position: relative;
+        background-size: cover;
+        margin-right: 0rem;
+    }
+
+    .status {
+        width: 0.7rem;
+        height: 0.7rem;
+        border: 2px solid rgb(249, 250, 251);
+        border-radius: 50%;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        transform: translate(10%, -5%);
+        background-color: rgb(48, 249, 75);
+    }
+
+    .content-div {
+        margin-left: 0rem;
+        flex-wrap: wrap;
+    }
+
+    .detail {
+        margin-top: 1rem;
+        width: 19rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-right: 3.75rem;
+    }
+
+    .username {
+        margin-top: 1rem;
+    }
+    
+    .labelclass{
+        margin-top: 0.5rem;
+    }
+    label{
+        font-size:0.85rem;
+    }
+
+    .inner-gender {
+        flex-direction: column;
+    }
+
+    .genderRadio {
+        margin-bottom: 0.3rem;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .gen-label {
+        margin-bottom: 0.4rem;
+        font-size: 0.85rem;
+        font-weight: 800;
+    }
+
+    .genderIcon {
+        margin-left: 0.2rem;
+    }
+
+    .gender-label {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .image {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.3rem;
+        margin-top: 1.3rem;
+    }
+
+    .sideDetail {
+        margin-left: 0rem;
+    }
+
+    .input-field {
+        width: 19rem;
+    }
+
+    .sec-add,
+    .third-add {
+        flex-direction: column;
+    }
+
+    .second-div {
+        flex-direction: column;
+        width: 19rem;
+        margin-top: 0.5rem;
+
+    }
+
+    .second-div .phoneField {
+        width: 19rem;
+    }
+
+    .address-detail {
+        margin-top: 1rem;
+        width: 19rem;
+    }
+
+    .address-info {
+        margin-bottom: 1rem;
+    }
+
+    .deals{
+        margin-top: 0.5rem;
+    }
+
+    .statePin{
+        margin-top: 0.5rem;
+    }
+
+    .info {
+        margin-bottom: 0.5rem;
+    }
+
+    .sec-add,
+    .third-add,
+    .inner-field {
+        width: 19rem;
+    }
+
+
+    .general-input {
+        width: 19rem;
+    }
+
+    .about-detail {
+        width: 19rem;
+    }
+
+    .about-field {
+        width: 19rem;
+        margin-top: 0;
+    }
+
+    .saveBottom {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 19rem;
+        position: relative;
+    }
+
+    .save-bottom {
+        height: 1.8rem;
+        width: 12rem;
+        border-radius: 32px;
+        background-color: #0176D3;
+        border: none;
+        font-style: normal;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fbf7f7;
+        cursor: pointer;
+    }
+
+    .save-btn {
+        display: none;
+    }
+}
